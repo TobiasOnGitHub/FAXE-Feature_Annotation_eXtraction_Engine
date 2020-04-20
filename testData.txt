@@ -1,3 +1,4 @@
 &begin b
+&begi4 a
 &end b
 &line a

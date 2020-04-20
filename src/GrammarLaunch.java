@@ -1,7 +1,7 @@
-import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.misc.ParseCancellationException;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.io.IOException;
@@ -23,21 +23,44 @@ public class GrammarLaunch {
 
             List<String> allLines = Files.readAllLines(Paths.get("testData.txt"));
             for (String line : allLines) {
-                System.out.println("Check test line \"" +line +"\"");
+                System.out.print("Check test line \"" +line +"\"");
 
-                CharStream in = CharStreams.fromString(line);
-                codeAnnotationLexer lexer = new codeAnnotationLexer(in);
-                CommonTokenStream token = new CommonTokenStream(lexer);
-                codeAnnotationParser parser = new codeAnnotationParser(token);
-                ParseTree tree = parser.marker();
+                boolean ret = parseCodeAnnotation(line);
+                if(ret==true){
+                    System.out.println(" - ACCEPTED");
+                } else {
+                    System.out.println(" - REJECTED");
+                }
 
-                MyVisitor visitor = new MyVisitor();
-                visitor.visit(tree);
-                System.out.println("Test completed.");
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
         System.out.println("Test completed.");
+    }
+
+
+    private static boolean parseCodeAnnotation(String line) {
+        CharStream in = CharStreams.fromString(line);
+        codeAnnotationLexer lexer = new codeAnnotationLexer(in);
+        lexer.addErrorListener(ThrowingErrorListener.INSTANCE);
+        CommonTokenStream token = new CommonTokenStream(lexer);
+        codeAnnotationParser parser = new codeAnnotationParser(token);
+        parser.removeErrorListeners();
+        parser.addErrorListener(ThrowingErrorListener.INSTANCE);
+
+        try {
+            ParseTree tree = parser.marker();
+//                  String s1 = tree.getText();
+//                  String s2 = tree.toString();
+
+            MyVisitor visitor = new MyVisitor();
+            visitor.visit(tree);
+        } catch (ParseCancellationException e) {
+            // Catch if given string is not fitting the grammar
+            // System.out.println("ERROR DETECTED :)");
+            return false;
+        }
+        return true;
     }
 }
