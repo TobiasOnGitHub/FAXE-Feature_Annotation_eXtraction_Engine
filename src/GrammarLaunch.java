@@ -17,10 +17,6 @@ public class GrammarLaunch {
         // basic implementation taken from https://www.youtube.com/watch?v=dPWWcH5uM0g
         System.out.println("Test started.");
         try {
-            //String source = "testData.txt";
-            //CharStream cs = fromFileName(source);
-            //codeAnnotationLexer lexer = new codeAnnotationLexer(cs);
-
             List<String> allLines = Files.readAllLines(Paths.get("testData.txt"));
             for (String line : allLines) {
                 System.out.print("Check test line \"" +line +"\"");
@@ -40,7 +36,7 @@ public class GrammarLaunch {
     }
 
 
-    private static boolean parseCodeAnnotation(String line) {
+    public static boolean parseCodeAnnotation(String line) {
         CharStream in = CharStreams.fromString(line);
         codeAnnotationLexer lexer = new codeAnnotationLexer(in);
         lexer.addErrorListener(ThrowingErrorListener.INSTANCE);
@@ -51,9 +47,8 @@ public class GrammarLaunch {
 
         try {
             ParseTree tree = parser.marker();
-//                  String s1 = tree.getText();
-//                  String s2 = tree.toString();
 
+            //TODO - Check if visitor actually needed for this application
             MyVisitor visitor = new MyVisitor();
             visitor.visit(tree);
         } catch (ParseCancellationException e) {

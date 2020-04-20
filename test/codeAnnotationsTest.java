@@ -1,20 +1,25 @@
-import org.antlr.v4.runtime.CharStream;
-import org.antlr.v4.runtime.CharStreams;
-import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.tree.ParseTree;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class codeAnnotationsTest {
 
-    @Test
-    public void f(String code, String expectedText){
-        CharStream in = CharStreams.fromString("&begin a");
-        codeAnnotationLexer lexer = new codeAnnotationLexer(in);
-        CommonTokenStream token = new CommonTokenStream(lexer);
-        codeAnnotationParser parser = new codeAnnotationParser(token);
-        ParseTree tree = parser.marker();
+    //TODO - Refactor testing that report shows which case exactly failed
 
-        //Assert.assertEquals(tree., expectedText);
+    @Test
+    public void validEmbeddedCodeAnnotations(){
+
+        boolean ret = GrammarLaunch.parseCodeAnnotation("&begin a");
+
+        Assert.assertEquals(ret, true);
+    }
+
+    @Test
+    public void invalidEmbeddedCodeAnnotations(){
+
+        Assert.assertEquals(GrammarLaunch.parseCodeAnnotation("begin a"), false);
+        Assert.assertEquals(GrammarLaunch.parseCodeAnnotation("end a"), false);
+        Assert.assertEquals(GrammarLaunch.parseCodeAnnotation("line a"), false);
+        Assert.assertEquals(GrammarLaunch.parseCodeAnnotation("&fun a"), false);
+        Assert.assertEquals(GrammarLaunch.parseCodeAnnotation("&aun a"), false);
     }
 }
