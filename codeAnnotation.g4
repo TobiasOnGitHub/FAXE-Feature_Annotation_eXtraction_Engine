@@ -1,16 +1,16 @@
 grammar codeAnnotation;
-marker: BEGINMARKER | ENDMARKER | LINEMARKER ;
+marker: COMMENT* (BEGINMARKER | ENDMARKER | LINEMARKER) ;
 
-BEGINMARKER:'&begin' ' '* PARAMETER;
+BEGINMARKER: '&begin' ' '* PARAMETER;
 ENDMARKER: '&end' ' '* PARAMETER;
 LINEMARKER: '&line' ' '* PARAMETER;
 PARAMETER: '(' LPQ (ANNOSEPARATOR LPQ)* ' '* ')' COMMENT*
-            | '[' LPQ (ANNOSEPARATOR LPQ)* ' '* ']' COMMENT*
-            | '{' LPQ (ANNOSEPARATOR LPQ)* ' '* '}' COMMENT*
-            |  LPQ (ANNOSEPARATOR LPQ)*;
+         | '[' LPQ (ANNOSEPARATOR LPQ)* ' '* ']' COMMENT*
+         | '{' LPQ (ANNOSEPARATOR LPQ)* ' '* '}' COMMENT*
+         |  LPQ (ANNOSEPARATOR LPQ)*;
 
-ANNOSEPARATOR: ',' | ' '+;      // TODO - how to define that always same separator symbol is used?!
-COMMENT: STRING+ (' '+ STRING)*;
+ANNOSEPARATOR: ' '* ',' ' '* | ' '+;      // TODO - how to define that always same separator symbol is used?!
+COMMENT: STRING (' '+ STRING)* ' '*;
 LPQ: STRING ('::'STRING)*;
 STRING: ([A-Z]+|[a-z]+|[0-9]+)+;
 

@@ -36,6 +36,11 @@ public class GrammarLaunch {
     }
 
 
+    /**
+     * Takes input String and checks if valid according to Grammar.
+     * @param line source code line under verification
+     * @return true when valid ; false when invalid
+     */
     public static boolean parseCodeAnnotation(String line) {
         CharStream in = CharStreams.fromString(line);
         codeAnnotationLexer lexer = new codeAnnotationLexer(in);

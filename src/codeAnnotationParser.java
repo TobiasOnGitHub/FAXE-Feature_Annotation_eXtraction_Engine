@@ -93,6 +93,10 @@ public class codeAnnotationParser extends Parser {
 		public TerminalNode BEGINMARKER() { return getToken(codeAnnotationParser.BEGINMARKER, 0); }
 		public TerminalNode ENDMARKER() { return getToken(codeAnnotationParser.ENDMARKER, 0); }
 		public TerminalNode LINEMARKER() { return getToken(codeAnnotationParser.LINEMARKER, 0); }
+		public List<TerminalNode> COMMENT() { return getTokens(codeAnnotationParser.COMMENT); }
+		public TerminalNode COMMENT(int i) {
+			return getToken(codeAnnotationParser.COMMENT, i);
+		}
 		public MarkerContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -119,7 +123,21 @@ public class codeAnnotationParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(2);
+			setState(5);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			while (_la==COMMENT) {
+				{
+				{
+				setState(2);
+				match(COMMENT);
+				}
+				}
+				setState(7);
+				_errHandler.sync(this);
+				_la = _input.LA(1);
+			}
+			setState(8);
 			_la = _input.LA(1);
 			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << BEGINMARKER) | (1L << ENDMARKER) | (1L << LINEMARKER))) != 0)) ) {
 			_errHandler.recoverInline(this);
@@ -143,8 +161,10 @@ public class codeAnnotationParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\n\7\4\2\t\2\3\2\3"+
-		"\2\3\2\2\2\3\2\2\3\3\2\3\5\2\5\2\4\3\2\2\2\4\5\t\2\2\2\5\3\3\2\2\2\2";
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\n\r\4\2\t\2\3\2\7"+
+		"\2\6\n\2\f\2\16\2\t\13\2\3\2\3\2\3\2\2\2\3\2\2\3\3\2\3\5\2\f\2\7\3\2\2"+
+		"\2\4\6\7\b\2\2\5\4\3\2\2\2\6\t\3\2\2\2\7\5\3\2\2\2\7\b\3\2\2\2\b\n\3\2"+
+		"\2\2\t\7\3\2\2\2\n\13\t\2\2\2\13\3\3\2\2\2\3\7";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {
