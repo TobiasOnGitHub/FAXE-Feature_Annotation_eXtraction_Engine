@@ -1,17 +1,19 @@
 grammar codeAnnotation;
-marker: COMMENT* (BEGINMARKER | ENDMARKER | LINEMARKER) ;
+marker: ' '* comment* (beginmarker | endmarker | linemarker);
 
-BEGINMARKER: '&begin' ' '* PARAMETER;
-ENDMARKER: '&end' ' '* PARAMETER;
-LINEMARKER: '&line' ' '* PARAMETER;
-PARAMETER: '(' LPQ (ANNOSEPARATOR LPQ)* ' '* ')' COMMENT*
-         | '[' LPQ (ANNOSEPARATOR LPQ)* ' '* ']' COMMENT*
-         | '{' LPQ (ANNOSEPARATOR LPQ)* ' '* '}' COMMENT*
-         |  LPQ (ANNOSEPARATOR LPQ)*;
+beginmarker: '&begin' ' '* parameter;
+endmarker: '&end' ' '* parameter;
+linemarker: '&line' ' '* parameter;
+parameter: '(' lpq (ANNOSEPARATOR lpq)* ' '* ')' ' '* comment*
+         | '[' lpq (ANNOSEPARATOR lpq)* ' '* ']' ' '* comment*
+         | '{' lpq (ANNOSEPARATOR lpq)* ' '* '}' ' '* comment*
+         |  lpq (ANNOSEPARATOR lpq)*
+         ;
 
-ANNOSEPARATOR: ' '* ',' ' '* | ' '+;      // TODO - how to define that always same separator symbol is used?!
-COMMENT: STRING (' '+ STRING)* ' '*;
-LPQ: STRING ('::'STRING)*;
+ANNOSEPARATOR: (' '* ',' ' '*) | ' '+;
+comment: STRING (' '+ STRING)* ' '*;
+lpq: STRING ('::'STRING)*   # Feature
+            ;
 STRING: ([A-Z]+|[a-z]+|[0-9]+)+;
 
 
