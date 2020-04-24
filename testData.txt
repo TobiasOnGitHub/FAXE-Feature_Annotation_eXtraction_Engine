@@ -1,5 +1,8 @@
-&begin(featureA,featureB)
-&begin b
-&begi4 a
-&end b
-&line a
+Source code
+&begin(featureA, featureB)
+LPQ text
+&end(featureA)
+other text
+&line(featureC)
+&end(featureB)
+Fischers Fritz

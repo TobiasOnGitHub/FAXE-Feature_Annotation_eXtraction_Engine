@@ -57,16 +57,6 @@ public interface codeAnnotationListener extends ParseTreeListener {
 	 */
 	void exitParameter(codeAnnotationParser.ParameterContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link codeAnnotationParser#comment}.
-	 * @param ctx the parse tree
-	 */
-	void enterComment(codeAnnotationParser.CommentContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link codeAnnotationParser#comment}.
-	 * @param ctx the parse tree
-	 */
-	void exitComment(codeAnnotationParser.CommentContext ctx);
-	/**
 	 * Enter a parse tree produced by the {@code Feature}
 	 * labeled alternative in {@link codeAnnotationParser#lpq}.
 	 * @param ctx the parse tree

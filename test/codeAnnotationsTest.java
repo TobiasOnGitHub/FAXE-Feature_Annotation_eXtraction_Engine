@@ -11,7 +11,7 @@ public class codeAnnotationsTest {
                 {"&begin a", true},
                 {"&begin[a] source", true},
                 {"&begin[a]source", true},
-                {"source&begin(a)", true},  // TODO - Unclear why this one fails
+                {"source&begin(a)", true},
                 {"source &line(a)", true},
 
                 {"&begin a", true},
@@ -56,7 +56,7 @@ public class codeAnnotationsTest {
     @Test(dataProvider = "provide_StrUnderTest_ExpResult_VALID")
     public void validEmbeddedCodeAnnotations(String strUnderTest, boolean expResult){
 
-        boolean ret = GrammarLaunch.parseCodeAnnotation(strUnderTest);
+        boolean ret = GrammarLaunch.parseCodeAnnotationLine(strUnderTest);
 
         Assert.assertEquals(ret, expResult);
     }
@@ -98,7 +98,7 @@ public class codeAnnotationsTest {
     @Test(dataProvider = "provide_StrUnderTest_ExpResult_INVALID")
     public void invalidEmbeddedCodeAnnotations(String strUnderTest, boolean expResult){
 
-        boolean ret = GrammarLaunch.parseCodeAnnotation(strUnderTest);
+        boolean ret = GrammarLaunch.parseCodeAnnotationLine(strUnderTest);
 
         Assert.assertEquals(ret, expResult);
     }

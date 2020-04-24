@@ -75,18 +75,6 @@ public class codeAnnotationBaseListener implements codeAnnotationListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterComment(codeAnnotationParser.CommentContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitComment(codeAnnotationParser.CommentContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterFeature(codeAnnotationParser.FeatureContext ctx) { }
 	/**
 	 * {@inheritDoc}

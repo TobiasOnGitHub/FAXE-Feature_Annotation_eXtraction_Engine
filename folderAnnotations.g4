@@ -6,5 +6,3 @@ ANNOSEPARATOR: ' '* ',' ' '* | ' '+;
 LPQ: STRING ('::'STRING)*;
 
 STRING: ([A-Z]+|[a-z]+|[0-9]+)+;
-
-

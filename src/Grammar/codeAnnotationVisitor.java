@@ -40,12 +40,6 @@ public interface codeAnnotationVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitParameter(codeAnnotationParser.ParameterContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link codeAnnotationParser#comment}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitComment(codeAnnotationParser.CommentContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code Feature}
 	 * labeled alternative in {@link codeAnnotationParser#lpq}.
 	 * @param ctx the parse tree
