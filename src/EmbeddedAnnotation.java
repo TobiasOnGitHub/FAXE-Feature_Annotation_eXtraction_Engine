@@ -17,7 +17,7 @@ public class EmbeddedAnnotation {
         public String toString() { return type; }
     }
 
-    private final eEAType eaType;
+    private eEAType eaType;
     private int openingLine;
     private int closingLine;
     private String feature;
