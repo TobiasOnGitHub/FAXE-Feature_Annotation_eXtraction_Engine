@@ -27,7 +27,7 @@ public class GrammarLaunch {
         try {
             ParseTree tree = parser.marker();
 
-            MyVisitor visitor = new MyVisitor();
+            MyCodeAnnotationsVisitor visitor = new MyCodeAnnotationsVisitor();
             List<EmbeddedAnnotation> eaList = (List<EmbeddedAnnotation>) visitor.visit(tree);
             System.out.println("EA:" +eaList.toString());
         } catch (ParseCancellationException e) {
@@ -78,7 +78,7 @@ public class GrammarLaunch {
             ParseTree tree = parser.marker();
 
             //TODO - Check if visitor actually needed for this application
-            MyVisitor visitor = new MyVisitor();
+            MyCodeAnnotationsVisitor visitor = new MyCodeAnnotationsVisitor();
             visitor.visit(tree);
         } catch (ParseCancellationException e) {
             // Catch if given string is not fitting the grammar

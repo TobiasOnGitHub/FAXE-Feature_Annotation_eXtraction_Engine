@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
-public class MyVisitor extends codeAnnotationBaseVisitor<Object> {
+public class MyCodeAnnotationsVisitor extends codeAnnotationBaseVisitor<Object> {
     private static int POSITION_UNKNOWN = -1;
 
     @Override public List<EmbeddedAnnotation> visitMarker(codeAnnotationParser.MarkerContext ctx) {
