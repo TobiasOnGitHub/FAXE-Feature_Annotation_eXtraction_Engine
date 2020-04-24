@@ -3,6 +3,7 @@ Source code
 LPQ text
 &end(featureA)
 other text
-&line(featureC)
+&line(featureLine1)
 &end(featureB)
+&line(featureLine2, featureLine3, featureLine4)
 Fischers Fritz

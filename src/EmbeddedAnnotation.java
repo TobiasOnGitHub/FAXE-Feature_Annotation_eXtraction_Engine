@@ -9,7 +9,7 @@ public class EmbeddedAnnotation {
         eaType_LINE    ("LINE"),
         eaType_COUNT   ("COUNT");
 
-        private String type;
+        private final String type;
         eEAType(String s) {
             this.type = s;
         }
@@ -17,7 +17,7 @@ public class EmbeddedAnnotation {
         public String toString() { return type; }
     }
 
-    private eEAType eaType;
+    private final eEAType eaType;
     private int openingLine;
     private int closingLine;
     private String feature;

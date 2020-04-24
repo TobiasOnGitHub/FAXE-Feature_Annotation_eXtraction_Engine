@@ -3,11 +3,11 @@ import java.util.List;
 import java.util.ListIterator;
 
 public class MyCodeAnnotationsVisitor extends codeAnnotationBaseVisitor<Object> {
-    private static int POSITION_UNKNOWN = -1;
+    private static final int POSITION_UNKNOWN = -1;
 
     @Override public List<EmbeddedAnnotation> visitMarker(codeAnnotationParser.MarkerContext ctx) {
         List<EmbeddedAnnotation> eaList = (List<EmbeddedAnnotation>) visitChildren(ctx);
-        System.out.println("Individual");
+        System.out.println("Run visitMarker and extract embedded annotations.");
 
         // BEGIN and END markers have been discovered independently and need to be merged to FRAGMENTS now:
         ListIterator<EmbeddedAnnotation> searchBeginItr = eaList.listIterator(eaList.size());
@@ -21,12 +21,12 @@ public class MyCodeAnnotationsVisitor extends codeAnnotationBaseVisitor<Object> 
                     if (eaEND.getEaType() == EmbeddedAnnotation.eEAType.eaType_END) {
                         if(eaBEGIN.getFeature().equals(eaEND.getFeature())){
                             if(eaBEGIN.getClosingLine()==POSITION_UNKNOWN && eaEND.getOpeningLine()==POSITION_UNKNOWN){
-                                System.out.println("MERGING: " +eaBEGIN.toString());
-                                System.out.println("WITH   : " +eaEND.toString());
+                                //System.out.println("MERGING: " +eaBEGIN.toString());
+                                //System.out.println("WITH   : " +eaEND.toString());
                                 // Match confirmed - replace two entries with one "FRAGMENT"
                                 eaBEGIN.setClosingLine(eaEND.getClosingLine());
                                 eaBEGIN.setEaType(EmbeddedAnnotation.eEAType.eaType_FRAGMENT);
-                                System.out.println("TO     : " +eaBEGIN.toString());
+                                //System.out.println("TO     : " +eaBEGIN.toString());
                                 searchEndItr.remove();
                                 searchBeginItr = eaList.listIterator(index-1);    // set outer iterator again. Otherwise it gets confused in its iterating positions. Set to position of new created FRAGMENT
                             }
@@ -37,9 +37,7 @@ public class MyCodeAnnotationsVisitor extends codeAnnotationBaseVisitor<Object> 
             index--;
         } // while(searchBeginItr.hasPrevious())
 
-        // TODO - Try with function which returns when change done
-
-        System.out.println("Individual");
+        System.out.println("Completed visitMarker, found " +eaList.size() +" elements.");
         return eaList;
     }
 
@@ -56,7 +54,6 @@ public class MyCodeAnnotationsVisitor extends codeAnnotationBaseVisitor<Object> 
     }
 
     @Override public List<EmbeddedAnnotation> visitEndmarker(codeAnnotationParser.EndmarkerContext ctx) {
-        System.out.println("Found END");
         List<EmbeddedAnnotation> eaList = (List<EmbeddedAnnotation>) visitChildren(ctx);
         // Add for new created feature entries that they are found in END
         eaList.forEach(
@@ -68,17 +65,22 @@ public class MyCodeAnnotationsVisitor extends codeAnnotationBaseVisitor<Object> 
         return eaList;
     }
 
-    @Override public String visitLinemarker(codeAnnotationParser.LinemarkerContext ctx) {
-        visitChildren(ctx);
-        return "LINE";
+    @Override public List<EmbeddedAnnotation> visitLinemarker(codeAnnotationParser.LinemarkerContext ctx) {
+        List<EmbeddedAnnotation> eaList = (List<EmbeddedAnnotation>) visitChildren(ctx);
+        // Add for new created feature entries that they are found in END
+        eaList.forEach(
+                ea -> {
+                    ea.setEaType(EmbeddedAnnotation.eEAType.eaType_LINE);
+                    ea.setOpeningLine(ctx.getStart().getLine());
+                    ea.setClosingLine(ctx.getStart().getLine());
+                }
+        );
+        return eaList;
     }
 
     @Override public EmbeddedAnnotation visitFeature(codeAnnotationParser.FeatureContext ctx) {
         visitChildren(ctx);
-        String str = ctx.getText();
-        EmbeddedAnnotation ea = new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_UNKNOWN, POSITION_UNKNOWN, POSITION_UNKNOWN, str);
-        System.out.println("Found ea=" +ea.toString());
-        return ea;
+        return new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_UNKNOWN, POSITION_UNKNOWN, POSITION_UNKNOWN, ctx.getText());
     }
 
     @Override
@@ -88,13 +90,13 @@ public class MyCodeAnnotationsVisitor extends codeAnnotationBaseVisitor<Object> 
             return null;
         }
 
-        System.out.println("aggregate=" +aggregate +" nextResult=" +nextResult);
+        //System.out.println("aggregate=" +aggregate +" nextResult=" +nextResult);
 
         // Build return list with new found features
         if(aggregate == null || aggregate instanceof List) {
             if (nextResult instanceof EmbeddedAnnotation) {
                 // Add new element to existing list
-                List<EmbeddedAnnotation> eaList = new ArrayList<EmbeddedAnnotation>();;
+                List<EmbeddedAnnotation> eaList = new ArrayList();
                 if(aggregate instanceof List){
                     eaList.addAll((List<EmbeddedAnnotation>) aggregate);
                 }
@@ -103,7 +105,7 @@ public class MyCodeAnnotationsVisitor extends codeAnnotationBaseVisitor<Object> 
             } else {
                 // Combining results of markers
                 if(aggregate instanceof List && nextResult instanceof List){
-                    List<EmbeddedAnnotation> eaList = new ArrayList<EmbeddedAnnotation>();;
+                    List<EmbeddedAnnotation> eaList = new ArrayList();
                     eaList.addAll((List<EmbeddedAnnotation>) aggregate);
                     eaList.addAll((List<EmbeddedAnnotation>) nextResult);
                     return eaList;
@@ -123,19 +125,6 @@ public class MyCodeAnnotationsVisitor extends codeAnnotationBaseVisitor<Object> 
 
         System.out.println("MyVisitor::aggregateResult - Unknown SITUATION!");
         return null;
-
-
-//        if(aggregate==null){
-//            System.out.println("return=" +nextResult);
-//            return nextResult;
-//        }
-//        if(nextResult==null){
-//            System.out.println("return=" +aggregate);
-//            return aggregate;
-//        }
-//        System.out.println("return=" +aggregate+" "+nextResult);
-//
-//        return aggregate+" "+nextResult;
 
     }
 }
