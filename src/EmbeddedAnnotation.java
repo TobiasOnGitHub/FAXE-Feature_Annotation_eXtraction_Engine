@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class EmbeddedAnnotation {
     public enum eEAType {
         eaType_UNKNOWN ("UNKNOWN"),
@@ -34,7 +36,23 @@ public class EmbeddedAnnotation {
     }
 
     public String toString(){
-        return eaType.toString() +" " +feature +" " +openingLine +" " +closingLine;
+        return eaType.toString() +" " +openingLine +" " +closingLine +" " +feature;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        EmbeddedAnnotation that = (EmbeddedAnnotation) o;
+        return openingLine == that.openingLine &&
+                closingLine == that.closingLine &&
+                eaType == that.eaType &&
+                Objects.equals(feature, that.feature);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(eaType, openingLine, closingLine, feature);
     }
 
     public eEAType getEaType() {

@@ -5,9 +5,20 @@ import java.util.ListIterator;
 public class MyCodeAnnotationsVisitor extends codeAnnotationBaseVisitor<Object> {
     private static final int POSITION_UNKNOWN = -1;
 
+    /**
+     * Runs the codeAnnotations Grammar and splits it into found code annotations
+     * @param ctx codeAnnotationParser.MarkerContext
+     * @return List of found embedded code annotations;
+     *      null when no match found
+     */
     @Override public List<EmbeddedAnnotation> visitMarker(codeAnnotationParser.MarkerContext ctx) {
+        //System.out.println("Run visitMarker and extract embedded annotations.");
         List<EmbeddedAnnotation> eaList = (List<EmbeddedAnnotation>) visitChildren(ctx);
-        System.out.println("Run visitMarker and extract embedded annotations.");
+
+        if(eaList==null){
+            // returns empty list when no children (and therefore no match with Grammar) found
+            return eaList;
+        }
 
         // BEGIN and END markers have been discovered independently and need to be merged to FRAGMENTS now:
         ListIterator<EmbeddedAnnotation> searchBeginItr = eaList.listIterator(eaList.size());
