@@ -10,7 +10,7 @@ parameter: '(' lpq (ANNOSEPARATOR lpq)* ' '* ')' .*?
          |  lpq (ANNOSEPARATOR lpq)*
          ;
 
-ANNOSEPARATOR: (' '* ',' ' '*);
+ANNOSEPARATOR: (' '* ',' ' '*) | ' '+;
 lpq: STRING ('::'STRING)*   # Feature;
 STRING: ([A-Z]+|[a-z]+|[0-9]+)+;
 
