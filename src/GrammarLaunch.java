@@ -15,7 +15,7 @@ public class GrammarLaunch {
 
         CharStream in = null;
         try {
-            in = CharStreams.fromFileName("testData.txt");
+            in = CharStreams.fromFileName("testData_codeAnnotations.txt");
         } catch (IOException e) {
             e.printStackTrace();
         }
