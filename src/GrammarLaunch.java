@@ -84,8 +84,8 @@ public class GrammarLaunch {
     private static void performEvaluationFolderAnnotations(/*String rootFolder*/){
         CharStream in = null;
         try {
-            //in = CharStreams.fromPath(Paths.get("C:\\Users\\Tobias\\IdeaProjects\\ANTLR4_EmbeddedAnnotations\\test\\testData_folderAnnotations.txt.txt")) ;
-            in = CharStreams.fromFileName("testData_folderAnnotations.txt");
+            in = CharStreams.fromFileName("test/testData_folderAnnotations.txt");
+            //in = CharStreams.fromFileName("testData_folderAnnotations.txt");
         } catch (IOException e) {
             e.printStackTrace();
         }
