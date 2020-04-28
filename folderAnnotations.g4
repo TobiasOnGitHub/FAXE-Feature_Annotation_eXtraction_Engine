@@ -1,8 +1,7 @@
 grammar folderAnnotations;
-folderAnnotation: LPQ (ANNOSEPARATOR LPQ)*;
+folderAnnotation: (lpq (' ' lpq)*)
+                | (lpq (' '* ',' ' '* lpq)*)
+                | (lpq ('\n' lpq)*);
 
-ANNOSEPARATOR: ' '* ',' ' '* | ' '+;
-
-LPQ: STRING ('::'STRING)*;
-
+lpq: STRING ('::'STRING)*  # Feature;
 STRING: ([A-Z]+|[a-z]+|[0-9]+)+;

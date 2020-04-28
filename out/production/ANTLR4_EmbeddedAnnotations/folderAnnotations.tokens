@@ -1,3 +1,9 @@
-ANNOSEPARATOR=1
-LPQ=2
-STRING=3
+T__0=1
+T__1=2
+T__2=3
+T__3=4
+STRING=5
+' '=1
+','=2
+'\n'=3
+'::'=4

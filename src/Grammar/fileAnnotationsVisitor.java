@@ -15,4 +15,35 @@ public interface fileAnnotationsVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitFileAnnotation(fileAnnotationsParser.FileAnnotationContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link fileAnnotationsParser#fileReferences}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFileReferences(fileAnnotationsParser.FileReferencesContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link fileAnnotationsParser#fileReference}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFileReference(fileAnnotationsParser.FileReferenceContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link fileAnnotationsParser#fileName}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFileName(fileAnnotationsParser.FileNameContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link fileAnnotationsParser#lpqReferences}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLpqReferences(fileAnnotationsParser.LpqReferencesContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Feature}
+	 * labeled alternative in {@link fileAnnotationsParser#lpq}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFeature(fileAnnotationsParser.FeatureContext ctx);
 }

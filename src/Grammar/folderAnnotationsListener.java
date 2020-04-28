@@ -16,4 +16,16 @@ public interface folderAnnotationsListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitFolderAnnotation(folderAnnotationsParser.FolderAnnotationContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Feature}
+	 * labeled alternative in {@link folderAnnotationsParser#lpq}.
+	 * @param ctx the parse tree
+	 */
+	void enterFeature(folderAnnotationsParser.FeatureContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Feature}
+	 * labeled alternative in {@link folderAnnotationsParser#lpq}.
+	 * @param ctx the parse tree
+	 */
+	void exitFeature(folderAnnotationsParser.FeatureContext ctx);
 }

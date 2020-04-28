@@ -14,7 +14,7 @@ ANNOSEPARATOR: (' '* ',' ' '*) | ' '+;
 lpq: STRING ('::'STRING)*   # Feature;
 STRING: ([A-Z]+|[a-z]+|[0-9]+)+;
 
-OTHER : . -> skip ;   // allows line break
+OTHER : . -> skip ;   // fuzzy parsing
 
 //"+" can be used to mean "one or more of the previous."
 //"*" can be used to mean "zero or more of the previous."

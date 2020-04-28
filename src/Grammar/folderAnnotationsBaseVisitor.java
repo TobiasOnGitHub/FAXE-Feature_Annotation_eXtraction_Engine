@@ -17,4 +17,11 @@ public class folderAnnotationsBaseVisitor<T> extends AbstractParseTreeVisitor<T>
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitFolderAnnotation(folderAnnotationsParser.FolderAnnotationContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitFeature(folderAnnotationsParser.FeatureContext ctx) { return visitChildren(ctx); }
 }

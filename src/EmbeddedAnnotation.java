@@ -36,7 +36,7 @@ public class EmbeddedAnnotation {
     }
 
     public String toString(){
-        return eaType.toString() +" " +openingLine +" " +closingLine +" " +feature;
+        return "{" +eaType.toString() +" " +openingLine +" " +closingLine +" " +feature +"}\n";
     }
 
     @Override

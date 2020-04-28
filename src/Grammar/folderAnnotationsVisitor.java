@@ -15,4 +15,11 @@ public interface folderAnnotationsVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitFolderAnnotation(folderAnnotationsParser.FolderAnnotationContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Feature}
+	 * labeled alternative in {@link folderAnnotationsParser#lpq}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFeature(folderAnnotationsParser.FeatureContext ctx);
 }

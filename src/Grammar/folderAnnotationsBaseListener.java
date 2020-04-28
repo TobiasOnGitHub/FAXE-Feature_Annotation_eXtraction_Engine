@@ -22,6 +22,18 @@ public class folderAnnotationsBaseListener implements folderAnnotationsListener 
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitFolderAnnotation(folderAnnotationsParser.FolderAnnotationContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFeature(folderAnnotationsParser.FeatureContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFeature(folderAnnotationsParser.FeatureContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

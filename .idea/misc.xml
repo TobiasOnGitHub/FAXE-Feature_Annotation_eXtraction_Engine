@@ -6,7 +6,7 @@
         <PerGrammarGenerationSettings>
           <option name="fileName" value="$PROJECT_DIR$/folderAnnotations.g4" />
           <option name="autoGen" value="true" />
-          <option name="outputDir" value="C:\Users\Tobias\IdeaProjects\ANTLR4_EmbeddedAnnotations\src\ANTLR4" />
+          <option name="outputDir" value="C:\Users\Tobias\IdeaProjects\ANTLR4_EmbeddedAnnotations\src\Grammar" />
           <option name="libDir" value="" />
           <option name="encoding" value="" />
           <option name="pkg" value="" />
@@ -26,7 +26,7 @@
         <PerGrammarGenerationSettings>
           <option name="fileName" value="$PROJECT_DIR$/fileAnnotations.g4" />
           <option name="autoGen" value="true" />
-          <option name="outputDir" value="C:\Users\Tobias\IdeaProjects\ANTLR4_EmbeddedAnnotations\src\ANTLR4" />
+          <option name="outputDir" value="C:\Users\Tobias\IdeaProjects\ANTLR4_EmbeddedAnnotations\src\Grammar" />
           <option name="libDir" value="" />
           <option name="encoding" value="" />
           <option name="pkg" value="" />
