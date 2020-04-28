@@ -14,7 +14,7 @@ public class GrammarLaunch {
         /**********************************/
         /** ANALYSIS OF SOURCE CODE      **/
         /**********************************/
-        performEvaluationCodeAnnotations();
+        //performEvaluationCodeAnnotations();
 
 
         /**********************************/
@@ -45,7 +45,7 @@ public class GrammarLaunch {
         /** ANALYSIS OF FEATURE-TO-FOLDER **/
         /***********************************/
         //parseFolderAnnotationLine("featureA1, featureB1, featureC1");
-        //performEvaluationFolderAnnotations();
+        performEvaluationFolderAnnotations();
 
         /******************************************/
         /** ANALYSIS OF CLAFER FEATURE HIERARCHY **/
