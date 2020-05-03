@@ -7,7 +7,9 @@ fileReference: ('"' fileName '"') | (fileName) ;
 
 //fileName: .*? | ' ' | '%';
 
-fileName: ~('<' | '>' | ':' | '"' | '/' | '\\' | '|' | '?' | '*')*; // TODO - Unclear why not used...
+fileName: STRING | (STRING'.'STRING);
+//fileName: FILECHARS | (FILECHARS'.'FILECHARS);
+//FILECHARS: ~('<' | '>' | ':' | '"' | '/' | '\\' | '|' | '?' | '*' )*; // TODO - Unclear why not used...
 // fileName should allow everything except: https://docs.microsoft.com/en-us/windows/win32/fileio/naming-a-file
 /*
     < (less than)

@@ -136,7 +136,7 @@ public class GrammarLaunch {
             System.out.println("EA:" +eaList.toString());
         } catch (ParseCancellationException e) {
             // Catch if given string is not fitting the grammar
-            // System.out.println("ERROR DETECTED :)");
+            System.out.println("ERROR DETECTED :)");
             return false;
         }
         return true;

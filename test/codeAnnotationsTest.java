@@ -6,6 +6,7 @@ import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -181,6 +182,11 @@ public class codeAnnotationsTest {
         MyCodeAnnotationsVisitor visitor = new MyCodeAnnotationsVisitor();
         List<EmbeddedAnnotation> eaList = (List<EmbeddedAnnotation>) visitor.visit(tree);
 
+        if(eaList.size()!=expResult.size()){
+            System.out.println("eaList   : " +eaList.toString());
+            System.out.println("expResult: " +expResult.toString());
+        }
+
         Assert.assertEquals(eaList.size(),expResult.size());
 
         boolean bCompareLists = eaList.equals(expResult);
@@ -251,5 +257,109 @@ public class codeAnnotationsTest {
         List<EmbeddedAnnotation> eaList = (List<EmbeddedAnnotation>) visitor.visit(tree);
 
         Assert.assertEquals(eaList,null);
+    }
+
+
+    @Test
+    public void testCodeAnnotation_GrammarCheck_File_testData_codeAnnotations(){
+        CharStream in = null;
+        try {
+            in = CharStreams.fromFileName("test/testData_codeAnnotations.txt");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        codeAnnotationLexer lexer = new codeAnnotationLexer(in);
+        lexer.addErrorListener(ThrowingErrorListener.INSTANCE);
+        CommonTokenStream token = new CommonTokenStream(lexer);
+        codeAnnotationParser parser = new codeAnnotationParser(token);
+        parser.removeErrorListeners();
+        parser.addErrorListener(ThrowingErrorListener.INSTANCE);
+        ParseTree tree = parser.marker();
+
+        MyCodeAnnotationsVisitor visitor = new MyCodeAnnotationsVisitor();
+        List<EmbeddedAnnotation> eaList = (List<EmbeddedAnnotation>) visitor.visit(tree);
+
+
+        List<EmbeddedAnnotation> expResult = new ArrayList(){{
+            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_FRAGMENT,   2, 4, "featureA"));
+            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_FRAGMENT,   2, 7, "featureB"));
+            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_LINE,       6, 6, "featureLine1"));
+            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_LINE,       8, 8, "featureLine2"));
+            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_LINE,       8, 8, "featureLine3"));
+            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_LINE,       8, 8, "featureLine4"));
+        }};
+
+        Assert.assertEquals(eaList.size(),expResult.size());
+
+        boolean bCompareLists = eaList.equals(expResult);
+        if(!bCompareLists){
+            System.out.println("Difference between elements:");
+        }
+        Assert.assertTrue(bCompareLists);
+    }
+
+
+    @Test
+    public void testCodeAnnotation_GrammarCheck_File_Configuration(){
+        CharStream in = null;
+        try {
+            in = CharStreams.fromFileName("test/testProjectBitcoinWallet/src/de/schildbach/wallet/Configuration.java");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        codeAnnotationLexer lexer = new codeAnnotationLexer(in);
+        lexer.addErrorListener(ThrowingErrorListener.INSTANCE);
+        CommonTokenStream token = new CommonTokenStream(lexer);
+        codeAnnotationParser parser = new codeAnnotationParser(token);
+        parser.removeErrorListeners();
+        parser.addErrorListener(ThrowingErrorListener.INSTANCE);
+        ParseTree tree = parser.marker();
+
+        MyCodeAnnotationsVisitor visitor = new MyCodeAnnotationsVisitor();
+        List<EmbeddedAnnotation> eaList = (List<EmbeddedAnnotation>) visitor.visit(tree);
+
+        List<EmbeddedAnnotation> expResult = new ArrayList(){{
+            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_LINE,       46, 46, "Denomination"));
+            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_LINE,       49, 49, "AutoCloseSendDialog"));
+            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_LINE,       51, 51, "ConnectivityIndicator"));
+            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_LINE,       53, 53, "ExchangeRates"));
+            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_FRAGMENT,   54, 57, "TrustedPeer"));
+            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_LINE,       59, 59, "BlockExplorer"));
+            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_LINE,       61, 61, "DataUsage"));
+            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_LINE,       63, 63, "BalanceReminder"));
+            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_LINE,       65, 65, "ShowDisclaimer"));
+            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_FRAGMENT,   70, 75, "ExchangeRates"));
+            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_FRAGMENT,   77, 80, "BackupReminder"));
+            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_LINE,       82, 82, "Bluetooth"));
+            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_FRAGMENT,   84, 87, "Denomination"));
+            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_FRAGMENT,   98, 144, "Denomination"));
+            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_FRAGMENT,   146, 150, "OwnName"));
+            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_FRAGMENT,   152, 156, "AutoCloseSendDialog"));
+            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_FRAGMENT,   158, 162, "ConnectivityIndicator"));
+            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_FRAGMENT,   164, 172, "TrustedPeer"));
+            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_FRAGMENT,   174, 179, "BlockExplorer"));
+            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_FRAGMENT,   181, 189, "BalanceReminder"));
+            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_FRAGMENT,   191, 208, "BackupReminder"));
+            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_FRAGMENT,   210, 214, "ShowDisclaimer"));
+            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_FRAGMENT,   216, 224, "ExchangeRates"));
+            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_FRAGMENT,   258, 260, "Log"));
+            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_FRAGMENT,   272, 302, "ExchangeRates"));
+            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_FRAGMENT,   316, 321, "Bluetooth"));
+        }};
+
+        Assert.assertEquals(eaList.size(),expResult.size());
+
+        boolean bCompareLists = eaList.equals(expResult);
+        if(!bCompareLists){
+            System.out.println("Difference between elements:");
+            int size = (eaList.size()>expResult.size()? eaList.size(): expResult.size());
+            for(int i=0; i<size; i++){
+                if(!eaList.get(i).equals(expResult.get(i))){
+                    System.out.println("eaList=" +eaList.get(i).toString() +" --- expResult=" +expResult.get(i).toString());
+                }
+
+            }
+        }
+        Assert.assertTrue(bCompareLists);
     }
 }
