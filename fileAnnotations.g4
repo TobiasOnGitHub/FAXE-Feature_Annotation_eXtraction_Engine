@@ -1,11 +1,14 @@
 grammar fileAnnotations;
+
+SPACE: ' '* -> skip ;   // ignores all more than one-time space characters
+
 fileAnnotation: fileReferences ':'? '\n'+ lpqReferences ;
 
-fileReferences: (fileReference (' ' fileReference)*) | (fileReference (',' fileReference)*);
+// TODO - necessary that comma and space rule is identical for file and feature?!
+
+fileReferences: (fileReference (' '* fileReference)* ' '*) | (fileReference (' '* ',' ' '* fileReference)* ' '*) ;
 
 fileReference: ('"' fileName '"') | (fileName) ;
-
-//fileName: .*? | ' ' | '%';
 
 fileName: STRING | (STRING'.'STRING);
 //fileName: FILECHARS | (FILECHARS'.'FILECHARS);
@@ -23,10 +26,7 @@ fileName: STRING | (STRING'.'STRING);
     * (asterisk)
 */
 
-lpqReferences: (lpq (' ' lpq)*) | (lpq (',' lpq)*);
-
-
-FILESEPARATOR: (' '* ',' ' '*) | ' '+ ;
+lpqReferences: (lpq (' '* lpq)* ' '*) | (lpq (' '* ',' ' '* lpq)* ' '*);
 
 lpq: STRING ('::'STRING)*  # Feature;
 STRING: ([A-Z]+|[a-z]+|[0-9]+)+;
