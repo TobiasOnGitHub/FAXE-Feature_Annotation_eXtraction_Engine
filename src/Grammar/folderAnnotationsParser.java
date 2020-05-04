@@ -1,15 +1,12 @@
 // Generated from C:/Users/Tobias/IdeaProjects/ANTLR4_EmbeddedAnnotations\folderAnnotations.g4 by ANTLR 4.8
-import org.antlr.v4.runtime.*;
-import org.antlr.v4.runtime.atn.ATN;
-import org.antlr.v4.runtime.atn.ATNDeserializer;
-import org.antlr.v4.runtime.atn.ParserATNSimulator;
-import org.antlr.v4.runtime.atn.PredictionContextCache;
+import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
-import org.antlr.v4.runtime.tree.ParseTreeListener;
-import org.antlr.v4.runtime.tree.ParseTreeVisitor;
-import org.antlr.v4.runtime.tree.TerminalNode;
-
+import org.antlr.v4.runtime.*;
+import org.antlr.v4.runtime.misc.*;
+import org.antlr.v4.runtime.tree.*;
 import java.util.List;
+import java.util.Iterator;
+import java.util.ArrayList;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class folderAnnotationsParser extends Parser {
@@ -19,7 +16,7 @@ public class folderAnnotationsParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		T__0=1, T__1=2, T__2=3, T__3=4, STRING=5;
+		T__0=1, T__1=2, T__2=3, T__3=4, SPACE=5, STRING=6;
 	public static final int
 		RULE_folderAnnotation = 0, RULE_lpq = 1;
 	private static String[] makeRuleNames() {
@@ -37,7 +34,7 @@ public class folderAnnotationsParser extends Parser {
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
-			null, null, null, null, null, "STRING"
+			null, null, null, null, null, "SPACE", "STRING"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -122,28 +119,71 @@ public class folderAnnotationsParser extends Parser {
 		enterRule(_localctx, 0, RULE_folderAnnotation);
 		int _la;
 		try {
-			setState(40);
+			int _alt;
+			setState(81);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,5,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,12,_ctx) ) {
 			case 1:
 				enterOuterAlt(_localctx, 1);
 				{
 				{
-				setState(4);
-				lpq();
-				setState(9);
+				setState(7);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				while (_la==T__0) {
 					{
 					{
-					setState(5);
+					setState(4);
 					match(T__0);
-					setState(6);
-					lpq();
 					}
 					}
-					setState(11);
+					setState(9);
+					_errHandler.sync(this);
+					_la = _input.LA(1);
+				}
+				setState(10);
+				lpq();
+				setState(20);
+				_errHandler.sync(this);
+				_alt = getInterpreter().adaptivePredict(_input,2,_ctx);
+				while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
+					if ( _alt==1 ) {
+						{
+						{
+						setState(14);
+						_errHandler.sync(this);
+						_la = _input.LA(1);
+						while (_la==T__0) {
+							{
+							{
+							setState(11);
+							match(T__0);
+							}
+							}
+							setState(16);
+							_errHandler.sync(this);
+							_la = _input.LA(1);
+						}
+						setState(17);
+						lpq();
+						}
+						} 
+					}
+					setState(22);
+					_errHandler.sync(this);
+					_alt = getInterpreter().adaptivePredict(_input,2,_ctx);
+				}
+				setState(26);
+				_errHandler.sync(this);
+				_la = _input.LA(1);
+				while (_la==T__0) {
+					{
+					{
+					setState(23);
+					match(T__0);
+					}
+					}
+					setState(28);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				}
@@ -154,49 +194,79 @@ public class folderAnnotationsParser extends Parser {
 				enterOuterAlt(_localctx, 2);
 				{
 				{
-				setState(12);
-				lpq();
-				setState(29);
+				setState(32);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				while (_la==T__0 || _la==T__1) {
+				while (_la==T__0) {
 					{
 					{
-					setState(16);
+					setState(29);
+					match(T__0);
+					}
+					}
+					setState(34);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
-					while (_la==T__0) {
+				}
+				setState(35);
+				lpq();
+				setState(52);
+				_errHandler.sync(this);
+				_alt = getInterpreter().adaptivePredict(_input,7,_ctx);
+				while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
+					if ( _alt==1 ) {
 						{
 						{
-						setState(13);
-						match(T__0);
-						}
-						}
-						setState(18);
+						setState(39);
 						_errHandler.sync(this);
 						_la = _input.LA(1);
+						while (_la==T__0) {
+							{
+							{
+							setState(36);
+							match(T__0);
+							}
+							}
+							setState(41);
+							_errHandler.sync(this);
+							_la = _input.LA(1);
+						}
+						setState(42);
+						match(T__1);
+						setState(46);
+						_errHandler.sync(this);
+						_la = _input.LA(1);
+						while (_la==T__0) {
+							{
+							{
+							setState(43);
+							match(T__0);
+							}
+							}
+							setState(48);
+							_errHandler.sync(this);
+							_la = _input.LA(1);
+						}
+						setState(49);
+						lpq();
+						}
+						} 
 					}
-					setState(19);
-					match(T__1);
-					setState(23);
+					setState(54);
 					_errHandler.sync(this);
-					_la = _input.LA(1);
-					while (_la==T__0) {
-						{
-						{
-						setState(20);
-						match(T__0);
-						}
-						}
-						setState(25);
-						_errHandler.sync(this);
-						_la = _input.LA(1);
-					}
-					setState(26);
-					lpq();
+					_alt = getInterpreter().adaptivePredict(_input,7,_ctx);
+				}
+				setState(58);
+				_errHandler.sync(this);
+				_la = _input.LA(1);
+				while (_la==T__0) {
+					{
+					{
+					setState(55);
+					match(T__0);
 					}
 					}
-					setState(31);
+					setState(60);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				}
@@ -207,21 +277,49 @@ public class folderAnnotationsParser extends Parser {
 				enterOuterAlt(_localctx, 3);
 				{
 				{
-				setState(32);
+				setState(64);
+				_errHandler.sync(this);
+				_la = _input.LA(1);
+				while (_la==T__0) {
+					{
+					{
+					setState(61);
+					match(T__0);
+					}
+					}
+					setState(66);
+					_errHandler.sync(this);
+					_la = _input.LA(1);
+				}
+				setState(67);
 				lpq();
-				setState(37);
+				setState(72);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				while (_la==T__2) {
 					{
 					{
-					setState(33);
+					setState(68);
 					match(T__2);
-					setState(34);
+					setState(69);
 					lpq();
 					}
 					}
-					setState(39);
+					setState(74);
+					_errHandler.sync(this);
+					_la = _input.LA(1);
+				}
+				setState(78);
+				_errHandler.sync(this);
+				_la = _input.LA(1);
+				while (_la==T__0) {
+					{
+					{
+					setState(75);
+					match(T__0);
+					}
+					}
+					setState(80);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				}
@@ -281,21 +379,21 @@ public class folderAnnotationsParser extends Parser {
 			_localctx = new FeatureContext(_localctx);
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(42);
+			setState(83);
 			match(STRING);
-			setState(47);
+			setState(88);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==T__3) {
 				{
 				{
-				setState(43);
+				setState(84);
 				match(T__3);
-				setState(44);
+				setState(85);
 				match(STRING);
 				}
 				}
-				setState(49);
+				setState(90);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -313,21 +411,31 @@ public class folderAnnotationsParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\7\65\4\2\t\2\4\3"+
-		"\t\3\3\2\3\2\3\2\7\2\n\n\2\f\2\16\2\r\13\2\3\2\3\2\7\2\21\n\2\f\2\16\2"+
-		"\24\13\2\3\2\3\2\7\2\30\n\2\f\2\16\2\33\13\2\3\2\7\2\36\n\2\f\2\16\2!"+
-		"\13\2\3\2\3\2\3\2\7\2&\n\2\f\2\16\2)\13\2\5\2+\n\2\3\3\3\3\3\3\7\3\60"+
-		"\n\3\f\3\16\3\63\13\3\3\3\2\2\4\2\4\2\2\2:\2*\3\2\2\2\4,\3\2\2\2\6\13"+
-		"\5\4\3\2\7\b\7\3\2\2\b\n\5\4\3\2\t\7\3\2\2\2\n\r\3\2\2\2\13\t\3\2\2\2"+
-		"\13\f\3\2\2\2\f+\3\2\2\2\r\13\3\2\2\2\16\37\5\4\3\2\17\21\7\3\2\2\20\17"+
-		"\3\2\2\2\21\24\3\2\2\2\22\20\3\2\2\2\22\23\3\2\2\2\23\25\3\2\2\2\24\22"+
-		"\3\2\2\2\25\31\7\4\2\2\26\30\7\3\2\2\27\26\3\2\2\2\30\33\3\2\2\2\31\27"+
-		"\3\2\2\2\31\32\3\2\2\2\32\34\3\2\2\2\33\31\3\2\2\2\34\36\5\4\3\2\35\22"+
-		"\3\2\2\2\36!\3\2\2\2\37\35\3\2\2\2\37 \3\2\2\2 +\3\2\2\2!\37\3\2\2\2\""+
-		"\'\5\4\3\2#$\7\5\2\2$&\5\4\3\2%#\3\2\2\2&)\3\2\2\2\'%\3\2\2\2\'(\3\2\2"+
-		"\2(+\3\2\2\2)\'\3\2\2\2*\6\3\2\2\2*\16\3\2\2\2*\"\3\2\2\2+\3\3\2\2\2,"+
-		"\61\7\7\2\2-.\7\6\2\2.\60\7\7\2\2/-\3\2\2\2\60\63\3\2\2\2\61/\3\2\2\2"+
-		"\61\62\3\2\2\2\62\5\3\2\2\2\63\61\3\2\2\2\t\13\22\31\37\'*\61";
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\b^\4\2\t\2\4\3\t"+
+		"\3\3\2\7\2\b\n\2\f\2\16\2\13\13\2\3\2\3\2\7\2\17\n\2\f\2\16\2\22\13\2"+
+		"\3\2\7\2\25\n\2\f\2\16\2\30\13\2\3\2\7\2\33\n\2\f\2\16\2\36\13\2\3\2\7"+
+		"\2!\n\2\f\2\16\2$\13\2\3\2\3\2\7\2(\n\2\f\2\16\2+\13\2\3\2\3\2\7\2/\n"+
+		"\2\f\2\16\2\62\13\2\3\2\7\2\65\n\2\f\2\16\28\13\2\3\2\7\2;\n\2\f\2\16"+
+		"\2>\13\2\3\2\7\2A\n\2\f\2\16\2D\13\2\3\2\3\2\3\2\7\2I\n\2\f\2\16\2L\13"+
+		"\2\3\2\7\2O\n\2\f\2\16\2R\13\2\5\2T\n\2\3\3\3\3\3\3\7\3Y\n\3\f\3\16\3"+
+		"\\\13\3\3\3\2\2\4\2\4\2\2\2j\2S\3\2\2\2\4U\3\2\2\2\6\b\7\3\2\2\7\6\3\2"+
+		"\2\2\b\13\3\2\2\2\t\7\3\2\2\2\t\n\3\2\2\2\n\f\3\2\2\2\13\t\3\2\2\2\f\26"+
+		"\5\4\3\2\r\17\7\3\2\2\16\r\3\2\2\2\17\22\3\2\2\2\20\16\3\2\2\2\20\21\3"+
+		"\2\2\2\21\23\3\2\2\2\22\20\3\2\2\2\23\25\5\4\3\2\24\20\3\2\2\2\25\30\3"+
+		"\2\2\2\26\24\3\2\2\2\26\27\3\2\2\2\27\34\3\2\2\2\30\26\3\2\2\2\31\33\7"+
+		"\3\2\2\32\31\3\2\2\2\33\36\3\2\2\2\34\32\3\2\2\2\34\35\3\2\2\2\35T\3\2"+
+		"\2\2\36\34\3\2\2\2\37!\7\3\2\2 \37\3\2\2\2!$\3\2\2\2\" \3\2\2\2\"#\3\2"+
+		"\2\2#%\3\2\2\2$\"\3\2\2\2%\66\5\4\3\2&(\7\3\2\2\'&\3\2\2\2(+\3\2\2\2)"+
+		"\'\3\2\2\2)*\3\2\2\2*,\3\2\2\2+)\3\2\2\2,\60\7\4\2\2-/\7\3\2\2.-\3\2\2"+
+		"\2/\62\3\2\2\2\60.\3\2\2\2\60\61\3\2\2\2\61\63\3\2\2\2\62\60\3\2\2\2\63"+
+		"\65\5\4\3\2\64)\3\2\2\2\658\3\2\2\2\66\64\3\2\2\2\66\67\3\2\2\2\67<\3"+
+		"\2\2\28\66\3\2\2\29;\7\3\2\2:9\3\2\2\2;>\3\2\2\2<:\3\2\2\2<=\3\2\2\2="+
+		"T\3\2\2\2><\3\2\2\2?A\7\3\2\2@?\3\2\2\2AD\3\2\2\2B@\3\2\2\2BC\3\2\2\2"+
+		"CE\3\2\2\2DB\3\2\2\2EJ\5\4\3\2FG\7\5\2\2GI\5\4\3\2HF\3\2\2\2IL\3\2\2\2"+
+		"JH\3\2\2\2JK\3\2\2\2KP\3\2\2\2LJ\3\2\2\2MO\7\3\2\2NM\3\2\2\2OR\3\2\2\2"+
+		"PN\3\2\2\2PQ\3\2\2\2QT\3\2\2\2RP\3\2\2\2S\t\3\2\2\2S\"\3\2\2\2SB\3\2\2"+
+		"\2T\3\3\2\2\2UZ\7\b\2\2VW\7\6\2\2WY\7\b\2\2XV\3\2\2\2Y\\\3\2\2\2ZX\3\2"+
+		"\2\2Z[\3\2\2\2[\5\3\2\2\2\\Z\3\2\2\2\20\t\20\26\34\")\60\66<BJPSZ";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

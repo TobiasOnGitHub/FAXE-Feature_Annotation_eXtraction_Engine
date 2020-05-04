@@ -45,7 +45,7 @@ public class GrammarLaunch {
         /** ANALYSIS OF FEATURE-TO-FOLDER **/
         /***********************************/
         //parseFolderAnnotationLine("featureA1, featureB1, featureC1");
-        performEvaluationFolderAnnotations();
+        performEvaluationFolderAnnotations("test/testData_folderAnnotations.txt");
 
         /******************************************/
         /** ANALYSIS OF CLAFER FEATURE HIERARCHY **/
@@ -81,10 +81,10 @@ public class GrammarLaunch {
 
 
 
-    private static void performEvaluationFolderAnnotations(/*String rootFolder*/){
+    public static List<EmbeddedAnnotation> performEvaluationFolderAnnotations(String folderUnderTest){
         CharStream in = null;
         try {
-            in = CharStreams.fromFileName("test/testData_folderAnnotations.txt");
+            in = CharStreams.fromFileName(folderUnderTest);
             //in = CharStreams.fromFileName("testData_folderAnnotations.txt");
         } catch (IOException e) {
             e.printStackTrace();
@@ -96,18 +96,19 @@ public class GrammarLaunch {
         parser.removeErrorListeners();
         parser.addErrorListener(ThrowingErrorListener.INSTANCE);
 
+        List<EmbeddedAnnotation> eaList;
         try {
             ParseTree tree = parser.folderAnnotation();
 
             MyFolderAnnotationVisitor visitor = new MyFolderAnnotationVisitor();
-            List<EmbeddedAnnotation> eaList = (List<EmbeddedAnnotation>) visitor.visit(tree);
+            eaList = (List<EmbeddedAnnotation>) visitor.visit(tree);
             if(eaList!=null) System.out.println("EA:" +eaList.toString());
         } catch (ParseCancellationException e) {
             // Catch if given string is not fitting the grammar
             System.out.println("ERROR DETECTED :)");
-            //return false;
+            return null;
         }
-        //return true;
+        return eaList;
     }
 
 
