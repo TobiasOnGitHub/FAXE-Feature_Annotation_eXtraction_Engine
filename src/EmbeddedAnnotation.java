@@ -2,14 +2,14 @@ import java.util.Objects;
 
 public class EmbeddedAnnotation {
     public enum eEAType {
-        eaType_UNKNOWN ("UNKNOWN"),
-        eaType_FOLDER  ("FOLDER"),
-        eaType_FILE    ("FILE"),
-        eaType_BEGIN   ("BEGIN"),
-        eaType_END     ("END"),
+        eaType_UNKNOWN ("UNKNOWN "),
+        eaType_FOLDER  ("FOLDER  "),
+        eaType_FILE    ("FILE    "),
+        eaType_BEGIN   ("BEGIN   "),
+        eaType_END     ("END     "),
         eaType_FRAGMENT("FRAGMENT"),
-        eaType_LINE    ("LINE"),
-        eaType_COUNT   ("COUNT");
+        eaType_LINE    ("LINE    "),
+        eaType_COUNT   ("COUNT   ");
 
         private final String type;
         eEAType(String s) {
@@ -38,7 +38,7 @@ public class EmbeddedAnnotation {
     }
 
     public String toString(){
-        return "{" +eaType.toString() +" " +file +" " +openingLine +" " +closingLine +" " +feature +"}\n";
+        return "\n{" +eaType.toString() +" " +file +": " +openingLine +" " +closingLine +" " +feature +"}";
     }
 
     @Override

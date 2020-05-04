@@ -6,16 +6,24 @@ public class MyFolderAnnotationVisitor extends folderAnnotationsBaseVisitor<Obje
 
     @Override
     public List<EmbeddedAnnotation> visitFolderAnnotation(folderAnnotationsParser.FolderAnnotationContext ctx) {
-        System.out.println("visitFolderAnnotation");
+//        System.out.println("visitFolderAnnotation");
         List<EmbeddedAnnotation> eaList = (List<EmbeddedAnnotation>) visitChildren(ctx);
         return eaList;
     }
 
     @Override
     public EmbeddedAnnotation visitFeature(folderAnnotationsParser.FeatureContext ctx) {
-        System.out.println("visitFeature \"" +ctx.getText() +"\"");
+//        System.out.println("visitFeature \"" +ctx.getText() +"\"");
         visitChildren(ctx);
-        return new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_FOLDER, null, POSITION_UNKNOWN, POSITION_UNKNOWN, ctx.getText());
+
+        // Find folder name
+        String folderPath = ctx.start.getInputStream().getSourceName();
+        int endIndex = folderPath.lastIndexOf("\\");
+        if (endIndex != -1) {
+            folderPath = folderPath.substring(0, endIndex);
+        }
+
+        return new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_FOLDER, folderPath, POSITION_UNKNOWN, POSITION_UNKNOWN, ctx.getText());
     }
 
     protected Object aggregateResult(Object aggregate, Object nextResult) {
@@ -24,7 +32,7 @@ public class MyFolderAnnotationVisitor extends folderAnnotationsBaseVisitor<Obje
             return null;
         }
 
-        System.out.println("aggregateResult");
+//        System.out.println("aggregateResult");
 
         if(aggregate == null && nextResult instanceof EmbeddedAnnotation){
             List<EmbeddedAnnotation> eaList = new ArrayList<>();
@@ -41,7 +49,7 @@ public class MyFolderAnnotationVisitor extends folderAnnotationsBaseVisitor<Obje
             return aggregate;
         }
 
-        System.out.println("aggregateResult - Uncovered case.");
+        System.out.println("aggregateResult - Uncovered case. aggregate=" +aggregate.toString() +" and nextResult=" +nextResult.toString());
         return null;
     }
 }

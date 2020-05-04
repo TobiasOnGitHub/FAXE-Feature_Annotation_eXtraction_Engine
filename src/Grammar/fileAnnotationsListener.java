@@ -7,6 +7,16 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface fileAnnotationsListener extends ParseTreeListener {
 	/**
+	 * Enter a parse tree produced by {@link fileAnnotationsParser#fileAnnotations}.
+	 * @param ctx the parse tree
+	 */
+	void enterFileAnnotations(fileAnnotationsParser.FileAnnotationsContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link fileAnnotationsParser#fileAnnotations}.
+	 * @param ctx the parse tree
+	 */
+	void exitFileAnnotations(fileAnnotationsParser.FileAnnotationsContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link fileAnnotationsParser#fileAnnotation}.
 	 * @param ctx the parse tree
 	 */

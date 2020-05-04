@@ -16,6 +16,13 @@ public class fileAnnotationsBaseVisitor<T> extends AbstractParseTreeVisitor<T> i
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
+	@Override public T visitFileAnnotations(fileAnnotationsParser.FileAnnotationsContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
 	@Override public T visitFileAnnotation(fileAnnotationsParser.FileAnnotationContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}

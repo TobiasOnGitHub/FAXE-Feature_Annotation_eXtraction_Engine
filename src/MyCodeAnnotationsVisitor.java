@@ -48,7 +48,7 @@ public class MyCodeAnnotationsVisitor extends codeAnnotationBaseVisitor<Object> 
             index--;
         } // while(searchBeginItr.hasPrevious())
 
-        System.out.println("Completed visitMarker, found " +eaList.size() +" elements.");
+//        System.out.println("Completed visitMarker, found " +eaList.size() +" elements.");
         return eaList;
     }
 
@@ -91,7 +91,8 @@ public class MyCodeAnnotationsVisitor extends codeAnnotationBaseVisitor<Object> 
 
     @Override public EmbeddedAnnotation visitFeature(codeAnnotationParser.FeatureContext ctx) {
         visitChildren(ctx);
-        return new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_UNKNOWN, null, POSITION_UNKNOWN, POSITION_UNKNOWN, ctx.getText());
+        String filePath = ctx.start.getInputStream().getSourceName();
+        return new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_UNKNOWN, filePath, POSITION_UNKNOWN, POSITION_UNKNOWN, ctx.getText());
     }
 
     @Override

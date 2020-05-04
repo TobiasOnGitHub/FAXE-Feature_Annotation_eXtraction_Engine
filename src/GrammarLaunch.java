@@ -5,39 +5,45 @@ import org.antlr.v4.runtime.misc.ParseCancellationException;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class GrammarLaunch {
 
     public static void main(String[] args) {
-
+        List<EmbeddedAnnotation> eaList = new ArrayList<>();
         /**********************************/
         /** ANALYSIS OF SOURCE CODE      **/
         /**********************************/
-        //performEvaluationCodeAnnotations();
+        eaList.addAll(performEvaluationCodeAnnotations("test/testData_codeAnnotations.txt"));
 
 
         /**********************************/
         /** ANALYSIS OF FEATURE-TO-FILE  **/
         /**********************************/
         //parseFileAnnotationLine("fileA fileB\n" + "Reference1 Reference2");
-        performEvaluationFileAnnotations("test/testData_fileAnnotations.txt");
+        eaList.addAll(performEvaluationFileAnnotations("test/testData_fileAnnotations.txt"));
 
         /***********************************/
         /** ANALYSIS OF FEATURE-TO-FOLDER **/
         /***********************************/
         //parseFolderAnnotationLine("featureA1, featureB1, featureC1");
-        //performEvaluationFolderAnnotations("test/testData_folderAnnotations.txt");
+        eaList.addAll(performEvaluationFolderAnnotations("test/testData_folderAnnotations.txt"));
 
         /******************************************/
         /** ANALYSIS OF CLAFER FEATURE HIERARCHY **/
         /******************************************/
+
+
+
+        System.out.println("Found " +eaList.size() +" embedded annotation elements." );
+        if(eaList!=null) System.out.println("EA:" +eaList.toString());
     }
 
-    private static void performEvaluationCodeAnnotations(/*String rootFolder*/){
+    private static List<EmbeddedAnnotation> performEvaluationCodeAnnotations(String fileToAnalyze){
         CharStream in = null;
         try {
-            in = CharStreams.fromFileName("test/testData_codeAnnotations.txt");
+            in = CharStreams.fromFileName(fileToAnalyze);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -48,17 +54,19 @@ public class GrammarLaunch {
         parser.removeErrorListeners();
         parser.addErrorListener(ThrowingErrorListener.INSTANCE);
 
+        List<EmbeddedAnnotation> eaList = new ArrayList<>();
         try {
             ParseTree tree = parser.marker();
 
             MyCodeAnnotationsVisitor visitor = new MyCodeAnnotationsVisitor();
-            List<EmbeddedAnnotation> eaList = (List<EmbeddedAnnotation>) visitor.visit(tree);
-            System.out.println("EA:" +eaList.toString());
+            eaList = (List<EmbeddedAnnotation>) visitor.visit(tree);
+//            System.out.println("EA:" +eaList.toString());
         } catch (ParseCancellationException e) {
             // Catch if given string is not fitting the grammar
             System.out.println("ERROR DETECTED :)");
             //return false;
         }
+        return eaList;
     }
 
 
@@ -77,13 +85,13 @@ public class GrammarLaunch {
         parser.removeErrorListeners();
         parser.addErrorListener(ThrowingErrorListener.INSTANCE);
 
-        List<EmbeddedAnnotation> eaList;
+        List<EmbeddedAnnotation> eaList = new ArrayList<>();
         try {
-            ParseTree tree = parser.fileAnnotation();
+            ParseTree tree = parser.fileAnnotations();
 
             MyFileAnnotationsVisitor visitor = new MyFileAnnotationsVisitor();
             eaList = (List<EmbeddedAnnotation>) visitor.visit(tree);
-            if(eaList!=null) System.out.println("EA:" +eaList.toString());
+//            if(eaList!=null) System.out.println("EA:" +eaList.toString());
         } catch (ParseCancellationException e) {
             // Catch if given string is not fitting the grammar
             System.out.println("ERROR DETECTED :)");
@@ -115,7 +123,7 @@ public class GrammarLaunch {
 
             MyFolderAnnotationVisitor visitor = new MyFolderAnnotationVisitor();
             eaList = (List<EmbeddedAnnotation>) visitor.visit(tree);
-            if(eaList!=null) System.out.println("EA:" +eaList.toString());
+//            if(eaList!=null) System.out.println("EA:" +eaList.toString());
         } catch (ParseCancellationException e) {
             // Catch if given string is not fitting the grammar
             System.out.println("ERROR DETECTED :)");

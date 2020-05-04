@@ -15,6 +15,18 @@ public class fileAnnotationsBaseListener implements fileAnnotationsListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterFileAnnotations(fileAnnotationsParser.FileAnnotationsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFileAnnotations(fileAnnotationsParser.FileAnnotationsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterFileAnnotation(fileAnnotationsParser.FileAnnotationContext ctx) { }
 	/**
 	 * {@inheritDoc}
