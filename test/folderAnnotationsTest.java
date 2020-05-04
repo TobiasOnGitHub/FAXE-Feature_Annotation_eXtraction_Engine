@@ -47,7 +47,7 @@ public class folderAnnotationsTest {
 
 
     private static List<EmbeddedAnnotation> referenceValue_FeatureFolder = new ArrayList(){{
-        add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_FOLDER, -1, -1, "Main"));
+        add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_FOLDER, null, -1, -1, "Main"));
     }};
 
     @Test

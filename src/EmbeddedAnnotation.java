@@ -20,12 +20,14 @@ public class EmbeddedAnnotation {
     }
 
     private eEAType eaType;
+    private String file;
     private int openingLine;
     private int closingLine;
     private String feature;
 
-    public EmbeddedAnnotation(eEAType eaType, int openingLine, int closingLine, String feature){
+    public EmbeddedAnnotation(eEAType eaType, String file, int openingLine, int closingLine, String feature){
         this.eaType = eaType;
+        this.file = file;
         this.openingLine = openingLine;
         this.closingLine = closingLine;
         this.feature = feature;
@@ -36,7 +38,7 @@ public class EmbeddedAnnotation {
     }
 
     public String toString(){
-        return "{" +eaType.toString() +" " +openingLine +" " +closingLine +" " +feature +"}\n";
+        return "{" +eaType.toString() +" " +file +" " +openingLine +" " +closingLine +" " +feature +"}\n";
     }
 
     @Override
@@ -58,6 +60,7 @@ public class EmbeddedAnnotation {
     public eEAType getEaType() {
         return eaType;
     }
+    public String getFile(){ return file; }
     public int getClosingLine() {
         return closingLine;
     }
@@ -71,6 +74,7 @@ public class EmbeddedAnnotation {
     public void setEaType(eEAType eaType){
         this.eaType = eaType;
     }
+    public void setFile(String file) { this.file = file; }
     public void setOpeningLine(int openingLine){
         this.openingLine = openingLine;
     }

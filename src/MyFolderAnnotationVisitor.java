@@ -15,7 +15,7 @@ public class MyFolderAnnotationVisitor extends folderAnnotationsBaseVisitor<Obje
     public EmbeddedAnnotation visitFeature(folderAnnotationsParser.FeatureContext ctx) {
         System.out.println("visitFeature \"" +ctx.getText() +"\"");
         visitChildren(ctx);
-        return new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_FOLDER, POSITION_UNKNOWN, POSITION_UNKNOWN, ctx.getText());
+        return new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_FOLDER, null, POSITION_UNKNOWN, POSITION_UNKNOWN, ctx.getText());
     }
 
     protected Object aggregateResult(Object aggregate, Object nextResult) {

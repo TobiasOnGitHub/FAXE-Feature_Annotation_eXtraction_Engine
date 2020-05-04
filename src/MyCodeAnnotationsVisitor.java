@@ -91,7 +91,7 @@ public class MyCodeAnnotationsVisitor extends codeAnnotationBaseVisitor<Object> 
 
     @Override public EmbeddedAnnotation visitFeature(codeAnnotationParser.FeatureContext ctx) {
         visitChildren(ctx);
-        return new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_UNKNOWN, POSITION_UNKNOWN, POSITION_UNKNOWN, ctx.getText());
+        return new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_UNKNOWN, null, POSITION_UNKNOWN, POSITION_UNKNOWN, ctx.getText());
     }
 
     @Override

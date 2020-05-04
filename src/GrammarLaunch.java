@@ -20,32 +20,14 @@ public class GrammarLaunch {
         /**********************************/
         /** ANALYSIS OF FEATURE-TO-FILE  **/
         /**********************************/
-//        CharStream in = CharStreams.fromString("fileA fileB\n" + "Reference1 Reference2");
-//        fileAnnotationsLexer lexer = new fileAnnotationsLexer(in);
-//        lexer.addErrorListener(ThrowingErrorListener.INSTANCE);
-//        CommonTokenStream token = new CommonTokenStream(lexer);
-//        fileAnnotationsParser parser = new fileAnnotationsParser(token);
-//        parser.removeErrorListeners();
-//        parser.addErrorListener(ThrowingErrorListener.INSTANCE);
-//
-//        try {
-//            ParseTree tree = parser.fileAnnotation();
-//
-//            MyFileAnnotationsVisitor visitor = new MyFileAnnotationsVisitor();
-//            List<EmbeddedAnnotation> eaList = (List<EmbeddedAnnotation>) visitor.visit(tree);
-//            if(eaList!=null) System.out.println("EA:" +eaList.toString());
-//        } catch (ParseCancellationException e) {
-//            // Catch if given string is not fitting the grammar
-//            System.out.println("ERROR DETECTED :)");
-//            //return false;
-//        }
-//        //return true;
+        //parseFileAnnotationLine("fileA fileB\n" + "Reference1 Reference2");
+        performEvaluationFileAnnotations("test/testData_fileAnnotations.txt");
 
         /***********************************/
         /** ANALYSIS OF FEATURE-TO-FOLDER **/
         /***********************************/
         //parseFolderAnnotationLine("featureA1, featureB1, featureC1");
-        performEvaluationFolderAnnotations("test/testData_folderAnnotations.txt");
+        //performEvaluationFolderAnnotations("test/testData_folderAnnotations.txt");
 
         /******************************************/
         /** ANALYSIS OF CLAFER FEATURE HIERARCHY **/
@@ -77,6 +59,37 @@ public class GrammarLaunch {
             System.out.println("ERROR DETECTED :)");
             //return false;
         }
+    }
+
+
+
+    public static List<EmbeddedAnnotation> performEvaluationFileAnnotations(String fileUnderTest){
+        CharStream in = null;
+        try {
+            in = CharStreams.fromFileName(fileUnderTest);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        fileAnnotationsLexer lexer = new fileAnnotationsLexer(in);
+        lexer.addErrorListener(ThrowingErrorListener.INSTANCE);
+        CommonTokenStream token = new CommonTokenStream(lexer);
+        fileAnnotationsParser parser = new fileAnnotationsParser(token);
+        parser.removeErrorListeners();
+        parser.addErrorListener(ThrowingErrorListener.INSTANCE);
+
+        List<EmbeddedAnnotation> eaList;
+        try {
+            ParseTree tree = parser.fileAnnotation();
+
+            MyFileAnnotationsVisitor visitor = new MyFileAnnotationsVisitor();
+            eaList = (List<EmbeddedAnnotation>) visitor.visit(tree);
+            if(eaList!=null) System.out.println("EA:" +eaList.toString());
+        } catch (ParseCancellationException e) {
+            // Catch if given string is not fitting the grammar
+            System.out.println("ERROR DETECTED :)");
+            return null;
+        }
+        return eaList;
     }
 
 
@@ -113,8 +126,6 @@ public class GrammarLaunch {
 
 
 
-
-
     /**
      * Takes input String and checks if valid according to Grammar.
      * @param line source code line under verification
@@ -143,6 +154,34 @@ public class GrammarLaunch {
         return true;
     }
 
+
+    /**
+     * Takes input String and checks if valid according to Grammar.
+     * @param line source code line under verification
+     * @return true when valid ; false when invalid
+     */
+    public static boolean parseFileAnnotationLine(String line) {
+        CharStream in = CharStreams.fromString(line);
+        fileAnnotationsLexer lexer = new fileAnnotationsLexer(in);
+        lexer.addErrorListener(ThrowingErrorListener.INSTANCE);
+        CommonTokenStream token = new CommonTokenStream(lexer);
+        fileAnnotationsParser parser = new fileAnnotationsParser(token);
+        parser.removeErrorListeners();
+        parser.addErrorListener(ThrowingErrorListener.INSTANCE);
+
+        try {
+            ParseTree tree = parser.fileAnnotation();
+
+            MyFileAnnotationsVisitor visitor = new MyFileAnnotationsVisitor();
+            List<EmbeddedAnnotation> eaList = (List<EmbeddedAnnotation>) visitor.visit(tree);
+            if (eaList != null) System.out.println("EA:" + eaList.toString());
+        } catch (ParseCancellationException e) {
+            // Catch if given string is not fitting the grammar
+            System.out.println("ERROR DETECTED :)");
+            return false;
+        }
+        return true;
+    }
 
 
     /**
