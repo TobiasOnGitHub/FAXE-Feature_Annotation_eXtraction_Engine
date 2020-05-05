@@ -33,7 +33,7 @@ public class GrammarLaunch {
         /******************************************/
         /** ANALYSIS OF CLAFER FEATURE HIERARCHY **/
         /******************************************/
-
+        //TODO - CLAFER
 
 
         System.out.println("Found " +eaList.size() +" embedded annotation elements." );
@@ -91,7 +91,7 @@ public class GrammarLaunch {
 
             MyFileAnnotationsVisitor visitor = new MyFileAnnotationsVisitor();
             eaList = (List<EmbeddedAnnotation>) visitor.visit(tree);
-//            if(eaList!=null) System.out.println("EA:" +eaList.toString());
+            //if(eaList!=null) System.out.println("EA:" +eaList.toString());
         } catch (ParseCancellationException e) {
             // Catch if given string is not fitting the grammar
             System.out.println("ERROR DETECTED :)");

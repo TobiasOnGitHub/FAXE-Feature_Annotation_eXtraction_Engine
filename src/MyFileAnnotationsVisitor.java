@@ -30,11 +30,13 @@ public class MyFileAnnotationsVisitor extends fileAnnotationsBaseVisitor<Object>
             if (endIndex != -1) {
                 annotationFilePath = annotationFilePath.substring(0, endIndex);
             }
-            file = annotationFilePath+"\\"+file;
+            file = annotationFilePath+"/"+file;
+
+            //file = "src/MyFileAnnotationsVisitor.java";
 
             // Verify that file actually exist, if not print warning
-            if(new File("file").exists()==false){
-                System.out.println("WARNING: Referred file \" " +file +" does not exist in file system!");
+            if(new File(file).exists()==false){
+                System.out.println("WARNING: Referred file \"" +file +"\" does not exist in file system!");
             }
 
             for(String feature : featureReferences){
