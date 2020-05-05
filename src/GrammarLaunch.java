@@ -5,38 +5,68 @@ import org.antlr.v4.runtime.misc.ParseCancellationException;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 public class GrammarLaunch {
 
     public static void main(String[] args) {
+        long startTime = System.nanoTime();
         List<EmbeddedAnnotation> eaList = new ArrayList<>();
+
+        /* Create a re-usable object for "Stream<Path> paths = Files.walk(Paths.get("C:\\\\EA_Examples\\\\ClaferMooVisualizer\\\\Server\\\\Client\\\\")) " */
+        String projectRoot = "C:\\\\Users\\\\Tobias\\\\IdeaProjects\\\\ANTLR4_EmbeddedAnnotations\\\\test\\\\testProjectBitcoinWallet\\\\";
+        Supplier<Stream<Path>> streamSupplier = () -> {
+            try {
+                return Files.walk(Paths.get(projectRoot));
+            } catch (IOException e) {
+                e.printStackTrace();
+                return null;
+            }
+        };
+
         /**********************************/
         /** ANALYSIS OF SOURCE CODE      **/
         /**********************************/
-        eaList.addAll(performEvaluationCodeAnnotations("test/testData_codeAnnotations.txt"));
+        //eaList.addAll(performEvaluationCodeAnnotations("test/testData_codeAnnotations.txt"));
+
+        /* From root directory go through all individual files */
+        /* Check for EA in each file */
+//        streamSupplier.get().filter(Files::isRegularFile).forEach(s -> System.out.println(s.toString()));
+        streamSupplier.get().filter(Files::isRegularFile).forEach(s -> eaList.addAll(performEvaluationCodeAnnotations(s.toString())));
 
 
         /**********************************/
         /** ANALYSIS OF FEATURE-TO-FILE  **/
         /**********************************/
         //parseFileAnnotationLine("fileA fileB\n" + "Reference1 Reference2");
-        eaList.addAll(performEvaluationFileAnnotations("test/testData_fileAnnotations.txt"));
+        //eaList.addAll(performEvaluationFileAnnotations("test/testData_fileAnnotations.txt"));
+
+//        streamSupplier.get().map(x -> x.toString()).filter(f -> f.endsWith(".feature-file")).forEach(System.out::println);
+        streamSupplier.get().map(x -> x.toString()).filter(f -> f.endsWith(".feature-file")).forEach(s -> eaList.addAll(performEvaluationFileAnnotations(s.toString())));
 
         /***********************************/
         /** ANALYSIS OF FEATURE-TO-FOLDER **/
         /***********************************/
         //parseFolderAnnotationLine("featureA1, featureB1, featureC1");
-        eaList.addAll(performEvaluationFolderAnnotations("test/testData_folderAnnotations.txt"));
+        //eaList.addAll(performEvaluationFolderAnnotations("test/testData_folderAnnotations.txt"));
+
+//        streamSupplier.get().map(x -> x.toString()).filter(f -> f.endsWith(".feature-folder")).forEach(System.out::println);
+        streamSupplier.get().map(x -> x.toString()).filter(f -> f.endsWith(".feature-folder")).forEach(s -> eaList.addAll(performEvaluationFolderAnnotations(s.toString())));
 
         /******************************************/
         /** ANALYSIS OF CLAFER FEATURE HIERARCHY **/
         /******************************************/
         //TODO - CLAFER
+        // https://github.com/gsdlab/clafer/blob/master/src/clafer.cf
 
 
-        System.out.println("Found " +eaList.size() +" embedded annotation elements." );
+        System.out.println("Found " +eaList.size() +" embedded annotation elements. Duration=" +((System.nanoTime()-startTime)/1000000) +"ms.");
         if(eaList!=null) System.out.println("EA:" +eaList.toString());
     }
 

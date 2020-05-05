@@ -16,7 +16,7 @@ fileReference: ('"' fileName '"') | (fileName) ;
 
 fileName: STRING | (STRING'.'STRING);
 //fileName: FILECHARS | (FILECHARS'.'FILECHARS);
-//FILECHARS: ~('<' | '>' | ':' | '"' | '/' | '\\' | '|' | '?' | '*' )*; // TODO - Unclear why not used...
+//FILECHARS: ~('<' | '>' | ':' | '"' | '/' | '\\' | '|' | '?' | '*' )*; // TODO - Unclear why not used... -> as UNIX
 // fileName should allow everything except: https://docs.microsoft.com/en-us/windows/win32/fileio/naming-a-file
 /*
     < (less than)
@@ -33,4 +33,4 @@ fileName: STRING | (STRING'.'STRING);
 lpqReferences: (lpq (' '* lpq)* ' '*) | (lpq (' '* ',' ' '* lpq)* ' '*);
 
 lpq: STRING ('::'STRING)*  # Feature;
-STRING: ([A-Z]+|[a-z]+|[0-9]+)+;
+STRING: ([A-Z]+|[a-z]+|[0-9]+)+;    // -> restriction from Clafer and follow their definiot

@@ -30,7 +30,7 @@ public class MyFileAnnotationsVisitor extends fileAnnotationsBaseVisitor<Object>
             if (endIndex != -1) {
                 annotationFilePath = annotationFilePath.substring(0, endIndex);
             }
-            file = annotationFilePath+"/"+file;
+            file = annotationFilePath+"\\"+file;
 
             //file = "src/MyFileAnnotationsVisitor.java";
 

@@ -13,11 +13,11 @@ public class MyCodeAnnotationsVisitor extends codeAnnotationBaseVisitor<Object> 
      */
     @Override public List<EmbeddedAnnotation> visitMarker(codeAnnotationParser.MarkerContext ctx) {
         //System.out.println("Run visitMarker and extract embedded annotations.");
-        List<EmbeddedAnnotation> eaList = (List<EmbeddedAnnotation>) visitChildren(ctx);
+        List<EmbeddedAnnotation> eaList = new ArrayList<>();
+        List<EmbeddedAnnotation> eaListTmp = (List<EmbeddedAnnotation>) visitChildren(ctx);
 
-        if(eaList==null){
-            // returns empty list when no children (and therefore no match with Grammar) found
-            return eaList;
+        if(eaListTmp!=null){
+            eaList.addAll(eaListTmp);
         }
 
         // BEGIN and END markers have been discovered independently and need to be merged to FRAGMENTS now:
