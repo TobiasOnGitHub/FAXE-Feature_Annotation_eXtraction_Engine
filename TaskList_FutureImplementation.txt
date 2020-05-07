@@ -1,0 +1,7 @@
+1) Feature Tree Extraction of Clafer Model
+- Usage of Metamodel in Java to provide data to user. https://www.baeldung.com/hibernate-criteria-queries-metamodel
+- Alternatively provide tree-object with nodes?!
+--------------------------------------------------------
+2) Library return object represents EAs which reflects the structure (no collection into "Fragments")
+- Direct reflection of code structure to avoid assumtions in how fragments are build.
+--------------------------------------------------------
