@@ -5,3 +5,6 @@
 2) Library return object represents EAs which reflects the structure (no collection into "Fragments")
 - Direct reflection of code structure to avoid assumtions in how fragments are build.
 --------------------------------------------------------
+3) For fileAnnotations.g4 the specification asks for files names with spaces to use the escape character " " to support them.
+- To be added to grammar.
+--------------------------------------------------------
