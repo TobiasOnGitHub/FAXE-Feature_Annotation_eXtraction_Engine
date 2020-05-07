@@ -13,6 +13,9 @@ import java.util.List;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
+/**
+ * This class offers the access to the library functions to extract embedded annotations of your project/source code.
+ */
 public class GrammarLaunch {
 
     /** Main function for testing purposes **/
@@ -198,7 +201,7 @@ public class GrammarLaunch {
      * @param line source code line under verification
      * @return true when valid ; false when invalid
      */
-    private static boolean parseCodeAnnotationLine(String line) {
+    static boolean parseCodeAnnotationLine(String line) {
         CharStream in = CharStreams.fromString(line);
         codeAnnotationLexer lexer = new codeAnnotationLexer(in);
         lexer.addErrorListener(ThrowingErrorListener.INSTANCE);
@@ -227,7 +230,7 @@ public class GrammarLaunch {
      * @param line source code line under verification
      * @return true when valid ; false when invalid
      */
-    private static boolean parseFileAnnotationLine(String line) {
+    static boolean parseFileAnnotationLine(String line) {
         CharStream in = CharStreams.fromString(line);
         fileAnnotationsLexer lexer = new fileAnnotationsLexer(in);
         lexer.addErrorListener(ThrowingErrorListener.INSTANCE);
@@ -256,7 +259,7 @@ public class GrammarLaunch {
      * @param line source code line under verification
      * @return true when valid ; false when invalid
      */
-    private static boolean parseFolderAnnotationLine(String line) {
+    static boolean parseFolderAnnotationLine(String line) {
         CharStream in = CharStreams.fromString(line);
         folderAnnotationsLexer lexer = new folderAnnotationsLexer(in);
         lexer.addErrorListener(ThrowingErrorListener.INSTANCE);

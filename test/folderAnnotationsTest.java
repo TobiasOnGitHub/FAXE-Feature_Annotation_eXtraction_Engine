@@ -52,7 +52,7 @@ public class folderAnnotationsTest {
 
     @Test
     public void testFolderAnnotation_GrammarCheck_File(){
-        List<EmbeddedAnnotation> foundEA = GrammarLaunch.performEvaluationFolderAnnotations("test/testProjectBitcoinWallet/src/de/schildbach/wallet/_.feature-folder");
+        List<EmbeddedAnnotation> foundEA = GrammarLaunch.extractEAfromFeatureFolder("test/testProjectBitcoinWallet/src/de/schildbach/wallet/_.feature-folder");
 
         Assert.assertEquals(foundEA.size(), 1);
     }
