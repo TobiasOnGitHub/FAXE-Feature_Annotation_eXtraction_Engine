@@ -1,10 +1,14 @@
+Unprioritized List:
+========================================================
 1) Feature Tree Extraction of Clafer Model
 - Usage of Metamodel in Java to provide data to user. https://www.baeldung.com/hibernate-criteria-queries-metamodel
 - Alternatively provide tree-object with nodes?!
 --------------------------------------------------------
-2) Library return object represents EAs which reflects the structure (no collection into "Fragments")
-- Direct reflection of code structure to avoid assumtions in how fragments are build.
+2) With knowledge about hierarchy and which features available extend library return List with this information
 --------------------------------------------------------
-3) For fileAnnotations.g4 the specification asks for files names with spaces to use the escape character " " to support them.
+3) Library return object represents EAs which reflects the structure (no collection into "Fragments")
+- Direct reflection of code structure to avoid assumptions in how fragments are build.
+--------------------------------------------------------
+4) For fileAnnotations.g4 the specification asks for files names with spaces to use the escape character " " to support them.
 - To be added to grammar.
 --------------------------------------------------------
