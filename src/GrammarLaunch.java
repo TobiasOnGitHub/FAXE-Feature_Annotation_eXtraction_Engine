@@ -15,15 +15,32 @@ import java.util.stream.Stream;
 
 public class GrammarLaunch {
 
+    /** Main function for testing purposes **/
     public static void main(String[] args) {
         long startTime = System.nanoTime();
+
+        String projectRoot = "C:\\\\Users\\\\Tobias\\\\IdeaProjects\\\\ANTLR4_EmbeddedAnnotations\\\\test\\\\testProjectBitcoinWallet\\\\";
+        List<EmbeddedAnnotation> eaList = extractEAfromRootDirectory(projectRoot);
+
+        System.out.println("Found " +eaList.size() +" embedded annotation elements. Duration=" +((System.nanoTime()-startTime)/1000000) +"ms.");
+        if(eaList!=null) System.out.println("EA:" +eaList.toString());
+    }
+
+
+    /**
+     * Method to extract embedded annotations from given root directory. The root directory and all sub-directories are
+     * checked for EA in source code, files and folders. In addition the hierarchy file is analysed.
+     * @param rootDirectory String of root directory.
+     * @return List of found embedded annotations.
+     */
+    public static List<EmbeddedAnnotation> extractEAfromRootDirectory(String rootDirectory){
         List<EmbeddedAnnotation> eaList = new ArrayList<>();
+        System.out.println("EA extraction process started ...");
 
         /* Create a re-usable object for "Stream<Path> paths = Files.walk(Paths.get("C:\\\\EA_Examples\\\\ClaferMooVisualizer\\\\Server\\\\Client\\\\")) " */
-        String projectRoot = "C:\\\\Users\\\\Tobias\\\\IdeaProjects\\\\ANTLR4_EmbeddedAnnotations\\\\test\\\\testProjectBitcoinWallet\\\\";
         Supplier<Stream<Path>> streamSupplier = () -> {
             try {
-                return Files.walk(Paths.get(projectRoot));
+                return Files.walk(Paths.get(rootDirectory));
             } catch (IOException e) {
                 e.printStackTrace();
                 return null;
@@ -38,7 +55,7 @@ public class GrammarLaunch {
         /* From root directory go through all individual files */
         /* Check for EA in each file */
 //        streamSupplier.get().filter(Files::isRegularFile).forEach(s -> System.out.println(s.toString()));
-        streamSupplier.get().filter(Files::isRegularFile).forEach(s -> eaList.addAll(performEvaluationCodeAnnotations(s.toString())));
+        streamSupplier.get().filter(Files::isRegularFile).forEach(s -> eaList.addAll(extractEAfromSourceCode(s.toString())));
 
 
         /**********************************/
@@ -48,7 +65,7 @@ public class GrammarLaunch {
         //eaList.addAll(performEvaluationFileAnnotations("test/testData_fileAnnotations.txt"));
 
 //        streamSupplier.get().map(x -> x.toString()).filter(f -> f.endsWith(".feature-file")).forEach(System.out::println);
-        streamSupplier.get().map(x -> x.toString()).filter(f -> f.endsWith(".feature-file")).forEach(s -> eaList.addAll(performEvaluationFileAnnotations(s.toString())));
+        streamSupplier.get().map(x -> x.toString()).filter(f -> f.endsWith(".feature-file")).forEach(s -> eaList.addAll(extractEAfromFeatureFile(s.toString())));
 
         /***********************************/
         /** ANALYSIS OF FEATURE-TO-FOLDER **/
@@ -57,20 +74,24 @@ public class GrammarLaunch {
         //eaList.addAll(performEvaluationFolderAnnotations("test/testData_folderAnnotations.txt"));
 
 //        streamSupplier.get().map(x -> x.toString()).filter(f -> f.endsWith(".feature-folder")).forEach(System.out::println);
-        streamSupplier.get().map(x -> x.toString()).filter(f -> f.endsWith(".feature-folder")).forEach(s -> eaList.addAll(performEvaluationFolderAnnotations(s.toString())));
+        streamSupplier.get().map(x -> x.toString()).filter(f -> f.endsWith(".feature-folder")).forEach(s -> eaList.addAll(extractEAfromFeatureFolder(s.toString())));
 
         /******************************************/
         /** ANALYSIS OF CLAFER FEATURE HIERARCHY **/
         /******************************************/
-        //TODO - CLAFER
-        // https://github.com/gsdlab/clafer/blob/master/src/clafer.cf
+        //TODO - Implement CLAFER hierarchy file interpretation according to given Grammar
 
 
-        System.out.println("Found " +eaList.size() +" embedded annotation elements. Duration=" +((System.nanoTime()-startTime)/1000000) +"ms.");
-        if(eaList!=null) System.out.println("EA:" +eaList.toString());
+        return eaList;
     }
 
-    private static List<EmbeddedAnnotation> performEvaluationCodeAnnotations(String fileToAnalyze){
+
+    /**
+     * Method to extract embedded annotations on source code level of given file.
+     * @param fileToAnalyze String of to be analyzed file.
+     * @return List of found embedded annotations.
+     */
+    public static List<EmbeddedAnnotation> extractEAfromSourceCode(String fileToAnalyze){
         CharStream in = null;
         try {
             in = CharStreams.fromFileName(fileToAnalyze);
@@ -100,8 +121,12 @@ public class GrammarLaunch {
     }
 
 
-
-    public static List<EmbeddedAnnotation> performEvaluationFileAnnotations(String fileUnderTest){
+    /**
+     * Method to extract embedded annotations on file level of given file.
+     * @param fileUnderTest String of to be analyzed file.
+     * @return
+     */
+    public static List<EmbeddedAnnotation> extractEAfromFeatureFile(String fileUnderTest){
         CharStream in = null;
         try {
             in = CharStreams.fromFileName(fileUnderTest);
@@ -131,8 +156,12 @@ public class GrammarLaunch {
     }
 
 
-
-    public static List<EmbeddedAnnotation> performEvaluationFolderAnnotations(String folderUnderTest){
+    /**
+     * Method to extract embedded annotations on folder level of given folder.
+     * @param folderUnderTest String of to be analyzed folder.
+     * @return List of found embedded annotations.
+     */
+    public static List<EmbeddedAnnotation> extractEAfromFeatureFolder(String folderUnderTest){
         CharStream in = null;
         try {
             in = CharStreams.fromFileName(folderUnderTest);
@@ -169,7 +198,7 @@ public class GrammarLaunch {
      * @param line source code line under verification
      * @return true when valid ; false when invalid
      */
-    public static boolean parseCodeAnnotationLine(String line) {
+    private static boolean parseCodeAnnotationLine(String line) {
         CharStream in = CharStreams.fromString(line);
         codeAnnotationLexer lexer = new codeAnnotationLexer(in);
         lexer.addErrorListener(ThrowingErrorListener.INSTANCE);
@@ -198,7 +227,7 @@ public class GrammarLaunch {
      * @param line source code line under verification
      * @return true when valid ; false when invalid
      */
-    public static boolean parseFileAnnotationLine(String line) {
+    private static boolean parseFileAnnotationLine(String line) {
         CharStream in = CharStreams.fromString(line);
         fileAnnotationsLexer lexer = new fileAnnotationsLexer(in);
         lexer.addErrorListener(ThrowingErrorListener.INSTANCE);
@@ -227,7 +256,7 @@ public class GrammarLaunch {
      * @param line source code line under verification
      * @return true when valid ; false when invalid
      */
-    public static boolean parseFolderAnnotationLine(String line) {
+    private static boolean parseFolderAnnotationLine(String line) {
         CharStream in = CharStreams.fromString(line);
         folderAnnotationsLexer lexer = new folderAnnotationsLexer(in);
         lexer.addErrorListener(ThrowingErrorListener.INSTANCE);

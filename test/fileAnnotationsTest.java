@@ -51,7 +51,7 @@ public class fileAnnotationsTest {
 
     @Test
     public void testFileAnnotation_GrammarCheck_File(){
-        List<EmbeddedAnnotation> foundEA = GrammarLaunch.performEvaluationFileAnnotations("test/testProjectBitcoinWallet/src/de/schildbach/wallet/_.feature-file");
+        List<EmbeddedAnnotation> foundEA = GrammarLaunch.extractEAfromFeatureFile("test/testProjectBitcoinWallet/src/de/schildbach/wallet/_.feature-file");
 
         Assert.assertEquals(foundEA.size(), 1);
     }
