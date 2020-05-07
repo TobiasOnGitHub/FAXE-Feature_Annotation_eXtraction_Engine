@@ -6,5 +6,5 @@ folderAnnotation: (' '* lpq (' '* lpq)* ' '*)
                 | (' '* lpq (' '* ',' ' '* lpq)* ' '*)
                 | (' '* lpq ('\n' lpq)* ' '*);
 
-lpq: STRING ('::'STRING)*  # Feature;
-STRING: ([A-Z]+|[a-z]+|[0-9]+)+;
+lpq: FEATURENAME ('::'FEATURENAME)*  # Feature;
+FEATURENAME: ([A-Z]+|[a-z]+|[0-9]+|'_'+|'\''+)+;    // -> restriction from Clafer and follow their definition

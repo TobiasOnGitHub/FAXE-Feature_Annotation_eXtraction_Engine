@@ -17,7 +17,7 @@ public class codeAnnotationParser extends Parser {
 		new PredictionContextCache();
 	public static final int
 		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, T__8=9, 
-		T__9=10, T__10=11, T__11=12, SPACE=13, STRING=14, OTHER=15;
+		T__9=10, T__10=11, T__11=12, SPACE=13, FEATURENAME=14, OTHER=15;
 	public static final int
 		RULE_marker = 0, RULE_beginmarker = 1, RULE_endmarker = 2, RULE_linemarker = 3, 
 		RULE_parameter = 4, RULE_lpq = 5;
@@ -38,7 +38,7 @@ public class codeAnnotationParser extends Parser {
 	private static String[] makeSymbolicNames() {
 		return new String[] {
 			null, null, null, null, null, null, null, null, null, null, null, null, 
-			null, "SPACE", "STRING", "OTHER"
+			null, "SPACE", "FEATURENAME", "OTHER"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -1138,9 +1138,9 @@ public class codeAnnotationParser extends Parser {
 		}
 	}
 	public static class FeatureContext extends LpqContext {
-		public List<TerminalNode> STRING() { return getTokens(codeAnnotationParser.STRING); }
-		public TerminalNode STRING(int i) {
-			return getToken(codeAnnotationParser.STRING, i);
+		public List<TerminalNode> FEATURENAME() { return getTokens(codeAnnotationParser.FEATURENAME); }
+		public TerminalNode FEATURENAME(int i) {
+			return getToken(codeAnnotationParser.FEATURENAME, i);
 		}
 		public FeatureContext(LpqContext ctx) { copyFrom(ctx); }
 		@Override
@@ -1167,7 +1167,7 @@ public class codeAnnotationParser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(321);
-			match(STRING);
+			match(FEATURENAME);
 			setState(326);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
@@ -1177,7 +1177,7 @@ public class codeAnnotationParser extends Parser {
 				setState(322);
 				match(T__11);
 				setState(323);
-				match(STRING);
+				match(FEATURENAME);
 				}
 				}
 				setState(328);

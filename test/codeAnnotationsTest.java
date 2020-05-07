@@ -256,7 +256,7 @@ public class codeAnnotationsTest {
         MyCodeAnnotationsVisitor visitor = new MyCodeAnnotationsVisitor();
         List<EmbeddedAnnotation> eaList = (List<EmbeddedAnnotation>) visitor.visit(tree);
 
-        Assert.assertEquals(eaList,null);
+        Assert.assertEquals(eaList.size(),0);
     }
 
 

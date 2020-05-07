@@ -13,8 +13,8 @@ parameter: '(' ' '* lpq (' '+ lpq)* ' '* ')' .*? | '(' ' '* lpq (' '* ',' ' '* l
          ;
 
 //ANNOSEPARATOR: (' '* ',' ' '*) | ' '+;
-lpq: STRING ('::'STRING)*   # Feature;
-STRING: ([A-Z]+|[a-z]+|[0-9]+)+;
+lpq: FEATURENAME ('::'FEATURENAME)*   # Feature;
+FEATURENAME: ([A-Z]+|[a-z]+|[0-9]+|'_'+|'\''+)+;    // -> restriction from Clafer and follow their definition
 
 OTHER : . -> skip ;   // fuzzy parsing
 

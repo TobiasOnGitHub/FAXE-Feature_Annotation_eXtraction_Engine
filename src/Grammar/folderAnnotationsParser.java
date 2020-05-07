@@ -16,7 +16,7 @@ public class folderAnnotationsParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		T__0=1, T__1=2, T__2=3, T__3=4, SPACE=5, STRING=6;
+		T__0=1, T__1=2, T__2=3, T__3=4, SPACE=5, FEATURENAME=6;
 	public static final int
 		RULE_folderAnnotation = 0, RULE_lpq = 1;
 	private static String[] makeRuleNames() {
@@ -34,7 +34,7 @@ public class folderAnnotationsParser extends Parser {
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
-			null, null, null, null, null, "SPACE", "STRING"
+			null, null, null, null, null, "SPACE", "FEATURENAME"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -351,9 +351,9 @@ public class folderAnnotationsParser extends Parser {
 		}
 	}
 	public static class FeatureContext extends LpqContext {
-		public List<TerminalNode> STRING() { return getTokens(folderAnnotationsParser.STRING); }
-		public TerminalNode STRING(int i) {
-			return getToken(folderAnnotationsParser.STRING, i);
+		public List<TerminalNode> FEATURENAME() { return getTokens(folderAnnotationsParser.FEATURENAME); }
+		public TerminalNode FEATURENAME(int i) {
+			return getToken(folderAnnotationsParser.FEATURENAME, i);
 		}
 		public FeatureContext(LpqContext ctx) { copyFrom(ctx); }
 		@Override
@@ -380,7 +380,7 @@ public class folderAnnotationsParser extends Parser {
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(83);
-			match(STRING);
+			match(FEATURENAME);
 			setState(88);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
@@ -390,7 +390,7 @@ public class folderAnnotationsParser extends Parser {
 				setState(84);
 				match(T__3);
 				setState(85);
-				match(STRING);
+				match(FEATURENAME);
 				}
 				}
 				setState(90);
