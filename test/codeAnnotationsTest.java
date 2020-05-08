@@ -17,68 +17,68 @@ public class codeAnnotationsTest {
         return new Object[][]{
                 // BEGINMARKER
                 {"&begin a", new ArrayList(){{
-                        add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_BEGIN, null, 1, -1, "a"));
+                        add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.BEGIN, null, 1, -1, "a"));
                     }}
                 },
                 {"&begin[a] source", new ArrayList(){{
-                        add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_BEGIN, null, 1, -1, "a"));
+                        add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.BEGIN, null, 1, -1, "a"));
                     }}
                 },
                 {"&begin[a]source", new ArrayList(){{
-                        add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_BEGIN, null, 1, -1, "a"));
+                        add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.BEGIN, null, 1, -1, "a"));
                     }}
                 },
                 {"source&begin(a)", new ArrayList(){{
-                        add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_BEGIN, null, 1, -1, "a"));
+                        add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.BEGIN, null, 1, -1, "a"));
                     }}
                 },
                 {"source &line(a)", new ArrayList(){{
-                        add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_LINE,  null, 1, 1, "a"));
+                        add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.LINE,  null, 1, 1, "a"));
                     }}
                 },
                 {"&begin a", new ArrayList(){{
-                        add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_BEGIN, null, 1, -1, "a"));
+                        add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.BEGIN, null, 1, -1, "a"));
                     }}
                 },
                 {"&end a", new ArrayList(){{
-                        add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_END, null, -1, 1, "a"));
+                        add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.END, null, -1, 1, "a"));
                     }}
                 },
                 {"&line a", new ArrayList(){{
-                        add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_LINE, null,  1, 1, "a"));
+                        add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.LINE, null,  1, 1, "a"));
                     }}
                 },
                 {"&begin(a)", new ArrayList(){{
-                        add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_BEGIN, null, 1, -1, "a"));
+                        add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.BEGIN, null, 1, -1, "a"));
                     }}
                 },
                 {"&begin[a]", new ArrayList(){{
-                        add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_BEGIN, null, 1, -1, "a"));
+                        add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.BEGIN, null, 1, -1, "a"));
                     }}
                 },
                 {"&begin{a}", new ArrayList(){{
-                        add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_BEGIN, null, 1, -1, "a"));
+                        add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.BEGIN, null, 1, -1, "a"));
                     }}
                 },
                 {"&end (a1)", new ArrayList(){{
-                        add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_END, null,   -1, 1, "a1"));
+                        add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.END, null,   -1, 1, "a1"));
                     }}
                 },
                 {"&end  (a2)", new ArrayList(){{
-                        add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_END, null,   -1, 1, "a2"));
+                        add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.END, null,   -1, 1, "a2"));
                     }}
                 },
                 {"&end (a3) ", new ArrayList(){{
-                        add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_END, null,   -1, 1, "a3"));
+                        add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.END, null,   -1, 1, "a3"));
                     }}
                 },
                 {"&end (a4)  ", new ArrayList(){{
-                        add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_END, null,   -1, 1, "a4"));
+                        add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.END, null,   -1, 1, "a4"));
                     }}
                 },
                 {"&line(a,b)",        new ArrayList(){{
-                        add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_LINE, null, 1, 1, "a"));
-                        add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_LINE, null, 1, 1, "b"));
+                        add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.LINE, null, 1, 1, "a"));
+                        add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.LINE, null, 1, 1, "b"));
                     }}
                 },
 //                {"&line(a b)",        new ArrayList(){{       // TODO - How to change Grammar to support space a separator character?!
@@ -108,29 +108,29 @@ public class codeAnnotationsTest {
 //                }}
 //                },
                 {"&line(a,b,c)", new ArrayList() {{
-                    add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_LINE, null, 1, 1, "a"));
-                    add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_LINE, null, 1, 1, "b"));
-                    add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_LINE, null, 1, 1, "c"));
+                    add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.LINE, null, 1, 1, "a"));
+                    add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.LINE, null, 1, 1, "b"));
+                    add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.LINE, null, 1, 1, "c"));
                 }}
                 },
                 {"&begin(feature)", new ArrayList() {{
-                    add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_BEGIN, null, 1, -1, "feature"));
+                    add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.BEGIN, null, 1, -1, "feature"));
                 }}
                 },
                 {"&begin(fEATURE)", new ArrayList(){{
-                    add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_BEGIN, null,   1, -1, "fEATURE"));
+                    add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.BEGIN, null,   1, -1, "fEATURE"));
                 }}
                 },
                 {"&begin(f1)", new ArrayList(){{
-                    add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_BEGIN, null,   1, -1, "f1"));
+                    add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.BEGIN, null,   1, -1, "f1"));
                 }}
                 },
                 {"&begin(1F)", new ArrayList(){{
-                    add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_BEGIN, null,   1, -1, "1F"));
+                    add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.BEGIN, null,   1, -1, "1F"));
                 }}
                 },
                 {"&begin(thisIsALongFeatureName)", new ArrayList(){{
-                    add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_BEGIN, null,   1, -1, "thisIsALongFeatureName"));
+                    add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.BEGIN, null,   1, -1, "thisIsALongFeatureName"));
                 }}
                 },
 //                {"&begin(feature FEATURE)", new ArrayList(){{
@@ -138,9 +138,9 @@ public class codeAnnotationsTest {
 //                }}
 //                },
                 {"&begin(f1,f2,f3)", new ArrayList(){{
-                    add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_BEGIN, null,   1, -1, "f1"));
-                    add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_BEGIN, null,   1, -1, "f2"));
-                    add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_BEGIN, null,   1, -1, "f3"));
+                    add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.BEGIN, null,   1, -1, "f1"));
+                    add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.BEGIN, null,   1, -1, "f2"));
+                    add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.BEGIN, null,   1, -1, "f3"));
                 }}
                 },
 //                {"&begin(aBcD1Ef fE2DcBa)", new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_BEGIN,1, -1, "a")},
@@ -281,12 +281,12 @@ public class codeAnnotationsTest {
 
 
         List<EmbeddedAnnotation> expResult = new ArrayList(){{
-            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_FRAGMENT, null,   2, 4, "featureA"));
-            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_FRAGMENT, null,   2, 7, "featureB"));
-            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_LINE, null,       6, 6, "featureLine1"));
-            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_LINE, null,       8, 8, "featureLine2"));
-            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_LINE, null,       8, 8, "featureLine3"));
-            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_LINE, null,       8, 8, "featureLine4"));
+            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.FRAGMENT, null,   2, 4, "featureA"));
+            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.FRAGMENT, null,   2, 7, "featureB"));
+            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.LINE, null,       6, 6, "featureLine1"));
+            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.LINE, null,       8, 8, "featureLine2"));
+            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.LINE, null,       8, 8, "featureLine3"));
+            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.LINE, null,       8, 8, "featureLine4"));
         }};
 
         Assert.assertEquals(eaList.size(),expResult.size());
@@ -319,32 +319,32 @@ public class codeAnnotationsTest {
         List<EmbeddedAnnotation> eaList = (List<EmbeddedAnnotation>) visitor.visit(tree);
 
         List<EmbeddedAnnotation> expResult = new ArrayList(){{
-            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_LINE,     null,   46, 46, "Denomination"));
-            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_LINE,     null,   49, 49, "AutoCloseSendDialog"));
-            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_LINE,      null,  51, 51, "ConnectivityIndicator"));
-            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_LINE,     null,   53, 53, "ExchangeRates"));
-            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_FRAGMENT, null,   54, 57, "TrustedPeer"));
-            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_LINE,     null,   59, 59, "BlockExplorer"));
-            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_LINE,     null,   61, 61, "DataUsage"));
-            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_LINE,     null,   63, 63, "BalanceReminder"));
-            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_LINE,     null,   65, 65, "ShowDisclaimer"));
-            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_FRAGMENT, null,   70, 75, "ExchangeRates"));
-            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_FRAGMENT,   null, 77, 80, "BackupReminder"));
-            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_LINE,      null,  82, 82, "Bluetooth"));
-            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_FRAGMENT,  null,  84, 87, "Denomination"));
-            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_FRAGMENT,  null,  98, 144, "Denomination"));
-            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_FRAGMENT,   null, 146, 150, "OwnName"));
-            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_FRAGMENT,   null, 152, 156, "AutoCloseSendDialog"));
-            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_FRAGMENT,   null, 158, 162, "ConnectivityIndicator"));
-            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_FRAGMENT,   null, 164, 172, "TrustedPeer"));
-            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_FRAGMENT,   null, 174, 179, "BlockExplorer"));
-            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_FRAGMENT,   null, 181, 189, "BalanceReminder"));
-            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_FRAGMENT,   null, 191, 208, "BackupReminder"));
-            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_FRAGMENT,   null, 210, 214, "ShowDisclaimer"));
-            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_FRAGMENT,    null,216, 224, "ExchangeRates"));
-            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_FRAGMENT,    null,258, 260, "Log"));
-            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_FRAGMENT,    null,272, 302, "ExchangeRates"));
-            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_FRAGMENT,    null,316, 321, "Bluetooth"));
+            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.LINE,     null,   46, 46, "Denomination"));
+            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.LINE,     null,   49, 49, "AutoCloseSendDialog"));
+            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.LINE,      null,  51, 51, "ConnectivityIndicator"));
+            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.LINE,     null,   53, 53, "ExchangeRates"));
+            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.FRAGMENT, null,   54, 57, "TrustedPeer"));
+            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.LINE,     null,   59, 59, "BlockExplorer"));
+            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.LINE,     null,   61, 61, "DataUsage"));
+            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.LINE,     null,   63, 63, "BalanceReminder"));
+            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.LINE,     null,   65, 65, "ShowDisclaimer"));
+            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.FRAGMENT, null,   70, 75, "ExchangeRates"));
+            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.FRAGMENT,   null, 77, 80, "BackupReminder"));
+            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.LINE,      null,  82, 82, "Bluetooth"));
+            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.FRAGMENT,  null,  84, 87, "Denomination"));
+            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.FRAGMENT,  null,  98, 144, "Denomination"));
+            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.FRAGMENT,   null, 146, 150, "OwnName"));
+            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.FRAGMENT,   null, 152, 156, "AutoCloseSendDialog"));
+            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.FRAGMENT,   null, 158, 162, "ConnectivityIndicator"));
+            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.FRAGMENT,   null, 164, 172, "TrustedPeer"));
+            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.FRAGMENT,   null, 174, 179, "BlockExplorer"));
+            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.FRAGMENT,   null, 181, 189, "BalanceReminder"));
+            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.FRAGMENT,   null, 191, 208, "BackupReminder"));
+            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.FRAGMENT,   null, 210, 214, "ShowDisclaimer"));
+            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.FRAGMENT,    null,216, 224, "ExchangeRates"));
+            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.FRAGMENT,    null,258, 260, "Log"));
+            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.FRAGMENT,    null,272, 302, "ExchangeRates"));
+            add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.FRAGMENT,    null,316, 321, "Bluetooth"));
         }};
 
         Assert.assertEquals(eaList.size(),expResult.size());

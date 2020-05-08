@@ -23,7 +23,7 @@ public class MyFolderAnnotationVisitor extends folderAnnotationsBaseVisitor<Obje
             folderPath = folderPath.substring(0, endIndex);
         }
 
-        return new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_FOLDER, folderPath, POSITION_UNKNOWN, POSITION_UNKNOWN, ctx.getText());
+        return new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.FOLDER, folderPath, POSITION_UNKNOWN, POSITION_UNKNOWN, ctx.getText());
     }
 
     protected Object aggregateResult(Object aggregate, Object nextResult) {

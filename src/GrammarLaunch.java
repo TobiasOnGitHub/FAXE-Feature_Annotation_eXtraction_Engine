@@ -3,6 +3,8 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.misc.ParseCancellationException;
 import org.antlr.v4.runtime.tree.ParseTree;
+import org.json.CDL;
+import org.json.JSONArray;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -27,6 +29,15 @@ public class GrammarLaunch {
 
         System.out.println("Found " +eaList.size() +" embedded annotation elements. Duration=" +((System.nanoTime()-startTime)/1000000) +"ms.");
         if(eaList!=null) System.out.println("EA:" +eaList.toString());
+
+        JSONArray json = serializeEAList2JSON(eaList);
+
+        System.out.println("x");
+
+        List<EmbeddedAnnotation> eaList2 = new ArrayList<>();
+        eaList2 = deserializeEAList2JSON(json);
+
+        System.out.println("x");
     }
 
 
@@ -281,4 +292,40 @@ public class GrammarLaunch {
         }
         return true;
     }
+
+
+    public static JSONArray serializeEAList2JSON(List<EmbeddedAnnotation> eaList){
+        JSONArray ja = new JSONArray();
+        ja.put("eaType");
+        ja.put("File");
+        ja.put("OpeningLine");
+        ja.put("ClosingLine");
+        ja.put("Feature");
+
+        String serialList = "";
+        for(int i=0; i<eaList.size(); i++){
+            serialList += eaList.get(i).serialize()+'\n';
+        }
+
+        JSONArray result = CDL.toJSONArray(ja, serialList);
+
+        return result;
+    }
+
+
+
+    public static List<EmbeddedAnnotation> deserializeEAList2JSON(JSONArray jsonArray){
+        ArrayList<EmbeddedAnnotation> list = new ArrayList<>();
+
+        if (jsonArray != null) {
+            for (int i=0;i<jsonArray.length();i++){
+                list.add(EmbeddedAnnotation.deserialize(jsonArray.get(i).toString()));
+            }
+        } else {
+            System.out.println("WARNING: deserializeEAList2JSON - empty JSONArray file (null)!");
+        }
+
+        return list;
+    }
+
 }

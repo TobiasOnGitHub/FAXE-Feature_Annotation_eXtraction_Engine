@@ -46,7 +46,7 @@ public class fileAnnotationsTest {
 
 
     private static List<EmbeddedAnnotation> referenceValue_FeatureFile = new ArrayList(){{
-        add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_FILE, "Configuration.java", -1, -1, "OwnName"));
+        add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.FILE, "Configuration.java", -1, -1, "OwnName"));
     }};
 
     @Test

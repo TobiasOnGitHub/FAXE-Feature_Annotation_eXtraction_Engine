@@ -25,18 +25,18 @@ public class MyCodeAnnotationsVisitor extends codeAnnotationBaseVisitor<Object> 
         int index = eaList.size();
         while(searchBeginItr.hasPrevious()) {
             EmbeddedAnnotation eaBEGIN = searchBeginItr.previous();
-            if (eaBEGIN.getEaType() == EmbeddedAnnotation.eEAType.eaType_BEGIN) {
+            if (eaBEGIN.getEaType() == EmbeddedAnnotation.eEAType.BEGIN) {
                 ListIterator<EmbeddedAnnotation> searchEndItr = eaList.listIterator(index);
                 while(searchEndItr.hasNext()) {
                     EmbeddedAnnotation eaEND = searchEndItr.next();
-                    if (eaEND.getEaType() == EmbeddedAnnotation.eEAType.eaType_END) {
+                    if (eaEND.getEaType() == EmbeddedAnnotation.eEAType.END) {
                         if(eaBEGIN.getFeature().equals(eaEND.getFeature())){
                             if(eaBEGIN.getClosingLine()==POSITION_UNKNOWN && eaEND.getOpeningLine()==POSITION_UNKNOWN){
                                 //System.out.println("MERGING: " +eaBEGIN.toString());
                                 //System.out.println("WITH   : " +eaEND.toString());
                                 // Match confirmed - replace two entries with one "FRAGMENT"
                                 eaBEGIN.setClosingLine(eaEND.getClosingLine());
-                                eaBEGIN.setEaType(EmbeddedAnnotation.eEAType.eaType_FRAGMENT);
+                                eaBEGIN.setEaType(EmbeddedAnnotation.eEAType.FRAGMENT);
                                 //System.out.println("TO     : " +eaBEGIN.toString());
                                 searchEndItr.remove();
                                 searchBeginItr = eaList.listIterator(index-1);    // set outer iterator again. Otherwise it gets confused in its iterating positions. Set to position of new created FRAGMENT
@@ -57,7 +57,7 @@ public class MyCodeAnnotationsVisitor extends codeAnnotationBaseVisitor<Object> 
         // Add for new created feature entries that they are found in BEGIN
         eaList.forEach(
                 ea -> {
-                    ea.setEaType(EmbeddedAnnotation.eEAType.eaType_BEGIN);
+                    ea.setEaType(EmbeddedAnnotation.eEAType.BEGIN);
                     ea.setOpeningLine(ctx.getStart().getLine());
                 }
         );
@@ -69,7 +69,7 @@ public class MyCodeAnnotationsVisitor extends codeAnnotationBaseVisitor<Object> 
         // Add for new created feature entries that they are found in END
         eaList.forEach(
                 ea -> {
-                    ea.setEaType(EmbeddedAnnotation.eEAType.eaType_END);
+                    ea.setEaType(EmbeddedAnnotation.eEAType.END);
                     ea.setClosingLine(ctx.getStart().getLine());
                 }
         );
@@ -81,7 +81,7 @@ public class MyCodeAnnotationsVisitor extends codeAnnotationBaseVisitor<Object> 
         // Add for new created feature entries that they are found in END
         eaList.forEach(
                 ea -> {
-                    ea.setEaType(EmbeddedAnnotation.eEAType.eaType_LINE);
+                    ea.setEaType(EmbeddedAnnotation.eEAType.LINE);
                     ea.setOpeningLine(ctx.getStart().getLine());
                     ea.setClosingLine(ctx.getStart().getLine());
                 }
@@ -92,7 +92,7 @@ public class MyCodeAnnotationsVisitor extends codeAnnotationBaseVisitor<Object> 
     @Override public EmbeddedAnnotation visitFeature(codeAnnotationParser.FeatureContext ctx) {
         visitChildren(ctx);
         String filePath = ctx.start.getInputStream().getSourceName();
-        return new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_UNKNOWN, filePath, POSITION_UNKNOWN, POSITION_UNKNOWN, ctx.getText());
+        return new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.UNKNOWN, filePath, POSITION_UNKNOWN, POSITION_UNKNOWN, ctx.getText());
     }
 
     @Override

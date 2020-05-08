@@ -2,14 +2,14 @@ import java.util.Objects;
 
 public class EmbeddedAnnotation {
     public enum eEAType {
-        eaType_UNKNOWN ("UNKNOWN "),
-        eaType_FOLDER  ("FOLDER  "),
-        eaType_FILE    ("FILE    "),
-        eaType_BEGIN   ("BEGIN   "),
-        eaType_END     ("END     "),
-        eaType_FRAGMENT("FRAGMENT"),
-        eaType_LINE    ("LINE    "),
-        eaType_COUNT   ("COUNT   ");
+        UNKNOWN ("UNKNOWN"),
+        FOLDER  ("FOLDER"),
+        FILE    ("FILE"),
+        BEGIN   ("BEGIN"),
+        END     ("END"),
+        FRAGMENT("FRAGMENT"),
+        LINE    ("LINE"),
+        COUNT   ("COUNT");
 
         private final String type;
         eEAType(String s) {
@@ -39,6 +39,43 @@ public class EmbeddedAnnotation {
 
     public String toString(){
         return "\n{" +eaType.toString() +" " +file +": " +openingLine +" " +closingLine +" " +feature +"}";
+    }
+
+    public String serialize(){
+        return eaType.toString() +"," +file +"," +openingLine +"," +closingLine +"," +feature;
+    }
+
+    public static EmbeddedAnnotation deserialize(String string){
+
+        eEAType eaType = eEAType.UNKNOWN;
+        String file = "";
+        int openingLine = 0;
+        int closingLine = 0;
+        String feature = "";
+
+        // remove unwanted characters
+        string = string.replace("{","");
+        string = string.replace("}","");
+        string = string.replace("\"","");
+
+        String sArr[] = string.split(",");
+        for(String s : sArr) {
+            if (s.startsWith("eaType")) {
+                eaType = eEAType.valueOf(s.substring(s.indexOf(":")+1));
+            } else if ( s.startsWith("File") ) {
+                file = s.substring(s.indexOf(":")+1);
+            } else if ( s.startsWith("OpeningLine") ) {
+                openingLine = Integer.valueOf(s.substring(s.indexOf(":")+1));
+            } else if ( s.startsWith("ClosingLine") ) {
+                closingLine = Integer.valueOf(s.substring(s.indexOf(":")+1));
+            } else if ( s.startsWith("Feature") ) {
+                feature = s.substring(s.indexOf(":")+1);
+            } else {
+                System.out.println("WARNING: EmbeddedAnnotation::deserialize Unknown type \"" +s +"\"!");
+            }
+        }
+
+        return new EmbeddedAnnotation(eaType, file, openingLine, closingLine, feature);
     }
 
     @Override

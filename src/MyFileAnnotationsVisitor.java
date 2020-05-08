@@ -40,7 +40,7 @@ public class MyFileAnnotationsVisitor extends fileAnnotationsBaseVisitor<Object>
             }
 
             for(String feature : featureReferences){
-                eaList.add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.eaType_FILE, file, POSITION_UNKNOWN, POSITION_UNKNOWN, feature));
+                eaList.add(new EmbeddedAnnotation(EmbeddedAnnotation.eEAType.FILE, file, POSITION_UNKNOWN, POSITION_UNKNOWN, feature));
             }
         }
 
