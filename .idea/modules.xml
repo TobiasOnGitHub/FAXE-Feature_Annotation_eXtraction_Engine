@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/ANTLR4_EmbeddedAnnotations.iml" filepath="$PROJECT_DIR$/ANTLR4_EmbeddedAnnotations.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FAXE-Feature_Annotation_eXtraction_Engine.iml" filepath="$PROJECT_DIR$/FAXE-Feature_Annotation_eXtraction_Engine.iml" />
     </modules>
   </component>
 </project>

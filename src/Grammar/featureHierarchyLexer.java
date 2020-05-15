@@ -1,4 +1,4 @@
-// Generated from C:/Users/Tobias/IdeaProjects/ANTLR4_EmbeddedAnnotations\featureHierarchy.g4 by ANTLR 4.8
+// Generated from C:/Users/Tobias/IdeaProjects/FAXE-Feature_Annotation_eXtraction_Engine\featureHierarchy.g4 by ANTLR 4.8
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Token;

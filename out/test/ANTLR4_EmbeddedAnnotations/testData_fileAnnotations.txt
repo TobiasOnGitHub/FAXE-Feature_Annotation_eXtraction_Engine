@@ -1,4 +1,0 @@
-fileA fileB
-Reference1 Reference2
-codeAnnotationsTest.java
-Testing
