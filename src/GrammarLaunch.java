@@ -208,7 +208,7 @@ public class GrammarLaunch {
 
 
     /**
-     * Takes input String and checks if valid according to Grammar.
+     * Takes input String and checks if valid according to code annotation grammar.
      * @param line source code line under verification
      * @return true when valid ; false when invalid
      */
@@ -237,7 +237,7 @@ public class GrammarLaunch {
 
 
     /**
-     * Takes input String and checks if valid according to Grammar.
+     * Takes input String and checks if valid according to file annotation grammar.
      * @param line source code line under verification
      * @return true when valid ; false when invalid
      */
@@ -266,7 +266,7 @@ public class GrammarLaunch {
 
 
     /**
-     * Takes input String and checks if valid according to Grammar.
+     * Takes input String and checks if valid according to folder annotation grammar.
      * @param line source code line under verification
      * @return true when valid ; false when invalid
      */
@@ -294,6 +294,11 @@ public class GrammarLaunch {
     }
 
 
+    /**
+     * Transforms list of {@link EmbeddedAnnotation} to JSON object.
+     * @param eaList List of {@link EmbeddedAnnotation}
+     * @return JSON object out of parameter.
+     */
     public static JSONArray serializeEAList2JSON(List<EmbeddedAnnotation> eaList){
         JSONArray ja = new JSONArray();
         ja.put("eaType");
@@ -313,7 +318,11 @@ public class GrammarLaunch {
     }
 
 
-
+    /**
+     * Transforms JSON object to list of {@link EmbeddedAnnotation}
+     * @param jsonArray JSON object
+     * @return List of {@link EmbeddedAnnotation} out of parameter.
+     */
     public static List<EmbeddedAnnotation> deserializeEAList2JSON(JSONArray jsonArray){
         ArrayList<EmbeddedAnnotation> list = new ArrayList<>();
 
