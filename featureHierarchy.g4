@@ -19,3 +19,8 @@ subsubsubsubsubsubfeature: ('\n' '\t\t\t\t\t\t' FEATURENAME) subsubsubsubsubsubs
 subsubsubsubsubsubsubfeature: ('\n' '\t\t\t\t\t\t\t' FEATURENAME) #SubLevel7 ;
 
 FEATURENAME: ([A-Z]+|[a-z]+|[0-9]+|'_'+|'\''+)+;
+
+/* Future more flexible approach potentially via
+- https://stackoverflow.com/questions/52037501/bnf-example-for-language-grammar-where-indenting-level-defines-a-block
+- https://stackoverflow.com/questions/8642154/antlr-what-is-simpliest-way-to-realize-python-like-indent-depending-grammar
+*/
