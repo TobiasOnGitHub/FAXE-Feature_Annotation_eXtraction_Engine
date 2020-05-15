@@ -1,5 +1,8 @@
 Unprioritized List:
 ========================================================
+0) FAXE cmd tool
+- to try out the tooling provide a command line tool
+--------------------------------------------------------
 1) Feature Tree Extraction of Clafer Model
 - Usage of Metamodel in Java to provide data to user. https://www.baeldung.com/hibernate-criteria-queries-metamodel
 - Alternatively provide tree-object with nodes?!
@@ -11,4 +14,16 @@ Unprioritized List:
 --------------------------------------------------------
 4) For fileAnnotations.g4 the specification asks for files names with spaces to use the escape character " " to support them.
 - To be added to grammar.
+--------------------------------------------------------
+
+Future Work:
+========================================================
+- Mini Online EA Simulator
+--------------------------------------------------------
+- Further tool support such as:
+-– Static analysis of broken annotation syntax
+-– Fail compilation if annotations are incorrect
+-– Automation of feature file updates when files or folders are renamed/moved/deleted
+-– Suggest feature annotations based on context and commits
+-– IDE plugins, git plugins or separate installable tools
 --------------------------------------------------------
