@@ -15,15 +15,12 @@ Unprioritized List:
 4) For fileAnnotations.g4 the specification asks for files names with spaces to use the escape character " " to support them.
 - To be added to grammar.
 --------------------------------------------------------
+5) Integration of engine into target project build or at least CI to warn when embedded annotation has a failure (e.g. missing "end")
+--------------------------------------------------------
+6) Support of statistics such as scattering and tangling
+--------------------------------------------------------
 
 Future Work:
 ========================================================
 - Mini Online EA Simulator
---------------------------------------------------------
-- Further tool support such as:
--– Static analysis of broken annotation syntax
--– Fail compilation if annotations are incorrect
--– Automation of feature file updates when files or folders are renamed/moved/deleted
--– Suggest feature annotations based on context and commits
--– IDE plugins, git plugins or separate installable tools
 --------------------------------------------------------
