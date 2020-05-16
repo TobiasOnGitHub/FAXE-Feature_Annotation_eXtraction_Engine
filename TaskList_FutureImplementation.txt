@@ -19,6 +19,11 @@ Unprioritized List:
 --------------------------------------------------------
 6) Support of statistics such as scattering and tangling
 --------------------------------------------------------
+7) Extend tests possibilities with: Possibility with current definition that markers can be in one line after some code that multiple markers are in one line,
+e.g. ``...getLabel () ,  //\&line[ BIP21 ] //\&end [ Codecs ]''
+--------------------------------------------------------
+
+
 
 Future Work:
 ========================================================
