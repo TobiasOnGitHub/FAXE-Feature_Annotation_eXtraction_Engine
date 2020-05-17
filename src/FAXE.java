@@ -18,13 +18,13 @@ import java.util.stream.Stream;
 /**
  * This class offers the access to the library functions to extract embedded annotations of your project/source code.
  */
-public class GrammarLaunch {
+public class FAXE {
 
     /** Main function for testing purposes **/
     public static void main(String[] args) {
         long startTime = System.nanoTime();
 
-        String projectRoot = "C:\\\\Users\\\\Tobias\\\\IdeaProjects\\\\ANTLR4_EmbeddedAnnotations\\\\test\\\\testProjectBitcoinWallet\\\\";
+        String projectRoot = "C:\\\\Users\\\\Tobias\\\\IdeaProjects\\\\FAXE-Feature_Annotation_eXtraction_Engine\\\\test\\\\testProjectBitcoinWallet\\\\";
         List<EmbeddedAnnotation> eaList = extractEAfromRootDirectory(projectRoot);
 
         System.out.println("Found " +eaList.size() +" embedded annotation elements. Duration=" +((System.nanoTime()-startTime)/1000000) +"ms.");
@@ -32,12 +32,12 @@ public class GrammarLaunch {
 
         JSONArray json = serializeEAList2JSON(eaList);
 
-        System.out.println("x");
+        //System.out.println("Potential Breakpoint");
 
         List<EmbeddedAnnotation> eaList2 = new ArrayList<>();
         eaList2 = deserializeEAList2JSON(json);
 
-        System.out.println("x");
+        //System.out.println("Potential Breakpoint");
     }
 
 

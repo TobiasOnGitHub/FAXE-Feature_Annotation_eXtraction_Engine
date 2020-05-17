@@ -26,7 +26,7 @@ public class folderAnnotationsTest {
 
     @Test(dataProvider = "provide_StrUnderTest_ExpResult_VALID")
     public void testFolderAnnotation_GrammarCheck_SingleLine_VALID(String strUnderTest){
-        boolean a = GrammarLaunch.parseFolderAnnotationLine(strUnderTest);
+        boolean a = FAXE.parseFolderAnnotationLine(strUnderTest);
 
         Assert.assertEquals(a, true);
     }
@@ -40,7 +40,7 @@ public class folderAnnotationsTest {
 
     @Test(dataProvider = "provide_StrUnderTest_ExpResult_INVALID")
     public void testFolderAnnotation_GrammarCheck_SingleLine_INVALID(String strUnderTest){
-        boolean a = GrammarLaunch.parseFolderAnnotationLine(strUnderTest);
+        boolean a = FAXE.parseFolderAnnotationLine(strUnderTest);
 
         Assert.assertEquals(a, true);
     }
@@ -52,7 +52,7 @@ public class folderAnnotationsTest {
 
     @Test
     public void testFolderAnnotation_GrammarCheck_File(){
-        List<EmbeddedAnnotation> foundEA = GrammarLaunch.extractEAfromFeatureFolder("test/testProjectBitcoinWallet/src/de/schildbach/wallet/_.feature-folder");
+        List<EmbeddedAnnotation> foundEA = FAXE.extractEAfromFeatureFolder("test/testProjectBitcoinWallet/src/de/schildbach/wallet/_.feature-folder");
 
         Assert.assertEquals(foundEA.size(), 1);
     }
