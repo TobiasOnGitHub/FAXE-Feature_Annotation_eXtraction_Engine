@@ -138,7 +138,7 @@ public class GrammarLaunch {
     /**
      * Method to extract embedded annotations on file level of given file.
      * @param fileUnderTest String of to be analyzed file.
-     * @return
+     * @return List of found embedded annotations.
      */
     public static List<EmbeddedAnnotation> extractEAfromFeatureFile(String fileUnderTest){
         CharStream in = null;
