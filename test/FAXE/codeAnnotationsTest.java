@@ -368,4 +368,13 @@ public class codeAnnotationsTest {
         }
         Assert.assertTrue(bCompareLists);
     }
+
+    @Test
+    public void testCodeAnnotation_extractEAfromSourceCode(){
+
+        String filePath = "test\\testData_codeAnnotations.txt";
+        List<EmbeddedAnnotation> eaList = FAXE.extractEAfromSourceCode(filePath);
+
+        System.out.println("x");
+    }
 }

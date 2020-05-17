@@ -9,6 +9,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.json.CDL;
 import org.json.JSONArray;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -113,6 +114,11 @@ public class FAXE {
         try {
             in = CharStreams.fromFileName(fileToAnalyze);
         } catch (IOException e) {
+            try {
+                System.out.println("No file found: " +(new File(".").getCanonicalPath()) + "\\" +fileToAnalyze);
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
             e.printStackTrace();
         }
         codeAnnotationLexer lexer = new codeAnnotationLexer(in);
