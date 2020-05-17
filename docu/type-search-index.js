@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"<Unnamed>","l":"EmbeddedAnnotation.eEAType"},{"p":"<Unnamed>","l":"EmbeddedAnnotation"},{"p":"<Unnamed>","l":"FAXE"}]
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"FAXE","l":"EmbeddedAnnotation.eEAType"},{"p":"FAXE","l":"EmbeddedAnnotation"},{"p":"FAXE","l":"FAXE"}]

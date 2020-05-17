@@ -1,6 +1,6 @@
 Unprioritized List:
 ========================================================
-0) FAXE cmd tool
+0) FAXE.FAXE cmd tool
 - to try out the tooling provide a command line tool
 --------------------------------------------------------
 1) Feature Tree Extraction of Clafer Model
@@ -22,7 +22,7 @@ Unprioritized List:
 7) Extend tests possibilities with: Possibility with current definition that markers can be in one line after some code that multiple markers are in one line,
 e.g. ``...getLabel () ,  //\&line[ BIP21 ] //\&end [ Codecs ]''
 --------------------------------------------------------
-8) Make FAXE configurable, e.g. feature-to-file/-folder names , hierarchy-file-name,
+8) Make FAXE.FAXE configurable, e.g. feature-to-file/-folder names , hierarchy-file-name,
 --------------------------------------------------------
 9) Backward compatibility to EA definitions of Ji,Sina,...
 --------------------------------------------------------

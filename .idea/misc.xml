@@ -6,40 +6,40 @@
         <PerGrammarGenerationSettings>
           <option name="fileName" value="$PROJECT_DIR$/folderAnnotations.g4" />
           <option name="autoGen" value="true" />
-          <option name="outputDir" value="C:\Users\Tobias\IdeaProjects\FAXE-Feature_Annotation_eXtraction_Engine\src\Grammar" />
+          <option name="outputDir" value="C:\Users\Tobias\IdeaProjects\FAXE-Feature_Annotation_eXtraction_Engine\src" />
           <option name="libDir" value="" />
           <option name="encoding" value="" />
-          <option name="pkg" value="" />
+          <option name="pkg" value="FAXE.Grammar" />
           <option name="language" value="" />
           <option name="generateVisitor" value="true" />
         </PerGrammarGenerationSettings>
         <PerGrammarGenerationSettings>
           <option name="fileName" value="$PROJECT_DIR$/codeAnnotation.g4" />
           <option name="autoGen" value="true" />
-          <option name="outputDir" value="C:\Users\Tobias\IdeaProjects\FAXE-Feature_Annotation_eXtraction_Engine\src\Grammar" />
+          <option name="outputDir" value="C:\Users\Tobias\IdeaProjects\FAXE-Feature_Annotation_eXtraction_Engine\src" />
           <option name="libDir" value="" />
           <option name="encoding" value="" />
-          <option name="pkg" value="" />
+          <option name="pkg" value="FAXE.Grammar" />
           <option name="language" value="" />
           <option name="generateVisitor" value="true" />
         </PerGrammarGenerationSettings>
         <PerGrammarGenerationSettings>
           <option name="fileName" value="$PROJECT_DIR$/fileAnnotations.g4" />
           <option name="autoGen" value="true" />
-          <option name="outputDir" value="C:\Users\Tobias\IdeaProjects\FAXE-Feature_Annotation_eXtraction_Engine\src\Grammar" />
+          <option name="outputDir" value="C:\Users\Tobias\IdeaProjects\FAXE-Feature_Annotation_eXtraction_Engine\src" />
           <option name="libDir" value="" />
           <option name="encoding" value="" />
-          <option name="pkg" value="" />
+          <option name="pkg" value="FAXE.Grammar" />
           <option name="language" value="" />
           <option name="generateVisitor" value="true" />
         </PerGrammarGenerationSettings>
         <PerGrammarGenerationSettings>
           <option name="fileName" value="$PROJECT_DIR$/featureHierarchy.g4" />
           <option name="autoGen" value="true" />
-          <option name="outputDir" value="C:\Users\Tobias\IdeaProjects\FAXE-Feature_Annotation_eXtraction_Engine\src\Grammar" />
+          <option name="outputDir" value="C:\Users\Tobias\IdeaProjects\FAXE-Feature_Annotation_eXtraction_Engine\src" />
           <option name="libDir" value="" />
           <option name="encoding" value="" />
-          <option name="pkg" value="" />
+          <option name="pkg" value="FAXE.Grammar" />
           <option name="language" value="" />
           <option name="generateVisitor" value="true" />
         </PerGrammarGenerationSettings>
