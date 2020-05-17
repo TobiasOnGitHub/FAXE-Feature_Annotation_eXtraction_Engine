@@ -22,6 +22,21 @@ Unprioritized List:
 7) Extend tests possibilities with: Possibility with current definition that markers can be in one line after some code that multiple markers are in one line,
 e.g. ``...getLabel () ,  //\&line[ BIP21 ] //\&end [ Codecs ]''
 --------------------------------------------------------
+8) Make FAXE configurable, e.g. feature-to-file/-folder names , hierarchy-file-name,
+--------------------------------------------------------
+9) Backward compatibility to EA definitions of Ji,Sina,...
+--------------------------------------------------------
+10) Engine integration into FeatureDashboard, FeatureIDE, ...?
+--------------------------------------------------------
+11) Engine extension to deal with IFDEF
+--------------------------------------------------------
+12) Detecting of faulty EA, e.g. typo in begin/end/line, &-symbol missing or missing opening/closing brace
+--------------------------------------------------------
+13) \&begin or \&end embedded annotation missing-marker detection
+--------------------------------------------------------
+14) Error handling "Input files/paths don't exist"
+--------------------------------------------------------
+
 
 
 
