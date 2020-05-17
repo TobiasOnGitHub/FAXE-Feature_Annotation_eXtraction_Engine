@@ -36,9 +36,9 @@ e.g. ``...getLabel () ,  //\&line[ BIP21 ] //\&end [ Codecs ]''
 --------------------------------------------------------
 14) Error handling "Input files/paths don't exist"
 --------------------------------------------------------
-
-
-
+15) Docu: add that library provides warnings in case something is wrong (correct syntax); Which checks (warnings) are covered by engine (being/end) ; file not exist
+--------------------------------------------------------
+16) Capability to analyze Git repository
 
 Future Work:
 ========================================================
