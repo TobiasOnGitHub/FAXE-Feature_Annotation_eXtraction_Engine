@@ -43,6 +43,27 @@ public class EmbeddedAnnotation {
         return "\n{" +eaType.toString() +" " +file +": " +openingLine +" " +closingLine +" " +feature +"}";
     }
 
+    /**
+     * Compares two EmbededAnnotation objects.
+     * @param first EmbededAnnotation object.
+     * @param second EmbededAnnotation objects.
+     * @return 0 for equal ; -1 for unequal
+     */
+    public int compare(EmbeddedAnnotation first, EmbeddedAnnotation second){
+        if(first.eaType == second.eaType){
+            if(first.file.equals(second.file)){
+                if(first.openingLine == second.openingLine){
+                    if(first.closingLine == second.closingLine) {
+                        if(first.feature.equals(second.feature)){
+                            return 0;
+                        }
+                    }
+                }
+            }
+        }
+        return -1;
+    }
+
     public String serialize(){
         return eaType.toString() +"," +file +"," +openingLine +"," +closingLine +"," +feature;
     }
