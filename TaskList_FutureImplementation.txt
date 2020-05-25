@@ -7,7 +7,7 @@ Unprioritized List:
 - Usage of Metamodel in Java to provide data to user. https://www.baeldung.com/hibernate-criteria-queries-metamodel
 - Alternatively provide tree-object with nodes?!
 --------------------------------------------------------
-2) With knowledge about hierarchy and which features available extend library return List with this information
+2) With knowledge about hierarchy and which features available extend library return List with this information (boolean field)
 --------------------------------------------------------
 3) Library return object represents EAs which reflects the structure (no collection into "Fragments")
 - Direct reflection of code structure to avoid assumptions in how fragments are build.
@@ -39,6 +39,13 @@ e.g. ``...getLabel () ,  //\&line[ BIP21 ] //\&end [ Codecs ]''
 15) Docu: add that library provides warnings in case something is wrong (correct syntax); Which checks (warnings) are covered by engine (being/end) ; file not exist
 --------------------------------------------------------
 16) Capability to analyze Git repository
+--------------------------------------------------------
+17) Engine to return meta-modell object to caller (that he can do its own questions to it)
+--------------------------------------------------------
+18) Fitting to 9,8 -> Make usage of IDFEF possible. Might be linked to extension of this library for usage in C/C++
+--------------------------------------------------------
+
+
 
 Future Work:
 ========================================================
