@@ -53,7 +53,7 @@ public class FAXE {
      */
     public static List<EmbeddedAnnotation> extractEAfromRootDirectory(String rootDirectory){
         List<EmbeddedAnnotation> eaList = new ArrayList<>();
-        System.out.println("EA extraction process started ...");
+        System.out.println(">>> EA extraction from " +rootDirectory +" started ...");
 
         /* Create a re-usable object for "Stream<Path> paths = Files.walk(Paths.get("C:\\\\EA_Examples\\\\ClaferMooVisualizer\\\\Server\\\\Client\\\\")) " */
         Supplier<Stream<Path>> streamSupplier = () -> {
@@ -100,6 +100,7 @@ public class FAXE {
         //TODO - Implement CLAFER hierarchy file interpretation according to given Grammar
 
 
+        System.out.println("<<< EA extraction completed. Found " +eaList.size() +" embedded annotations.");
         return eaList;
     }
 
