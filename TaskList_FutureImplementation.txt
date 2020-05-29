@@ -2,6 +2,7 @@ Unprioritized List:
 ========================================================
 0) FAXE.FAXE cmd tool
 - to try out the tooling provide a command line tool
+- Maybe linked to Bash script of partial commit
 --------------------------------------------------------
 1) Feature Tree Extraction of Clafer Model
 - Usage of Metamodel in Java to provide data to user. https://www.baeldung.com/hibernate-criteria-queries-metamodel
