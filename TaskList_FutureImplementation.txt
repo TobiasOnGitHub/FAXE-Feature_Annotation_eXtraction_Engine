@@ -44,6 +44,13 @@ e.g. ``...getLabel () ,  //\&line[ BIP21 ] //\&end [ Codecs ]''
 --------------------------------------------------------
 18) Fitting to 9,8 -> Make usage of IDFEF possible. Might be linked to extension of this library for usage in C/C++
 --------------------------------------------------------
+19) Feature-to-File: File names with spaces and therefore "file.txt" support to be tested
+--------------------------------------------------------
+20) To be researched:
+-- YAML-definition as mapping grammar?
+-- Further mapping concepts: feature-to-team? -component? ... (most likely just other embedded names, but might provide some new use cases)
+--------------------------------------------------------
+
 
 
 
