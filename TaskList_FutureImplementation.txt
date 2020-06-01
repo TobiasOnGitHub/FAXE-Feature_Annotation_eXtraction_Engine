@@ -51,7 +51,17 @@ e.g. ``...getLabel () ,  //\&line[ BIP21 ] //\&end [ Codecs ]''
 -- YAML-definition as mapping grammar?
 -- Further mapping concepts: feature-to-team? -component? ... (most likely just other embedded names, but might provide some new use cases)
 --------------------------------------------------------
-
+21) Work on limitation: - Hierarchy Model in root folder
+--------------------------------------------------------
+22) Project verification function -> Give FAXE a directory/file and return if valid according EA-Specification or not
+--------------------------------------------------------
+23) Combine with git commands: E.g. when git add is called, add additional print for "FeatureA, ... modified."
+--------------------------------------------------------
+24) Buffer FAXE analysis results and only re-read changed files
+--------------------------------------------------------
+25) One pager summary of EA (complete annotation syntax in a table; show some regular expressions examples
+    Show which parts are covered by version 1 of the Engine
+--------------------------------------------------------
 
 
 
