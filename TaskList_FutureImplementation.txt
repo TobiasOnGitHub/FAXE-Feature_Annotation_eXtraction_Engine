@@ -66,11 +66,19 @@ e.g. ``...getLabel () ,  //\&line[ BIP21 ] //\&end [ Codecs ]''
 --------------------------------------------------------
 27) Extraction of consumed time ; especially in comparison with other tools based on RegEx
 --------------------------------------------------------
-
+28) Find mistakes in EA, e.g. "&linde" ; that begin is closed with line ; that &line is no in empty line ; detect empty begin-end (only spaces/empty lines)
+--------------------------------------------------------
+29) CSV export of EA
+--------------------------------------------------------
+30) Detection of potential EA (wrong used, typos, ect.) with machine learning
+--------------------------------------------------------
+31) Update Simple Hierarchy to be flexible and not have fix coded levels
+--------------------------------------------------------
 
 
 
 Future Work:
 ========================================================
 - Mini Online EA Simulator
+- GitLab Integration
 --------------------------------------------------------
