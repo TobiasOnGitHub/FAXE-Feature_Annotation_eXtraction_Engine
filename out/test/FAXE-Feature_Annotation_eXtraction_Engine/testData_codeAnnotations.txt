@@ -1,9 +1,0 @@
-Source code
-&begin(featureA, featureB)
-LPQ text
-&end(featureA)
-other text
-&line(featureLine1)
-&end(featureB)
-&line(featureLine2, featureLine3, featureLine4)
-Fischers Fritz
