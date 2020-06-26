@@ -74,6 +74,14 @@ e.g. ``...getLabel () ,  //\&line[ BIP21 ] //\&end [ Codecs ]''
 --------------------------------------------------------
 31) Update Simple Hierarchy to be flexible and not have fix coded levels
 --------------------------------------------------------
+32) Tangling information to be added in export? E.g. in partial commit to say if a change has a inner feature which is implicit committed as well.
+PFC could also support an algorithm to detect the best sequence to perform all feature commits.
+--------------------------------------------------------
+33) Give warning (or list) of features in code, but not feature model
+--------------------------------------------------------
+34) Rename Source Code to Text Asset as not only source code can be checked. Create UT which ensures this.
+--------------------------------------------------------
+
 
 
 
