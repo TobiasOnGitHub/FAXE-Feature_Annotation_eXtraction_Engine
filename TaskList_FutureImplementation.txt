@@ -39,7 +39,7 @@ e.g. ``...getLabel () ,  //\&line[ BIP21 ] //\&end [ Codecs ]''
 --------------------------------------------------------
 15) Docu: add that library provides warnings in case something is wrong (correct syntax); Which checks (warnings) are covered by engine (being/end) ; file not exist
 --------------------------------------------------------
-16) Capability to analyze Git repository
+16) Capability to analyze Git repository (FAXE access to given Git repository)
 --------------------------------------------------------
 17) Engine to return meta-modell object to caller (that he can do its own questions to it)
 --------------------------------------------------------
@@ -66,11 +66,13 @@ e.g. ``...getLabel () ,  //\&line[ BIP21 ] //\&end [ Codecs ]''
 --------------------------------------------------------
 27) Extraction of consumed time ; especially in comparison with other tools based on RegEx
 --------------------------------------------------------
-28) Find mistakes in EA, e.g. "&linde" ; that begin is closed with line ; that &line is no in empty line ; detect empty begin-end (only spaces/empty lines)
+28) Find mistakes in EA, e.g. "&linde", "&inline" ; that begin is closed with line ; that &line is no in empty line ; detect empty begin-end (only spaces/empty lines)
+--------------------------------------------------------
+...) Recommendations for better EA-usage: Multiple begin/end -> use list ; begin/end around one line -> use &line ; ...
 --------------------------------------------------------
 29) CSV export of EA
 --------------------------------------------------------
-30) Detection of potential EA (wrong used, typos, ect.) with machine learning
+30) Detection of potential EA (wrong used, typos, ect.) (with machine learning?)
 --------------------------------------------------------
 31) Update Simple Hierarchy to be flexible and not have fix coded levels
 --------------------------------------------------------
@@ -81,8 +83,15 @@ PFC could also support an algorithm to detect the best sequence to perform all f
 --------------------------------------------------------
 34) Rename Source Code to Text Asset as not only source code can be checked. Create UT which ensures this.
 --------------------------------------------------------
+35) Allow to "scan" directory again. Keep timestamp of checked folders/files and only scan changed ones.
+--------------------------------------------------------
+36) Handle definitions of other EA authors, such as file names .vp-project ; .vp-file ; .vp-folder
 
 
+
+Git Partial Feature-based Commit:
+========================================================
+- print option to list which features are changed
 
 
 Future Work:
