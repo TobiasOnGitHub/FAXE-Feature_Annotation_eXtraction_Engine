@@ -22,6 +22,9 @@ Unprioritized List:
 --------------------------------------------------------
 7) Extend tests possibilities with: Possibility with current definition that markers can be in one line after some code that multiple markers are in one line,
 e.g. ``...getLabel () ,  //\&line[ BIP21 ] //\&end [ Codecs ]''
+"Let's build a compiler #6 Automatisierte Tests - Compilerbau ANTLR Tutorial deutsch HD" -> https://www.youtube.com/watch?v=AuveLivrL6Y
+"Unit tests for ANTLR Lexer" -> https://ssricardo.github.io/2018/junit-antlr-lexer/
+"Unit tests for ANTLR parser" -> https://ssricardo.github.io/2018/junit-antlr-parser/
 --------------------------------------------------------
 8) Make FAXE.FAXE configurable, e.g. feature-to-file/-folder names , hierarchy-file-name,
 --------------------------------------------------------
