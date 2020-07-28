@@ -96,7 +96,7 @@ public class FAXE {
             String inputParameter = cmd.getOptionValue("source-file");
             System.out.println("Search EA in source file: " +inputParameter);
 
-            List<EmbeddedAnnotation> eaList = extractEAfromSourceCode("C:\\\\\\\\Users\\\\\\\\Tobias\\\\\\\\git\\\\\\\\ea-bitcoin-wallet\\\\\\\\" +inputParameter);
+            List<EmbeddedAnnotation> eaList = extractEAfromSourceCode(inputParameter);
             if(eaList!=null) System.out.println("EA:" +eaList.toString());
         }
 
@@ -104,7 +104,7 @@ public class FAXE {
             String inputParameter = cmd.getOptionValue("feature-to-file");
             System.out.println("Search EA in source file: " +inputParameter);
 
-            List<EmbeddedAnnotation> eaList = extractEAfromFeatureFile("C:\\\\\\\\Users\\\\\\\\Tobias\\\\\\\\git\\\\\\\\ea-bitcoin-wallet\\\\\\\\" +inputParameter);
+            List<EmbeddedAnnotation> eaList = extractEAfromFeatureFile(inputParameter);
             if(eaList!=null) System.out.println("EA:" +eaList.toString());
         }
 
@@ -112,21 +112,9 @@ public class FAXE {
             String inputParameter = cmd.getOptionValue("feature-to-folder");
             System.out.println("Search EA in source file: " +inputParameter);
 
-            List<EmbeddedAnnotation> eaList = extractEAfromFeatureFolder("C:\\\\\\\\Users\\\\\\\\Tobias\\\\\\\\git\\\\\\\\ea-bitcoin-wallet\\\\\\\\" +inputParameter);
+            List<EmbeddedAnnotation> eaList = extractEAfromFeatureFolder(inputParameter);
             if(eaList!=null) System.out.println("EA:" +eaList.toString());
         }
-
-
-        /***************************************************/
-        /** DEFAULT TEST CASE FOR DEVELOPMENT             **/
-        /***************************************************/
-        //String projectRoot = "C:\\\\Users\\\\Tobias\\\\git\\\\ea-bitcoin-wallet\\\\";
-//        String projectRoot = "C:\\\\Users\\\\Tobias\\\\IdeaProjects\\\\FAXE-Feature_Annotation_eXtraction_Engine\\\\test\\\\testProjectBitcoinWallet\\\\";
-//        List<EmbeddedAnnotation> eaList = extractEAfromRootDirectory(projectRoot);
-//
-//        System.out.println("Found " +eaList.size() +" embedded annotation elements. Duration=" +((System.nanoTime()-startTime)/1000000) +"ms.");
-//        if(eaList!=null) System.out.println("EA:" +eaList.toString());
-
 
     }
 
@@ -160,7 +148,7 @@ public class FAXE {
         /* Check for EA in each file */
 //        streamSupplier.get().filter(Files::isRegularFile).forEach(s -> System.out.println(s.toString()));
         streamSupplier.get().filter(Files::isRegularFile).forEach(s -> eaList.addAll(extractEAfromSourceCode(s.toString())));
-
+//        streamSupplier.get().filter(Files::isDirectory).forEach(s -> eaList.addAll(extractEAfromSourceCode(s.toString())));
 
         /**********************************/
         /** ANALYSIS OF FEATURE-TO-FILE  **/
@@ -390,47 +378,47 @@ public class FAXE {
     }
 
 
-//    /**
-//     * Transforms list of {@link EmbeddedAnnotation} to JSON object.
-//     * @param eaList List of {@link EmbeddedAnnotation}
-//     * @return JSON object out of parameter.
-//     */
-//    public static JSONArray serializeEAList2JSON(List<EmbeddedAnnotation> eaList){
-//        JSONArray ja = new JSONArray();
-//        ja.put("eaType");
-//        ja.put("File");
-//        ja.put("OpeningLine");
-//        ja.put("ClosingLine");
-//        ja.put("Feature");
-//
-//        String serialList = "";
-//        for(int i=0; i<eaList.size(); i++){
-//            serialList += eaList.get(i).serialize()+'\n';
-//        }
-//
-//        JSONArray result = CDL.toJSONArray(ja, serialList);
-//
-//        return result;
-//    }
-//
-//
-//    /**
-//     * Transforms JSON object to list of {@link EmbeddedAnnotation}
-//     * @param jsonArray JSON object
-//     * @return List of {@link EmbeddedAnnotation} out of parameter.
-//     */
-//    public static List<EmbeddedAnnotation> deserializeEAList2JSON(JSONArray jsonArray){
-//        ArrayList<EmbeddedAnnotation> list = new ArrayList<>();
-//
-//        if (jsonArray != null) {
-//            for (int i=0;i<jsonArray.length();i++){
-//                list.add(EmbeddedAnnotation.deserialize(jsonArray.get(i).toString()));
-//            }
-//        } else {
-//            System.out.println("WARNING: deserializeEAList2JSON - empty JSONArray file (null)!");
-//        }
-//
-//        return list;
-//    }
+    /**
+     * Transforms list of {@link EmbeddedAnnotation} to JSON object.
+     * @param eaList List of {@link EmbeddedAnnotation}
+     * @return JSON object out of parameter.
+     */
+    public static JSONArray serializeEAList2JSON(List<EmbeddedAnnotation> eaList){
+        JSONArray ja = new JSONArray();
+        ja.put("eaType");
+        ja.put("File");
+        ja.put("OpeningLine");
+        ja.put("ClosingLine");
+        ja.put("Feature");
+
+        String serialList = "";
+        for(int i=0; i<eaList.size(); i++){
+            serialList += eaList.get(i).serialize()+'\n';
+        }
+
+        JSONArray result = CDL.toJSONArray(ja, serialList);
+
+        return result;
+    }
+
+
+    /**
+     * Transforms JSON object to list of {@link EmbeddedAnnotation}
+     * @param jsonArray JSON object
+     * @return List of {@link EmbeddedAnnotation} out of parameter.
+     */
+    public static List<EmbeddedAnnotation> deserializeEAList2JSON(JSONArray jsonArray){
+        ArrayList<EmbeddedAnnotation> list = new ArrayList<>();
+
+        if (jsonArray != null) {
+            for (int i=0;i<jsonArray.length();i++){
+                list.add(EmbeddedAnnotation.deserialize(jsonArray.get(i).toString()));
+            }
+        } else {
+            System.out.println("WARNING: deserializeEAList2JSON - empty JSONArray file (null)!");
+        }
+
+        return list;
+    }
 
 }
