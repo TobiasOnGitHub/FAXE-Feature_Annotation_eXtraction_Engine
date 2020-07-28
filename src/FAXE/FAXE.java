@@ -90,7 +90,6 @@ public class FAXE {
 
             // special line for tool demonstration
             List<EmbeddedAnnotation> eaList = extractEAfromRootDirectory(inputParameter);
-//            List<EmbeddedAnnotation> eaList = extractEAfromRootDirectory(inputParameter);
             if(eaList!=null) System.out.println("EA:" +eaList.toString());
         }
 
