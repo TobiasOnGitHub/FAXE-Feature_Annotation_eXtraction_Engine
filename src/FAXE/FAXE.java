@@ -25,6 +25,8 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.misc.ParseCancellationException;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.apache.commons.cli.*;
+import org.json.CDL;
+import org.json.JSONArray;
 
 import java.io.File;
 import java.io.IOException;
@@ -87,7 +89,7 @@ public class FAXE {
             System.out.println("Search EA in project scope: " +inputParameter);
 
             // special line for tool demonstration
-            List<EmbeddedAnnotation> eaList = extractEAfromRootDirectory("C:\\\\\\\\Users\\\\\\\\Tobias\\\\\\\\git\\\\\\\\ea-bitcoin-wallet\\\\\\\\" +inputParameter);
+            List<EmbeddedAnnotation> eaList = extractEAfromRootDirectory(inputParameter);
 //            List<EmbeddedAnnotation> eaList = extractEAfromRootDirectory(inputParameter);
             if(eaList!=null) System.out.println("EA:" +eaList.toString());
         }
