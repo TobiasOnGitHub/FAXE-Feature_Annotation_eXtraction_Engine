@@ -1,24 +1,20 @@
-Unprioritized List:
+Worklist for SPLC Release v0.1
 ========================================================
-0) FAXE.FAXE cmd tool
+2) Working JAR file on other systems (dependecy CLI and JSON)
+--------------------------------------------------------
+1) FAXE.FAXE cmd tool
 - to try out the tooling provide a command line tool
 - Maybe linked to Bash script of partial commit
---------------------------------------------------------
-1) Feature Tree Extraction of Clafer Model
-- Usage of Metamodel in Java to provide data to user. https://www.baeldung.com/hibernate-criteria-queries-metamodel
-- Alternatively provide tree-object with nodes?!
---------------------------------------------------------
-2) With knowledge about hierarchy and which features available extend library return List with this information (boolean field)
---------------------------------------------------------
-3) Library return object represents EAs which reflects the structure (no collection into "Fragments")
-- Direct reflection of code structure to avoid assumptions in how fragments are build.
+=> Topic started with CLI interface. Tests missing.
 --------------------------------------------------------
 4) For fileAnnotations.g4 the specification asks for files names with spaces to use the escape character " " to support them.
 - To be added to grammar.
 --------------------------------------------------------
-5) Integration of engine into target project build or at least CI to warn when embedded annotation has a failure (e.g. missing "end")
+14) Error handling "Input files/paths don't exist"
 --------------------------------------------------------
-6) Support of statistics such as scattering and tangling
+19) Feature-to-File: File names with spaces and therefore "file.txt" support to be tested
+--------------------------------------------------------
+34) Rename Source Code to Text Asset as not only source code can be checked. Create UT which ensures this.
 --------------------------------------------------------
 7) Extend tests possibilities with: Possibility with current definition that markers can be in one line after some code that multiple markers are in one line,
 e.g. ``...getLabel () ,  //\&line[ BIP21 ] //\&end [ Codecs ]''
@@ -26,79 +22,107 @@ e.g. ``...getLabel () ,  //\&line[ BIP21 ] //\&end [ Codecs ]''
 "Unit tests for ANTLR Lexer" -> https://ssricardo.github.io/2018/junit-antlr-lexer/
 "Unit tests for ANTLR parser" -> https://ssricardo.github.io/2018/junit-antlr-parser/
 --------------------------------------------------------
+15) Docu: add that library provides warnings in case something is wrong (correct syntax); Which checks (warnings) are covered by engine (being/end) ; file not exist
+--------------------------------------------------------
+25) One pager summary of EA (complete annotation syntax in a table; show some regular expressions examples
+    Show which parts are covered by version 1 of the Engine
+
+
+Unprioritized List:
+========================================================
+
+FEATURE MODEL / FEATURE TREE
+--------------------------------------------------------
+1) Feature Tree Extraction of Clafer Model
+- Usage of Metamodel in Java to provide data to user. https://www.baeldung.com/hibernate-criteria-queries-metamodel
+- Alternatively provide tree-object with nodes?!
+--------------------------------------------------------
+2) With knowledge about hierarchy and which features available extend library return List with this information (boolean field)
+--------------------------------------------------------
+21) Work on limitation: - Hierarchy Model in root folder
+--------------------------------------------------------
+31) Update Simple Hierarchy to be flexible and not have fix coded levels
+--------------------------------------------------------
+33) Give warning (or list) of features in code, but not feature model
+--------------------------------------------------------
+
+
+STATISTICS
+--------------------------------------------------------
+6) Support of statistics such as scattering and tangling
+--------------------------------------------------------
+32) Tangling information to be added in export? E.g. in partial commit to say if a change has a inner feature which is implicit committed as well.
+PFC could also support an algorithm to detect the best sequence to perform all feature commits.
+--------------------------------------------------------
+
+
+TOOL FLEXIBILITY / PERFORMANCE
+--------------------------------------------------------
 8) Make FAXE.FAXE configurable, e.g. feature-to-file/-folder names , hierarchy-file-name,
 --------------------------------------------------------
 9) Backward compatibility to EA definitions of Ji,Sina,...
 --------------------------------------------------------
-10) Engine integration into FeatureDashboard, FeatureIDE, ...?
+11) Engine extension to deal with IFDEF. Might be linked to extension of this library for usage in C/C++
 --------------------------------------------------------
-11) Engine extension to deal with IFDEF
+27) Extraction of consumed time ; especially in comparison with other tools based on RegEx
+--------------------------------------------------------
+24) Buffer FAXE analysis results and only re-read changed files
+--------------------------------------------------------
+35) Allow to "scan" directory again. Keep timestamp of checked folders/files and only scan changed ones.
+--------------------------------------------------------
+
+
+FAXE ROBUSTNESS
 --------------------------------------------------------
 12) Detecting of faulty EA, e.g. typo in begin/end/line, &-symbol missing or missing opening/closing brace
 --------------------------------------------------------
 13) \&begin or \&end embedded annotation missing-marker detection
 --------------------------------------------------------
-14) Error handling "Input files/paths don't exist"
+28) Find mistakes in EA, e.g. "&linde", "&inline" ; that begin is closed with line ; that &line is no in empty line ; detect empty begin-end (only spaces/empty lines)
 --------------------------------------------------------
-15) Docu: add that library provides warnings in case something is wrong (correct syntax); Which checks (warnings) are covered by engine (being/end) ; file not exist
+...) Recommendations for better EA-usage: Multiple begin/end -> use list ; begin/end around one line -> use &line ; ...
+--------------------------------------------------------
+30) Detection of potential EA (wrong used, typos, ect.) (with machine learning?)
+--------------------------------------------------------
+36) Handle definitions of other EA authors, such as file names .vp-project ; .vp-file ; .vp-folder
+--------------------------------------------------------
+
+
+NEW LIBRARY FEATURES
+--------------------------------------------------------
+3) Library return object represents EAs which reflects the structure (no collection into "Fragments")
+- Direct reflection of code structure to avoid assumptions in how fragments are build.
+--------------------------------------------------------
+22) Project verification function -> Give FAXE a directory/file and return if valid according EA-Specification or not
+--------------------------------------------------------
+29) CSV export of EA
 --------------------------------------------------------
 16) Capability to analyze Git repository (FAXE access to given Git repository)
+
+
+OTHERS
+--------------------------------------------------------
+x) Mini Online EA Simulator
 --------------------------------------------------------
 17) Engine to return meta-modell object to caller (that he can do its own questions to it)
---------------------------------------------------------
-18) Fitting to 9,8 -> Make usage of IDFEF possible. Might be linked to extension of this library for usage in C/C++
---------------------------------------------------------
-19) Feature-to-File: File names with spaces and therefore "file.txt" support to be tested
 --------------------------------------------------------
 20) To be researched:
 -- YAML-definition as mapping grammar?
 -- Further mapping concepts: feature-to-team? -component? ... (most likely just other embedded names, but might provide some new use cases)
 --------------------------------------------------------
-21) Work on limitation: - Hierarchy Model in root folder
---------------------------------------------------------
-22) Project verification function -> Give FAXE a directory/file and return if valid according EA-Specification or not
---------------------------------------------------------
 23) Combine with git commands: E.g. when git add is called, add additional print for "FeatureA, ... modified."
---------------------------------------------------------
-24) Buffer FAXE analysis results and only re-read changed files
---------------------------------------------------------
-25) One pager summary of EA (complete annotation syntax in a table; show some regular expressions examples
-    Show which parts are covered by version 1 of the Engine
 --------------------------------------------------------
 26) Integration into Doxygen?
 --------------------------------------------------------
-27) Extraction of consumed time ; especially in comparison with other tools based on RegEx
+x) GitLab Integration
 --------------------------------------------------------
-28) Find mistakes in EA, e.g. "&linde", "&inline" ; that begin is closed with line ; that &line is no in empty line ; detect empty begin-end (only spaces/empty lines)
+10) Engine integration into FeatureDashboard, FeatureIDE, ...?
 --------------------------------------------------------
-...) Recommendations for better EA-usage: Multiple begin/end -> use list ; begin/end around one line -> use &line ; ...
---------------------------------------------------------
-29) CSV export of EA
---------------------------------------------------------
-30) Detection of potential EA (wrong used, typos, ect.) (with machine learning?)
---------------------------------------------------------
-31) Update Simple Hierarchy to be flexible and not have fix coded levels
---------------------------------------------------------
-32) Tangling information to be added in export? E.g. in partial commit to say if a change has a inner feature which is implicit committed as well.
-PFC could also support an algorithm to detect the best sequence to perform all feature commits.
---------------------------------------------------------
-33) Give warning (or list) of features in code, but not feature model
---------------------------------------------------------
-34) Rename Source Code to Text Asset as not only source code can be checked. Create UT which ensures this.
---------------------------------------------------------
-35) Allow to "scan" directory again. Keep timestamp of checked folders/files and only scan changed ones.
---------------------------------------------------------
-36) Handle definitions of other EA authors, such as file names .vp-project ; .vp-file ; .vp-folder
+5) Integration of engine into target project build or at least CI to warn when embedded annotation has a failure (e.g. missing "end")
 
 
 
-Git Partial Feature-based Commit:
+GIT PARTIAL FEATURE-BASED COMMIT:
 ========================================================
 - print option to list which features are changed
 
-
-Future Work:
-========================================================
-- Mini Online EA Simulator
-- GitLab Integration
---------------------------------------------------------
