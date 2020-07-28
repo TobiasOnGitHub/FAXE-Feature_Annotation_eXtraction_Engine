@@ -65,30 +65,19 @@ public class FAXE {
         /**********************************/
         /** ANALYSIS OF SOURCE CODE      **/
         /**********************************/
-        //eaList.addAll(performEvaluationCodeAnnotations("test/testData_codeAnnotations.txt"));
-
         /* From root directory go through all individual files */
         /* Check for EA in each file */
-//        streamSupplier.get().filter(Files::isRegularFile).forEach(s -> System.out.println(s.toString()));
         streamSupplier.get().filter(Files::isRegularFile).forEach(s -> eaList.addAll(extractEAfromSourceCode(s.toString())));
-//        streamSupplier.get().filter(Files::isDirectory).forEach(s -> eaList.addAll(extractEAfromSourceCode(s.toString())));
 
         /**********************************/
         /** ANALYSIS OF FEATURE-TO-FILE  **/
         /**********************************/
-        //parseFileAnnotationLine("fileA fileB\n" + "Reference1 Reference2");
-        //eaList.addAll(performEvaluationFileAnnotations("test/testData_fileAnnotations.txt"));
-
 //        streamSupplier.get().map(x -> x.toString()).filter(f -> f.endsWith(".feature-file")).forEach(System.out::println);
         streamSupplier.get().map(x -> x.toString()).filter(f -> f.endsWith(".feature-file")).forEach(s -> eaList.addAll(extractEAfromFeatureFile(s.toString())));
 
         /***********************************/
         /** ANALYSIS OF FEATURE-TO-FOLDER **/
         /***********************************/
-        //parseFolderAnnotationLine("featureA1, featureB1, featureC1");
-        //eaList.addAll(performEvaluationFolderAnnotations("test/testData_folderAnnotations.txt"));
-
-//        streamSupplier.get().map(x -> x.toString()).filter(f -> f.endsWith(".feature-folder")).forEach(System.out::println);
         streamSupplier.get().map(x -> x.toString()).filter(f -> f.endsWith(".feature-folder")).forEach(s -> eaList.addAll(extractEAfromFeatureFolder(s.toString())));
 
         /******************************************/
@@ -132,11 +121,9 @@ public class FAXE {
 
             MyCodeAnnotationsVisitor visitor = new MyCodeAnnotationsVisitor();
             eaList = (List<EmbeddedAnnotation>) visitor.visit(tree);
-//            System.out.println("EA:" +eaList.toString());
         } catch (ParseCancellationException e) {
             // Catch if given string is not fitting the grammar
             System.out.println("ERROR DETECTED :)");
-            //return false;
         }
         return eaList;
     }
@@ -186,7 +173,6 @@ public class FAXE {
         CharStream in = null;
         try {
             in = CharStreams.fromFileName(folderUnderTest);
-            //in = CharStreams.fromFileName("testData_folderAnnotations.txt");
         } catch (IOException e) {
             e.printStackTrace();
         }
