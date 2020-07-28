@@ -3,8 +3,18 @@ package FAXE;
 import org.apache.commons.cli.*;
 
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class CommandLineUtility {
+
+    public static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
+        Map<Object, Boolean> seen = new ConcurrentHashMap<>();
+        return t -> seen.putIfAbsent(keyExtractor.apply(t), Boolean.TRUE) == null;
+    }
 
     /**
      * Main method for command line usage
@@ -34,6 +44,10 @@ public class CommandLineUtility {
         f2Folder.setRequired(false);
         options.addOption(f2Folder);
 
+        Option uniqueFeatures = new Option("u", "unique", false, "Reduce print of embedded annotations to unique features");
+        uniqueFeatures.setRequired(false);
+        options.addOption(uniqueFeatures);
+
         CommandLineParser parser = new DefaultParser();
         HelpFormatter formatter = new HelpFormatter();
         CommandLine cmd = null;
@@ -56,7 +70,18 @@ public class CommandLineUtility {
 
             // special line for tool demonstration
             List<EmbeddedAnnotation> eaList = FAXE.extractEAfromRootDirectory(inputParameter);
-            if(eaList!=null) System.out.println("EA:" +eaList.toString());
+
+            if(eaList!=null) {
+                if(cmd.hasOption("unique")) {
+                    List<EmbeddedAnnotation> eaListFiltered = eaList.stream()
+                            .filter(distinctByKey(p -> p.getFeature()))
+                            .collect(Collectors.toList());
+                    eaListFiltered.stream().forEach(e -> System.out.print(e.getFeature() +" "));
+                    System.out.println();
+                } else {
+                    System.out.println("EA:" +eaList.toString());
+                }
+            }
         }
 
         if(cmd.hasOption("source-file")) {
