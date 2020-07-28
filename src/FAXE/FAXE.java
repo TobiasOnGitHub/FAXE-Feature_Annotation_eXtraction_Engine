@@ -24,7 +24,6 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.misc.ParseCancellationException;
 import org.antlr.v4.runtime.tree.ParseTree;
-import org.apache.commons.cli.*;
 import org.json.CDL;
 import org.json.JSONArray;
 
@@ -42,83 +41,6 @@ import java.util.stream.Stream;
  * This class offers the access to the library functions to extract embedded annotations of your project/source code.
  */
 public class FAXE {
-
-    /** Main function for testing purposes **/
-    public static void main(String[] args) {
-        long startTime = System.nanoTime();
-
-        /***************************************************/
-        /** PARAMETER DEFINITION                          **/
-        /***************************************************/
-        Options options = new Options();
-
-        Option projectScope = new Option("ps", "project-scope", true, "Print embedded annotations in project scope");
-        projectScope.setRequired(false);
-        options.addOption(projectScope);
-
-        Option sourceFile = new Option("sf", "source-file", true, "Print embedded annotations from given source file");
-        sourceFile.setRequired(false);
-        options.addOption(sourceFile);
-
-        Option f2File = new Option("f2fi", "feature-to-file", true, "Print embedded annotations from feature-to-file mapping");
-        f2File.setRequired(false);
-        options.addOption(f2File);
-
-        Option f2Folder = new Option("f2fo", "feature-to-folder", true, "Print embedded annotations from feature-to-folder mapping");
-        f2Folder.setRequired(false);
-        options.addOption(f2Folder);
-
-        CommandLineParser parser = new DefaultParser();
-        HelpFormatter formatter = new HelpFormatter();
-        CommandLine cmd = null;
-
-        try {
-            cmd = parser.parse(options, args);
-        } catch (ParseException e) {
-            System.out.println(e.getMessage());
-            formatter.printHelp("utility-name", options);
-
-            System.exit(1);
-        }
-
-        /***************************************************/
-        /** PARAMETER INTERPRETATION                      **/
-        /***************************************************/
-        if(cmd.hasOption("project-scope")) {
-            String inputParameter = cmd.getOptionValue("project-scope");
-            System.out.println("Search EA in project scope: " +inputParameter);
-
-            // special line for tool demonstration
-            List<EmbeddedAnnotation> eaList = extractEAfromRootDirectory(inputParameter);
-            if(eaList!=null) System.out.println("EA:" +eaList.toString());
-        }
-
-        if(cmd.hasOption("source-file")) {
-            String inputParameter = cmd.getOptionValue("source-file");
-            System.out.println("Search EA in source file: " +inputParameter);
-
-            List<EmbeddedAnnotation> eaList = extractEAfromSourceCode(inputParameter);
-            if(eaList!=null) System.out.println("EA:" +eaList.toString());
-        }
-
-        if(cmd.hasOption("feature-to-file")) {
-            String inputParameter = cmd.getOptionValue("feature-to-file");
-            System.out.println("Search EA in source file: " +inputParameter);
-
-            List<EmbeddedAnnotation> eaList = extractEAfromFeatureFile(inputParameter);
-            if(eaList!=null) System.out.println("EA:" +eaList.toString());
-        }
-
-        if(cmd.hasOption("feature-to-folder")) {
-            String inputParameter = cmd.getOptionValue("feature-to-folder");
-            System.out.println("Search EA in source file: " +inputParameter);
-
-            List<EmbeddedAnnotation> eaList = extractEAfromFeatureFolder(inputParameter);
-            if(eaList!=null) System.out.println("EA:" +eaList.toString());
-        }
-
-    }
-
 
     /**
      * Method to extract embedded annotations from given root directory. The root directory and all sub-directories are
