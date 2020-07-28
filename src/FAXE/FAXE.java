@@ -33,8 +33,14 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -328,6 +334,30 @@ public class FAXE {
         }
 
         return list;
+    }
+
+    /**
+     * Stream function to identify unique elements in Object with help of given method.
+     */
+    private static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
+        // https://www.baeldung.com/java-streams-distinct-by
+        Map<Object, Boolean> seen = new ConcurrentHashMap<>();
+        return t -> seen.putIfAbsent(keyExtractor.apply(t), Boolean.TRUE) == null;
+    }
+
+    /**
+     * Extracts list of individual features from given {@link EmbeddedAnnotation} list.
+     * @param eaList List with {@link EmbeddedAnnotation} to be proceeded.
+     * @return List of feature names - uniquely listed.
+     */
+    public static List<String> extractUniqueFeatures(List<EmbeddedAnnotation> eaList){
+        List<EmbeddedAnnotation> eaListFiltered = eaList.stream()
+                .filter(distinctByKey(p -> p.getFeature()))
+                .collect(Collectors.toList());
+
+        List<String> eaString = eaListFiltered.stream().map(e -> e.getFeature()).collect(Collectors.toList());
+        Collections.sort(eaString);
+        return eaString;
     }
 
 }

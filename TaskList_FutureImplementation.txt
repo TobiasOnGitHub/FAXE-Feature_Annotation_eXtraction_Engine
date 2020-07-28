@@ -1,6 +1,6 @@
 Worklist for SPLC Release v0.1
 ========================================================
-2) Working JAR file on other systems (dependecy CLI and JSON)
+x) Code Review for best quality
 --------------------------------------------------------
 1) FAXE.FAXE cmd tool
 - to try out the tooling provide a command line tool
