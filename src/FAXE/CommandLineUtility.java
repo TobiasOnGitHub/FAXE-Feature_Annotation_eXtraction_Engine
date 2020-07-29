@@ -18,27 +18,27 @@ public class CommandLineUtility {
         /***************************************************/
         Options options = new Options();
 
-        Option projectScope = new Option("ps", "project-scope", true, "Print embedded annotations in project scope");
+        Option projectScope = new Option("ps", "project-scope", true, "Print embedded annotations in project scope. (Extracting feature).");
         projectScope.setRequired(false);
         options.addOption(projectScope);
 
-        Option sourceFile = new Option("sf", "source-file", true, "Print embedded annotations from given source file");
+        Option sourceFile = new Option("sf", "source-file", true, "Print embedded annotations from given source file. (Extracting feature).");
         sourceFile.setRequired(false);
         options.addOption(sourceFile);
 
-        Option f2File = new Option("f2fi", "feature-to-file", true, "Print embedded annotations from feature-to-file mapping");
+        Option f2File = new Option("f2fi", "feature-to-file", true, "Print embedded annotations from feature-to-file mapping. (Extracting feature).");
         f2File.setRequired(false);
         options.addOption(f2File);
 
-        Option f2Folder = new Option("f2fo", "feature-to-folder", true, "Print embedded annotations from feature-to-folder mapping");
+        Option f2Folder = new Option("f2fo", "feature-to-folder", true, "Print embedded annotations from feature-to-folder mapping. (Extracting feature).");
         f2Folder.setRequired(false);
         options.addOption(f2Folder);
 
-        Option uniqueFeatures = new Option("u", "unique", false, "Reduce print of embedded annotations to unique features");
+        Option uniqueFeatures = new Option("u", "unique", false, "Reduce print of extracted data to unique features. (Filter function).");
         uniqueFeatures.setRequired(false);
         options.addOption(uniqueFeatures);
 
-        Option findFeature = new Option("f", "feature", true, "Reduce print to given feature");
+        Option findFeature = new Option("f", "feature", true, "Reduce print of extracted data to given feature. (Filter function)");
         findFeature.setRequired(false);
         options.addOption(findFeature);
 
@@ -50,7 +50,7 @@ public class CommandLineUtility {
             cmd = parser.parse(options, args);
         } catch (ParseException e) {
             System.out.println(e.getMessage());
-            formatter.printHelp("utility-name", options);
+            formatter.printHelp("FAXE Command Line Utility", options);
 
             System.exit(1);
         }
