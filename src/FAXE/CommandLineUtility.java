@@ -3,6 +3,7 @@ package FAXE;
 import org.apache.commons.cli.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CommandLineUtility {
 
@@ -38,6 +39,10 @@ public class CommandLineUtility {
         uniqueFeatures.setRequired(false);
         options.addOption(uniqueFeatures);
 
+        Option findFeature = new Option("f", "feature", true, "Reduce print to given feature");
+        findFeature.setRequired(false);
+        options.addOption(findFeature);
+
         CommandLineParser parser = new DefaultParser();
         HelpFormatter formatter = new HelpFormatter();
         CommandLine cmd = null;
@@ -65,6 +70,22 @@ public class CommandLineUtility {
                     System.out.println("EA unique:" +FAXE.extractUniqueFeatures(eaList));
                 } else {
                     System.out.println("EA:" +eaList.toString());
+                    System.out.println("-------------------------------------------");
+                    if(cmd.hasOption("feature")) {
+                        String searchFeature = cmd.getOptionValue("feature");
+                        System.out.println("Search Feature: " +searchFeature);
+
+                        List<EmbeddedAnnotation> eaListFiltered = eaList.stream()
+                                .filter(ea -> ea.getFeature().equals(searchFeature))
+                                .collect(Collectors.toList());
+                        if(!eaListFiltered.isEmpty()){
+                            System.out.println(eaListFiltered.toString());
+                        } else {
+                            System.out.println("Feature \"" +searchFeature +"\" not present in search.");
+                        }
+
+                    }
+
                 }
             }
         }
