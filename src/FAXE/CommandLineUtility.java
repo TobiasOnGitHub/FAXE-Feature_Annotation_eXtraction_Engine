@@ -3,7 +3,6 @@ package FAXE;
 import org.apache.commons.cli.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class CommandLineUtility {
 
@@ -75,9 +74,8 @@ public class CommandLineUtility {
                         String searchFeature = cmd.getOptionValue("feature");
                         System.out.println("Search Feature: " +searchFeature);
 
-                        List<EmbeddedAnnotation> eaListFiltered = eaList.stream()
-                                .filter(ea -> ea.getFeature().equals(searchFeature))
-                                .collect(Collectors.toList());
+                        List<EmbeddedAnnotation> eaListFiltered = FAXE.extractSpecificFeature(eaList, searchFeature);
+
                         if(!eaListFiltered.isEmpty()){
                             System.out.println(eaListFiltered.toString());
                         } else {

@@ -360,4 +360,17 @@ public class FAXE {
         return eaString;
     }
 
+    /**
+     * Extracts specific feature from List of {@link EmbeddedAnnotation}.
+     * @param eaList List to extract feature from.
+     * @param searchFeature To be searched feature.
+     * @return List of {@link EmbeddedAnnotation} for only the given feature.
+     */
+    public static List<EmbeddedAnnotation> extractSpecificFeature(List<EmbeddedAnnotation> eaList, String searchFeature){
+        List<EmbeddedAnnotation> eaListFiltered = eaList.stream()
+                .filter(ea -> ea.getFeature().equals(searchFeature))
+                .collect(Collectors.toList());
+
+        return eaListFiltered;
+    }
 }
