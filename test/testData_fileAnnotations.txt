@@ -1,4 +1,4 @@
 fileA fileB
 Reference1 Reference2
-FAXE.codeAnnotationsTest.java
+codeAnnotationsTest.java
 Testing
