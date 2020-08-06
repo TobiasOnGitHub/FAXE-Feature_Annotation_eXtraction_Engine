@@ -317,24 +317,25 @@ public class FAXE {
     }
 
 
-    /**
-     * Transforms JSON object to list of {@link EmbeddedAnnotation}
-     * @param jsonArray JSON object
-     * @return List of {@link EmbeddedAnnotation} out of parameter.
-     */
-    public static List<EmbeddedAnnotation> deserializeEAList2JSON(JSONArray jsonArray){
-        ArrayList<EmbeddedAnnotation> list = new ArrayList<>();
-
-        if (jsonArray != null) {
-            for (int i=0;i<jsonArray.length();i++){
-                list.add(EmbeddedAnnotation.deserialize(jsonArray.get(i).toString()));
-            }
-        } else {
-            System.out.println("WARNING: deserializeEAList2JSON - empty JSONArray file (null)!");
-        }
-
-        return list;
-    }
+//    TODO - NOT SUPPORTED AS USE CASE MISSING
+//    /**
+//     * Transforms JSON object to list of {@link EmbeddedAnnotation}
+//     * @param jsonArray JSON object
+//     * @return List of {@link EmbeddedAnnotation} out of parameter.
+//     */
+//    public static List<EmbeddedAnnotation> deserializeEAList2JSON(JSONArray jsonArray){
+//        ArrayList<EmbeddedAnnotation> list = new ArrayList<>();
+//
+//        if (jsonArray != null) {
+//            for (int i=0;i<jsonArray.length();i++){
+//                list.add(EmbeddedAnnotation.deserialize(jsonArray.get(i).toString()));
+//            }
+//        } else {
+//            System.out.println("WARNING: deserializeEAList2JSON - empty JSONArray file (null)!");
+//        }
+//
+//        return list;
+//    }
 
     /**
      * Stream function to identify unique elements in Object with help of given method.
