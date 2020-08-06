@@ -64,12 +64,25 @@
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.json/json -->
-        <!--<dependency>
+        <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
             <version>20200518</version>
         </dependency>
-        -->
+
+        <!-- https://mvnrepository.com/artifact/info.picocli/picocli -->
+        <dependency>
+            <groupId>info.picocli</groupId>
+            <artifactId>picocli</artifactId>
+            <version>4.5.0</version>
+        </dependency>
+        <dependency>
+            <groupId>info.picocli</groupId>
+            <artifactId>picocli-codegen</artifactId>
+            <version>4.5.0</version>
+            <scope>provided</scope>
+        </dependency>
+
     </dependencies>
 
     <build>

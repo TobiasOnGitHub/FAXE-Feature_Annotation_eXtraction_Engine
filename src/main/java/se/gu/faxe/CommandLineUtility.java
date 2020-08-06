@@ -1,142 +1,147 @@
 package se.gu.faxe;
 
-import java.util.List;
+import picocli.CommandLine;
+import picocli.CommandLine.Command;
+import picocli.CommandLine.Option;
+import picocli.CommandLine.Parameters;
 
-public class CommandLineUtility {
+import java.io.File;
+import java.util.concurrent.Callable;
+
+@Command(name = "faxe", mixinStandardHelpOptions = true, version = "faxe 0.1", description = "Feature Annotations eXtraction Engine. Provides from given source a list of embedded annotations.",
+        subcommands = {Get.class, CheckConsistency.class, Rename.class})
+public class CommandLineUtility implements Callable<Integer> {
+
+    @Parameters(index = "0", description = "The folder/file to be analyzed.")
+    private File file;
 
     /**
      * Main method for command line usage
      * @param args Command line arguments
      */
     public static void main(String[] args) {
-        System.out.println("FAXE startet.");
+        int exitCode = new CommandLine(new CommandLineUtility()).execute(args);
+        System.exit(exitCode);
+    }
 
-        List<EmbeddedAnnotation> eaList = FAXE.extractEAfromRootDirectory("C:\\Users\\Tobias\\git\\PartialCommitTestapplication6\\src");
-
-
-//
-//        long startTime = System.nanoTime();
-//
-//        /***************************************************/
-//        /** PARAMETER DEFINITION                          **/
-//        /***************************************************/
-//        Options options = new Options();
-//
-//        Option projectScope = new Option("ps", "project-scope", true, "Print embedded annotations in project scope. (Extracting feature). Project path is provided as argument.");
-//        projectScope.setRequired(false);
-//        options.addOption(projectScope);
-//
-//        Option sourceFile = new Option("tf", "text-file", true, "Print embedded annotations from given source file. (Extracting feature). File path is provided as argument.");
-//        sourceFile.setRequired(false);
-//        options.addOption(sourceFile);
-//
-//        Option f2File = new Option("f2fi", "feature-to-file", true, "Print embedded annotations from feature-to-file mapping. (Extracting feature). File path is provided as argument.");
-//        f2File.setRequired(false);
-//        options.addOption(f2File);
-//
-//        Option f2Folder = new Option("f2fo", "feature-to-folder", true, "Print embedded annotations from feature-to-folder mapping. (Extracting feature). File path is provided as argument.");
-//        f2Folder.setRequired(false);
-//        options.addOption(f2Folder);
-//
-//        Option uniqueFeatures = new Option("u", "unique", false, "Reduce print of extracted data to unique features. (Filter function).");
-//        uniqueFeatures.setRequired(false);
-//        options.addOption(uniqueFeatures);
-//
-//        Option findFeature = new Option("f", "feature", true, "Reduce print of extracted data to given feature. (Filter function). Feature name is provided as argument.");
-//        findFeature.setRequired(false);
-//        options.addOption(findFeature);
-//
-//        CommandLineParser parser = new DefaultParser();
-//        HelpFormatter formatter = new HelpFormatter();
-//        CommandLine cmd = null;
-//
-//        try {
-//            cmd = parser.parse(options, args);
-//        } catch (ParseException e) {
-//            System.out.println(e.getMessage());
-//            formatter.printHelp("FAXE Command Line Utility", options);
-//
-//            System.exit(1);
-//        }
-//
-//        /***************************************************/
-//        /** PARAMETER INTERPRETATION                      **/
-//        /***************************************************/
-//        if(cmd.hasOption("project-scope")) {
-//            String inputParameter = cmd.getOptionValue("project-scope");
-//            System.out.println("Search EA in project scope: " +inputParameter);
-//
-//            List<EmbeddedAnnotation> eaList = FAXE.extractEAfromRootDirectory(inputParameter);
-//
-//            if(eaList!=null) {
-//                if(cmd.hasOption("unique")) {
-//                    System.out.println("EA unique:" +FAXE.extractUniqueFeatures(eaList));
-//                } else {
-//                    System.out.println("EA:" +eaList.toString());
-//                    System.out.println("-------------------------------------------");
-//                    if(cmd.hasOption("feature")) {
-//                        String searchFeature = cmd.getOptionValue("feature");
-//                        System.out.println("Search Feature: " +searchFeature);
-//
-//                        List<EmbeddedAnnotation> eaListFiltered = FAXE.extractSpecificFeature(eaList, searchFeature);
-//
-//                        if(!eaListFiltered.isEmpty()){
-//                            System.out.println(eaListFiltered.toString());
-//                        } else {
-//                            System.out.println("Feature \"" +searchFeature +"\" not present in search.");
-//                        }
-//
-//                    }
-//
-//                }
-//            }
-//        }
-//
-//        if(cmd.hasOption("text-file")) {
-//            String inputParameter = cmd.getOptionValue("text-file");
-//            System.out.println("Search EA in source file: " +inputParameter);
-//
-//            List<EmbeddedAnnotation> eaList = FAXE.extractEAfromSourceCode(inputParameter);
-//
-//            if(eaList!=null) {
-//                if(cmd.hasOption("unique")) {
-//                    System.out.println("EA unique:" +FAXE.extractUniqueFeatures(eaList));
-//                } else {
-//                    System.out.println("EA:" +eaList.toString());
-//                }
-//            }
-//        }
-//
-//        if(cmd.hasOption("feature-to-file")) {
-//            String inputParameter = cmd.getOptionValue("feature-to-file");
-//            System.out.println("Search EA in source file: " +inputParameter);
-//
-//            List<EmbeddedAnnotation> eaList = FAXE.extractEAfromFeatureFile(inputParameter);
-//
-//            if(eaList!=null) {
-//                if(cmd.hasOption("unique")) {
-//                    System.out.println("EA unique:" +FAXE.extractUniqueFeatures(eaList));
-//                } else {
-//                    System.out.println("EA:" +eaList.toString());
-//                }
-//            }
-//        }
-//
-//        if(cmd.hasOption("feature-to-folder")) {
-//            String inputParameter = cmd.getOptionValue("feature-to-folder");
-//            System.out.println("Search EA in source file: " +inputParameter);
-//
-//            List<EmbeddedAnnotation> eaList = FAXE.extractEAfromFeatureFolder(inputParameter);
-//
-//            if(eaList!=null) {
-//                if(cmd.hasOption("unique")) {
-//                    System.out.println("EA unique:" +FAXE.extractUniqueFeatures(eaList));
-//                } else {
-//                    System.out.println("EA:" +eaList.toString());
-//                }
-//            }
-//        }
-
-    }   // public main(...)
+    @Override
+    public Integer call() throws Exception { // your business logic goes here...
+        System.out.println("CALL GET WITH GIVEN PATH");
+        return 0;
+    }
 
 }   // class CommandLineUtility
+
+@Command(name = "get", description = "Get embedded annotation from the given parameter source")
+class Get implements Callable<Integer> {
+
+    @Parameters(index = "0", description = "The folder/file to be analyzed.")
+    private File file;
+
+    @Option(names = {"-l", "--lpq"}, description = "Limit print to Least-Partially-Qualified identifier for feature")
+    private String featureLPQ = "";
+
+    @Option(names = {"-m", "--metrics"}, description = "Provide Scattering degree and tangling degree of the given parameter source")
+    private boolean getMetrics = false;
+
+    @Option(names = {"-s", "--scattering-degree"}, description = "Provide Scattering degree of the given parameter source")
+    private boolean getMetricsScattering = false;
+
+    @Option(names = {"-t", "--tangling-degree"}, description = "Provide Scattering degree and tangling degree of the given parameter source")
+    private boolean getMetricsTangling = false;
+
+    @Override
+    public Integer call() throws Exception {
+        if(file.isDirectory()){
+            System.out.println("UC1 - Return all embedded annotations from the whole project");
+            System.out.printf("Directory name: " +file.toString());
+        } else if(file.isFile()){
+
+            if(file.getName().endsWith(".feature-folder")){
+                System.out.println("UC2 - Return all embedded annotations from one feature-to-folder mapping file");
+                System.out.println("File name: " +file.toString());
+                if(getMetrics || getMetricsScattering || getMetricsTangling){
+                    System.out.println("UC14 - Metrics such as scattering and tangling degree shall be provided");
+                }
+            } else if(file.getName().endsWith(".feature-file")){
+                System.out.println("UC3 - Return all embedded annotations from one feature-to-file mapping file");
+                System.out.println("File name: " +file.toString());
+                if(getMetrics || getMetricsScattering || getMetricsTangling){
+                    System.out.println("UC14 - Metrics such as scattering and tangling degree shall be provided");
+                }
+            } else if(file.getName().endsWith(".cfr")){
+                System.out.println("UC5 - Return feature model");
+                System.out.println("File name: " +file.toString());
+                if(getMetrics || getMetricsScattering || getMetricsTangling){
+                    System.out.println("UC14 - Metrics such as scattering and tangling degree shall be provided");
+                }
+            } else {
+                System.out.println("UC4 - Return all embedded annotations from one textual asset (file)");
+                System.out.println("File name: " +file.toString());
+                if(getMetrics || getMetricsScattering || getMetricsTangling){
+                    System.out.println("UC14 - Metrics such as scattering and tangling degree shall be provided");
+                }
+            }
+
+        }
+
+        if(featureLPQ.compareTo("")!=0){
+            System.out.println("UC7 - Return all embedded annotations for one specific feature");
+            System.out.println("Search for LPQ " +featureLPQ.toString());
+        }
+
+        return 0;
+    }
+}
+
+
+@Command(name = "checkConsistency", description = "Checks the consistency of embedded annotation definition from the given parameter source")
+class CheckConsistency implements Callable<Integer> {
+    @Parameters(index = "0", description = "The file/folder to be checked.")
+    private File file;
+
+    @Override
+    public Integer call() throws Exception {
+        System.out.println("UC11 - Verify consistency with embedded annotation specification");
+
+        if(file.isDirectory()){
+            System.out.println("... for the (whole) project folder");
+            System.out.printf("Directory name: " +file.toString());
+        } else if(file.isFile()){
+
+            if(file.getName().endsWith(".feature-folder")){
+                System.out.println("... feature-to-folder mapping");
+                System.out.println("File name: " +file.toString());
+            } else if(file.getName().endsWith(".feature-file")){
+                System.out.println("... feature-to-file mapping");
+                System.out.println("File name: " +file.toString());
+            } else if(file.getName().endsWith(".cfr")){
+                System.out.println("... the feature file");
+                System.out.println("File name: " +file.toString());
+            } else {
+                System.out.println("... textual asset");
+                System.out.println("File name: " +file.toString());
+            }
+
+        }
+
+        return 0;
+    }
+}
+
+@Command(name = "rename", description = "Renames all LPQ feature names.")
+class Rename implements Callable<Integer> {
+
+    @Parameters(index = "0", description = "LPQ to be renamed.")
+    private String lpqFrom;
+
+    @Parameters(index = "1", description = "New LPQ name.")
+    private String lpqTo;
+
+    @Override
+    public Integer call() throws Exception {
+        System.out.println("From: " +lpqFrom);
+        System.out.println("To:   " +lpqTo);
+        return 0;
+    }
+}

@@ -13,4 +13,9 @@
       <module name="FAXE-Feature_Annotation_eXtraction_Engine" target="8" />
     </bytecodeTargetLevel>
   </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="FAXE-Feature_Annotation_eXtraction_Engine" options="" />
+    </option>
+  </component>
 </project>
