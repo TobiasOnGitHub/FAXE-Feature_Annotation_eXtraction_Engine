@@ -8,7 +8,7 @@ import picocli.CommandLine.Parameters;
 import java.io.File;
 import java.util.concurrent.Callable;
 
-@Command(name = "faxe", mixinStandardHelpOptions = true, version = "faxe 0.1", description = "Feature Annotations eXtraction Engine. Provides from given source a list of embedded annotations.",
+@Command(name = "", mixinStandardHelpOptions = true, version = "faxe 0.1", description = "Feature Annotations eXtraction Engine. Provides from given source a list of embedded annotations.",
         subcommands = {Get.class, CheckConsistency.class, Rename.class})
 public class CommandLineUtility implements Callable<Integer> {
 
