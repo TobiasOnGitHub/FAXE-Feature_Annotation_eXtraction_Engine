@@ -48,13 +48,50 @@ import java.util.stream.Stream;
  */
 public class FAXE {
 
+    public FAXE (){
+        // TODO - Load config
+        //## UC13 - The library shall be configurable for the root directory, mapping file names, feature model location ##
+        //Handled via .properties file and can control project root directory, position feature model, file extension for feature model, file extension for feature-to-folder mapping, and file extension for feature-to-file mapping.
+    }
+
+    public static List<EmbeddedAnnotation> getEmbeddedAnnotations(File file){
+
+        if(file.isDirectory()){
+            System.out.println("UC1 - Return all embedded annotations from the whole project");
+            getEmbeddedAnnotationsFromDirectory(file.getName());
+        } else if(file.isFile()){
+
+            if(file.getName().endsWith(".feature-folder")){
+                System.out.println("UC2 - Return all embedded annotations from one feature-to-folder mapping file");
+                System.out.println("File name: " +file.toString());
+            } else if(file.getName().endsWith(".feature-file")){
+                System.out.println("UC3 - Return all embedded annotations from one feature-to-file mapping file");
+                System.out.println("File name: " +file.toString());
+            } else {
+                System.out.println("UC4 - Return all embedded annotations from one textual asset (file)");
+                System.out.println("File name: " +file.toString());
+            }
+
+        }
+
+        return null;    // Todo - internal calls to be returned here
+    }
+
+    public static List<EmbeddedAnnotation> getEmbeddedAnnotations(String rootDirectory, String lpq) throws UnsupportedOperationException {
+        System.out.println("UC7 - Return all embedded annotations for one specific feature");
+        System.out.println("Search for LPQ " +lpq);
+
+        throw new UnsupportedOperationException();
+    }
+
+
     /**
      * Method to extract embedded annotations from given root directory. The root directory and all sub-directories are
      * checked for EA in source code, files and folders. In addition the hierarchy file is analysed.
      * @param rootDirectory String of root directory.
      * @return List of found embedded annotations.
      */
-    public static List<EmbeddedAnnotation> extractEAfromRootDirectory(String rootDirectory){
+    private static List<EmbeddedAnnotation> getEmbeddedAnnotationsFromDirectory(String rootDirectory){
         List<EmbeddedAnnotation> eaList = new ArrayList<>();
         System.out.println(">>> FAXE: EA extraction from " +rootDirectory +" started ...");
 
@@ -73,18 +110,18 @@ public class FAXE {
         /**********************************/
         /* From root directory go through all individual files */
         /* Check for EA in each file */
-        streamSupplier.get().filter(Files::isRegularFile).forEach(s -> eaList.addAll(extractEAfromSourceCode(s.toString())));
+        streamSupplier.get().filter(Files::isRegularFile).forEach(s -> eaList.addAll(getEmbeddedAnnotationsFromTextAsset(s.toString())));
 
         /**********************************/
         /** ANALYSIS OF FEATURE-TO-FILE  **/
         /**********************************/
 //        streamSupplier.get().map(x -> x.toString()).filter(f -> f.endsWith(".feature-file")).forEach(System.out::println);
-        streamSupplier.get().map(x -> x.toString()).filter(f -> f.endsWith(".feature-file")).forEach(s -> eaList.addAll(extractEAfromFeatureFile(s.toString())));
+        streamSupplier.get().map(x -> x.toString()).filter(f -> f.endsWith(".feature-file")).forEach(s -> eaList.addAll(getEmbeddedAnnotationsFromFeatureFileMapping(s.toString())));
 
         /***********************************/
         /** ANALYSIS OF FEATURE-TO-FOLDER **/
         /***********************************/
-        streamSupplier.get().map(x -> x.toString()).filter(f -> f.endsWith(".feature-folder")).forEach(s -> eaList.addAll(extractEAfromFeatureFolder(s.toString())));
+        streamSupplier.get().map(x -> x.toString()).filter(f -> f.endsWith(".feature-folder")).forEach(s -> eaList.addAll(getEmbeddedAnnotationsFromFeatureFolderMapping(s.toString())));
 
         /******************************************/
         /** ANALYSIS OF CLAFER FEATURE HIERARCHY **/
@@ -102,7 +139,7 @@ public class FAXE {
      * @param fileToAnalyze String of to be analyzed file.
      * @return List of found embedded annotations.
      */
-    public static List<EmbeddedAnnotation> extractEAfromSourceCode(String fileToAnalyze){
+    private static List<EmbeddedAnnotation> getEmbeddedAnnotationsFromTextAsset(String fileToAnalyze){
         CharStream in = null;
         try {
             in = CharStreams.fromFileName(fileToAnalyze);
@@ -140,7 +177,7 @@ public class FAXE {
      * @param fileUnderTest String of to be analyzed file.
      * @return List of found embedded annotations.
      */
-    public static List<EmbeddedAnnotation> extractEAfromFeatureFile(String fileUnderTest){
+    private static List<EmbeddedAnnotation> getEmbeddedAnnotationsFromFeatureFileMapping(String fileUnderTest){
         CharStream in = null;
         try {
             in = CharStreams.fromFileName(fileUnderTest);
@@ -175,7 +212,7 @@ public class FAXE {
      * @param folderUnderTest String of to be analyzed folder.
      * @return List of found embedded annotations.
      */
-    public static List<EmbeddedAnnotation> extractEAfromFeatureFolder(String folderUnderTest){
+    private static List<EmbeddedAnnotation> getEmbeddedAnnotationsFromFeatureFolderMapping(String folderUnderTest){
         CharStream in = null;
         try {
             in = CharStreams.fromFileName(folderUnderTest);
@@ -205,6 +242,26 @@ public class FAXE {
     }
 
 
+    public static List<EmbeddedAnnotation> getFeatureModel(String featureModelPath) throws UnsupportedOperationException{
+        throw new UnsupportedOperationException();
+
+//        File file = new File(featureModelPath);
+//        if(file.isFile()) {
+//            if (file.getName().endsWith(".cfr")) {
+//                System.out.println("UC5 - Return feature model");
+//                System.out.println("File name: " + file.toString());
+//            }
+//        }
+
+    }
+
+    public String getEmbeddedAnnotationContent(EmbeddedAnnotation ea) throws UnsupportedOperationException {
+        throw new UnsupportedOperationException();
+    }
+
+    public String getMappedEmbeddedAnnotationContentFile(EmbeddedAnnotation ea) throws UnsupportedOperationException {
+        throw new UnsupportedOperationException();
+    }
 
     /**
      * Takes input String and checks if valid according to code annotation grammar.
@@ -317,25 +374,62 @@ public class FAXE {
     }
 
 
-//    TODO - NOT SUPPORTED AS USE CASE MISSING
-//    /**
-//     * Transforms JSON object to list of {@link EmbeddedAnnotation}
-//     * @param jsonArray JSON object
-//     * @return List of {@link EmbeddedAnnotation} out of parameter.
-//     */
-//    public static List<EmbeddedAnnotation> deserializeEAList2JSON(JSONArray jsonArray){
-//        ArrayList<EmbeddedAnnotation> list = new ArrayList<>();
-//
-//        if (jsonArray != null) {
-//            for (int i=0;i<jsonArray.length();i++){
-//                list.add(EmbeddedAnnotation.deserialize(jsonArray.get(i).toString()));
-//            }
-//        } else {
-//            System.out.println("WARNING: deserializeEAList2JSON - empty JSONArray file (null)!");
-//        }
-//
-//        return list;
-//    }
+    public static JSONArray serializeEAList2JSON(EmbeddedAnnotation ea) throws UnsupportedOperationException {
+        throw new UnsupportedOperationException();
+    }
+
+
+    /**
+     * Renames given LPQ by new LPQ name. Changes are done permanent in file System.
+     * @param lpq_before
+     * @param lpq_after
+     * @return Count of changed appearances.
+     * @throws UnsupportedOperationException
+     */
+    public int renameFeatureName(LPQ lpq_before, String lpq_after) throws UnsupportedOperationException {
+        throw new UnsupportedOperationException();
+    }
+
+    public static Metrics getMetrics(File file, LPQ feature) throws UnsupportedOperationException {
+        // 	-> FeatureDasboard Metrics!
+        //	-> Say that "implemented by ... in ..." And in Javadoc Author adding him/her
+        throw new UnsupportedOperationException();
+    }
+
+
+    /**
+     * Transforms JSON object to list of {@link EmbeddedAnnotation}
+     * Private method as currently no use case seen to perform this action
+     * @param jsonArray JSON object
+     * @return List of {@link EmbeddedAnnotation} out of parameter.
+     */
+    private static List<EmbeddedAnnotation> deserializeEAList2JSON(JSONArray jsonArray){
+        ArrayList<EmbeddedAnnotation> list = new ArrayList<>();
+
+        if (jsonArray != null) {
+            for (int i=0;i<jsonArray.length();i++){
+                list.add(EmbeddedAnnotation.deserialize(jsonArray.get(i).toString()));
+            }
+        } else {
+            System.out.println("WARNING: deserializeEAList2JSON - empty JSONArray file (null)!");
+        }
+
+        return list;
+    }
+
+
+    /**
+     * Check consistency according to embedded annotation specification and returns detected {@link ConsistencyViolation}s
+     * Check is performed for one file or a folder, including sub-assets.
+     * @param file
+     * @return
+     * @throws UnsupportedOperationException
+     */
+    public List<ConsistencyViolation> checkConsistency(File file) throws UnsupportedOperationException {
+        throw new UnsupportedOperationException();
+        // Consistency Rules: begin/end annotations; line marker without content; Embedded Annotation part of feature model; brace missing
+    }
+
 
     /**
      * Stream function to identify unique elements in Object with help of given method.
@@ -351,7 +445,7 @@ public class FAXE {
      * @param eaList List with {@link EmbeddedAnnotation} to be proceeded.
      * @return List of feature names - uniquely listed.
      */
-    public static List<String> extractUniqueFeatures(List<EmbeddedAnnotation> eaList){
+    private static List<String> extractUniqueFeatures(List<EmbeddedAnnotation> eaList){
         List<EmbeddedAnnotation> eaListFiltered = eaList.stream()
                 .filter(distinctByKey(p -> p.getFeature()))
                 .collect(Collectors.toList());
@@ -366,8 +460,8 @@ public class FAXE {
      * @param eaList List to extract feature from.
      * @param searchFeature To be searched feature.
      * @return List of {@link EmbeddedAnnotation} for only the given feature.
-     */
-    public static List<EmbeddedAnnotation> extractSpecificFeature(List<EmbeddedAnnotation> eaList, String searchFeature){
+     */ // put private as functionality now with parameter in getEA methods
+    private static List<EmbeddedAnnotation> extractSpecificFeature(List<EmbeddedAnnotation> eaList, String searchFeature){
         List<EmbeddedAnnotation> eaListFiltered = eaList.stream()
                 .filter(ea -> ea.getFeature().equals(searchFeature))
                 .collect(Collectors.toList());

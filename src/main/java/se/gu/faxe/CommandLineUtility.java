@@ -12,8 +12,8 @@ import java.util.concurrent.Callable;
         subcommands = {Get.class, CheckConsistency.class, Rename.class})
 public class CommandLineUtility implements Callable<Integer> {
 
-    @Parameters(index = "0", description = "The folder/file to be analyzed.")
-    private File file;
+//    @Parameters(index = "0", description = "The folder/file to be analyzed.")
+//    private File file;
 
     /**
      * Main method for command line usage
@@ -26,7 +26,7 @@ public class CommandLineUtility implements Callable<Integer> {
 
     @Override
     public Integer call() throws Exception { // your business logic goes here...
-        System.out.println("CALL GET WITH GIVEN PATH");
+//        System.out.println("CALL GET WITH GIVEN PATH");
         return 0;
     }
 
@@ -35,7 +35,7 @@ public class CommandLineUtility implements Callable<Integer> {
 @Command(name = "get", description = "Get embedded annotation from the given parameter source")
 class Get implements Callable<Integer> {
 
-    @Parameters(index = "0", description = "The folder/file to be analyzed.")
+    @Parameters(index = "0", description = "The folder/file to be analyzed. Files might be any text asset as well as feature-to-folder/-file mapping files.")
     private File file;
 
     @Option(names = {"-l", "--lpq"}, description = "Limit print to Least-Partially-Qualified identifier for feature")

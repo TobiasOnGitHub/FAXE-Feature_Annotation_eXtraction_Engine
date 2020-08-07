@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"FAXE","l":"EmbeddedAnnotation.eEAType"},{"p":"FAXE","l":"EmbeddedAnnotation"},{"p":"FAXE","l":"FAXE"}]
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"se.gu.faxe","l":"CommandLineUtility"},{"p":"se.gu.faxe","l":"EmbeddedAnnotation.eEAType"},{"p":"se.gu.faxe","l":"EmbeddedAnnotation"},{"p":"se.gu.faxe","l":"FAXE"},{"p":"se.gu.faxe","l":"LPQ"},{"p":"se.gu.faxe","l":"Metrics"}]
