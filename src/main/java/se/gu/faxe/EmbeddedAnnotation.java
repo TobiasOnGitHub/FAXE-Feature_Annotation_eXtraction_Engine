@@ -40,7 +40,11 @@ public class EmbeddedAnnotation {
     }
 
     public String toString(){
-        return "\n{" +eaType.toString() +" " +file +": " +openingLine +" " +closingLine +" " +feature +"}";
+        if(eaType==eEAType.LINE){
+            return "\n{" +eaType.toString() +" " +file +": " +"-"         +" " +"-"         +" " +feature +"}";
+        } else {
+            return "\n{" +eaType.toString() +" " +file +": " +openingLine +" " +closingLine +" " +feature +"}";
+        }
     }
 
     /**
