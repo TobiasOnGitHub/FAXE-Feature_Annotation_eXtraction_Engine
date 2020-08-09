@@ -116,7 +116,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>se.gu.faxe.CommandLineUtility</mainClass>
+                            <mainClass>se.gu.faxe.commands.CommandLineUtility</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

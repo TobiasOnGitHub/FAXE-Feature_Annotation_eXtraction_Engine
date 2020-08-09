@@ -1,9 +1,11 @@
-package se.gu.faxe;
+package se.gu.faxe.commands;
 
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
+import se.gu.faxe.EmbeddedAnnotation;
+import se.gu.faxe.FAXE;
 
 import java.io.File;
 import java.util.List;
