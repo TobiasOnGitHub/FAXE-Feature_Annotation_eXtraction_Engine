@@ -147,14 +147,18 @@ class CheckConsistency implements Callable<Integer> {
 @Command(name = "rename", description = "Renames all LPQ feature names.")
 class Rename implements Callable<Integer> {
 
-    @Parameters(index = "0", description = "LPQ to be renamed.")
+    @Parameters(index = "0", description = "The file/folder to be checked.")
+    private File file;
+
+    @Parameters(index = "1", description = "LPQ to be renamed.")
     private String lpqFrom;
 
-    @Parameters(index = "1", description = "New LPQ name.")
+    @Parameters(index = "2", description = "New LPQ name.")
     private String lpqTo;
 
     @Override
     public Integer call() throws Exception {
+        System.out.println("File: " +file);
         System.out.println("From: " +lpqFrom);
         System.out.println("To:   " +lpqTo);
         return 0;
