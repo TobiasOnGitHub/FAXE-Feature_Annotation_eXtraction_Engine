@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.concurrent.Callable;
 
 @Command(name = "", mixinStandardHelpOptions = true, version = "faxe 0.1", description = "Feature Annotations eXtraction Engine. Provides from given source a list of embedded annotations.",
-        subcommands = {Get.class, CheckConsistency.class, Rename.class})
+        subcommands = {CheckConsistency.class, Get.class, CLIMetrics.class, Rename.class})
 public class CommandLineUtility implements Callable<Integer> {
 
 //    @Parameters(index = "0", description = "The folder/file to be analyzed.")
@@ -33,23 +33,15 @@ public class CommandLineUtility implements Callable<Integer> {
 
 }   // class CommandLineUtility
 
+
 @Command(name = "get", description = "Get embedded annotation from the given parameter source")
 class Get implements Callable<Integer> {
 
-    @Parameters(index = "0", description = "The folder/file to be analyzed. Files might be any text asset as well as feature-to-folder/-file mapping files.")
+    @Parameters(index = "0", description = "The file/folder to be analyzed. Files might be any text asset as well as feature-to-folder/-file mapping files.")
     private File file;
 
-    @Option(names = {"-l", "--lpq"}, description = "Limit print to Least-Partially-Qualified identifier for feature")
+    @Option(names = {"-f", "--feature"}, description = "Extract annotations for <feature> specified in LPQ format")
     private String featureLPQ = "";
-
-    @Option(names = {"-m", "--metrics"}, description = "Provide Scattering degree and tangling degree of the given parameter source")
-    private boolean getMetrics = false;
-
-    @Option(names = {"-s", "--scattering-degree"}, description = "Provide Scattering degree of the given parameter source")
-    private boolean getMetricsScattering = false;
-
-    @Option(names = {"-t", "--tangling-degree"}, description = "Provide Scattering degree and tangling degree of the given parameter source")
-    private boolean getMetricsTangling = false;
 
     @Override
     public Integer call() throws Exception {
@@ -66,30 +58,17 @@ class Get implements Callable<Integer> {
             if(file.getName().endsWith(".feature-folder")){
                 System.out.println("UC2 - Return all embedded annotations from one feature-to-folder mapping file");
                 System.out.println("File name: " +file.toString());
-                if(getMetrics || getMetricsScattering || getMetricsTangling){
-                    System.out.println("UC14 - Metrics such as scattering and tangling degree shall be provided");
-                }
             } else if(file.getName().endsWith(".feature-file")){
                 System.out.println("UC3 - Return all embedded annotations from one feature-to-file mapping file");
                 System.out.println("File name: " +file.toString());
-                if(getMetrics || getMetricsScattering || getMetricsTangling){
-                    System.out.println("UC14 - Metrics such as scattering and tangling degree shall be provided");
-                }
             } else if(file.getName().endsWith(".cfr")){
                 System.out.println("UC5 - Return feature model");
                 System.out.println("File name: " +file.toString());
-                if(getMetrics || getMetricsScattering || getMetricsTangling){
-                    System.out.println("UC14 - Metrics such as scattering and tangling degree shall be provided");
-                }
             } else {
                 //System.out.println("UC4 - Return all embedded annotations from one textual asset (file)");
                 //System.out.println("File name: " +file.toString());
 
                 eaList = FAXE.getEmbeddedAnnotations(file);
-
-                if(getMetrics || getMetricsScattering || getMetricsTangling){
-                    System.out.println("UC14 - Metrics such as scattering and tangling degree shall be provided");
-                }
             }
 
         }
@@ -105,6 +84,25 @@ class Get implements Callable<Integer> {
             // As no filtering happens, show whole list
             System.out.println(eaList.toString());
         }
+
+        return 0;
+    }
+}
+
+@Command(name = "metric", description = "Get metrics of embedded annotation in given parameter source")
+class CLIMetrics implements Callable<Integer> {
+    @Parameters(index = "0", description = "The file/folder to be checked.")
+    private File file;
+
+    @Option(names = {"-s", "--scattering-degree"}, description = "Provide Scattering degree of the given parameter source")
+    private boolean getMetricsScattering = false;
+
+    @Option(names = {"-t", "--tangling-degree"}, description = "Provide Scattering degree and tangling degree of the given parameter source")
+    private boolean getMetricsTangling = false;
+
+    @Override
+    public Integer call() throws Exception {
+        System.out.println("UC14 - Metrics such as scattering and tangling degree shall be provided");
 
         return 0;
     }
@@ -144,6 +142,7 @@ class CheckConsistency implements Callable<Integer> {
         return 0;
     }
 }
+
 
 @Command(name = "rename", description = "Renames all LPQ feature names.")
 class Rename implements Callable<Integer> {
