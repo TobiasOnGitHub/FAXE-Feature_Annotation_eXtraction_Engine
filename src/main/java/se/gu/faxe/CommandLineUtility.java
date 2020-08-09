@@ -6,6 +6,7 @@ import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 
 import java.io.File;
+import java.util.List;
 import java.util.concurrent.Callable;
 
 @Command(name = "", mixinStandardHelpOptions = true, version = "faxe 0.1", description = "Feature Annotations eXtraction Engine. Provides from given source a list of embedded annotations.",
@@ -52,9 +53,14 @@ class Get implements Callable<Integer> {
 
     @Override
     public Integer call() throws Exception {
+        List<EmbeddedAnnotation> eaList = null;
+
         if(file.isDirectory()){
             System.out.println("UC1 - Return all embedded annotations from the whole project");
             System.out.printf("Directory name: " +file.toString());
+
+            eaList = FAXE.getEmbeddedAnnotations(file);
+
         } else if(file.isFile()){
 
             if(file.getName().endsWith(".feature-folder")){
@@ -76,8 +82,11 @@ class Get implements Callable<Integer> {
                     System.out.println("UC14 - Metrics such as scattering and tangling degree shall be provided");
                 }
             } else {
-                System.out.println("UC4 - Return all embedded annotations from one textual asset (file)");
-                System.out.println("File name: " +file.toString());
+                //System.out.println("UC4 - Return all embedded annotations from one textual asset (file)");
+                //System.out.println("File name: " +file.toString());
+
+                eaList = FAXE.getEmbeddedAnnotations(file);
+
                 if(getMetrics || getMetricsScattering || getMetricsTangling){
                     System.out.println("UC14 - Metrics such as scattering and tangling degree shall be provided");
                 }
@@ -86,8 +95,15 @@ class Get implements Callable<Integer> {
         }
 
         if(featureLPQ.compareTo("")!=0){
-            System.out.println("UC7 - Return all embedded annotations for one specific feature");
-            System.out.println("Search for LPQ " +featureLPQ.toString());
+            //System.out.println("UC7 - Return all embedded annotations for one specific feature");
+            System.out.println("Search for LPQ \"" +featureLPQ.toString() +"\" in " +file.toString());
+
+            eaList.stream()
+                  .filter(ea -> ea.getFeature().equals(featureLPQ.toString()))
+                  .forEach(System.out::println);
+        } else {
+            // As no filtering happens, show whole list
+            System.out.println(eaList.toString());
         }
 
         return 0;

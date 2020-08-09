@@ -40,10 +40,10 @@ public class EmbeddedAnnotation {
     }
 
     public String toString(){
-        if(eaType==eEAType.LINE){
-            return "\n{" +eaType.toString() +" " +file +": " +"-"         +" " +"-"         +" " +feature +"}";
+        if(eaType==eEAType.FILE || eaType==eEAType.FOLDER){
+            return "\n{" +eaType.toString() +" " +file +"-"         +" " +"-"         +" " +feature +"}";
         } else {
-            return "\n{" +eaType.toString() +" " +file +": " +openingLine +" " +closingLine +" " +feature +"}";
+            return "\n{" +eaType.toString() +" " +file +openingLine +" " +closingLine +" " +feature +"}";
         }
     }
 

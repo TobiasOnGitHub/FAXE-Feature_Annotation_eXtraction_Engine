@@ -58,7 +58,7 @@ public class FAXE {
 
         if(file.isDirectory()){
             System.out.println("UC1 - Return all embedded annotations from the whole project");
-            getEmbeddedAnnotationsFromDirectory(file.getName());
+            return getEmbeddedAnnotationsFromDirectory(file.getName());
         } else if(file.isFile()){
 
             if(file.getName().endsWith(".feature-folder")){
@@ -68,8 +68,11 @@ public class FAXE {
                 System.out.println("UC3 - Return all embedded annotations from one feature-to-file mapping file");
                 System.out.println("File name: " +file.toString());
             } else {
-                System.out.println("UC4 - Return all embedded annotations from one textual asset (file)");
-                System.out.println("File name: " +file.toString());
+                //System.out.println("UC4 - Return all embedded annotations from one textual asset (file)");
+                //System.out.println("File name: " +file.toString());
+
+                // TODO - change to getEmbeddedAnnotationsFromTextAsset ?!
+                return getEmbeddedAnnotationsFromDirectory(file.getName());
             }
 
         }
