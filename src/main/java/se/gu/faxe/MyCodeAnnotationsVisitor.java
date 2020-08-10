@@ -18,8 +18,8 @@ under the License.
 *************************************************************/
 package se.gu.faxe;
 
-import se.gu.faxe.Grammar.codeAnnotationBaseVisitor;
-import se.gu.faxe.Grammar.codeAnnotationParser;
+import se.gu.faxe.grammar.codeAnnotationBaseVisitor;
+import se.gu.faxe.grammar.codeAnnotationParser;
 
 import java.util.ArrayList;
 import java.util.List;

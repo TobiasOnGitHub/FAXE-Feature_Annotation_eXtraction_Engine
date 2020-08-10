@@ -25,7 +25,7 @@ import org.antlr.v4.runtime.misc.ParseCancellationException;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.json.CDL;
 import org.json.JSONArray;
-import se.gu.faxe.Grammar.*;
+import se.gu.faxe.grammar.*;
 
 import java.io.File;
 import java.io.IOException;

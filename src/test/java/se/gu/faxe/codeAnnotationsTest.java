@@ -25,8 +25,8 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import se.gu.faxe.Grammar.codeAnnotationLexer;
-import se.gu.faxe.Grammar.codeAnnotationParser;
+import se.gu.faxe.grammar.codeAnnotationLexer;
+import se.gu.faxe.grammar.codeAnnotationParser;
 
 import java.util.ArrayList;
 import java.util.List;
