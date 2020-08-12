@@ -58,7 +58,7 @@ public class FAXE {
 
         if(file.isDirectory()){
             System.out.println("UC1 - Return all embedded annotations from the whole project");
-            return getEmbeddedAnnotationsFromDirectory(file.getName());
+            return getEmbeddedAnnotationsFromDirectory(file);
         } else if(file.isFile()){
 
             if(file.getName().endsWith(".feature-folder")){
@@ -71,8 +71,7 @@ public class FAXE {
                 //System.out.println("UC4 - Return all embedded annotations from one textual asset (file)");
                 //System.out.println("File name: " +file.toString());
 
-                // TODO - change to getEmbeddedAnnotationsFromTextAsset ?!
-                return getEmbeddedAnnotationsFromDirectory(file.getName());
+                return getEmbeddedAnnotationsFromTextAsset(file.getPath());
             }
 
         }
@@ -94,14 +93,14 @@ public class FAXE {
      * @param rootDirectory String of root directory.
      * @return List of found embedded annotations.
      */
-    private static List<EmbeddedAnnotation> getEmbeddedAnnotationsFromDirectory(String rootDirectory){
+    private static List<EmbeddedAnnotation> getEmbeddedAnnotationsFromDirectory(File rootDirectory){
         List<EmbeddedAnnotation> eaList = new ArrayList<>();
         System.out.println(">>> FAXE: EA extraction from " +rootDirectory +" started ...");
 
         /* Create a re-usable object for "Stream<Path> paths = Files.walk(Paths.get("C:\\\\EA_Examples\\\\ClaferMooVisualizer\\\\Server\\\\Client\\\\")) " */
         Supplier<Stream<Path>> streamSupplier = () -> {
             try {
-                return Files.walk(Paths.get(rootDirectory));
+                return Files.walk(Paths.get(rootDirectory.getPath()));
             } catch (IOException e) {
                 e.printStackTrace();
                 return null;
