@@ -30,7 +30,7 @@ import java.util.List;
 import java.util.concurrent.Callable;
 
 @Command(name = "", mixinStandardHelpOptions = true, version = "faxe 0.1", description = "Feature Annotations eXtraction Engine. Provides from given source a list of embedded annotations.",
-        subcommands = {CheckConsistency.class, Get.class, CLIMetrics.class, Rename.class})
+        subcommands = {CheckConsistency.class, Get.class, CLIMetrics.class, Rename.class, FeatureBasedPartialCommit.class})
 public class CommandLineUtility implements Callable<Integer> {
 
 //    @Parameters(index = "0", description = "The folder/file to be analyzed.")
