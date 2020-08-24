@@ -1,0 +1,116 @@
+#!/bin/bash
+echo ">>> git-pfc (Partial Feature Commit)"
+
+echo "Positional Parameters"
+echo '$0 = ' $0		# FAXE tool
+echo '$1 = ' $1		# Path repository root
+echo '$2 = ' $2		# Parameters
+echo '$3 = ' $3		# Parameters data
+
+display_help() {
+    echo "Usage: path-to-repository -f featureName -m \"message to add to commit\" " >&2
+    echo
+    echo "   -f,--feature <arg>              Single feature to consider [MANDATORY] "
+#    echo "   -wd,--working-directory <arg>   Path to git-folder (with .git) of project [MANDATORY] "
+    echo "   -m,--message <arg>              Text to be added to commit message [OPTIONAL] "
+    echo "   -nc,--no-commit                 Suppress git-commit [OPTIONAL] "
+#	echo "   -p, --print-embedded-annotations Prints available embedded annotations [OPTIONAL] "
+    echo
+    # echo some stuff here for the -a or --add-options 
+    exit 1
+}
+
+
+if [[ $1 == "-h" ]] 
+then
+	display_help
+	exit 0
+elif [[ $1 == -* ]] # Detect if option is given in wrong position
+then
+    echo "PATH to repository expected, but parameter option given."
+	exit -1;
+#else
+#	echo "Parameter not properly detected!"
+fi
+
+exit 0;
+
+# CHECK IF SOURCE DIRECTORY IS GIVEN AND ADD WHEN MISSING DEFAULT PATH "src" #
+if [ -z $1 ] 
+then
+	echo "Using current path as repository root."
+	SRCDIR=$PWD
+else
+	echo "Use given path as repository root"
+    if [ $1 = "." ]
+	then
+	    echo "Dot for local repository detected"
+        SRCDIR=$PWD
+    else
+		echo "123"
+		SRCDIR=$1
+    fi
+fi
+
+
+# CHECK PARAMTERS #
+POSITIONAL=()
+while [[ $# -gt 0 ]]
+do
+key="$2"
+#echo "key = ${key}"
+
+if [ -z $2 ] 
+then
+	break;
+fi
+
+case $key in
+    -h|--help ) # --help handled specially for git bash commands
+    display_help  # Call your function
+    exit 0
+    ;;
+    -f|--feature)
+    FEATURE="$3"
+    shift # past argument
+    shift # past value
+    ;;
+    -m|--message)
+    MESSAGE="$3"
+    shift # past argument
+    shift # past value
+    ;;
+#	-wd|--working-directory)
+#    WORKINGDIRECTORY="$2"
+#    shift # past argument
+#    shift # past value
+#    ;;
+	-nc|--no-commit)
+    NOCOMMIT="-nc"
+    shift # past argument
+    ;;
+#	-p|--print-embedded-annotations)
+#    PRINTANNOTATIONS="-p"
+#    shift # past argument
+#    ;;
+esac
+done
+
+
+
+
+
+
+SCRIPTDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+echo "SCRIPTDIR        = ${SCRIPTDIR}"
+echo "SOURCEDIRECTORY  = ${SRCDIR}"
+echo "FEATURE          = ${FEATURE}"
+echo "MESSAGE          = ${MESSAGE}"
+echo "NOCOMMIT         = ${NOCOMMIT}"
+echo "PRINTANNOTATIONS = ${PRINTANNOTATIONS}"
+
+#"C:\Program Files\Java\jdk-13.0.2\bin\java.exe" -jar "${SCRIPTDIR}\JGitPFC.jar" -f "${FEATURE}" -m "${MESSAGE}" -wd "${PWD}" "${NOCOMMIT}" "${PRINTANNOTATIONS}"
+#java -jar "${SCRIPTDIR}\faxe-0.1.jar" "fbpc" "${SRCDIR}" $1 # -f "${FEATURE}" -m "${MESSAGE}"  "${NOCOMMIT}" "${PRINTANNOTATIONS}"
+
+echo "<<< git-pfc"
