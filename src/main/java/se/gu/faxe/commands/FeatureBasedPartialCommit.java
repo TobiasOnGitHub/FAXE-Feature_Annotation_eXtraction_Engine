@@ -34,6 +34,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Scanner;
 import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 
@@ -41,10 +42,10 @@ import java.util.concurrent.TimeUnit;
 public class FeatureBasedPartialCommit implements Callable<Integer> {
 
 	@Parameters(index = "0", description = "Path to git working directory (with .git) of project. (data provided by calling bash script).")
-    private File file;
+    private File gitWorkingDirectory;
 
-	@Parameters(index = "1", description = "Source code folder inside working directory.")
-	private String folder;
+	@Parameters(index = "1", description = "Source code folder inside working directory. (relative path from gitWorkingDirectory)")
+	private String srcFolder;
 
 	@CommandLine.Option(names = {"-f", "--feature"}, description = "Feature to be commited via partial commit.")
 	private String featureLPQ = "";
@@ -60,7 +61,23 @@ public class FeatureBasedPartialCommit implements Callable<Integer> {
 	public Integer call() throws Exception {
 		System.out.println(">>> FeatureBasedPartialCommit");
 
-		performPartialCommit(featureLPQ, file, folder, message, flagNoCommit);
+		if(featureLPQ.equals("")){
+			System.out.println("List of changed features - select the one for partial commit:");
+			List<String> changed = findChangedFeatures(new File("C:\\Users\\Tobias\\git\\PartialCommitTestapplication2\\"), "src");
+			System.out.println(changed);
+			for(int i=0; i<changed.size(); i++){
+				System.out.println("(" +i +") " +changed.get(i));
+			}
+
+			System.out.print("Please enter changed feature number: ");
+			Scanner in = new Scanner(System.in);
+			int a = in.nextInt();
+			System.out.println("You entered integer "+a);
+
+			featureLPQ = changed.get(a);
+		}
+
+		//performPartialCommit(featureLPQ, gitWorkingDirectory, srcFolder, message, flagNoCommit);
 
 		System.out.println("<<< FeatureBasedPartialCommit");
 		return 0;
@@ -84,7 +101,7 @@ public class FeatureBasedPartialCommit implements Callable<Integer> {
 	
 	//public static void main(String[] args) {
 	private void performPartialCommit(String optFeatureName, File optWorkingDirectory, String optSourceDirectory, String optCommitMessage, boolean optNoCommit){
-		System.out.println(">>> JGitPFC");
+		System.out.println(">>> FeatureBasedPartialCommit::performPartialCommit");
 
 		System.out.println("workingDirectory=" +optWorkingDirectory.getPath());
 		System.out.println("sourceDirectory=" +optSourceDirectory);
@@ -343,7 +360,159 @@ public class FeatureBasedPartialCommit implements Callable<Integer> {
 		}
 	    
 		
-		System.out.println("<<< JGitPFC");
+		System.out.println("<<< FeatureBasedPartialCommit::performPartialCommit");
+	}
+
+
+
+	private List<String> findChangedFeatures(File optWorkingDirectory, String optSourceDirectory){
+		System.out.println(">>> FeatureBasedPartialCommit::findChangedFeatures");
+
+		System.out.println("workingDirectory=" +optWorkingDirectory.getPath());
+		System.out.println("sourceDirectory=" +optSourceDirectory);
+
+		List<String> changedFeatures = new ArrayList<String>();
+		List<EmbeddedAnnotation> listEA = null;
+
+
+
+
+		/**************************************************************/
+		/** (1) SAVE CURRENT STATE OF WORKING DIRECTORY TO BACKUP DIR */
+		/**************************************************************/
+		//String src = "\\src";
+		File mainDir = new File(optWorkingDirectory.getPath().concat("\\").concat(optSourceDirectory));
+		System.out.println("Working in main source directory: " +mainDir.getPath());
+		//File mainDir = optWorkingDirectory;
+		if (!mainDir.exists()) {
+			System.out.println("ERROR: Working-Directory " +optWorkingDirectory +" not found.");
+			return null;
+		}
+//		File backUpDir = new File(mainDir + "_Backup");
+		File backUpDir = new File("C:\\temp\\Backup");
+		if (!backUpDir.exists()) {
+			backUpDir.mkdir();
+		} else {
+			try {
+				FileUtils.deleteDirectory(backUpDir);
+				FileUtils.forceMkdir(backUpDir);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+		try {
+			FileUtils.copyDirectory(mainDir,backUpDir);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		Git git = null;
+		git = gitInitRepository(git, optWorkingDirectory);
+		//git = gitInitRepository(git, new File(workingDirectory));
+
+
+		/*****************************************/
+		/** (3) Reset the Working Directory      */
+		/*****************************************/
+		try {
+			git.reset().setMode(ResetCommand.ResetType.HARD).call();
+			System.out.println("Git-Repository Reset success.");
+		} catch (GitAPIException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+
+		/*****************************************/
+		/** (4) Get List of Embedded Annotations */
+		/*****************************************/
+		// Receive EA-List of project
+		listEA = FAXE.getEmbeddedAnnotations(mainDir);
+		if(listEA.isEmpty()){listEA = FAXE.getEmbeddedAnnotations(mainDir);};
+		List<EmbeddedAnnotation> listEABackup = FAXE.getEmbeddedAnnotations(backUpDir);
+
+
+		/***************************************************************************************/
+		/** Go through backup list an copy all changes of requested feature into Git-Directory */
+		/***************************************************************************************/
+		if(listEA.size()!=listEABackup.size()) {
+			System.out.println("ERROR: UNKOWN SITUATION. listEA.size()!=listEABackup.size()");
+			return null;
+		}
+
+		System.out.println("Search for changed embedded annotation");
+		boolean changeInStagingArea = false;	// tracks if any change will be moved to staging area
+		for (int i = 0; i < listEA.size(); i++) {
+			// check if searched feature
+			String currentF = listEA.get(i).getFeature();
+
+
+			// -> Both EA Lists contain the same element.
+			// Check if content of parts is equal or different
+			// Compare code in backup and working directory
+
+			int openingLine = listEA.get(i).getOpeningLine();
+			int closingLine = listEA.get(i).getClosingLine();
+			boolean differenceFound = false;
+
+			try {
+				List<String> listLine = Files.readAllLines(Paths.get(listEA.get(i).getFile()));
+				List<String> listLineBackup = Files.readAllLines(Paths.get(listEABackup.get(i).getFile()));
+				for (int j = openingLine - 1; j < (closingLine); j++) {    // openingLine-1 -> due to line count start with 1 and List-object with 0
+					String line = listLine.get(j);
+					String lineBackup = listLineBackup.get(j);
+
+					if (!line.equals(lineBackup)) {
+						differenceFound = true;
+						System.out.println("Feature " +listEA.get(i).getFeature() +" changed.");
+						changedFeatures.add(listEA.get(i).getFeature());
+					} /*else {
+							System.out.println(line);
+							System.out.println("Lines identical");
+						}*/
+				}
+			} catch (IOException e) {
+				System.out.println(e);
+			}
+
+		}    // for(int i=0; i<listEA.size(); i++)
+
+
+		/**********************************/
+		/** CLEANUP                       */
+		/**********************************/
+		// Close Git
+		git.close();
+
+		// Move data from backup to main
+		try {
+			System.out.println("Cleaning Up ...");
+			TimeUnit.SECONDS.sleep(2);
+			FileUtils.deleteDirectory(mainDir);
+
+			System.out.println("FileUtils.forceMkdir(mainDir)");
+			TimeUnit.SECONDS.sleep(2);
+			FileUtils.forceMkdir(mainDir);
+
+			System.out.println("FileUtils.copyDirectory(backUpDir,mainDir)");
+			TimeUnit.SECONDS.sleep(2);
+			FileUtils.copyDirectory(backUpDir,mainDir);
+
+			// Delete backup folder
+			FileUtils.deleteDirectory(backUpDir);
+			System.out.println("            ... Done");
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+
+		System.out.println("<<< FeatureBasedPartialCommit::findChangedFeatures");
+		return changedFeatures;
 	}
 
 	private static Git gitInitRepository(Git git, File mainDir) {
