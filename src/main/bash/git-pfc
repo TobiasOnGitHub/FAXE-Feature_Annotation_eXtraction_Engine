@@ -6,13 +6,17 @@ echo '$0 = ' $0		# FAXE tool
 echo '$1 = ' $1		# Path repository root
 echo '$2 = ' $2		# Parameters
 echo '$3 = ' $3		# Parameters data
+echo '$4 = ' $4
+echo '$5 = ' $5
+echo '$6 = ' $6
+echo '$7 = ' $7
 
 display_help() {
-    echo "Usage: path-to-repository -f featureName -m \"message to add to commit\" " >&2
+    echo "Usage: [REPOSITORYPATH] [-nc] [-f=<featureLPQ>] [-m=<message>] " >&2
     echo
-    echo "   -f,--feature <arg>              Single feature to consider [MANDATORY] "
+    echo "   -f,--featureLPQ                 Single feature to consider [MANDATORY] "
 #    echo "   -wd,--working-directory <arg>   Path to git-folder (with .git) of project [MANDATORY] "
-    echo "   -m,--message <arg>              Text to be added to commit message [OPTIONAL] "
+    echo "   -m,--message                    Text to be added to commit message [OPTIONAL] "
     echo "   -nc,--no-commit                 Suppress git-commit [OPTIONAL] "
 #	echo "   -p, --print-embedded-annotations Prints available embedded annotations [OPTIONAL] "
     echo
@@ -21,6 +25,7 @@ display_help() {
 }
 
 
+# CHECK IF REPOSITORY-PATH IS GIVEN and exit if not
 if [[ $1 == "-h" ]] 
 then
 	display_help
@@ -33,25 +38,46 @@ then
 #	echo "Parameter not properly detected!"
 fi
 
-exit 0;
 
-# CHECK IF SOURCE DIRECTORY IS GIVEN AND ADD WHEN MISSING DEFAULT PATH "src" #
+
 if [ -z $1 ] 
 then
 	echo "Using current path as repository root."
-	SRCDIR=$PWD
+	REPODIR=$PWD
 else
 	echo "Use given path as repository root"
     if [ $1 = "." ]
 	then
 	    echo "Dot for local repository detected"
-        SRCDIR=$PWD
+        REPODIR=$PWD
     else
 		echo "123"
-		SRCDIR=$1
+		REPODIR=$1
     fi
 fi
 
+
+# CHECK IF SOURCE DIRECTORY IS GIVEN AND ADD WHEN MISSING DEFAULT PATH "src" #
+if [ -z $2 ] 
+then
+	echo "Use default source path \"src\" "
+	SRCDIR="/src"
+else 
+	if [[ $2 == -* ]]	# second parameter used as option
+	then
+		echo "second parameter used as option"
+		echo "Use default source path \"src\" "
+		SRCDIR="/src"
+	else
+		echo "Use given source path " $2
+		SRCDIR=$2
+		
+		shift # past argument - move options one step front
+	fi
+fi
+
+echo '$2 = ' $2		# Parameters
+echo '$3 = ' $3		# Parameters
 
 # CHECK PARAMTERS #
 POSITIONAL=()
@@ -104,13 +130,16 @@ done
 SCRIPTDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 echo "SCRIPTDIR        = ${SCRIPTDIR}"
+echo "REPO.DIRECTORY   = ${REPODIR}"
 echo "SOURCEDIRECTORY  = ${SRCDIR}"
 echo "FEATURE          = ${FEATURE}"
 echo "MESSAGE          = ${MESSAGE}"
 echo "NOCOMMIT         = ${NOCOMMIT}"
-echo "PRINTANNOTATIONS = ${PRINTANNOTATIONS}"
+#echo "PRINTANNOTATIONS = ${PRINTANNOTATIONS}"
 
 #"C:\Program Files\Java\jdk-13.0.2\bin\java.exe" -jar "${SCRIPTDIR}\JGitPFC.jar" -f "${FEATURE}" -m "${MESSAGE}" -wd "${PWD}" "${NOCOMMIT}" "${PRINTANNOTATIONS}"
-#java -jar "${SCRIPTDIR}\faxe-0.1.jar" "fbpc" "${SRCDIR}" $1 # -f "${FEATURE}" -m "${MESSAGE}"  "${NOCOMMIT}" "${PRINTANNOTATIONS}"
+#echo java -jar "${SCRIPTDIR}\faxe-0.1.jar" "fbpc" "${REPODIR}" "${SRCDIR}" -f "${FEATURE}" -m "${MESSAGE}" "${NOCOMMIT}"
+
+echo java -jar ${SCRIPTDIR}\faxe-0.1.jar fbpc ${REPODIR} ${SRCDIR} -f ${FEATURE} -m ${MESSAGE} ${NOCOMMIT}
 
 echo "<<< git-pfc"
