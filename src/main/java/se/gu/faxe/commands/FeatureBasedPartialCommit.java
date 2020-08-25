@@ -61,9 +61,15 @@ public class FeatureBasedPartialCommit implements Callable<Integer> {
 	public Integer call() throws Exception {
 		System.out.println(">>> FeatureBasedPartialCommit");
 
+		gitWorkingDirectory = verifyReceivedFilePath(gitWorkingDirectory);
+		if(gitWorkingDirectory==null){
+			System.out.println("<<< FeatureBasedPartialCommit");
+			return -1;
+		}
+
 		if(featureLPQ.equals("")){
 			System.out.println("List of changed features - select the one for partial commit:");
-			List<String> changed = findChangedFeatures(new File("C:\\Users\\Tobias\\git\\PartialCommitTestapplication2\\"), "src");
+			List<String> changed = findChangedFeatures(gitWorkingDirectory, srcFolder);
 			System.out.println(changed);
 			for(int i=0; i<changed.size(); i++){
 				System.out.println("(" +i +") " +changed.get(i));
@@ -77,7 +83,7 @@ public class FeatureBasedPartialCommit implements Callable<Integer> {
 			featureLPQ = changed.get(a);
 		}
 
-		//performPartialCommit(featureLPQ, gitWorkingDirectory, srcFolder, message, flagNoCommit);
+		performPartialCommit(featureLPQ, gitWorkingDirectory, srcFolder, message, flagNoCommit);
 
 		System.out.println("<<< FeatureBasedPartialCommit");
 		return 0;
@@ -147,7 +153,7 @@ public class FeatureBasedPartialCommit implements Callable<Integer> {
 		System.out.println("Working in main source directory: " +mainDir.getPath());
 		//File mainDir = optWorkingDirectory;
 		if (!mainDir.exists()) {
-			System.out.println("ERROR: Working-Directory " +optWorkingDirectory +" not found.");
+			System.out.println("ERROR: Working-Directory " +mainDir.getPath() +" not found.");
 			return;
 		}
 //		File backUpDir = new File(mainDir + "_Backup");
@@ -385,7 +391,7 @@ public class FeatureBasedPartialCommit implements Callable<Integer> {
 		System.out.println("Working in main source directory: " +mainDir.getPath());
 		//File mainDir = optWorkingDirectory;
 		if (!mainDir.exists()) {
-			System.out.println("ERROR: Working-Directory " +optWorkingDirectory +" not found.");
+			System.out.println("ERROR: Working-Directory " +mainDir.getPath() +" not found.");
 			return null;
 		}
 //		File backUpDir = new File(mainDir + "_Backup");
@@ -530,4 +536,38 @@ public class FeatureBasedPartialCommit implements Callable<Integer> {
 		return git;
 	}
 
+	/**
+	 * Verifies the provided File and in case of non-existens to rework the given File path to find the file
+	 * @param inputFile File under analysis
+	 * @return inputFile if this one is existing
+	 *         File object with successfully reworked path
+	 *         NULL if rework did not succeed
+	 */
+	private File verifyReceivedFilePath(File inputFile){
+		// Refactor received path (if necessary) and return it for further proceeding
+		if(!gitWorkingDirectory.exists()){
+			System.out.println("Received path not found. Try to rework.");
+			String newPath = gitWorkingDirectory.getPath();
+			// remove leading "/"
+			newPath = newPath.substring(1);
+
+			// Switch "\" to "\\"
+			newPath = newPath.replace("\\", "\\\\");
+
+			// Individual drive letter? -> Add ":"
+			String[] strArr = newPath.split("\\\\", 2);
+			newPath = strArr[0].toUpperCase() +":" +strArr[1];
+
+			File newFilePath = new File(newPath);
+			if(newFilePath.exists()){
+				System.out.println("Reworked worked out, new path = " +newPath);
+				return newFilePath;
+			} else {
+				System.out.println("ERROR: Rework not possible. User to fix given path.");
+				return null;
+			}
+		} else {
+			return inputFile;
+		}
+	}
 }
