@@ -76,8 +76,6 @@ else
 	fi
 fi
 
-echo '$2 = ' $2		# Parameters
-echo '$3 = ' $3		# Parameters
 
 # CHECK PARAMTERS #
 POSITIONAL=()
@@ -140,6 +138,8 @@ echo "NOCOMMIT         = ${NOCOMMIT}"
 #"C:\Program Files\Java\jdk-13.0.2\bin\java.exe" -jar "${SCRIPTDIR}\JGitPFC.jar" -f "${FEATURE}" -m "${MESSAGE}" -wd "${PWD}" "${NOCOMMIT}" "${PRINTANNOTATIONS}"
 #echo java -jar "${SCRIPTDIR}\faxe-0.1.jar" "fbpc" "${REPODIR}" "${SRCDIR}" -f "${FEATURE}" -m "${MESSAGE}" "${NOCOMMIT}"
 
-echo java -jar ${SCRIPTDIR}\faxe-0.1.jar fbpc ${REPODIR} ${SRCDIR} -f ${FEATURE} -m ${MESSAGE} ${NOCOMMIT}
+# Options handling: https://stackoverflow.com/questions/34144681/conditionally-omit-a-command-line-option-in-bash
+java -jar ${SCRIPTDIR}/faxe-0.1.jar fbpc ${REPODIR} ${SRCDIR} ${externs:+-f "$FEATURE"} ${externs:+-m "$MESSAGE"} ${externs:+"$NOCOMMIT"}
+#java -jar ${SCRIPTDIR}/faxe-0.1.jar fbpc ${REPODIR} ${SRCDIR} "${args[@]}"
 
 echo "<<< git-pfc"
