@@ -61,7 +61,7 @@ public class FeatureBasedPartialCommit implements Callable<Integer> {
 	public Integer call() throws Exception {
 		System.out.println(">>> FeatureBasedPartialCommit");
 
-		gitWorkingDirectory = verifyReceivedFilePath(gitWorkingDirectory);
+		gitWorkingDirectory = CommonMethods.verifyReceivedFilePath(gitWorkingDirectory);
 		if(gitWorkingDirectory==null){
 			System.out.println("<<< FeatureBasedPartialCommit");
 			return -1;
@@ -547,38 +547,38 @@ public class FeatureBasedPartialCommit implements Callable<Integer> {
 		return git;
 	}
 
-	/**
-	 * Verifies the provided File and in case of non-existens to rework the given File path to find the file
-	 * @param inputFile File under analysis
-	 * @return inputFile if this one is existing
-	 *         File object with successfully reworked path
-	 *         NULL if rework did not succeed
-	 */
-	private File verifyReceivedFilePath(File inputFile){
-		// Refactor received path (if necessary) and return it for further proceeding
-		if(!gitWorkingDirectory.exists()){
-			System.out.println("Received path not found. Try to rework.");
-			String newPath = gitWorkingDirectory.getPath();
-			// remove leading "/"
-			newPath = newPath.substring(1);
-
-			// Switch "\" to "\\"
-			newPath = newPath.replace("\\", "\\\\");
-
-			// Individual drive letter? -> Add ":"
-			String[] strArr = newPath.split("\\\\", 2);
-			newPath = strArr[0].toUpperCase() +":" +strArr[1];
-
-			File newFilePath = new File(newPath);
-			if(newFilePath.exists()){
-				System.out.println("Reworked worked out, new path = " +newPath);
-				return newFilePath;
-			} else {
-				System.out.println("ERROR: Rework not possible. User to fix given path.");
-				return null;
-			}
-		} else {
-			return inputFile;
-		}
-	}
+//	/**
+//	 * Verifies the provided File and in case of non-existens to rework the given File path to find the file
+//	 * @param inputFile File under analysis
+//	 * @return inputFile if this one is existing
+//	 *         File object with successfully reworked path
+//	 *         NULL if rework did not succeed
+//	 */
+//	private File verifyReceivedFilePath(File inputFile){
+//		// Refactor received path (if necessary) and return it for further proceeding
+//		if(!gitWorkingDirectory.exists()){
+//			System.out.println("Received path not found. Try to rework.");
+//			String newPath = gitWorkingDirectory.getPath();
+//			// remove leading "/"
+//			newPath = newPath.substring(1);
+//
+//			// Switch "\" to "\\"
+//			newPath = newPath.replace("\\", "\\\\");
+//
+//			// Individual drive letter? -> Add ":"
+//			String[] strArr = newPath.split("\\\\", 2);
+//			newPath = strArr[0].toUpperCase() +":" +strArr[1];
+//
+//			File newFilePath = new File(newPath);
+//			if(newFilePath.exists()){
+//				System.out.println("Reworked worked out, new path = " +newPath);
+//				return newFilePath;
+//			} else {
+//				System.out.println("ERROR: Rework not possible. User to fix given path.");
+//				return null;
+//			}
+//		} else {
+//			return inputFile;
+//		}
+//	}
 }

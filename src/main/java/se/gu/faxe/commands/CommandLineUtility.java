@@ -24,6 +24,8 @@ import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 import se.gu.faxe.EmbeddedAnnotation;
 import se.gu.faxe.FAXE;
+import se.gu.faxe.LPQ;
+import se.gu.faxe.metrics.Metrics;
 
 import java.io.File;
 import java.util.List;
@@ -114,42 +116,46 @@ class Get implements Callable<Integer> {
 
 @Command(name = "calculateMetric", description = "Calculates and returns required metric (enum) for the feature referred to in the lpq from the given path. It also exports the output to a file if the flag export is set. If metric is not specified, all metrics are calculated and exported.")
 class CLIMetrics implements Callable<Integer> {
+    private LPQ featureLPQ;
     /* Metrics derived from FeatureDashboard - Sina Entekhabi, Anton Solback, Jan-Philipp Steghöfer, and Thorsten Berger. 2019. Visualization of Feature Locations with the Tool FeatureDashboard. In Proceedings of the 23rd International Systems and Software Product Line Conference - Volume B (SPLC ’19). Association for Computing Machinery, New York, NY, USA, 1–4. DOI:https://doi.org/10.1145/3307630.3342392
      * and FLORIDA - Berima Andam, Andreas Burger, Thorsten Berger, and Michel R. V. Chaudron. 2017. FLOrIDA: Feature LOcatIon DAshboard for extracting and visualizing feature traces. In Proceedings of the Eleventh International Workshop on Variability Modelling of Software-intensive Systems (VAMOS ’17). Association for Computing Machinery, New York, NY, USA, 100–107. DOI:https://doi.org/10.1145/3023956.3023967
      */
-    enum eMetrics {
-        ALL,
-        /* FEATURE METRICS */
-        SD,     // Scattering Degree: total number of all annotations directly referencing the feature (i.e., in-file, folder, and file annotations referencing it)
-        NoFiA,  // Number of File Annotations: total number of file annotations directly referencing the feature
-        NoFoA,  // Number of Folder Annotations: total number of folder annotations directly referencing the feature.
-        TD,     // Tangling Degree: number of other features that share the same artifacts (or parts of such) with the feature. Two features share (parts of) artifacts when the latter is annotated with both features.
-        LoFC,   // Lines of Feature Code: lines of code belonging to artifacts, either directly annotated, or indirectly (when a folder is annotated, all descendants are taken into account)
-        AvgND,  /* Nesting depths of annotations: Maximum (MaxND), Minimum (MinND), and Average (AvgND) nesting depth the annotations directly referencing the feature. The project’s root folder has depth 0 (and so has any file contained in it). */
-        MaxND,  /* Each sub-folder increases the depth by one, a file inherits the depth of its containing folder. The depth of a (top-level, i.e., non-nested) in-file annotation is the depth of the file increased by one. Since in-file annotations */
-        MinND,  /* can be nested, each nesting increases the depth by one. All nesting-depth metrics are calculated relative to the project root folder. */
-        NoAu,   // Number of Authors who contributed to a feature’s artifact. Author information is automatically extracted from author tags (format: “Author: firstname lastname”) in comments wrapped by “/**” and “*/” in the source code if they exist.
-        /* FOLDER METRICS */
-        NoF,    // Number of Features: total number of features directly referenced in annotations (folder, file, in-file) of the folder and any of its descendants
-        LoFoC,  // Lines of Folder Code: total lines in any descendant file of the folder
-        NoFi,   //Number of Files: number of all descendant files of the folder
-        /* PROJECT METRICS */
-        // NoF      // Number of features in project => With FAXE implicit given with path to root folder
-        // Total LoFC   // Total Lines of Feature Code: sum of LoFC (all features) => With FAXE implicit given with path to root folder
-        AvgLoFC,    // Average Feature Lines of Code: sum of LoFC (all features) / NoF
-        //AvgND,    // Average Feature Nesting Depth: sum of ND (all features) / NoF
-        AvgSD       // Average Feature Scattering Degree: sum of SD (all features) / NoF
-
-    }
+//    enum eMetrics {
+//        ALL,
+//        /* FEATURE METRICS */
+//        SD,     // Scattering Degree: total number of all annotations directly referencing the feature (i.e., in-file, folder, and file annotations referencing it)
+//        NoFiA,  // Number of File Annotations: total number of file annotations directly referencing the feature
+//        NoFoA,  // Number of Folder Annotations: total number of folder annotations directly referencing the feature.
+//        TD,     // Tangling Degree: number of other features that share the same artifacts (or parts of such) with the feature. Two features share (parts of) artifacts when the latter is annotated with both features.
+//        LoFC,   // Lines of Feature Code: lines of code belonging to artifacts, either directly annotated, or indirectly (when a folder is annotated, all descendants are taken into account)
+//        AvgND,  /* Nesting depths of annotations: Maximum (MaxND), Minimum (MinND), and Average (AvgND) nesting depth the annotations directly referencing the feature. The project’s root folder has depth 0 (and so has any file contained in it). */
+//        MaxND,  /* Each sub-folder increases the depth by one, a file inherits the depth of its containing folder. The depth of a (top-level, i.e., non-nested) in-file annotation is the depth of the file increased by one. Since in-file annotations */
+//        MinND,  /* can be nested, each nesting increases the depth by one. All nesting-depth metrics are calculated relative to the project root folder. */
+//        NoAu,   // Number of Authors who contributed to a feature’s artifact. Author information is automatically extracted from author tags (format: “Author: firstname lastname”) in comments wrapped by “/**” and “*/” in the source code if they exist.
+//        /* FOLDER METRICS */
+//        NoF,    // Number of Features: total number of features directly referenced in annotations (folder, file, in-file) of the folder and any of its descendants
+//        LoFoC,  // Lines of Folder Code: total lines in any descendant file of the folder
+//        NoFi,   //Number of Files: number of all descendant files of the folder
+//        /* PROJECT METRICS */
+//        // NoF      // Number of features in project => With FAXE implicit given with path to root folder
+//        // Total LoFC   // Total Lines of Feature Code: sum of LoFC (all features) => With FAXE implicit given with path to root folder
+//        AvgLoFC,    // Average Feature Lines of Code: sum of LoFC (all features) / NoF
+//        //AvgND,    // Average Feature Nesting Depth: sum of ND (all features) / NoF
+//        AvgSD,       // Average Feature Scattering Degree: sum of SD (all features) / NoF
+//        COUNT       // Internal enum for going through all of them.
+//    }
 
     @Parameters(index = "0", description = "Asset's path (file|folder) to calculates and returns required metric from.")
     private File path;
 
-    @Option(names = {"-m", "--metric"}, description = "Provide Scattering degree of the given parameter source. Valid values: ${COMPLETION-CANDIDATES}.")
-    private eMetrics metric = eMetrics.ALL;
+    @Option(names = {"-m", "--metric"}, description = "Metric. Valid values: ${COMPLETION-CANDIDATES}.")
+    private Metrics metric = Metrics.ALL;
 
     @Option(names = {"-l", "--lpq"}, description = "Feature in lpq.")
-    private String featureLPQ = "";
+    //private LPQ featureLPQ;
+    private void setLPQ(String s){
+        featureLPQ = new LPQ(s);
+    }
 
     @Option(names = {"-e", "--export"}, description = "Exports the output to a file if the flag export is set.")
     private boolean export = false;
@@ -157,6 +163,16 @@ class CLIMetrics implements Callable<Integer> {
     @Override
     public Integer call() throws Exception {
         System.out.println("UC14 - Metrics such as scattering and tangling degree shall be provided");
+
+        System.out.println("Root inp " +path.toString());
+        path = CommonMethods.verifyReceivedFilePath(path);
+        System.out.println("Root use " +path.toString());
+        System.out.println("Metric   " +metric);
+        System.out.println("Feature  " +featureLPQ.getName());
+
+
+
+        FAXE.getMetrics(path, metric, featureLPQ);
 
         return 0;
     }

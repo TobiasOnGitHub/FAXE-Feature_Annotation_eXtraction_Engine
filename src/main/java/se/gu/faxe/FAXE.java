@@ -26,6 +26,8 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.json.CDL;
 import org.json.JSONArray;
 import se.gu.faxe.grammar.*;
+import se.gu.faxe.metrics.Metrics;
+import se.gu.faxe.metrics.TanglingDegree;
 
 import java.io.File;
 import java.io.IOException;
@@ -392,10 +394,34 @@ public class FAXE {
         throw new UnsupportedOperationException();
     }
 
-    public static Metrics getMetrics(File file, LPQ feature) throws UnsupportedOperationException {
+    public static int getMetrics(File file, Metrics metric, LPQ feature, boolean export) {
+
+        getMetrics(file, metric, feature);
+
+        if(export) {
+            // TODO - Handling export if true
+        }
+
+        return 0;
+    }
+
+    public static int getMetrics(File file, Metrics metric, LPQ feature) {
+        System.out.println(">>> FAXE.getMetrics(File, Metrics, LPQ)");
         // 	-> FeatureDasboard Metrics!
         //	-> Say that "implemented by ... in ..." And in Javadoc Author adding him/her
-        throw new UnsupportedOperationException();
+
+        System.out.println("Root    " +file.toString());
+        System.out.println("Metric  " +metric);
+        System.out.println("Feature " +feature.getName());
+
+        List<EmbeddedAnnotation> eaList = getEmbeddedAnnotationsFromDirectory(file);
+
+        TanglingDegree.calculateTD(eaList,file,feature);
+
+        //ScatteringDegree.calculateSD(eaList,file,feature);
+
+        System.out.println("<<< FAXE.getMetrics(File, Metrics, LPQ)");
+        return 0;
     }
 
 
@@ -457,17 +483,4 @@ public class FAXE {
         return eaString;
     }
 
-    /**
-     * Extracts specific feature from List of {@link EmbeddedAnnotation}.
-     * @param eaList List to extract feature from.
-     * @param searchFeature To be searched feature.
-     * @return List of {@link EmbeddedAnnotation} for only the given feature.
-     */ // put private as functionality now with parameter in getEA methods
-    private static List<EmbeddedAnnotation> extractSpecificFeature(List<EmbeddedAnnotation> eaList, String searchFeature){
-        List<EmbeddedAnnotation> eaListFiltered = eaList.stream()
-                .filter(ea -> ea.getFeature().equals(searchFeature))
-                .collect(Collectors.toList());
-
-        return eaListFiltered;
-    }
 }
