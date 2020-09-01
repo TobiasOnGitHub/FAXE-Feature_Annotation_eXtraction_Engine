@@ -72,16 +72,25 @@ public class FeatureBasedPartialCommit implements Callable<Integer> {
 			System.out.println("List of changed features - select the one for partial commit:");
 			List<String> changed = findChangedFeatures(gitWorkingDirectory, srcFolder);
 			//System.out.println(changed);
-			for(int i=0; i<changed.size(); i++){
-				System.out.println("(" +i +") " +changed.get(i));
+			if(changed.size()>0) {
+				for (int i = 0; i < changed.size(); i++) {
+					System.out.println("(" + i + ") " + changed.get(i));
+				}
+
+				System.out.print("Please enter changed feature number: ");
+				Scanner in = new Scanner(System.in);
+				int a = in.nextInt();
+
+				while(a>=changed.size()) {
+					System.out.println("Entered number " +a +" to large. Select value between 0 and " +(changed.size()-1));
+					System.out.print("Please enter changed feature number: ");
+					a = in.nextInt();
+				}
+				featureLPQ = changed.get(a);
+			} else {
+				System.out.println("No features changed. Stop process.");
+				return 0;
 			}
-
-			System.out.print("Please enter changed feature number: ");
-			Scanner in = new Scanner(System.in);
-			int a = in.nextInt();
-			System.out.println("You entered feature number "+a);
-
-			featureLPQ = changed.get(a);
 		}
 
 		// IF no commit message is given
