@@ -70,7 +70,7 @@ TOOL FLEXIBILITY / PERFORMANCE
 --------------------------------------------------------
 35) Allow to "scan" directory again. Keep timestamp of checked folders/files and only scan changed ones.
 --------------------------------------------------------
-
+) Integrate FAXE to http://www.cse.chalmers.se/~bergert/paper/2019-icse-incline.pdf
 
 FAXE ROBUSTNESS
 --------------------------------------------------------
@@ -119,7 +119,9 @@ x) GitLab Integration
 10) Engine integration into FeatureDashboard, FeatureIDE, ...?
 --------------------------------------------------------
 5) Integration of engine into target project build or at least CI to warn when embedded annotation has a failure (e.g. missing "end")
-
+--------------------------------------------------------
+) FAXE -> Export/Import EA from a source code file (Add them, but not change/add for next commit)
+--------------------------------------------------------
 
 
 GIT PARTIAL FEATURE-BASED COMMIT:
