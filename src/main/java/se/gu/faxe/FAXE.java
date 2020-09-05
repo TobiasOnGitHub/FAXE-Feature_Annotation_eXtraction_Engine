@@ -448,7 +448,8 @@ public class FAXE {
 
     /**
      * Check consistency according to embedded annotation specification and returns detected {@link ConsistencyViolation}s
-     * Check is performed for one file or a folder, including sub-assets.
+     * Check is performed for one file or a folder, including sub-assets. Consistency violations checked for:
+     * - Feature (LPQ) not part of FeatureModel + give recommendation which existing one could fit.
      * @param file
      * @return
      * @throws UnsupportedOperationException
