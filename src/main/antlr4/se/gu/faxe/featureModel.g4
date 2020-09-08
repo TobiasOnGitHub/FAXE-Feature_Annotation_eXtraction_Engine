@@ -14,13 +14,15 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
-grammar featureHierarchy;
+grammar featureModel;
 SPACE: ' '* -> skip ;
 KEYWORDS: ('or'|'xor'|'?') -> skip ;   // Skip Clafer Keywords
 
-rootFeature: FEATURENAME ('\n' subfeature)*;
+featuretree: projectname ('\n' feature)*;
 
-subfeature: '\t' (FEATURENAME | subfeature) ;
+projectname: FEATURENAME ;
+
+feature: '\t' (FEATURENAME | feature) ;
 
 FEATURENAME: ([A-Z]+|[a-z]+|[0-9]+|'_'+|'\''+)+;    // -> restriction from Clafer and follow their definition
 
