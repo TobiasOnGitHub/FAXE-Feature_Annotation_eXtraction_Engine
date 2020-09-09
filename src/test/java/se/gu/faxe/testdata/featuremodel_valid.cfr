@@ -1,0 +1,17 @@
+featuremodel_valid
+	House
+		Door
+		Window
+	Boat
+		Water
+		Window
+	Plane
+		Air
+		Door
+		Window
+	Car
+		Road
+			Countryside
+			City
+		Door
+		Window
