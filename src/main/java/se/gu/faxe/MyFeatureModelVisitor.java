@@ -18,61 +18,69 @@ under the License.
 *************************************************************/
 package se.gu.faxe;
 
+import com.scalified.tree.TreeNode;
+import com.scalified.tree.multinode.ArrayMultiTreeNode;
 import se.gu.faxe.grammar.featureModelBaseVisitor;
 import se.gu.faxe.grammar.featureModelParser;
 
+import java.util.Vector;
+
 public class MyFeatureModelVisitor extends featureModelBaseVisitor<Object> {
-    private static final int POSITION_UNKNOWN = -1;
+    private TreeNode<String> fmTree;
+    private final Vector<String> lastUsedFeaturePerLevel = new Vector<>(); // Contains the last element per level (depth). I.e. which need to be extended by a child.
+    int projectname_offset = 0;
 
     @Override
-    public FeatureModel visitFeaturetree(featureModelParser.FeaturetreeContext ctx) {
+    public FeatureModel visitFeatureModel(featureModelParser.FeatureModelContext ctx) {
+        System.out.println("MyFeatureModelVisitor::visitFeatureModel");
 
-        System.out.println("MyFeatureModelVisitor::visitFeaturetree");
+        visitChildren(ctx);
+
+        System.out.println("Detected Feature Model");
+        System.out.println(fmTree);
 
         return null;
     }
 
     @Override public Object visitProjectname(featureModelParser.ProjectnameContext ctx) {
+        //System.out.println("MyFeatureModelVisitor::visitProjectname");
 
-        System.out.println("MyFeatureModelVisitor::visitProjectname");
+        String projectname = ctx.getText();
+        fmTree = new ArrayMultiTreeNode<>(projectname);
+        lastUsedFeaturePerLevel.add(projectname);
+
+        projectname_offset = ctx.depth();
 
         return visitChildren(ctx);
     }
 
 
     @Override public Object visitFeature(featureModelParser.FeatureContext ctx) {
+        //System.out.println("MyFeatureModelVisitor::visitFeature -> " +ctx.getText());
 
-        System.out.println("MyFeatureModelVisitor::visitFeature");
+        String s = ctx.getText();
+        if(ctx.getChildCount()>1) {     // 1 because own content (getText) is a child
+            visitChildren(ctx);
+        } else {
+            // We are in the lowest level
+            int depth = ctx.depth();
+            // Identify parent feature
+            String parentFeature = lastUsedFeaturePerLevel.get(depth-1- projectname_offset);  // -1 for parent level ; -projectname_offset for offset to count with 0
+            TreeNode<String> parentNode = fmTree.find(parentFeature);
+            // Extend parent feature
+            TreeNode<String> n1 = new ArrayMultiTreeNode<>(ctx.getText());
+            parentNode.add(n1);
 
-        return visitChildren(ctx);
-    }
+            // Update reference list
+            if(lastUsedFeaturePerLevel.size() <= depth- projectname_offset){ // -projectname_offset for offset to count with 0
+                lastUsedFeaturePerLevel.add(s);
+            } else {
+                lastUsedFeaturePerLevel.set(depth- projectname_offset,s);
+            }
 
-    protected Object aggregateResult(Object aggregate, Object nextResult) {
-
-        System.out.println("MyFeatureModelVisitor::aggregateResult");
-
-        if(aggregate==null && nextResult==null){
-            return null;
         }
 
-        System.out.println("aggregateResult");
-
-//        if(aggregate == null && nextResult instanceof EmbeddedAnnotation){
-//            List<EmbeddedAnnotation> eaList = new ArrayList<>();
-//            eaList.add((EmbeddedAnnotation) nextResult);
-//            return eaList;
-//        }
-//
-//        if(aggregate instanceof List && nextResult==null){
-//            return aggregate;
-//        }
-//
-//        if(aggregate instanceof List && nextResult instanceof EmbeddedAnnotation){
-//            ((List) aggregate).add(nextResult);
-//            return aggregate;
-//        }
-//
-//        System.out.println("aggregateResult - Uncovered case. aggregate=" +aggregate.toString() +" and nextResult=" +nextResult.toString());
         return null;
     }
+
 }

@@ -18,20 +18,53 @@
  *************************************************************/
 package se.gu.faxe;
 
+import org.antlr.v4.runtime.CharStream;
+import org.antlr.v4.runtime.CharStreams;
+import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.misc.ParseCancellationException;
+import org.antlr.v4.runtime.tree.ParseTree;
+import se.gu.faxe.grammar.featureModelLexer;
+import se.gu.faxe.grammar.featureModelParser;
+
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
-public class FeatureModel extends Feature {
+public class FeatureModel  {
 
-    public FeatureModel(String name) {
-        super(name);
+    public FeatureModel() {
+
     }
 
     public Boolean loadFeatureModel(File path){
         System.out.println(">> FeatureModel::loadFeatureModel");
+        System.out.println("Request for feature model " +path.toString());
 
+        CharStream in = null;
+        try {
+            in = CharStreams.fromFileName(path.getAbsolutePath());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        featureModelLexer lexer = new featureModelLexer(in);
+        lexer.addErrorListener(ThrowingErrorListener.INSTANCE);
+        CommonTokenStream token = new CommonTokenStream(lexer);
+        featureModelParser parser = new featureModelParser(token);
+        parser.removeErrorListeners();
+        parser.addErrorListener(ThrowingErrorListener.INSTANCE);
 
+        try {
+            ParseTree tree = parser.featureModel();
 
+            MyFeatureModelVisitor visitor = new MyFeatureModelVisitor();
+            FeatureModel fm = (FeatureModel) visitor.visit(tree);
+            if(fm!=null) System.out.println("FM:" +fm.toString());
+        } catch (ParseCancellationException e) {
+            // Catch if given string is not fitting the grammar
+            System.out.println("FeatureModel::loadFeatureModel ERROR DETECTED");
+        }
+
+        System.out.println("<< FeatureModel::loadFeatureModel");
         return false;
     }
 
