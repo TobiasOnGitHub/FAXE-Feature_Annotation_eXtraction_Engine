@@ -22,7 +22,7 @@ featureModel: projectname (('\n'|'\r\n') feature)*; // Consider ('\n'|'\r\n') fo
 
 projectname: FEATURENAME ;
 
-feature: '\t' (FEATURENAME | feature) ;
+feature: (FEATURENAME | '\t' feature) ;
 
 FEATURENAME: ([A-Z]+|[a-z]+|[0-9]+|'_'+|'\''+)+;    // -> restriction from Clafer and follow their definition
 

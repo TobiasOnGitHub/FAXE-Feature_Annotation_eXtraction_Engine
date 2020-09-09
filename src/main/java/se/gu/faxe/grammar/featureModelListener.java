@@ -8,15 +8,15 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface featureModelListener extends ParseTreeListener {
 	/**
-	 * Enter a parse tree produced by {@link featureModelParser#featuretree}.
+	 * Enter a parse tree produced by {@link featureModelParser#featureModel}.
 	 * @param ctx the parse tree
 	 */
-	void enterFeaturetree(featureModelParser.FeaturetreeContext ctx);
+	void enterFeatureModel(featureModelParser.FeatureModelContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link featureModelParser#featuretree}.
+	 * Exit a parse tree produced by {@link featureModelParser#featureModel}.
 	 * @param ctx the parse tree
 	 */
-	void exitFeaturetree(featureModelParser.FeaturetreeContext ctx);
+	void exitFeatureModel(featureModelParser.FeatureModelContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link featureModelParser#projectname}.
 	 * @param ctx the parse tree

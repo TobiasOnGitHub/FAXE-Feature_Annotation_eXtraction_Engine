@@ -16,13 +16,13 @@ public class featureModelBaseListener implements featureModelListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFeaturetree(featureModelParser.FeaturetreeContext ctx) { }
+	@Override public void enterFeatureModel(featureModelParser.FeatureModelContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFeaturetree(featureModelParser.FeaturetreeContext ctx) { }
+	@Override public void exitFeatureModel(featureModelParser.FeatureModelContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

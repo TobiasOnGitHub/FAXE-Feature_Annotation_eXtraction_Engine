@@ -17,7 +17,7 @@ public class featureModelBaseVisitor<T> extends AbstractParseTreeVisitor<T> impl
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitFeaturetree(featureModelParser.FeaturetreeContext ctx) { return visitChildren(ctx); }
+	@Override public T visitFeatureModel(featureModelParser.FeatureModelContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

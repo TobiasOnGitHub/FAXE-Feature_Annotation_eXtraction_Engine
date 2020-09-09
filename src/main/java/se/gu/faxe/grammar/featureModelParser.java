@@ -1,13 +1,16 @@
 // Generated from C:/Users/Tobias/IdeaProjects/FAXE-Feature_Annotation_eXtraction_Engine/src/main/antlr4/se/gu/faxe\featureModel.g4 by ANTLR 4.8
 package se.gu.faxe.grammar;
-import org.antlr.v4.runtime.atn.*;
-import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
-import org.antlr.v4.runtime.misc.*;
-import org.antlr.v4.runtime.tree.*;
+import org.antlr.v4.runtime.atn.ATN;
+import org.antlr.v4.runtime.atn.ATNDeserializer;
+import org.antlr.v4.runtime.atn.ParserATNSimulator;
+import org.antlr.v4.runtime.atn.PredictionContextCache;
+import org.antlr.v4.runtime.dfa.DFA;
+import org.antlr.v4.runtime.tree.ParseTreeListener;
+import org.antlr.v4.runtime.tree.ParseTreeVisitor;
+import org.antlr.v4.runtime.tree.TerminalNode;
+
 import java.util.List;
-import java.util.Iterator;
-import java.util.ArrayList;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class featureModelParser extends Parser {
@@ -17,25 +20,25 @@ public class featureModelParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		T__0=1, T__1=2, SPACE=3, KEYWORDS=4, FEATURENAME=5;
+		T__0=1, T__1=2, T__2=3, SPACE=4, KEYWORDS=5, FEATURENAME=6;
 	public static final int
-		RULE_featuretree = 0, RULE_projectname = 1, RULE_feature = 2;
+		RULE_featureModel = 0, RULE_projectname = 1, RULE_feature = 2;
 	private static String[] makeRuleNames() {
 		return new String[] {
-			"featuretree", "projectname", "feature"
+			"featureModel", "projectname", "feature"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, "'\n'", "'\t'"
+			null, "'\n'", "'\r\n'", "'\t'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
-			null, null, null, "SPACE", "KEYWORDS", "FEATURENAME"
+			null, null, null, null, "SPACE", "KEYWORDS", "FEATURENAME"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -89,7 +92,7 @@ public class featureModelParser extends Parser {
 		_interp = new ParserATNSimulator(this,_ATN,_decisionToDFA,_sharedContextCache);
 	}
 
-	public static class FeaturetreeContext extends ParserRuleContext {
+	public static class FeatureModelContext extends ParserRuleContext {
 		public ProjectnameContext projectname() {
 			return getRuleContext(ProjectnameContext.class,0);
 		}
@@ -99,28 +102,28 @@ public class featureModelParser extends Parser {
 		public FeatureContext feature(int i) {
 			return getRuleContext(FeatureContext.class,i);
 		}
-		public FeaturetreeContext(ParserRuleContext parent, int invokingState) {
+		public FeatureModelContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_featuretree; }
+		@Override public int getRuleIndex() { return RULE_featureModel; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof featureModelListener ) ((featureModelListener)listener).enterFeaturetree(this);
+			if ( listener instanceof featureModelListener ) ((featureModelListener)listener).enterFeatureModel(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof featureModelListener ) ((featureModelListener)listener).exitFeaturetree(this);
+			if ( listener instanceof featureModelListener ) ((featureModelListener)listener).exitFeatureModel(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof featureModelVisitor ) return ((featureModelVisitor<? extends T>)visitor).visitFeaturetree(this);
+			if ( visitor instanceof featureModelVisitor ) return ((featureModelVisitor<? extends T>)visitor).visitFeatureModel(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 
-	public final FeaturetreeContext featuretree() throws RecognitionException {
-		FeaturetreeContext _localctx = new FeaturetreeContext(_ctx, getState());
-		enterRule(_localctx, 0, RULE_featuretree);
+	public final FeatureModelContext featureModel() throws RecognitionException {
+		FeatureModelContext _localctx = new FeatureModelContext(_ctx, getState());
+		enterRule(_localctx, 0, RULE_featureModel);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
@@ -130,11 +133,19 @@ public class featureModelParser extends Parser {
 			setState(11);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (_la==T__0) {
+			while (_la==T__0 || _la==T__1) {
 				{
 				{
 				setState(7);
-				match(T__0);
+				_la = _input.LA(1);
+				if ( !(_la==T__0 || _la==T__1) ) {
+				_errHandler.recoverInline(this);
+				}
+				else {
+					if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+					_errHandler.reportMatch(this);
+					consume();
+				}
 				setState(8);
 				feature();
 				}
@@ -228,19 +239,19 @@ public class featureModelParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(16);
-			match(T__1);
 			setState(19);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case FEATURENAME:
 				{
-				setState(17);
+				setState(16);
 				match(FEATURENAME);
 				}
 				break;
-			case T__1:
+			case T__2:
 				{
+				setState(17);
+				match(T__2);
 				setState(18);
 				feature();
 				}
@@ -262,13 +273,13 @@ public class featureModelParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\7\30\4\2\t\2\4\3"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\b\30\4\2\t\2\4\3"+
 		"\t\3\4\4\t\4\3\2\3\2\3\2\7\2\f\n\2\f\2\16\2\17\13\2\3\3\3\3\3\4\3\4\3"+
-		"\4\5\4\26\n\4\3\4\2\2\5\2\4\6\2\2\2\26\2\b\3\2\2\2\4\20\3\2\2\2\6\22\3"+
-		"\2\2\2\b\r\5\4\3\2\t\n\7\3\2\2\n\f\5\6\4\2\13\t\3\2\2\2\f\17\3\2\2\2\r"+
-		"\13\3\2\2\2\r\16\3\2\2\2\16\3\3\2\2\2\17\r\3\2\2\2\20\21\7\7\2\2\21\5"+
-		"\3\2\2\2\22\25\7\4\2\2\23\26\7\7\2\2\24\26\5\6\4\2\25\23\3\2\2\2\25\24"+
-		"\3\2\2\2\26\7\3\2\2\2\4\r\25";
+		"\4\5\4\26\n\4\3\4\2\2\5\2\4\6\2\3\3\2\3\4\2\26\2\b\3\2\2\2\4\20\3\2\2"+
+		"\2\6\25\3\2\2\2\b\r\5\4\3\2\t\n\t\2\2\2\n\f\5\6\4\2\13\t\3\2\2\2\f\17"+
+		"\3\2\2\2\r\13\3\2\2\2\r\16\3\2\2\2\16\3\3\2\2\2\17\r\3\2\2\2\20\21\7\b"+
+		"\2\2\21\5\3\2\2\2\22\26\7\b\2\2\23\24\7\5\2\2\24\26\5\6\4\2\25\22\3\2"+
+		"\2\2\25\23\3\2\2\2\26\7\3\2\2\2\4\r\25";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

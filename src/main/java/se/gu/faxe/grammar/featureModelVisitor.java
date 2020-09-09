@@ -11,11 +11,11 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
  */
 public interface featureModelVisitor<T> extends ParseTreeVisitor<T> {
 	/**
-	 * Visit a parse tree produced by {@link featureModelParser#featuretree}.
+	 * Visit a parse tree produced by {@link featureModelParser#featureModel}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitFeaturetree(featureModelParser.FeaturetreeContext ctx);
+	T visitFeatureModel(featureModelParser.FeatureModelContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link featureModelParser#projectname}.
 	 * @param ctx the parse tree
