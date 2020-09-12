@@ -100,4 +100,27 @@ public class Feature {
         }
         return true;
     }
+
+    /**
+     * Indicates whether some other object is "equal to" this one.
+     * For class {@link Feature} two items are identical when their feature name is identical.
+     * @param   o   the reference object with which to compare.
+     * @return  {@code true} if this object is the same as the obj
+     *          argument; {@code false} otherwise.
+    */
+    @Override
+    public boolean equals(Object o) {
+        if(o.getClass().equals(Feature.class)){
+            return this.getName().equals(((Feature) o).getName());
+        }
+        return false;
+    }
+
+    /**
+     * Returns a string representation of the Feature object.
+     * @return a string representation of the object.
+     */
+    public String toString() {
+        return getName();
+    }
 }
