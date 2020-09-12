@@ -26,7 +26,7 @@ import se.gu.faxe.grammar.featureModelParser;
 import java.util.Vector;
 
 public class MyFeatureModelVisitor extends featureModelBaseVisitor<Object> {
-    private TreeNode<String> fmTree;
+    private TreeNode<Feature> fmTree;
     private final Vector<String> lastUsedFeaturePerLevel = new Vector<>(); // Contains the last element per level (depth). I.e. which need to be extended by a child.
     int projectname_offset = 0;
 
@@ -46,7 +46,7 @@ public class MyFeatureModelVisitor extends featureModelBaseVisitor<Object> {
         //System.out.println("MyFeatureModelVisitor::visitProjectname");
 
         String projectname = ctx.getText();
-        fmTree = new ArrayMultiTreeNode<>(projectname);
+        fmTree = new ArrayMultiTreeNode<>(new Feature(projectname));
         lastUsedFeaturePerLevel.add(projectname);
 
         projectname_offset = ctx.depth();
@@ -66,9 +66,9 @@ public class MyFeatureModelVisitor extends featureModelBaseVisitor<Object> {
             int depth = ctx.depth();
             // Identify parent feature
             String parentFeature = lastUsedFeaturePerLevel.get(depth-1- projectname_offset);  // -1 for parent level ; -projectname_offset for offset to count with 0
-            TreeNode<String> parentNode = fmTree.find(parentFeature);
+            TreeNode<Feature> parentNode = fmTree.find(new Feature(parentFeature));
             // Extend parent feature
-            TreeNode<String> n1 = new ArrayMultiTreeNode<>(ctx.getText());
+            TreeNode<Feature> n1 = new ArrayMultiTreeNode<>(new Feature(ctx.getText()));
             parentNode.add(n1);
 
             // Update reference list
