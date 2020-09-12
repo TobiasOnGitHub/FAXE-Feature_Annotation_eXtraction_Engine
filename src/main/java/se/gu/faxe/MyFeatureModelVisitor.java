@@ -31,7 +31,7 @@ public class MyFeatureModelVisitor extends featureModelBaseVisitor<Object> {
     int projectname_offset = 0;
 
     @Override
-    public FeatureModel visitFeatureModel(featureModelParser.FeatureModelContext ctx) {
+    public TreeNode<Feature> visitFeatureModel(featureModelParser.FeatureModelContext ctx) {
         System.out.println("MyFeatureModelVisitor::visitFeatureModel");
 
         visitChildren(ctx);
@@ -39,7 +39,7 @@ public class MyFeatureModelVisitor extends featureModelBaseVisitor<Object> {
         System.out.println("Detected Feature Model");
         System.out.println(fmTree);
 
-        return null;
+        return fmTree;
     }
 
     @Override public Object visitProjectname(featureModelParser.ProjectnameContext ctx) {
