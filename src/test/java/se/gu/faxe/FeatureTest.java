@@ -264,4 +264,42 @@ public class FeatureTest {
 
         Assert.assertEquals(root, newRoot);
     }
+
+    @Test
+    public void testEquals_Valid_Equal(){
+        Feature a = new Feature("test");
+        Feature b = new Feature("test");
+
+        Assert.assertTrue(a.equals(b));
+        Assert.assertTrue(b.equals(a));
+    }
+
+    @Test
+    public void testEquals_Valid_Unequal(){
+        Feature a = new Feature("47");
+        Feature b = new Feature("11");
+
+        Assert.assertFalse(a.equals(b));
+        Assert.assertFalse(b.equals(a));
+    }
+
+    @Test
+    public void testEquals_Valid_DifferentClasses(){
+        Feature a = new Feature("47");
+        Object b = new Object();
+
+        Assert.assertFalse(a.equals(b));
+        Assert.assertFalse(b.equals(a));
+    }
+
+    @Test
+    public void testToString(){
+        String rootName = "root";
+        Feature root = new Feature(rootName);
+
+        String name = root.toString();
+
+        Assert.assertEquals(name, rootName);
+
+    }
 }
