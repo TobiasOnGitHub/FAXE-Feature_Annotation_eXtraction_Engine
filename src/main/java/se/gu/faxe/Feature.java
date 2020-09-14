@@ -20,14 +20,25 @@ package se.gu.faxe;
 
 public class Feature {
     private String name;
+    private String lpq;     // Least-Partially-Qualified name. Unique identifier for feature.
 //    private Feature parent = null;
 //    private final List<Feature> subFeatures = new ArrayList<>();
 
     public Feature(String name) {
         if(name != null) {
             this.name = name;
+            this.lpq  = name;
         } else {
             throw new NullPointerException("Feature::Feature name is null!");
+        }
+    }
+
+    public Feature(String name, String lpq) {
+        if(name != null && lpq != null) {
+            this.name = name;
+            this.lpq = lpq;
+        } else {
+            throw new NullPointerException("Feature::Feature name or LPQ is null!");
         }
     }
 
@@ -46,6 +57,14 @@ public class Feature {
 
     public String getName() {
         return name;
+    }
+
+    public String getLpq() {
+        return lpq;
+    }
+
+    public void setLpq(String lpq) {
+        this.lpq = lpq;
     }
 
 //    public Feature getParent() {
@@ -95,6 +114,9 @@ public class Feature {
         } else {
             throw new NullPointerException("Feature::renameFeature name is null!");
         }
+
+        // TODO - Change of LPQ required
+
         return true;
     }
 
@@ -108,7 +130,7 @@ public class Feature {
     @Override
     public boolean equals(Object o) {
         if(o.getClass().equals(Feature.class)){
-            return this.getName().equals(((Feature) o).getName());
+            return this.getLpq().equals(((Feature) o).getLpq());
         }
         return false;
     }
@@ -120,4 +142,7 @@ public class Feature {
     public String toString() {
         return getName();
     }
+//    public String toString() {
+//        return getName() +"(" +getLpq() +")";
+//    }
 }

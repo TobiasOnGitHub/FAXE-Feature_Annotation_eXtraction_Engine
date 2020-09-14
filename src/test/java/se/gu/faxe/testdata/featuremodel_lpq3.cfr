@@ -1,0 +1,9 @@
+projectRoot
+	Feature1
+		FeatureA
+			FeatureA1
+	Feature2
+		FeatureA
+			FeatureA1
+	Feature3
+		FeatureB

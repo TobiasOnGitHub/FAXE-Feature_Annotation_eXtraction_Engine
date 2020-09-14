@@ -27,7 +27,7 @@ import java.util.Vector;
 
 public class MyFeatureModelVisitor extends featureModelBaseVisitor<Object> {
     private TreeNode<Feature> fmTree;
-    private final Vector<String> lastUsedFeaturePerLevel = new Vector<>(); // Contains the last element per level (depth). I.e. which need to be extended by a child.
+    private final Vector<TreeNode<Feature>> lastUsedFeaturePerLevel = new Vector<>(); // Contains the last element per level (depth). I.e. which need to be extended by a child.
     int projectname_offset = 0;
 
     @Override
@@ -36,8 +36,8 @@ public class MyFeatureModelVisitor extends featureModelBaseVisitor<Object> {
 
         visitChildren(ctx);
 
-        System.out.println("Detected Feature Model");
-        System.out.println(fmTree);
+//        System.out.println("Detected Feature Model");
+//        System.out.println(fmTree);
 
         return fmTree;
     }
@@ -45,9 +45,9 @@ public class MyFeatureModelVisitor extends featureModelBaseVisitor<Object> {
     @Override public Object visitProjectname(featureModelParser.ProjectnameContext ctx) {
         //System.out.println("MyFeatureModelVisitor::visitProjectname");
 
-        String projectname = ctx.getText();
-        fmTree = new ArrayMultiTreeNode<>(new Feature(projectname));
-        lastUsedFeaturePerLevel.add(projectname);
+        Feature projectname = new Feature(ctx.getText());
+        fmTree = new ArrayMultiTreeNode<>(projectname);
+        lastUsedFeaturePerLevel.add(fmTree.root());
 
         projectname_offset = ctx.depth();
 
@@ -58,24 +58,25 @@ public class MyFeatureModelVisitor extends featureModelBaseVisitor<Object> {
     @Override public Object visitFeature(featureModelParser.FeatureContext ctx) {
         //System.out.println("MyFeatureModelVisitor::visitFeature -> " +ctx.getText());
 
-        String s = ctx.getText();
+        String featureName = ctx.getText();
         if(ctx.getChildCount()>1) {     // 1 because own content (getText) is a child
             visitChildren(ctx);
         } else {
-            // We are in the lowest level
-            int depth = ctx.depth();
+            // We are in the lowest level (leaf node)
+
             // Identify parent feature
-            String parentFeature = lastUsedFeaturePerLevel.get(depth-1- projectname_offset);  // -1 for parent level ; -projectname_offset for offset to count with 0
-            TreeNode<Feature> parentNode = fmTree.find(new Feature(parentFeature));
-            // Extend parent feature
-            TreeNode<Feature> n1 = new ArrayMultiTreeNode<>(new Feature(ctx.getText()));
-            parentNode.add(n1);
+            int depth = ctx.depth();
+            TreeNode<Feature> parentNode = lastUsedFeaturePerLevel.get(depth-1- projectname_offset);  // -1 for parent level ; -projectname_offset for offset to count with 0
+
+            // Extend parent feature with child feature
+            TreeNode<Feature> childNode = new ArrayMultiTreeNode<>(new Feature(featureName));
+            parentNode.add(childNode);
 
             // Update reference list
             if(lastUsedFeaturePerLevel.size() <= depth- projectname_offset){ // -projectname_offset for offset to count with 0
-                lastUsedFeaturePerLevel.add(s);
+                lastUsedFeaturePerLevel.add(childNode);
             } else {
-                lastUsedFeaturePerLevel.set(depth- projectname_offset,s);
+                lastUsedFeaturePerLevel.set(depth- projectname_offset,childNode);
             }
 
         }

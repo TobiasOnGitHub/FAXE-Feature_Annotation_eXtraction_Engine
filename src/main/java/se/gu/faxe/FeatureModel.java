@@ -56,6 +56,14 @@ public class FeatureModel  {
     }
 
     /**
+     * Gets path of feature model file
+     * @return File path of feature model file
+     */
+    public File getFeatureModelPath() {
+        return featureModelPath;
+    }
+
+    /**
      * Loads @{@link FeatureModel} from feature model file (.featuremodel)
      * @param path {@link File} path to feature model file (.featuremodel)
      * @return {@code true} when feature model is successfully loaded. Otherwise {@code false}
@@ -85,6 +93,9 @@ public class FeatureModel  {
             if(featureModel!=null) {
                 System.out.println("FM:" +featureModel.toString());
                 featureModelPath = path;
+
+                generateLPQs();
+
                 return true;
             } else {
                 System.out.println("ERROR: Feature model could not be loaded.");
@@ -129,19 +140,51 @@ public class FeatureModel  {
     }
 
     /* Return name */
-    public List<Feature> getFeatureByName(String str){
 
-        Collection<? extends TreeNode<Feature>> collFeatures = featureModel.findAll(new Feature(str));
+    /**
+     * Gets all {@link Feature} which belong to the searched feature name.
+     * @param searchedFeatureName which shall be searched.
+     * @return List of {@link Feature} which belongs to searchedName.
+     */
+    public List<Feature> getFeatureByName(String searchedFeatureName){
+        List<Feature> listFeatureByName = new ArrayList<>();
 
-        List<Feature> list = new ArrayList<>();
-        for (TreeNode<Feature> f : collFeatures) {
-            System.out.println("value= " + f.data());
-            list.add(f.data());
+        for (TreeNode<Feature> node : featureModel) {
+            if (node.data().getName().equals(searchedFeatureName)) {
+                listFeatureByName.add(node.data());
+            }
         }
 
-        // TODO - Update implementation with LPQ handling
+        return listFeatureByName;
+    }
 
-        return list;
+
+    /**
+     * Generates LPQs based on loaded FeatureModel.
+     * @return {@code true} when all LPQs are unique and {@code false} when at least one LPQ is non-unique.
+     */
+    public boolean generateLPQs(){
+        boolean uniqueLPQs = true;
+
+        for (TreeNode<Feature> node : featureModel) {
+
+            Collection<? extends TreeNode<Feature>> nodesToFind = featureModel.findAll(node.data());
+            if(nodesToFind.size() > 1){
+                for (TreeNode<Feature> treeNode : nodesToFind){
+                    String parentLPQ = treeNode.parent().data().getLpq();
+                    String featureLPQ = treeNode.data().getLpq();
+                    treeNode.data().setLpq(parentLPQ +"::" +featureLPQ);
+                }
+                uniqueLPQs = false;
+            } /*else{
+                // Feature Name equals 1 =>  Unique -> Continue
+            } */
+        }
+
+        if(!uniqueLPQs){
+            generateLPQs();
+        }
+        return true;
     }
 
 }
