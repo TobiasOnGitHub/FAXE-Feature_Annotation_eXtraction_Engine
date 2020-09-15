@@ -281,6 +281,24 @@ public class FeatureTest {
     }
 
     @Test
+    public void testEquals_Valid_Unequal_SmallCapital(){
+        Feature a = new Feature("feature");
+        Feature b = new Feature("Feature");
+
+        Assert.assertFalse(a.equals(b));
+        Assert.assertFalse(b.equals(a));
+    }
+
+    @Test
+    public void testEquals_Valid_Unequal_SmallCapital_2(){
+        Feature a = new Feature("feature");
+        Feature b = new Feature("FEATURE");
+
+        Assert.assertFalse(a.equals(b));
+        Assert.assertFalse(b.equals(a));
+    }
+
+    @Test
     public void testEquals_Valid_DifferentClasses(){
         Feature a = new Feature("47");
         Object b = new Object();
