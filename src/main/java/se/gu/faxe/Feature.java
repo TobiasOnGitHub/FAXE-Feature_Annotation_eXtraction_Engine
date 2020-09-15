@@ -109,15 +109,17 @@ public class Feature {
 //    }
 
     public Boolean renameFeature(String name){
-        if(name != null) {
-            this.name = name;
-        } else {
-            throw new NullPointerException("Feature::renameFeature name is null!");
-        }
 
-        // TODO - Change of LPQ required
-
-        return true;
+        throw new UnsupportedOperationException();
+//        if(name != null) {
+//            this.name = name;
+//        } else {
+//            throw new NullPointerException("Feature::renameFeature name is null!");
+//        }
+//
+//        // TODO - Change of LPQ required
+//
+//        return true;
     }
 
     /**
@@ -142,7 +144,5 @@ public class Feature {
     public String toString() {
         return getName();
     }
-//    public String toString() {
-//        return getName() +"(" +getLpq() +")";
-//    }
+
 }
