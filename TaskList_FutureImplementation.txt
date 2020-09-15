@@ -2,6 +2,19 @@ Worklist for SPLC Release v0.1
 ========================================================
 x) Code Review for best quality
 --------------------------------------------------------
+- FAXE operating on project without FM-file
+- TestFeatureModel: FM-file consists of other data, spaces instead of tabs used
+- FM-File updated in background -> Reload required
+
+
+
+- Feature::renameFeature() to be implemented
+
+
+
+
+
+--------------------------------------------------------
 1) FAXE.FAXE cmd tool
 - to try out the tooling provide a command line tool
 - Maybe linked to Bash script of partial commit
