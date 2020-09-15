@@ -4,12 +4,32 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 public class FeatureModelTest {
 
     @Test
-    public void testLoadFeatureModel_Functionality() {
+    public void testFeatureModel(){
+        String nonFeatureFilePath = new File("").getAbsolutePath();
+        FeatureModel fm = new FeatureModel(new File(nonFeatureFilePath));
+
+        // Implicit test that FM was not generated
+        Assert.assertNull(fm.getFeatureModelPath());
+    }
+
+    @Test
+    public void testGetFeatureModelPath(){
+        String filePathOrg = new File("").getAbsolutePath().concat("\\src\\test\\java\\se\\gu\\faxe\\testdata\\featuremodel_valid.cfr");
+        FeatureModel fm = new FeatureModel(new File(filePathOrg));
+
+        File filePathFM = fm.getFeatureModelPath();
+
+        Assert.assertTrue(filePathOrg.equals(filePathFM.getAbsolutePath()));
+    }
+
+    @Test
+    public void testLoadFeatureModel_Valid_Functionality() {
 
         String strTestFM = new File("").getAbsolutePath().concat("\\src\\test\\java\\se\\gu\\faxe\\testdata\\featuremodel_valid.cfr");
         File testFMFile = new File(strTestFM);
@@ -18,7 +38,11 @@ public class FeatureModelTest {
 
         if(testFMFile.exists()) {
             FeatureModel fm = new FeatureModel();
-            ret = fm.loadFeatureModel(testFMFile);
+            try {
+                ret = fm.loadFeatureModel(testFMFile);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         } else {
             System.out.println("Error with test feature model file " +testFMFile.toString());
         }
@@ -26,21 +50,21 @@ public class FeatureModelTest {
         Assert.assertEquals(ret, Boolean.TRUE);
     }
 
-    @Test
-    public void testLoadFeatureModel_Invalid_EmptyInputFile(){
+    @Test(expectedExceptions = IOException.class)
+    public void testLoadFeatureModel_Invalid_EmptyInputFile() throws IOException {
 
         File testFMFile = new File("");
 
-        Boolean ret = false;
+        FeatureModel fm = new FeatureModel();
+        fm.loadFeatureModel(testFMFile);
+    }
 
-        if(testFMFile.exists()) {
-            FeatureModel fm = new FeatureModel();
-            ret = fm.loadFeatureModel(testFMFile);
-        } else {
-            System.out.println("Error with test feature model file " +testFMFile.toString());
-        }
+    @Test
+    public void testLoadFeatureModel_Invalid_NonFMFile() throws IOException {
+        File testNonFMFile = new File(new File("").getAbsolutePath().concat("\\src\\test\\java\\se\\gu\\faxe\\testdata\\featuremodel_textonly.cfr"));
+        FeatureModel fm = new FeatureModel();
 
-        Assert.assertFalse(ret);
+        fm.loadFeatureModel(testNonFMFile);
     }
 
     @Test

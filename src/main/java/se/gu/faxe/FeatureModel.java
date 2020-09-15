@@ -52,7 +52,11 @@ public class FeatureModel  {
      * @param path to the feature model file
      */
     public FeatureModel(File path) {
-        loadFeatureModel(path);
+        try {
+            loadFeatureModel(path);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -68,16 +72,13 @@ public class FeatureModel  {
      * @param path {@link File} path to feature model file (.featuremodel)
      * @return {@code true} when feature model is successfully loaded. Otherwise {@code false}
      */
-    public Boolean loadFeatureModel(File path){
+    public Boolean loadFeatureModel(File path) throws IOException {
         //System.out.println(">> FeatureModel::loadFeatureModel");
         System.out.println("Request for feature model " +path.toString());
 
-        CharStream in = null;
-        try {
-            in = CharStreams.fromFileName(path.getAbsolutePath());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        // fromFileName throws IOException in case file does not exist
+        CharStream in = CharStreams.fromFileName(path.getAbsolutePath());
+
         featureModelLexer lexer = new featureModelLexer(in);
         lexer.addErrorListener(ThrowingErrorListener.INSTANCE);
         CommonTokenStream token = new CommonTokenStream(lexer);
