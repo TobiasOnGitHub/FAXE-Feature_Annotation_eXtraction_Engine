@@ -188,4 +188,15 @@ public class FeatureModel  {
         return true;
     }
 
+
+    /**
+     * Renames feature name to new given @name. LPQs are re-generated based on new situation. (no file-system change!)
+     * @param newName of feature
+     * @return {@code true} when renaming succeeded. {@code false} otherwise.
+     */
+    public boolean renameFeature(String newName){
+        throw new UnsupportedOperationException();
+//      TODO - Rename Feature itself
+//      TODO - Change of LPQ required
+    }
 }

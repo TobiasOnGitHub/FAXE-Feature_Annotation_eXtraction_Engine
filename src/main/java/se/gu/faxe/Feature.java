@@ -21,9 +21,12 @@ package se.gu.faxe;
 public class Feature {
     private String name;
     private String lpq;     // Least-Partially-Qualified name. Unique identifier for feature.
-//    private Feature parent = null;
-//    private final List<Feature> subFeatures = new ArrayList<>();
 
+    /**
+     * Creates {@link Feature} object based on its name
+     * @param name of feature
+     * @throws NullPointerException in case @name is null
+     */
     public Feature(String name) {
         if(name != null) {
             this.name = name;
@@ -33,6 +36,12 @@ public class Feature {
         }
     }
 
+    /**
+     * Creates {@link Feature} object based on its name and lpq
+     * @param name of feature
+     * @param lpq of feature
+     * @throws NullPointerException in case @name is null
+     */
     public Feature(String name, String lpq) {
         if(name != null && lpq != null) {
             this.name = name;
@@ -41,19 +50,6 @@ public class Feature {
             throw new NullPointerException("Feature::Feature name or LPQ is null!");
         }
     }
-
-//    public Feature(String name, Feature parent){
-//        if(name != null) {
-//            this.name = name;
-//            if(parent != null) {
-//                this.parent = parent;
-//            } else {
-//                throw new NullPointerException("Feature::Feature parent is null!");
-//            }
-//        } else {
-//            throw new NullPointerException("Feature::Feature name is null!");
-//        }
-//    }
 
     public String getName() {
         return name;
@@ -67,59 +63,18 @@ public class Feature {
         this.lpq = lpq;
     }
 
-//    public Feature getParent() {
-//        return parent;
-//    }
-
-//    public Boolean setParent(Feature parent) {
-//        if(parent != null) {
-//            this.parent = parent;
-//        } else {
-//            throw new NullPointerException("Feature::setParent parent is null!");
-//        }
-//        return true;
-//    }
-
-//    public List<Feature> getSubFeatures() {
-//        return subFeatures;
-//    }
-
     public Feature getFeature(){
         return this;
     }
 
-//    public Boolean addSubFeature(Feature feature){
-//        if(feature != null) {
-//            return this.subFeatures.add(feature);
-//        } else {
-//            throw new NullPointerException("Feature::addSubFeature feature is null!");
-//        }
-//    }
-
-//    public Boolean addSubFeature(List<Feature> feature){
-//        if(feature != null) {
-//            return this.subFeatures.addAll(feature);
-//        } else {
-//            throw new NullPointerException("Feature::addSubFeature feature list is null!");
-//        }
-//    }
-
-//    public Boolean removeSubFeature(Feature feature){
-//        return subFeatures.remove(feature);
-//    }
-
-    public Boolean renameFeature(String name){
-
+    /**
+     * Renames feature name to new given @name. (no LPQ change and no file-system change!)
+     * @param newName of feature
+     * @return {@code true} when renaming succeeded. {@code false} otherwise.
+     */
+    public boolean renameFeature(String newName){
         throw new UnsupportedOperationException();
-//        if(name != null) {
-//            this.name = name;
-//        } else {
-//            throw new NullPointerException("Feature::renameFeature name is null!");
-//        }
-//
-//        // TODO - Change of LPQ required
-//
-//        return true;
+//      TODO - Change of LPQ required
     }
 
     /**
