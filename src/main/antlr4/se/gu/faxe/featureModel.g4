@@ -18,7 +18,7 @@ grammar featureModel;
 SPACE: ' '* -> skip ;
 KEYWORDS: ('or'|'xor'|'?') -> skip ;   // Skip Clafer Keywords
 
-featureModel: projectname (('\n'|'\r\n') feature)*; // Consider ('\n'|'\r\n') for Windows and Linux OS
+featureModel: projectname (('\n'|'\r\n')* feature)* (('\t'|'\n'|'\r\n')* EOF) ; // Consider ('\n'|'\r\n') for Windows and Linux OS ; Part before EOF to skipp empty lines
 
 projectname: FEATURENAME ;
 

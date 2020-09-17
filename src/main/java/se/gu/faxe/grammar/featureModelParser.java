@@ -96,6 +96,7 @@ public class featureModelParser extends Parser {
 		public ProjectnameContext projectname() {
 			return getRuleContext(ProjectnameContext.class,0);
 		}
+		public TerminalNode EOF() { return getToken(featureModelParser.EOF, 0); }
 		public List<FeatureContext> feature() {
 			return getRuleContexts(FeatureContext.class);
 		}
@@ -126,19 +127,59 @@ public class featureModelParser extends Parser {
 		enterRule(_localctx, 0, RULE_featureModel);
 		int _la;
 		try {
+			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
 			setState(6);
 			projectname();
-			setState(11);
+			setState(16);
+			_errHandler.sync(this);
+			_alt = getInterpreter().adaptivePredict(_input,1,_ctx);
+			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
+				if ( _alt==1 ) {
+					{
+					{
+					setState(10);
+					_errHandler.sync(this);
+					_la = _input.LA(1);
+					while (_la==T__0 || _la==T__1) {
+						{
+						{
+						setState(7);
+						_la = _input.LA(1);
+						if ( !(_la==T__0 || _la==T__1) ) {
+						_errHandler.recoverInline(this);
+						}
+						else {
+							if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+							_errHandler.reportMatch(this);
+							consume();
+						}
+						}
+						}
+						setState(12);
+						_errHandler.sync(this);
+						_la = _input.LA(1);
+					}
+					setState(13);
+					feature();
+					}
+					} 
+				}
+				setState(18);
+				_errHandler.sync(this);
+				_alt = getInterpreter().adaptivePredict(_input,1,_ctx);
+			}
+			{
+			setState(22);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (_la==T__0 || _la==T__1) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << T__1) | (1L << T__2))) != 0)) {
 				{
 				{
-				setState(7);
+				setState(19);
 				_la = _input.LA(1);
-				if ( !(_la==T__0 || _la==T__1) ) {
+				if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << T__1) | (1L << T__2))) != 0)) ) {
 				_errHandler.recoverInline(this);
 				}
 				else {
@@ -146,13 +187,14 @@ public class featureModelParser extends Parser {
 					_errHandler.reportMatch(this);
 					consume();
 				}
-				setState(8);
-				feature();
 				}
 				}
-				setState(13);
+				setState(24);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
+			}
+			setState(25);
+			match(EOF);
 			}
 			}
 		}
@@ -194,7 +236,7 @@ public class featureModelParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(14);
+			setState(27);
 			match(FEATURENAME);
 			}
 		}
@@ -239,20 +281,20 @@ public class featureModelParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(19);
+			setState(32);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case FEATURENAME:
 				{
-				setState(16);
+				setState(29);
 				match(FEATURENAME);
 				}
 				break;
 			case T__2:
 				{
-				setState(17);
+				setState(30);
 				match(T__2);
-				setState(18);
+				setState(31);
 				feature();
 				}
 				break;
@@ -273,13 +315,17 @@ public class featureModelParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\b\30\4\2\t\2\4\3"+
-		"\t\3\4\4\t\4\3\2\3\2\3\2\7\2\f\n\2\f\2\16\2\17\13\2\3\3\3\3\3\4\3\4\3"+
-		"\4\5\4\26\n\4\3\4\2\2\5\2\4\6\2\3\3\2\3\4\2\26\2\b\3\2\2\2\4\20\3\2\2"+
-		"\2\6\25\3\2\2\2\b\r\5\4\3\2\t\n\t\2\2\2\n\f\5\6\4\2\13\t\3\2\2\2\f\17"+
-		"\3\2\2\2\r\13\3\2\2\2\r\16\3\2\2\2\16\3\3\2\2\2\17\r\3\2\2\2\20\21\7\b"+
-		"\2\2\21\5\3\2\2\2\22\26\7\b\2\2\23\24\7\5\2\2\24\26\5\6\4\2\25\22\3\2"+
-		"\2\2\25\23\3\2\2\2\26\7\3\2\2\2\4\r\25";
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\b%\4\2\t\2\4\3\t"+
+		"\3\4\4\t\4\3\2\3\2\7\2\13\n\2\f\2\16\2\16\13\2\3\2\7\2\21\n\2\f\2\16\2"+
+		"\24\13\2\3\2\7\2\27\n\2\f\2\16\2\32\13\2\3\2\3\2\3\3\3\3\3\4\3\4\3\4\5"+
+		"\4#\n\4\3\4\2\2\5\2\4\6\2\4\3\2\3\4\3\2\3\5\2%\2\b\3\2\2\2\4\35\3\2\2"+
+		"\2\6\"\3\2\2\2\b\22\5\4\3\2\t\13\t\2\2\2\n\t\3\2\2\2\13\16\3\2\2\2\f\n"+
+		"\3\2\2\2\f\r\3\2\2\2\r\17\3\2\2\2\16\f\3\2\2\2\17\21\5\6\4\2\20\f\3\2"+
+		"\2\2\21\24\3\2\2\2\22\20\3\2\2\2\22\23\3\2\2\2\23\30\3\2\2\2\24\22\3\2"+
+		"\2\2\25\27\t\3\2\2\26\25\3\2\2\2\27\32\3\2\2\2\30\26\3\2\2\2\30\31\3\2"+
+		"\2\2\31\33\3\2\2\2\32\30\3\2\2\2\33\34\7\2\2\3\34\3\3\2\2\2\35\36\7\b"+
+		"\2\2\36\5\3\2\2\2\37#\7\b\2\2 !\7\5\2\2!#\5\6\4\2\"\37\3\2\2\2\" \3\2"+
+		"\2\2#\7\3\2\2\2\6\f\22\30\"";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {
