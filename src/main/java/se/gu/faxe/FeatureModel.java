@@ -28,10 +28,12 @@ import se.gu.faxe.grammar.featureModelLexer;
 import se.gu.faxe.grammar.featureModelParser;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Scanner;
 
 public class FeatureModel  {
     /**
@@ -65,6 +67,67 @@ public class FeatureModel  {
      */
     public File getFeatureModelPath() {
         return featureModelPath;
+    }
+
+
+    boolean lineStartsWithLetterOrDigit(String s){
+        if(Character.isLetterOrDigit(s.charAt(0))){
+            return true;
+        }
+        return false;
+    }
+
+    boolean lineStartsWithSpaces(String s){
+        //Character.isSpaceChar(s.charAt(0));
+        if(s.startsWith("    ") || s.startsWith("   ")){
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Checks if feature model file is valid to be parsed by grammar. E.g. checked if tabs are used.
+     * @param path {@link File} path to feature model file (.featuremodel)
+     * @return {@code true} when file good. Otherwise {@code false}.
+     */
+    public boolean verifyFeatureModelFile(File path){
+
+        /**
+         * CASE 1: Spaces used instead of Tabs
+         */
+        try {
+            Scanner scanner = new Scanner(path);
+            String projectname = null;
+            while (scanner.hasNextLine()) {
+                String nextLine = scanner.nextLine();
+                System.out.println(nextLine);
+                // Skip empty lines
+                if(nextLine.isEmpty()){
+                    continue;
+                }
+                // Identify project name
+                if(projectname == null) {
+                    if (lineStartsWithLetterOrDigit(nextLine)) {
+                        projectname = nextLine;
+                        continue;
+                    }
+                    return false;
+                }
+
+                if(lineStartsWithSpaces(nextLine)){
+                    System.out.println("ERROR: Spaces are used instead of tabs for hierarchy indentation.");
+                    return false;
+                }
+
+                // Alternative: Check that next content line must start with ONE \t followed by feature name
+            }
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+
+        return true;
     }
 
     /**
