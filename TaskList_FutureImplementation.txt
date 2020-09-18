@@ -11,6 +11,8 @@ x) Code Review for best quality
 - Feature::renameFeature() to be implemented
 
 
+- Change the FeatureModel to be more robost for different feature-model files. E.g. indentations sometimes tabs, sometimes spaces (fix lenght, variable length). Mix of tabs and spaces.
+
 
 
 
