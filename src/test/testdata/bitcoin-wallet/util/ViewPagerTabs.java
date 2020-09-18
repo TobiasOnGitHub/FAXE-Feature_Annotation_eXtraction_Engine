@@ -17,22 +17,17 @@
 
 package de.schildbach.wallet.util;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import de.schildbach.wallet.R;
-
 import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Path;
-import android.graphics.Typeface;
+import android.graphics.*;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.AttributeSet;
 import android.view.View;
+import de.schildbach.wallet.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Andreas Schildbach

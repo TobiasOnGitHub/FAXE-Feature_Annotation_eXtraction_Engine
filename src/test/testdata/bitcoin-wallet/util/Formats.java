@@ -17,12 +17,11 @@
 
 package de.schildbach.wallet.util;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import de.schildbach.wallet.Constants;
 
 import javax.annotation.Nullable;
-
-import de.schildbach.wallet.Constants;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author Andreas Schildbach

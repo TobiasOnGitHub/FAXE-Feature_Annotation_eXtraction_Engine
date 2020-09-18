@@ -17,22 +17,19 @@
 
 package de.schildbach.wallet.util;
 
-import static android.support.v4.util.Preconditions.checkArgument;
-
-import java.util.regex.Matcher;
-
-import javax.annotation.Nullable;
-
-import org.bitcoinj.core.Monetary;
-import org.bitcoinj.utils.MonetaryFormat;
-
-import de.schildbach.wallet.Constants;
-
 import android.graphics.Typeface;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
+import de.schildbach.wallet.Constants;
+import org.bitcoinj.core.Monetary;
+import org.bitcoinj.utils.MonetaryFormat;
+
+import javax.annotation.Nullable;
+import java.util.regex.Matcher;
+
+import static android.support.v4.util.Preconditions.checkArgument;
 
 /**
  * @author Andreas Schildbach

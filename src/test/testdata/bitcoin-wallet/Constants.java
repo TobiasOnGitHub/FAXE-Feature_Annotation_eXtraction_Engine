@@ -17,9 +17,13 @@
 
 package de.schildbach.wallet;
 
-import java.io.File;
-import java.util.concurrent.TimeUnit;
-
+import android.os.Build;
+import android.os.Environment;
+import android.text.format.DateUtils;
+import com.google.common.io.BaseEncoding;
+import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import org.bitcoinj.core.Coin;
 import org.bitcoinj.core.Context;
 import org.bitcoinj.core.NetworkParameters;
@@ -29,14 +33,8 @@ import org.bitcoinj.utils.MonetaryFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.io.BaseEncoding;
-
-import android.os.Build;
-import android.os.Environment;
-import android.text.format.DateUtils;
-import okhttp3.HttpUrl;
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
+import java.io.File;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author Andreas Schildbach
