@@ -29,6 +29,51 @@ public class FeatureModelTest {
     }
 
     @Test
+    public void testLineStartsWithLetter(){
+        FeatureModel fm = new FeatureModel(new File(new File("").getAbsolutePath().concat("\\src\\test\\java\\se\\gu\\faxe\\testdata\\featuremodel_valid.cfr")));
+
+        Assert.assertTrue(fm.lineStartsWithLetterOrDigit("String"));
+        Assert.assertFalse(fm.lineStartsWithLetterOrDigit(" String"));
+        Assert.assertFalse(fm.lineStartsWithLetterOrDigit("    String"));
+        Assert.assertFalse(fm.lineStartsWithLetterOrDigit("\tString"));
+        Assert.assertTrue(fm.lineStartsWithLetterOrDigit("1String"));
+        Assert.assertFalse(fm.lineStartsWithLetterOrDigit(" 2String"));
+        Assert.assertFalse(fm.lineStartsWithLetterOrDigit("    3String"));
+        Assert.assertFalse(fm.lineStartsWithLetterOrDigit("\t4String"));
+    }
+
+    @Test
+    public void testLineStartsWithSpaces(){
+        FeatureModel fm = new FeatureModel(new File(new File("").getAbsolutePath().concat("\\src\\test\\java\\se\\gu\\faxe\\testdata\\featuremodel_valid.cfr")));
+
+        Assert.assertTrue(fm.lineStartsWithSpaces("   String"));
+        Assert.assertTrue(fm.lineStartsWithSpaces("    String"));
+        Assert.assertFalse(fm.lineStartsWithSpaces("String"));
+        Assert.assertFalse(fm.lineStartsWithSpaces("1String"));
+    }
+
+
+    @Test
+    public void testVerifyFeatureModelFile_Valid_featuremodel_valid() {
+        FeatureModel fm = new FeatureModel();
+        File fmPath = new File(new File("").getAbsolutePath().concat("\\src\\test\\java\\se\\gu\\faxe\\testdata\\featuremodel_valid.cfr"));
+
+        boolean ret = fm.verifyFeatureModelFile(fmPath);
+
+        Assert.assertTrue(ret);
+    }
+
+    @Test
+    public void testVerifyFeatureModelFile_Invalid_featuremodel_invalid_spaces() {
+        FeatureModel fm = new FeatureModel();
+        File fmPath = new File(new File("").getAbsolutePath().concat("\\src\\test\\java\\se\\gu\\faxe\\testdata\\featuremodel_invalid_spaces.feature-model"));
+
+        boolean ret = fm.verifyFeatureModelFile(fmPath);
+
+        Assert.assertFalse(ret);
+    }
+
+        @Test
     public void testLoadFeatureModel_Valid_Functionality() {
 
         String strTestFM = new File("").getAbsolutePath().concat("\\src\\test\\java\\se\\gu\\faxe\\testdata\\featuremodel_valid.cfr");
