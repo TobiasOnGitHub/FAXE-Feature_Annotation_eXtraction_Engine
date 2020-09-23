@@ -1,5 +1,5 @@
 #!/bin/bash
-echo ">>> git-pfc (Partial Feature Commit)"
+echo ">>> Starting Partial Feature-Based Commit"
 
 echo "Positional Parameters"
 echo '$0 = ' $0		# FAXE tool
@@ -35,7 +35,7 @@ then
 elif [[ $1 == -* ]] # Detect if option is given in wrong position
 then
     echo "PATH to repository expected, but parameter option given."
-	exit -1;
+	exit 255;
 #else
 #	echo "Parameter not properly detected!"
 fi
