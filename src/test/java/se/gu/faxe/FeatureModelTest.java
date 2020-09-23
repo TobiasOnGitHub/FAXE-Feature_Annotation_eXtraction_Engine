@@ -104,13 +104,13 @@ public class FeatureModelTest {
         fm.loadFeatureModel(testFMFile);
     }
 
-    @Test
-    public void testLoadFeatureModel_Invalid_NonFMFile() throws IOException {
-        File testNonFMFile = new File(new File("").getAbsolutePath().concat("\\src\\test\\java\\se\\gu\\faxe\\testdata\\featuremodel_textonly.cfr"));
-        FeatureModel fm = new FeatureModel();
-
-        fm.loadFeatureModel(testNonFMFile);
-    }
+//    @Test
+//    public void testLoadFeatureModel_Invalid_NonFMFile() throws IOException {
+//        File testNonFMFile = new File(new File("").getAbsolutePath().concat("\\src\\test\\java\\se\\gu\\faxe\\testdata\\featuremodel_textonly.cfr"));
+//        FeatureModel fm = new FeatureModel();
+//
+//        fm.loadFeatureModel(testNonFMFile);
+//    }
 
     @Test
     public void testFeatureExistInFeatureModel_Valid_RootNode() {

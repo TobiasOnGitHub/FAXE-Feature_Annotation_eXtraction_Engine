@@ -200,24 +200,24 @@ public class FeatureTest {
 //        Assert.assertEquals(ret, Boolean.FALSE);
 //    }
 
-    @Test
-    public void testRenameFeature_ValidContent() {
-        String name_old = "name_old";
-        Feature root = new Feature(name_old);
-        Assert.assertEquals(root.getName(), name_old);
+//    @Test
+//    public void testRenameFeature_ValidContent() {
+//        String name_old = "name_old";
+//        Feature root = new Feature(name_old);
+//        Assert.assertEquals(root.getName(), name_old);
+//
+//        String name_new = "name_new";
+//        root.renameFeature(name_new);
+//        Assert.assertEquals(root.getName(), name_new);
+//    }
 
-        String name_new = "name_new";
-        root.renameFeature(name_new);
-        Assert.assertEquals(root.getName(), name_new);
-    }
-
-    @Test(expectedExceptions = NullPointerException.class, expectedExceptionsMessageRegExp = "Feature::renameFeature name is null!")
-    public void testRenameFeature_InvalidContent_Null() {
-        String name_old = "name_old";
-        Feature root = new Feature(name_old);
-
-        root.renameFeature(null);
-    }
+//    @Test(expectedExceptions = NullPointerException.class, expectedExceptionsMessageRegExp = "Feature::renameFeature name is null!")
+//    public void testRenameFeature_InvalidContent_Null() {
+//        String name_old = "name_old";
+//        Feature root = new Feature(name_old);
+//
+//        root.renameFeature(null);
+//    }
 
     @Test
     public void testGetName() {
