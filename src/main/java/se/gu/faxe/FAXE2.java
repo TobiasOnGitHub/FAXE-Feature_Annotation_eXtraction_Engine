@@ -2,12 +2,20 @@ package se.gu.faxe;
 
 import com.scalified.tree.TreeNode;
 import com.scalified.tree.multinode.ArrayMultiTreeNode;
+import org.antlr.v4.runtime.CharStream;
+import org.antlr.v4.runtime.CharStreams;
+import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.misc.ParseCancellationException;
+import org.antlr.v4.runtime.tree.ParseTree;
+import se.gu.faxe.grammar.codeAnnotationLexer;
+import se.gu.faxe.grammar.codeAnnotationParser;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
@@ -60,6 +68,16 @@ public class FAXE2 {
             } else {
                 System.out.println("File: " + file.getName());
                 // TODO - extract data via Grammar and link it
+
+                if(file.getName().endsWith(".feature-folder")){
+
+                } else if(file.getName().endsWith(".feature-file")){
+
+                } else {
+                    // CASE: Regular text file
+                    getEmbeddedAnnotationsFromTextAsset(nextAsset);
+                }
+
             }
 
             /*****************************/
@@ -82,5 +100,43 @@ public class FAXE2 {
         System.out.println("c");
     }
 
+
+
+    /**
+     * Method to extract embedded annotations on source code level of given file.
+     * @param assetToAnalyze Asset object to be analyzed file.
+     * @return List of found embedded annotations.
+     */
+    private static Asset getEmbeddedAnnotationsFromTextAsset(Asset assetToAnalyze){
+        CharStream in = null;
+        try {
+            in = CharStreams.fromFileName(assetToAnalyze.getPath().getAbsolutePath());
+        } catch (IOException e) {
+            try {
+                System.out.println("No file found: " +(new File(".").getCanonicalPath()) + "\\" +assetToAnalyze.getPath().getAbsolutePath());
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+            e.printStackTrace();
+        }
+        codeAnnotationLexer lexer = new codeAnnotationLexer(in);
+        lexer.addErrorListener(ThrowingErrorListener.INSTANCE);
+        CommonTokenStream token = new CommonTokenStream(lexer);
+        codeAnnotationParser parser = new codeAnnotationParser(token);
+        parser.removeErrorListeners();
+        parser.addErrorListener(ThrowingErrorListener.INSTANCE);
+
+        try {
+            ParseTree tree = parser.marker();
+
+            MyCodeAnnotationsVisitor visitor = new MyCodeAnnotationsVisitor();
+            List<Annotation> eaList = (List<Annotation>) visitor.visit(tree);
+            assetToAnalyze.addAllAnnotation(eaList);
+        } catch (ParseCancellationException e) {
+            // Catch if given string is not fitting the grammar
+            System.out.println("ERROR DETECTED :)");
+        }
+        return assetToAnalyze;
+    }
 
 }

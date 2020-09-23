@@ -25,6 +25,10 @@ public class Asset {
         return annotationList.add(annotation);
     }
 
+    public boolean addAllAnnotation(List<Annotation> annotation){
+        return annotationList.addAll(annotation);
+    }
+
     public boolean removeAnnotation(Annotation annotation){
         return annotationList.remove(annotation);
     }

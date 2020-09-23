@@ -11,6 +11,9 @@ public class Annotation {
     Annotation(){
     }
 
+    public List<Feature> getLinkedFeatures() {
+        return linkedFeatures;
+    }
 
     @Override
     public String toString() {

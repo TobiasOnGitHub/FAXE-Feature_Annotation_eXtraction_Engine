@@ -4,7 +4,8 @@ public class AnnotationFragment extends Annotation {
     private int startline = ANNOTATION_POSITION_UNDEFINED;
     private int endline = ANNOTATION_POSITION_UNDEFINED;
 
-    AnnotationFragment(int startline, int endline){
+    AnnotationFragment(Feature f, int startline, int endline){
+        this.linkedFeatures.add(f);
         this.startline = startline;
         this.endline   = endline;
     }
