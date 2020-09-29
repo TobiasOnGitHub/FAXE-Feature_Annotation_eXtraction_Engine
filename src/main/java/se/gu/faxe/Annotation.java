@@ -11,6 +11,10 @@ public class Annotation {
     Annotation(){
     }
 
+    Annotation(List<Feature> listFeature){
+        linkedFeatures.addAll(listFeature);
+    }
+
     public List<Feature> getLinkedFeatures() {
         return linkedFeatures;
     }

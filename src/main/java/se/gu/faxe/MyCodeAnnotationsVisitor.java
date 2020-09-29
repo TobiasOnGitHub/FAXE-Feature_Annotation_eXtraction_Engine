@@ -102,17 +102,14 @@ public class MyCodeAnnotationsVisitor extends codeAnnotationBaseVisitor<Object> 
         String name = ctx.getText();
         RuleContext parent = ctx.getParent().getParent().getRuleContext();
         if(parent instanceof codeAnnotationParser.LinemarkerContext){
-            System.out.println("...");
             AnnotationLine al = new AnnotationLine(new Feature(name), ctx.getStart().getLine());
             annotationList.add(al);
             return null;
         } else if (parent instanceof codeAnnotationParser.BeginmarkerContext){
-            System.out.println("...");
             AnnotationFragment af = new AnnotationFragment(new Feature(name), ctx.getStart().getLine(),POSITION_UNKNOWN);
             annotationList.add(af);
             return null;
         } else if (parent instanceof codeAnnotationParser.EndmarkerContext){
-            System.out.println("...");
             AnnotationFragment af = new AnnotationFragment(new Feature(name), POSITION_UNKNOWN, ctx.getStart().getLine());
             annotationList.add(af);
             return null;

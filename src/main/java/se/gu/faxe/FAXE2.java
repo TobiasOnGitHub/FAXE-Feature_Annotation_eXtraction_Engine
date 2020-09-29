@@ -7,14 +7,18 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.misc.ParseCancellationException;
 import org.antlr.v4.runtime.tree.ParseTree;
+import org.javatuples.Pair;
 import se.gu.faxe.grammar.codeAnnotationLexer;
 import se.gu.faxe.grammar.codeAnnotationParser;
+import se.gu.faxe.grammar.fileAnnotationsLexer;
+import se.gu.faxe.grammar.fileAnnotationsParser;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
@@ -69,23 +73,38 @@ public class FAXE2 {
                 System.out.println("File: " + file.getName());
                 // TODO - extract data via Grammar and link it
 
-                if(file.getName().endsWith(".feature-folder")){
+                if(file.getName().endsWith(".feature-to-folder")){
+                    System.out.println("x");
+                } else if(file.getName().endsWith(".feature-to-file")){
+                    List<Pair<File,Annotation>> eaList = getEmbeddedAnnotationsFromFeatureFileMapping(nextAsset);
+                    /***************************************/
+                    /** Merge mapping file data to Assets **/
+                    /***************************************/
+                    for(Pair<File,Annotation> pair : eaList){
+                        TreeNode<Asset> nodeAsset = knownAssets.find(new Asset(pair.getValue0()));
+                        Asset asset = nodeAsset.data();
+                        asset.addAnnotation(pair.getValue1());
 
-                } else if(file.getName().endsWith(".feature-file")){
+                        //nodeAsset.setData(asset);
 
+                        System.out.println("x");
+                    }
+                } else if(file.getName().endsWith("feature-model")){
+                    // Skip feature model file
                 } else {
                     // CASE: Regular text file
                     getEmbeddedAnnotationsFromTextAsset(nextAsset);
+                    /*****************************/
+                    /**  ADD TO ASSET-TREE      **/
+                    /*****************************/
+                    File parent = file.getParentFile();
+                    TreeNode<Asset> nodeParent = knownAssets.find(new Asset(parent));
+                    nodeParent.add(new ArrayMultiTreeNode<>(nextAsset));
                 }
 
             }
 
-            /*****************************/
-            /**  ADD TO ASSET-TREE **/
-            /*****************************/
-            File parent = file.getParentFile();
-            TreeNode<Asset> nodeParent = knownAssets.find(new Asset(parent));
-            nodeParent.add(new ArrayMultiTreeNode<>(nextAsset));
+
         }
 
         System.out.println(knownAssets);
@@ -137,6 +156,43 @@ public class FAXE2 {
             System.out.println("ERROR DETECTED :)");
         }
         return assetToAnalyze;
+    }
+
+    /**
+     * Method to extract embedded annotations on file level of given file.
+     * @param assetToAnalyze Asset object to be analyzed file.
+     * @return List of found embedded annotations.
+     */
+    private static List<Pair<File,Annotation>> getEmbeddedAnnotationsFromFeatureFileMapping(Asset assetToAnalyze){
+        CharStream in = null;
+        try {
+            in = CharStreams.fromFileName(assetToAnalyze.getPath().getAbsolutePath());
+        } catch (IOException e) {
+            try {
+                System.out.println("No file found: " +(new File(".").getCanonicalPath()) + "\\" +assetToAnalyze.getPath().getAbsolutePath());
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+            e.printStackTrace();
+        }
+        fileAnnotationsLexer lexer = new fileAnnotationsLexer(in);
+        lexer.addErrorListener(ThrowingErrorListener.INSTANCE);
+        CommonTokenStream token = new CommonTokenStream(lexer);
+        fileAnnotationsParser parser = new fileAnnotationsParser(token);
+        parser.removeErrorListeners();
+        parser.addErrorListener(ThrowingErrorListener.INSTANCE);
+
+        List<Pair<File,Annotation>> eaList = new ArrayList<>();
+        try {
+            ParseTree tree = parser.fileAnnotations();
+            MyFileAnnotationsVisitor visitor = new MyFileAnnotationsVisitor();
+            eaList = (List<Pair<File,Annotation>>) visitor.visit(tree);
+        } catch (ParseCancellationException e) {
+            // Catch if given string is not fitting the grammar
+            System.out.println("ERROR DETECTED :)");
+            return null;
+        }
+        return eaList;
     }
 
 }

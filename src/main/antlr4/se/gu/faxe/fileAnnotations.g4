@@ -20,7 +20,7 @@ SPACE: ' '* -> skip ;   // ignores all more than one-time space characters
 //WS: [ \n\t\r]+ -> skip;
 WS: [\r]+ -> skip;
 
-fileAnnotations: (fileAnnotation)* ;
+fileAnnotations: ((fileAnnotation) '\n'*)* ;
 
 fileAnnotation: fileReferences ':'? '\n'+ lpqReferences ;
 
