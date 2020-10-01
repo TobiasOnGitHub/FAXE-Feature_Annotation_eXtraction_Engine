@@ -8,10 +8,7 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.misc.ParseCancellationException;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.javatuples.Pair;
-import se.gu.faxe.grammar.codeAnnotationLexer;
-import se.gu.faxe.grammar.codeAnnotationParser;
-import se.gu.faxe.grammar.fileAnnotationsLexer;
-import se.gu.faxe.grammar.fileAnnotationsParser;
+import se.gu.faxe.grammar.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -71,10 +68,13 @@ public class FAXE2 {
                 // TODO - Go recursive through folders
             } else {
                 System.out.println("File: " + file.getName());
-                // TODO - extract data via Grammar and link it
 
                 if(file.getName().endsWith(".feature-to-folder")){
-                    System.out.println("x");
+                    Annotation annotation = getEmbeddedAnnotationsFromFeatureFolderMapping(nextAsset);
+                    File parentPath = file.getParentFile();
+                    TreeNode<Asset> parent = knownAssets.find(new Asset(parentPath));
+                    Asset parentAsset = parent.data();
+                    parentAsset.addAnnotation(annotation);
                 } else if(file.getName().endsWith(".feature-to-file")){
                     List<Pair<File,Annotation>> eaList = getEmbeddedAnnotationsFromFeatureFileMapping(nextAsset);
                     /***************************************/
@@ -193,6 +193,45 @@ public class FAXE2 {
             return null;
         }
         return eaList;
+    }
+
+
+    /**
+     * Method to extract embedded annotations on folder level of given folder.
+     * @param assetToAnalyze Asset object to be analyzed folder.
+     * @return List of found embedded annotations.
+     */
+    private static Annotation getEmbeddedAnnotationsFromFeatureFolderMapping(Asset assetToAnalyze){
+        CharStream in = null;
+        try {
+            in = CharStreams.fromFileName(assetToAnalyze.getPath().getAbsolutePath());
+        } catch (IOException e) {
+            try {
+                System.out.println("No file found: " +(new File(".").getCanonicalPath()) + "\\" +assetToAnalyze.getPath().getAbsolutePath());
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+            e.printStackTrace();
+        }
+        folderAnnotationsLexer lexer = new folderAnnotationsLexer(in);
+        lexer.addErrorListener(ThrowingErrorListener.INSTANCE);
+        CommonTokenStream token = new CommonTokenStream(lexer);
+        folderAnnotationsParser parser = new folderAnnotationsParser(token);
+        parser.removeErrorListeners();
+        parser.addErrorListener(ThrowingErrorListener.INSTANCE);
+
+        Annotation annotation = null;
+        try {
+            ParseTree tree = parser.folderAnnotation();
+
+            MyFolderAnnotationVisitor visitor = new MyFolderAnnotationVisitor();
+            annotation = (Annotation) visitor.visit(tree);
+        } catch (ParseCancellationException e) {
+            // Catch if given string is not fitting the grammar
+            System.out.println("ERROR DETECTED :)");
+            return null;
+        }
+        return annotation;
     }
 
 }
