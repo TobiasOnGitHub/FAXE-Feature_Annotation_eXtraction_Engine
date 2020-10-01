@@ -9,8 +9,12 @@ FAXE is an open source library (Apache 2.0) for parsing and receiving embedded a
 -------------------------------------------
 Specification:	https://bitbucket.org/easelab/faxe/src/master/specification/
 
+2) Embedded Annotation Data Sets
+-------------------------------------------
+Example projects, annotated with embedded annotations: 
+https://bitbucket.org/easelab/embeddedannotationdatasetmain/
 
-2) Installation and setup
+3) Installation and setup
 -------------------------------------------
 FAXE is designed as independent library and includes all dependencies in its JAR file.
 1. Clone/Download this repository
@@ -18,9 +22,9 @@ FAXE is designed as independent library and includes all dependencies in its JAR
 3. Build JAR with "mvn install"
 4. Copy genrated JAR target/faxe-0.1.jar to your project and include it
 
-3) Tool usage
+4) Tool usage
 -------------------------------------------
-3.1) API-Usage
+4.1) API-Usage
 -------------------------------------------
 import se.gu.faxe.EmbeddedAnnotation;
 import se.gu.faxe.FAXE;
@@ -28,18 +32,18 @@ import se.gu.faxe.FAXE;
 File file = new File("folder or filename.txt");
 List<EmbeddedAnnotation> FAXE.getEmbeddedAnnotations(file);
 
-3.2) CMD-Usage
+4.2) CMD-Usage
 -------------------------------------------
 Build in command line tooling allows you to access FAXE's API via the command line interface.
 Call on your command line "java -jar faxe-0.1.jar [COMMAND] [-hV]"
 The FAXE tool provides a help function (-h, --help) for all COMMANDs and respective parameters.
 
 
-4) FAXE Tool
+5) FAXE Tool
 -------------------------------------------
 All tools can be found in this repository in:	https://bitbucket.org/easelab/faxe/src/master/src/main/java/se/gu/faxe/commands/
 
-4.1)  Feature-Base Partial Commit with Git
+5.1)  Feature-Base Partial Commit with Git
 -------------------------------------------
 Tool "Feature-base partial commit" is an extended use case of FAXE to perform partial commits, based on features, 
 which are documented with embedded annotations. The functionality is available via the API and command line. But, 
