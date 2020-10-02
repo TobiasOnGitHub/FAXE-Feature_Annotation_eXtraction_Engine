@@ -57,7 +57,7 @@ public class CommandLineUtility implements Callable<Integer> {
 
 @Command(name = "getEmbeddedAnnotations", description = "Extracts and returns embedded annotations from an asset’s path for the feature in lpq, and exports the output to a file if the flag export is set. If lpq is not specified, it extracts all annotations from path.")
 class Get implements Callable<Integer> {
-    private FAXE2 faxe = null;
+    private FAXE faxe = null;
 
     @Parameters(index = "0", description = "Asset's path (file|folder) to extract and return embedded annotations from.")
     private File path;
@@ -77,7 +77,7 @@ class Get implements Callable<Integer> {
             //System.out.printf("Directory name: " + path.toString());
             if(faxe==null){
                 // initialize FAXE
-                faxe = new FAXE2();
+                faxe = new FAXE();
             }
             TreeNode<Asset> fullTreeObject = faxe.getEmbeddedAnnotations(path);
             Iterator<TreeNode<Asset>> iterator = fullTreeObject.iterator();
@@ -105,7 +105,7 @@ class Get implements Callable<Integer> {
                 Asset asset = null;
                 if(faxe==null){
                     // initialize FAXE
-                    faxe = new FAXE2(path.getParentFile());
+                    faxe = new FAXE(path.getParentFile());
                     asset = faxe.getEmbeddedAnnotationsFromTextAsset(new Asset(path));
                     for ( Annotation ass : asset.getAnnotationList()) {
                         for (Feature f : ass.getLinkedFeatures()){
@@ -144,7 +144,7 @@ class Get implements Callable<Integer> {
 @Command(name = "calculateMetric", description = "Calculates and returns required metric (enum) for the feature referred to in the lpq from the given path. It also exports the output to a file if the flag export is set. If metric is not specified, all metrics are calculated and exported.")
 class CLIMetrics implements Callable<Integer> {
     private Feature featureLPQ;
-    private FAXE2 faxe = null;
+    private FAXE faxe = null;
     /* Metrics derived from FeatureDashboard - Sina Entekhabi, Anton Solback, Jan-Philipp Steghöfer, and Thorsten Berger. 2019. Visualization of Feature Locations with the Tool FeatureDashboard. In Proceedings of the 23rd International Systems and Software Product Line Conference - Volume B (SPLC ’19). Association for Computing Machinery, New York, NY, USA, 1–4. DOI:https://doi.org/10.1145/3307630.3342392
      * and FLORIDA - Berima Andam, Andreas Burger, Thorsten Berger, and Michel R. V. Chaudron. 2017. FLOrIDA: Feature LOcatIon DAshboard for extracting and visualizing feature traces. In Proceedings of the Eleventh International Workshop on Variability Modelling of Software-intensive Systems (VAMOS ’17). Association for Computing Machinery, New York, NY, USA, 100–107. DOI:https://doi.org/10.1145/3023956.3023967
      */
@@ -200,7 +200,7 @@ class CLIMetrics implements Callable<Integer> {
 
         if(faxe==null){
             // initialize FAXE
-            faxe = new FAXE2(path.getParentFile());
+            faxe = new FAXE(path.getParentFile());
         }
 
         //faxe.getEmbeddedAnnotationsFromTextAsset(new Asset(path));

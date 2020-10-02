@@ -19,16 +19,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FAXE2 {
+public class FAXE {
 
     private TreeNode<Asset> knownAssets;
     private FeatureModel featureModel = null;
 
-    public FAXE2 (){
+    public FAXE(){
 
     }
 
-    public FAXE2 (File rootDirectory){
+    public FAXE(File rootDirectory){
         if(rootDirectory==null){
             throw new IllegalArgumentException("FAXE2::FAXE2 Given rootDirectory equals NULL!");
         }
@@ -122,7 +122,7 @@ public class FAXE2 {
         return knownAssets;
     }
 
-    public static List<EmbeddedAnnotation> getEmbeddedAnnotations(File rootDirectory, Feature feature) throws UnsupportedOperationException {
+    public static List<Annotation> getEmbeddedAnnotations(File rootDirectory, Feature feature) throws UnsupportedOperationException {
         System.out.println("UC7 - Return all embedded annotations for one specific feature");
         System.out.println("Search for Feature " +feature);
 
@@ -247,11 +247,11 @@ public class FAXE2 {
     }
 
 
-    public String getEmbeddedAnnotationContent(EmbeddedAnnotation ea) throws UnsupportedOperationException {
+    public String getEmbeddedAnnotationContent(Annotation ann) throws UnsupportedOperationException {
         throw new UnsupportedOperationException();
     }
 
-    public String getMappedEmbeddedAnnotationContentFile(EmbeddedAnnotation ea) throws UnsupportedOperationException {
+    public String getMappedEmbeddedAnnotationContentFile(Annotation ann) throws UnsupportedOperationException {
         // Copy-Paste from "old" FAXE interface. Unclear of needed with new concept
         throw new UnsupportedOperationException();
     }
@@ -312,22 +312,22 @@ public class FAXE2 {
 
 
     /**
-     * Transforms list of {@link EmbeddedAnnotation} to JSON object.
-     * @param eaList List of {@link EmbeddedAnnotation}
+     * Transforms list of {@link Annotation} to JSON object.
+     * @param annList List of {@link Annotation}
      * @return JSON object out of parameter.
      */
-    public static JSONArray serializeEAList2JSON(List<EmbeddedAnnotation> eaList){
+    public static JSONArray serializeEAList2JSON(List<Annotation> annList){
         JSONArray ja = new JSONArray();
-        ja.put("eaType");
-        ja.put("File");
-        ja.put("OpeningLine");
-        ja.put("ClosingLine");
-        ja.put("Feature");
-
+//        ja.put("eaType");
+//        ja.put("File");
+//        ja.put("OpeningLine");
+//        ja.put("ClosingLine");
+//        ja.put("Feature");
+//
         String serialList = "";
-        for(int i=0; i<eaList.size(); i++){
-            serialList += eaList.get(i).serialize()+'\n';
-        }
+//        for(int i=0; i<eaList.size(); i++){
+//            serialList += eaList.get(i).serialize()+'\n';
+//        }
 
         JSONArray result = CDL.toJSONArray(ja, serialList);
 
@@ -336,21 +336,21 @@ public class FAXE2 {
 
 
     /**
-     * Transforms JSON object to list of {@link EmbeddedAnnotation}
+     * Transforms JSON object to list of {@link Annotation}
      * Private method as currently no use case seen to perform this action
      * @param jsonArray JSON object
-     * @return List of {@link EmbeddedAnnotation} out of parameter.
+     * @return List of {@link Annotation} out of parameter.
      */
-    private static List<EmbeddedAnnotation> deserializeEAList2JSON(JSONArray jsonArray){
-        ArrayList<EmbeddedAnnotation> list = new ArrayList<>();
+    private static List<Annotation> deserializeEAList2JSON(JSONArray jsonArray){
+        ArrayList<Annotation> list = new ArrayList<>();
 
-        if (jsonArray != null) {
-            for (int i=0;i<jsonArray.length();i++){
-                list.add(EmbeddedAnnotation.deserialize(jsonArray.get(i).toString()));
-            }
-        } else {
-            System.out.println("WARNING: deserializeEAList2JSON - empty JSONArray file (null)!");
-        }
+//        if (jsonArray != null) {
+//            for (int i=0;i<jsonArray.length();i++){
+//                list.add(EmbeddedAnnotation.deserialize(jsonArray.get(i).toString()));
+//            }
+//        } else {
+//            System.out.println("WARNING: deserializeEAList2JSON - empty JSONArray file (null)!");
+//        }
 
         return list;
     }
