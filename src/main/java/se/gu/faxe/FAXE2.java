@@ -8,6 +8,8 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.misc.ParseCancellationException;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.javatuples.Pair;
+import org.json.CDL;
+import org.json.JSONArray;
 import se.gu.faxe.grammar.*;
 import se.gu.faxe.metrics.Metrics;
 import se.gu.faxe.metrics.ScatteringDegree;
@@ -120,6 +122,12 @@ public class FAXE2 {
         return knownAssets;
     }
 
+    public static List<EmbeddedAnnotation> getEmbeddedAnnotations(File rootDirectory, Feature feature) throws UnsupportedOperationException {
+        System.out.println("UC7 - Return all embedded annotations for one specific feature");
+        System.out.println("Search for Feature " +feature);
+
+        throw new UnsupportedOperationException();
+    }
 
     private void getEmbeddedAnnotationsFeatureModel(Asset fmAsset){
         featureModel = new FeatureModel(fmAsset.getPath());
@@ -239,6 +247,27 @@ public class FAXE2 {
     }
 
 
+    public String getEmbeddedAnnotationContent(EmbeddedAnnotation ea) throws UnsupportedOperationException {
+        throw new UnsupportedOperationException();
+    }
+
+    public String getMappedEmbeddedAnnotationContentFile(EmbeddedAnnotation ea) throws UnsupportedOperationException {
+        // Copy-Paste from "old" FAXE interface. Unclear of needed with new concept
+        throw new UnsupportedOperationException();
+    }
+
+
+    /**
+     * Renames given LPQ by new LPQ name. Changes are done permanent in file System.
+     * @param lpq_before
+     * @param lpq_after
+     * @return Count of changed appearances.
+     * @throws UnsupportedOperationException
+     */
+    public int renameFeatureName(LPQ lpq_before, String lpq_after) throws UnsupportedOperationException {
+        throw new UnsupportedOperationException();
+    }
+
     public int getMetrics(File file, Metrics metric, Feature feature, boolean export) {
 
         getMetrics(file, metric, feature);
@@ -265,6 +294,65 @@ public class FAXE2 {
 
 //        System.out.println("<<< FAXE.getMetrics(File, Metrics, LPQ)");
         return ret;
+    }
+
+
+    /**
+     * Check consistency according to embedded annotation specification and returns detected {@link ConsistencyViolation}s
+     * Check is performed for one file or a folder, including sub-assets. Consistency violations checked for:
+     * - Feature (LPQ) not part of FeatureModel + give recommendation which existing one could fit.
+     * @param file
+     * @return
+     * @throws UnsupportedOperationException
+     */
+    public List<ConsistencyViolation> checkConsistency(File file) throws UnsupportedOperationException {
+        throw new UnsupportedOperationException();
+        // Consistency Rules: begin/end annotations; line marker without content; Embedded Annotation part of feature model; brace missing
+    }
+
+
+    /**
+     * Transforms list of {@link EmbeddedAnnotation} to JSON object.
+     * @param eaList List of {@link EmbeddedAnnotation}
+     * @return JSON object out of parameter.
+     */
+    public static JSONArray serializeEAList2JSON(List<EmbeddedAnnotation> eaList){
+        JSONArray ja = new JSONArray();
+        ja.put("eaType");
+        ja.put("File");
+        ja.put("OpeningLine");
+        ja.put("ClosingLine");
+        ja.put("Feature");
+
+        String serialList = "";
+        for(int i=0; i<eaList.size(); i++){
+            serialList += eaList.get(i).serialize()+'\n';
+        }
+
+        JSONArray result = CDL.toJSONArray(ja, serialList);
+
+        return result;
+    }
+
+
+    /**
+     * Transforms JSON object to list of {@link EmbeddedAnnotation}
+     * Private method as currently no use case seen to perform this action
+     * @param jsonArray JSON object
+     * @return List of {@link EmbeddedAnnotation} out of parameter.
+     */
+    private static List<EmbeddedAnnotation> deserializeEAList2JSON(JSONArray jsonArray){
+        ArrayList<EmbeddedAnnotation> list = new ArrayList<>();
+
+        if (jsonArray != null) {
+            for (int i=0;i<jsonArray.length();i++){
+                list.add(EmbeddedAnnotation.deserialize(jsonArray.get(i).toString()));
+            }
+        } else {
+            System.out.println("WARNING: deserializeEAList2JSON - empty JSONArray file (null)!");
+        }
+
+        return list;
     }
 
 }
