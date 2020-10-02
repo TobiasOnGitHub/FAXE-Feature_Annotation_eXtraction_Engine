@@ -1,11 +1,10 @@
 package se.gu.faxe.metrics;
 
-import se.gu.faxe.EmbeddedAnnotation;
-import se.gu.faxe.LPQ;
+import com.scalified.tree.TreeNode;
+import se.gu.faxe.Asset;
+import se.gu.faxe.Feature;
 
 import java.io.File;
-import java.io.IOException;
-import java.util.List;
 
 /**
  * Tangling Degree (TD) as defined by Liebig, Jörg et. al. (2010). An
@@ -24,35 +23,35 @@ public class TanglingDegree {
      * with the feature. Two features share (parts of) artifacts when the latter is annotated with both features.
      *
      */
-    public static int calculateTD(List<EmbeddedAnnotation> eaList, File rootFolder, LPQ searchFeature){
+    public static int calculateTD(TreeNode< Asset > fullAssetTree, File searchedPath, Feature searchFeature){
         int td = 0;
 
-        // 1. Reduce eaList to elements below rootFolder
-        for(int i = 0; i<eaList.size(); i++) {
-            try {
-                if (!(new File(eaList.get(i).getFile()).getCanonicalPath().equals(rootFolder.getCanonicalPath()))) {
-                    String child = new File(eaList.get(i).getFile()).getCanonicalPath();
-                    String parent = rootFolder.getCanonicalPath() + File.separator;
-                    boolean areRelated = new File(eaList.get(i).getFile()).getCanonicalPath().contains(rootFolder.getCanonicalPath() + File.separator);
-                    if(!areRelated) {
-                        System.out.println("File outside searched File found. Remove it.");
-                        eaList.remove(i);
-                    }
-                } else {
-                    System.out.println("Root and searched File equal.");
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        // 2. Reduce eaList to elements which contain searchedFeature
-        List<EmbeddedAnnotation> searchFeatureInFiles = EmbeddedAnnotationOperations.extractSpecificFeature(eaList, searchFeature);
-
-        // 3. Reduce eaList to files with specific features
-        eaList = EmbeddedAnnotationOperations.extractSpecificFiles(eaList, searchFeatureInFiles);
-
-        // 4. Per file, create unique list of features
+//        // 1. Reduce eaList to elements below rootFolder
+//        for(int i = 0; i<eaList.size(); i++) {
+//            try {
+//                if (!(new File(eaList.get(i).getFile()).getCanonicalPath().equals(rootFolder.getCanonicalPath()))) {
+//                    String child = new File(eaList.get(i).getFile()).getCanonicalPath();
+//                    String parent = rootFolder.getCanonicalPath() + File.separator;
+//                    boolean areRelated = new File(eaList.get(i).getFile()).getCanonicalPath().contains(rootFolder.getCanonicalPath() + File.separator);
+//                    if(!areRelated) {
+//                        System.out.println("File outside searched File found. Remove it.");
+//                        eaList.remove(i);
+//                    }
+//                } else {
+//                    System.out.println("Root and searched File equal.");
+//                }
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//
+//        // 2. Reduce eaList to elements which contain searchedFeature
+//        List<EmbeddedAnnotation> searchFeatureInFiles = EmbeddedAnnotationOperations.extractSpecificFeature(eaList, searchFeature);
+//
+//        // 3. Reduce eaList to files with specific features
+//        eaList = EmbeddedAnnotationOperations.extractSpecificFiles(eaList, searchFeatureInFiles);
+//
+//        // 4. Per file, create unique list of features
 
 
         return td;
