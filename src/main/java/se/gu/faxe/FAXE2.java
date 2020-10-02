@@ -9,21 +9,22 @@ import org.antlr.v4.runtime.misc.ParseCancellationException;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.javatuples.Pair;
 import se.gu.faxe.grammar.*;
+import se.gu.faxe.metrics.Metrics;
+import se.gu.faxe.metrics.ScatteringDegree;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Supplier;
-import java.util.stream.Stream;
 
 public class FAXE2 {
 
     private TreeNode<Asset> knownAssets;
     private FeatureModel featureModel = null;
+
+    public FAXE2 (){
+
+    }
 
     public FAXE2 (File rootDirectory){
         if(rootDirectory==null){
@@ -38,20 +39,6 @@ public class FAXE2 {
             throw new IllegalArgumentException("FAXE2::FAXE2 Given rootDirectory NOT!");
         }
 
-        /*****************************************************************************************/
-        /** ANALYSIS OF FEATURE HIERARCHY as *.feature-model, feature-model or *.cfr or . file **/
-        /****************************************************************************************/
-         Supplier<Stream<Path>> streamSupplier = () -> {
-             try {
-                 return Files.walk(Paths.get(rootDirectory.getPath()));
-             } catch (IOException e) {
-                 e.printStackTrace();
-                 return null;
-             }
-        };
-        String pathFM = streamSupplier.get().map(x -> x.toString()).filter(f -> f.endsWith(".feature-model") || f.endsWith(".cfr") || f.equals("feature-model")).findFirst().get();
-        featureModel = new FeatureModel(new File(pathFM));
-
         /***********************************************************************/
         /** GO THROUGH ALL ASSETS, CREATE ASSET TREE AND FILL ANNOTATION DATA **/
         /***********************************************************************/
@@ -59,15 +46,37 @@ public class FAXE2 {
         Asset as = new Asset(rootDirectory);
         knownAssets = new ArrayMultiTreeNode<>(as);
 
+        getEmbeddedAnnotations(rootDirectory);
+
+        //System.out.println(knownAssets);
+
+
+        /***********************************/
+        /** ANALYSIS OF FEATURE-TO-FOLDER **/
+        /***********************************/
+
+
+
+        //System.out.println("c");
+    }
+
+    public TreeNode<Asset> getEmbeddedAnnotations(File rootDirectory) {
+
         for (File file : rootDirectory.listFiles()) {
             Asset nextAsset = new Asset(file);
 
             if (file.isDirectory()) {
-                System.out.println("Directory: " + file.getName());
-                //showFiles(file.listFiles()); // Calls same method again.
-                // TODO - Go recursive through folders
+                //System.out.println("Directory: " + file.getName());
+                /*****************************/
+                /**  ADD TO ASSET-TREE      **/
+                /*****************************/
+                File parent = file.getParentFile();
+                TreeNode<Asset> nodeParent = knownAssets.find(new Asset(parent));
+                nodeParent.add(new ArrayMultiTreeNode<>(nextAsset));
+                /** Iterate through sub-directory **/
+                getEmbeddedAnnotations(file);
             } else {
-                System.out.println("File: " + file.getName());
+                //System.out.println("File: " + file.getName());
 
                 if(file.getName().endsWith(".feature-to-folder")){
                     Annotation annotation = getEmbeddedAnnotationsFromFeatureFolderMapping(nextAsset);
@@ -84,13 +93,15 @@ public class FAXE2 {
                         TreeNode<Asset> nodeAsset = knownAssets.find(new Asset(pair.getValue0()));
                         Asset asset = nodeAsset.data();
                         asset.addAnnotation(pair.getValue1());
-
-                        //nodeAsset.setData(asset);
-
-                        System.out.println("x");
                     }
-                } else if(file.getName().endsWith("feature-model")){
-                    // Skip feature model file
+                } else if(file.getName().endsWith(".feature-model")
+                        | file.getName().endsWith("feature-model")
+                        | file.getName().endsWith(".cfr")
+                        ){
+                    /*****************************************************************************************/
+                    /** ANALYSIS OF FEATURE HIERARCHY as *.feature-model, feature-model or *.cfr or . file **/
+                    /****************************************************************************************/
+                    getEmbeddedAnnotationsFeatureModel(new Asset(file));
                 } else {
                     // CASE: Regular text file
                     getEmbeddedAnnotationsFromTextAsset(nextAsset);
@@ -106,27 +117,20 @@ public class FAXE2 {
 
 
         }
-
-        System.out.println(knownAssets);
-
-
-        /***********************************/
-        /** ANALYSIS OF FEATURE-TO-FOLDER **/
-        /***********************************/
-
-
-
-        System.out.println("c");
+        return knownAssets;
     }
 
 
+    private void getEmbeddedAnnotationsFeatureModel(Asset fmAsset){
+        featureModel = new FeatureModel(fmAsset.getPath());
+    }
 
     /**
      * Method to extract embedded annotations on source code level of given file.
      * @param assetToAnalyze Asset object to be analyzed file.
      * @return List of found embedded annotations.
      */
-    private static Asset getEmbeddedAnnotationsFromTextAsset(Asset assetToAnalyze){
+    public Asset getEmbeddedAnnotationsFromTextAsset(Asset assetToAnalyze){
         CharStream in = null;
         try {
             in = CharStreams.fromFileName(assetToAnalyze.getPath().getAbsolutePath());
@@ -232,6 +236,35 @@ public class FAXE2 {
             return null;
         }
         return annotation;
+    }
+
+
+    public int getMetrics(File file, Metrics metric, Feature feature, boolean export) {
+
+        getMetrics(file, metric, feature);
+
+        if(export) {
+            // TODO - Handling export if true
+        }
+
+        return 0;
+    }
+
+    public int getMetrics(File file, Metrics metric, Feature feature) {
+//        System.out.println(">>> FAXE.getMetrics(File, Metrics, LPQ)");
+        // 	-> FeatureDasboard Metrics!
+        //	-> Say that "implemented by ... in ..." And in Javadoc Author adding him/her
+
+        System.out.println("Path    " +file.toString());
+        System.out.println("Metric  " +metric);
+        System.out.println("Feature " +feature.getName());
+
+        //TanglingDegree.calculateTD(eaList,file,feature);
+
+        int ret = ScatteringDegree.calculateSD(knownAssets,file,feature);
+
+//        System.out.println("<<< FAXE.getMetrics(File, Metrics, LPQ)");
+        return ret;
     }
 
 }

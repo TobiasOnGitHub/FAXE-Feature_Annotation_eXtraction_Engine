@@ -1,10 +1,12 @@
 package se.gu.faxe.metrics;
 
-import se.gu.faxe.EmbeddedAnnotation;
-import se.gu.faxe.LPQ;
+import com.scalified.tree.TreeNode;
+import se.gu.faxe.Annotation;
+import se.gu.faxe.Asset;
+import se.gu.faxe.Feature;
 
 import java.io.File;
-import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -43,44 +45,36 @@ public class ScatteringDegree {
 
     /**
      * Calculate Scattering Degree: total number of all annotations directly referencing the feature (i.e., in-file, folder, and file annotations referencing it)
-     * @param eaList
-     * @param rootFolder
+     * @param fullAssetTree
+     * @param searchedPath
      * @param searchFeature
      * @return
      */
-    public static int calculateSD(List<EmbeddedAnnotation> eaList, File rootFolder, LPQ searchFeature) {
+    public static int calculateSD(TreeNode<Asset> fullAssetTree, File searchedPath, Feature searchFeature) {
         int sd = 0;
 
-        // 1. Reduce eaList to elements below rootFolder
-        for(int i = 0; i<eaList.size(); i++) {
-            try {
-                if (!(new File(eaList.get(i).getFile()).getCanonicalPath().equals(rootFolder.getCanonicalPath()))) {
-                    String child = new File(eaList.get(i).getFile()).getCanonicalPath();
-                    String parent = rootFolder.getCanonicalPath() + File.separator;
-                    boolean areRelated = new File(eaList.get(i).getFile()).getCanonicalPath().contains(rootFolder.getCanonicalPath() + File.separator);
-                    if(!areRelated) {
-                        System.out.println("File outside searched File found. Remove it.");
-                        eaList.remove(i);
-                    }
-                } else {
-                    System.out.println("Root and searched File equal.");
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        if(!searchedPath.exists()){
+            System.out.println("ScatteringDegree::calculateSD ERROR: given input path " +searchedPath +" not existing!");
         }
 
-        // 2. reduce eaList to searched feature
-        eaList = EmbeddedAnnotationOperations.extractSpecificFeature(eaList, searchFeature);
+        // 1. Reduce eaList to elements below searchedPath
+        TreeNode<Asset> searchRootNode =fullAssetTree.find(new Asset(searchedPath));
 
-//        // 3. reduce eaList to appearances per file (unique file list)
-//        eaList = eaList.stream()
-//                .filter(distinctByKey(ea -> ea.getFile()))
-//                .collect(Collectors.toList());
+        Iterator<TreeNode<Asset>> iterator = searchRootNode.iterator();
+        while (iterator.hasNext()) {
+            TreeNode<Asset> node = iterator.next();
+            //System.out.println("Node = " +node.toString());
+            List<Annotation> annotationList = node.data().getAnnotationList();
+            for (Annotation annotation : annotationList) {
+                if(annotation.getLinkedFeatures().contains(searchFeature)){
+                    System.out.println("   Feature " +searchFeature.toString() +" found in " +node.data().getPath());
+                    sd++;
+                }
+            }
 
-        sd = eaList.size();
+        }
 
-        System.out.println("Scattering Degree = " +sd);
+        //System.out.println("Scattering Degree = " +sd);
 
         return sd;
     }

@@ -18,17 +18,16 @@ under the License.
 *************************************************************/
 package se.gu.faxe.commands;
 
+import com.scalified.tree.TreeNode;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
-import se.gu.faxe.EmbeddedAnnotation;
-import se.gu.faxe.FAXE;
-import se.gu.faxe.LPQ;
+import se.gu.faxe.*;
 import se.gu.faxe.metrics.Metrics;
 
 import java.io.File;
-import java.util.List;
+import java.util.Iterator;
 import java.util.concurrent.Callable;
 
 @Command(name = "", mixinStandardHelpOptions = true, version = "faxe 0.1", description = "Feature Annotations eXtraction Engine. Provides from given source a list of embedded annotations.",
@@ -58,6 +57,7 @@ public class CommandLineUtility implements Callable<Integer> {
 
 @Command(name = "getEmbeddedAnnotations", description = "Extracts and returns embedded annotations from an asset’s path for the feature in lpq, and exports the output to a file if the flag export is set. If lpq is not specified, it extracts all annotations from path.")
 class Get implements Callable<Integer> {
+    private FAXE2 faxe = null;
 
     @Parameters(index = "0", description = "Asset's path (file|folder) to extract and return embedded annotations from.")
     private File path;
@@ -70,13 +70,21 @@ class Get implements Callable<Integer> {
 
     @Override
     public Integer call() throws Exception {
-        List<EmbeddedAnnotation> eaList = null;
+        //List<EmbeddedAnnotation> eaList = null;
 
         if(path.isDirectory()){
-            System.out.println("UC1 - Return all embedded annotations from the whole project");
-            System.out.printf("Directory name: " + path.toString());
-
-            eaList = FAXE.getEmbeddedAnnotations(path);
+            //System.out.println("UC1 - Return all embedded annotations from the whole project");
+            //System.out.printf("Directory name: " + path.toString());
+            if(faxe==null){
+                // initialize FAXE
+                faxe = new FAXE2();
+            }
+            TreeNode<Asset> fullTreeObject = faxe.getEmbeddedAnnotations(path);
+            Iterator<TreeNode<Asset>> iterator = fullTreeObject.iterator();
+            while (iterator.hasNext()) {
+                TreeNode<Asset> node = iterator.next();
+                node.toString();
+            }
 
         } else if(path.isFile()){
 
@@ -93,22 +101,41 @@ class Get implements Callable<Integer> {
                 //System.out.println("UC4 - Return all embedded annotations from one textual asset (file)");
                 //System.out.println("File name: " +file.toString());
 
-                eaList = FAXE.getEmbeddedAnnotations(path);
+                //eaList = FAXE.getEmbeddedAnnotations(path);
+                Asset asset = null;
+                if(faxe==null){
+                    // initialize FAXE
+                    faxe = new FAXE2(path.getParentFile());
+                    asset = faxe.getEmbeddedAnnotationsFromTextAsset(new Asset(path));
+                    for ( Annotation ass : asset.getAnnotationList()) {
+                        for (Feature f : ass.getLinkedFeatures()){
+                            if (featureLPQ == "" || f.toString().equals(featureLPQ)) {
+                                if (ass instanceof AnnotationFragment) {
+                                    System.out.println(path.toString() + ":" + f.getLpq() + " " + ((AnnotationFragment) ass).getStartline() + ":" + ((AnnotationFragment) ass).getEndline());
+                                }
+                                if (ass instanceof AnnotationLine) {
+                                    System.out.println(path.toString() + ":" + f.getLpq() + " " + ((AnnotationLine) ass).getLine());
+                                }
+                            }
+                        }
+                    }
+                }
+
             }
 
         }
 
-        if(featureLPQ.compareTo("")!=0){
-            //System.out.println("UC7 - Return all embedded annotations for one specific feature");
-            System.out.println("Search for LPQ \"" +featureLPQ.toString() +"\" in " + path.toString());
-
-            eaList.stream()
-                  .filter(ea -> ea.getFeature().equals(featureLPQ.toString()))
-                  .forEach(System.out::println);
-        } else {
-            // As no filtering happens, show whole list
-            System.out.println(eaList.toString());
-        }
+//        if(featureLPQ.compareTo("")!=0){
+//            //System.out.println("UC7 - Return all embedded annotations for one specific feature");
+//            System.out.println("Search for LPQ \"" +featureLPQ.toString() +"\" in " + path.toString());
+//
+//            eaList.stream()
+//                  .filter(ea -> ea.getFeature().equals(featureLPQ.toString()))
+//                  .forEach(System.out::println);
+//        } else {
+//            // As no filtering happens, show whole list
+//            System.out.println(eaList.toString());
+//        }
 
         return 0;
     }
@@ -116,7 +143,8 @@ class Get implements Callable<Integer> {
 
 @Command(name = "calculateMetric", description = "Calculates and returns required metric (enum) for the feature referred to in the lpq from the given path. It also exports the output to a file if the flag export is set. If metric is not specified, all metrics are calculated and exported.")
 class CLIMetrics implements Callable<Integer> {
-    private LPQ featureLPQ;
+    private Feature featureLPQ;
+    private FAXE2 faxe = null;
     /* Metrics derived from FeatureDashboard - Sina Entekhabi, Anton Solback, Jan-Philipp Steghöfer, and Thorsten Berger. 2019. Visualization of Feature Locations with the Tool FeatureDashboard. In Proceedings of the 23rd International Systems and Software Product Line Conference - Volume B (SPLC ’19). Association for Computing Machinery, New York, NY, USA, 1–4. DOI:https://doi.org/10.1145/3307630.3342392
      * and FLORIDA - Berima Andam, Andreas Burger, Thorsten Berger, and Michel R. V. Chaudron. 2017. FLOrIDA: Feature LOcatIon DAshboard for extracting and visualizing feature traces. In Proceedings of the Eleventh International Workshop on Variability Modelling of Software-intensive Systems (VAMOS ’17). Association for Computing Machinery, New York, NY, USA, 100–107. DOI:https://doi.org/10.1145/3023956.3023967
      */
@@ -154,7 +182,7 @@ class CLIMetrics implements Callable<Integer> {
     @Option(names = {"-l", "--lpq"}, description = "Feature in lpq.")
     //private LPQ featureLPQ;
     private void setLPQ(String s){
-        featureLPQ = new LPQ(s);
+        featureLPQ = new Feature(s);
     }
 
     @Option(names = {"-e", "--export"}, description = "Exports the output to a file if the flag export is set.")
@@ -162,17 +190,24 @@ class CLIMetrics implements Callable<Integer> {
 
     @Override
     public Integer call() throws Exception {
-        System.out.println("UC14 - Metrics such as scattering and tangling degree shall be provided");
+//        System.out.println("UC14 - Metrics such as scattering and tangling degree shall be provided");
 
-        System.out.println("Root inp " +path.toString());
+//        System.out.println("Root inp " +path.toString());
         path = CommonMethods.verifyReceivedFilePath(path);
-        System.out.println("Root use " +path.toString());
-        System.out.println("Metric   " +metric);
-        System.out.println("Feature  " +featureLPQ.getName());
+//        System.out.println("Root use " +path.toString());
+//        System.out.println("Metric   " +metric);
+//        System.out.println("Feature  " +featureLPQ.getName());
 
+        if(faxe==null){
+            // initialize FAXE
+            faxe = new FAXE2(path.getParentFile());
+        }
 
+        //faxe.getEmbeddedAnnotationsFromTextAsset(new Asset(path));
 
-        FAXE.getMetrics(path, metric, featureLPQ);
+        int metricResult = faxe.getMetrics(path, metric, featureLPQ);
+
+        System.out.println("Metric " +metric.toString() +"=" +metricResult);
 
         return 0;
     }

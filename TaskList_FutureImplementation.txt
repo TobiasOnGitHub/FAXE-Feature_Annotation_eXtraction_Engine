@@ -95,6 +95,8 @@ FAXE ROBUSTNESS
 --------------------------------------------------------
 28) Find mistakes in EA, e.g. "&linde", "&inline" ; that begin is closed with line ; that &line is no in empty line ; detect empty begin-end (only spaces/empty lines)
 --------------------------------------------------------
+...) Double &begin marker for SendCoin in C:\Users\Tobias\IdeaProjects\FAXE-Feature_Annotation_eXtraction_Engine\src\test\testdata\bitcoin-wallet\ui\WalletActivity.java
+--------------------------------------------------------
 ...) Recommendations for better EA-usage: Multiple begin/end -> use list ; begin/end around one line -> use &line ; ...
 --------------------------------------------------------
 30) Detection of potential EA (wrong used, typos, ect.) (with machine learning?)

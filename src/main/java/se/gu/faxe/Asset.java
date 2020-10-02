@@ -7,6 +7,7 @@ import java.util.Objects;
 
 public class Asset {
     private File path = null;
+
     private List<Annotation> annotationList = new ArrayList<>();
 
     public Asset(File path){
@@ -19,6 +20,10 @@ public class Asset {
 
     public void setPath(File path) {
         this.path = path;
+    }
+
+    public List<Annotation> getAnnotationList() {
+        return annotationList;
     }
 
     public boolean addAnnotation(Annotation annotation){
