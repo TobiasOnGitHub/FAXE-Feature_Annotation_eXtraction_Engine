@@ -32,12 +32,9 @@ public class MyFeatureModelVisitor extends featureModelBaseVisitor<Object> {
 
     @Override
     public TreeNode<Feature> visitFeatureModel(featureModelParser.FeatureModelContext ctx) {
-        System.out.println("MyFeatureModelVisitor::visitFeatureModel");
+//        System.out.println("MyFeatureModelVisitor::visitFeatureModel");
 
         visitChildren(ctx);
-
-//        System.out.println("Detected Feature Model");
-//        System.out.println(fmTree);
 
         return fmTree;
     }

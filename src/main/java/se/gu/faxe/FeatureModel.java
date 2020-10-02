@@ -137,7 +137,7 @@ public class FeatureModel  {
      */
     public Boolean loadFeatureModel(File path) throws IOException {
         //System.out.println(">> FeatureModel::loadFeatureModel");
-        System.out.println("Request for feature model " +path.toString());
+        //System.out.println("Request for feature model " +path.toString());
 
         // fromFileName throws IOException in case file does not exist
         CharStream in = CharStreams.fromFileName(path.getAbsolutePath());
@@ -155,7 +155,7 @@ public class FeatureModel  {
             MyFeatureModelVisitor visitor = new MyFeatureModelVisitor();
             featureModel = (TreeNode<Feature>) visitor.visit(tree);
             if(featureModel!=null) {
-                System.out.println("FM:" +featureModel.toString());
+                //System.out.println("FM:" +featureModel.toString());
                 featureModelPath = path;
 
                 generateLPQs();
