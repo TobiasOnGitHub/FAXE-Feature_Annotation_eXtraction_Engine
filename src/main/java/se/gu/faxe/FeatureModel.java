@@ -269,4 +269,71 @@ public class FeatureModel  {
 //      TODO - Rename Feature itself
 //      TODO - Change of LPQ required
     }
+
+    public String serializeToJSON(){
+        String jsonFM = "{\n";
+
+        try {
+            jsonFM += "\"featureModelPath\": \"" +featureModelPath.getCanonicalPath().replace("\\","\\\\") +"\",\n";
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        jsonFM += "\"featureModel\": {\n";
+
+//        private TreeNode<Feature> featureModel = null;
+        Feature f = featureModel.root().data();
+        jsonFM += f.toJSON() +",\n";
+        jsonFM += "\"children:\": [\n";
+
+        int lastLevel = 0;  // To consider root node with level 0
+        for (TreeNode<Feature> node : featureModel) {
+            if(node.level()==0){
+                // skip root node
+                continue;
+            }
+//            System.out.println(node.data() +" " +node.level()); // any other action goes here
+//            jsonFM += "\n";
+            for(int i=0 ; i<node.level(); i++){jsonFM+="  ";}
+
+            if(node.level() == lastLevel){
+                jsonFM += "]},\n";
+                for(int i=0 ; i<node.level(); i++){jsonFM+="  ";}
+                jsonFM += "{" +node.data().toJSON() +",\n";
+                for(int i=0 ; i<node.level(); i++){jsonFM+="  ";}
+                jsonFM += "\"children\": [\n";
+            } else if (node.level() > lastLevel){
+                // child node
+                jsonFM += "{" +node.data().toJSON() +",\n";
+                for(int i=0 ; i<node.level(); i++){jsonFM+="  ";}
+                jsonFM += "\"children\": [\n";
+            } else if (node.level() < lastLevel){
+//                System.out.println("Before: " +jsonFM.substring(jsonFM.length()-15,jsonFM.length()));
+                jsonFM = jsonFM.substring(0, jsonFM.lastIndexOf('\n'));
+//                System.out.println("After: " +jsonFM.substring(jsonFM.length()-15,jsonFM.length()));
+
+                for(int x=0; x<(lastLevel-node.level()); x++) {
+                    jsonFM += "  ]}\n";
+                    for (int i = 0; i < node.level(); i++) { jsonFM += "  "; }
+                }
+
+                jsonFM += "]},\n";
+                for(int i=0 ; i<node.level(); i++){jsonFM+="  ";}
+                jsonFM += "{" +node.data().toJSON() +",\n";
+                for(int i=0 ; i<node.level(); i++){jsonFM+="  ";}
+                jsonFM += "\"children\": [\n";
+
+            }
+
+            lastLevel = node.level();
+        }
+        for(int i=0; i<lastLevel; lastLevel--){
+            for(int j=0 ; j<lastLevel; j++){jsonFM+="  ";}
+            jsonFM += "]}\n";
+        }
+
+        jsonFM += "]}\n}";
+        System.out.println(jsonFM);
+        return jsonFM;
+    }
 }

@@ -8,13 +8,15 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.misc.ParseCancellationException;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.javatuples.Pair;
-import org.json.CDL;
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import se.gu.faxe.grammar.*;
 import se.gu.faxe.metrics.Metrics;
 import se.gu.faxe.metrics.ScatteringDegree;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,15 +32,15 @@ public class FAXE {
 
     public FAXE(File rootDirectory){
         if(rootDirectory==null){
-            throw new IllegalArgumentException("FAXE2::FAXE2 Given rootDirectory equals NULL!");
+            throw new IllegalArgumentException("FAXE::FAXE Given rootDirectory equals NULL!");
         }
 
         if(!rootDirectory.exists()){
-            throw new IllegalArgumentException("FAXE2::FAXE2 Given rootDirectory does NOT exist!");
+            throw new IllegalArgumentException("FAXE::FAXE Given rootDirectory does NOT exist!");
         }
 
         if(!rootDirectory.isDirectory()){
-            throw new IllegalArgumentException("FAXE2::FAXE2 Given rootDirectory NOT!");
+            throw new IllegalArgumentException("FAXE::FAXE Given rootDirectory NOT!");
         }
 
         /***********************************************************************/
@@ -137,7 +139,7 @@ public class FAXE {
         throw new UnsupportedOperationException();
     }
 
-    private void getEmbeddedAnnotationsFeatureModel(Asset fmAsset){
+    void getEmbeddedAnnotationsFeatureModel(Asset fmAsset){
         featureModel = new FeatureModel(fmAsset.getPath());
     }
 
@@ -319,29 +321,66 @@ public class FAXE {
     }
 
 
-    /**
-     * Transforms list of {@link Annotation} to JSON object.
-     * @param annList List of {@link Annotation}
-     * @return JSON object out of parameter.
-     */
-    public static JSONArray serializeEAList2JSON(List<Annotation> annList){
-        JSONArray ja = new JSONArray();
-//        ja.put("eaType");
-//        ja.put("File");
-//        ja.put("OpeningLine");
-//        ja.put("ClosingLine");
-//        ja.put("Feature");
-//
-        String serialList = "";
-//        for(int i=0; i<eaList.size(); i++){
-//            serialList += eaList.get(i).serialize()+'\n';
-//        }
 
-        JSONArray result = CDL.toJSONArray(ja, serialList);
+    public void serializeToJSON(){
+        // Creating JSON objects with org.json or Jackson library not possible.
+        // TreeNode object has no good way to store the data and show its hierarchy.
+        /*
+            output.json
+            {
+                "TreeNodePath":"C:\\Users\\..."
+                "TreeNode": {   -> root
+                                "data": { ... } -> Class Asset object
+                                "TreeNode": {   -> Children
 
-        return result;
+                                }
+                            }
+            }
+         */
+        /*******************/
+        /** FEAUTRE MODEL **/
+        /*******************/
+        String jsonFeatureModel = featureModel.serializeToJSON();
+        if (!isJSONValid(jsonFeatureModel) ) {
+            System.out.println("ERROR with FeatureModel JSON! Internal generated version can't be transformed neither to JSONObject nor JSONArray!");
+        } else {
+            FileWriter myWriter = null;
+            try {
+                myWriter = new FileWriter("featureModel.json");
+                myWriter.write(jsonFeatureModel);
+                myWriter.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        /*******************/
+        /** KNOWN ASSETS  **/
+        /*******************/
+
+
     }
 
+
+    /**
+     * Try to transform given String into a JSONObject or JSONArray. In case of exception this is not the case.
+     * Implementation taken from https://stackoverflow.com/questions/10174898/how-to-check-whether-a-given-string-is-valid-json-in-java/10174938#10174938
+     * TODO - DISCUSS IF OK THAT WAY
+     * @param test
+     * @return
+     */
+    private boolean isJSONValid(String test) {
+        try {
+            new JSONObject(test);
+        } catch (JSONException ex) {
+            try {
+                new JSONArray(test);
+            } catch (JSONException ex1) {
+                return false;
+            }
+        }
+        return true;
+    }
 
     /**
      * Transforms JSON object to list of {@link Annotation}

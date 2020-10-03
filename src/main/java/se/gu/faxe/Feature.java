@@ -100,4 +100,6 @@ public class Feature {
         return getName();
     }
 
+    public String toJSON() { return "\"name\": " +"\"" +getName() +"\"";}
+
 }
