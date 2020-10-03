@@ -62,6 +62,14 @@ public class FAXE {
         //System.out.println("c");
     }
 
+    @Override
+    public String toString() {
+        return "FAXE{" +
+                "knownAssets=" + knownAssets +
+                ", featureModel=" + featureModel +
+                '}';
+    }
+
     public TreeNode<Asset> getEmbeddedAnnotations(File rootDirectory) {
 
         for (File file : rootDirectory.listFiles()) {

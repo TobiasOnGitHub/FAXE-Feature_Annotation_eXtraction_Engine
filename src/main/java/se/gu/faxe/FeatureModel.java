@@ -69,6 +69,13 @@ public class FeatureModel  {
         return featureModelPath;
     }
 
+    @Override
+    public String toString() {
+        return "FeatureModel{" +
+                "featureModel=" + featureModel +
+                ", featureModelPath=" + featureModelPath +
+                '}';
+    }
 
     boolean lineStartsWithLetterOrDigit(String s){
         if(Character.isLetterOrDigit(s.charAt(0))){
