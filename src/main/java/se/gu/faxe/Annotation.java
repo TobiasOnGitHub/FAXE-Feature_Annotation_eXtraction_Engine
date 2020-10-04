@@ -24,6 +24,27 @@ public class Annotation {
         return linkedFeatures.toString();
     }
 
+    public String toJSON() {
+        return null;
+    }
+//    public String toJSONObject() {
+//        // Build hard coded JSON String to simplify JSON handling
+//        String ret = "";
+//        boolean firstItem = true;
+//
+//        for (Feature feature : linkedFeatures){
+//            // after first item add for all items a comma before writing the next one
+//            if(!firstItem){
+//                ret += ",";
+//                firstItem = false;
+//            }
+//            ret += "{ \"name\": \"" +feature.getName() +"\"}";
+//        }
+//
+//
+//        return ret;
+//    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
