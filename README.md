@@ -26,11 +26,25 @@ FAXE is designed as independent library and includes all dependencies in its JAR
 -------------------------------------------
 4.1) API-Usage
 -------------------------------------------
-import se.gu.faxe.EmbeddedAnnotation;
-import se.gu.faxe.FAXE;
-...
-File file = new File("folder or filename.txt");
-List<EmbeddedAnnotation> FAXE.getEmbeddedAnnotations(file);
+1.) Import library to your project:
+
+    import se.gu.faxe.FAXE;
+
+Instantiate FAXE 
+
+    File rootFolder = new File("C:\\path-to-project-root");
+    FAXE faxe = new FAXE(rootFolder);
+
+Generate feature model. This is required when the feature model is not in the given root folder.
+
+    File pathFeatureModel = new File("C:\\path-to-feature-model");
+    faxe.getEmbeddedAnnotationsFeatureModel(new Asset(pathFeatureModel));
+
+2.) Export embedded annotations to JSON
+
+    faxe.serializeToJSON();
+
+This generates two files in the FAXE project root: assets.json and featureModel.json
 
 4.2) CMD-Usage
 -------------------------------------------
