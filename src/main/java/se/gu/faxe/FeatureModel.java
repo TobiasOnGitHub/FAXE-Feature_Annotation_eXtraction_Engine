@@ -280,8 +280,6 @@ public class FeatureModel  {
         }
 
         jsonFM += "\"featureModel\": {\n";
-
-//        private TreeNode<Feature> featureModel = null;
         Feature f = featureModel.root().data();
         jsonFM += f.toJSON() +",\n";
         jsonFM += "\"children:\": [\n";
@@ -292,8 +290,8 @@ public class FeatureModel  {
                 // skip root node
                 continue;
             }
-//            System.out.println(node.data() +" " +node.level()); // any other action goes here
-//            jsonFM += "\n";
+
+
             for(int i=0 ; i<node.level(); i++){jsonFM+="  ";}
 
             if(node.level() == lastLevel){
@@ -333,7 +331,7 @@ public class FeatureModel  {
         }
 
         jsonFM += "]}\n}";
-        System.out.println(jsonFM);
+//        System.out.println(jsonFM);
         return jsonFM;
     }
 }
