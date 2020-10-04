@@ -67,7 +67,12 @@ public class MyCodeAnnotationsVisitor extends codeAnnotationBaseVisitor<Object> 
                     if (((AnnotationFragment) eaEND).getStartline() == POSITION_UNKNOWN) {
                         if(eaBEGIN.equals(eaEND)){
                             AnnotationFragment newAF = new AnnotationFragment(eaBEGIN.getLinkedFeatures().get(0).getFeature(), ((AnnotationFragment) eaBEGIN).getStartline(), ((AnnotationFragment) eaEND).getEndline() );
-                            searchBeginItr.set(newAF);
+                            try {
+                                searchBeginItr.set(newAF);
+                            } catch (IllegalStateException e){
+                                // TODO - find out why some files cause an error here.
+                                System.out.println(e);
+                            }
                             searchEndItr.remove();
                             searchBeginItr = annotationList.listIterator(index-1);    // set outer iterator again. Otherwise it gets confused in its iterating positions. Set to position of new created FRAGMENT
                         }
