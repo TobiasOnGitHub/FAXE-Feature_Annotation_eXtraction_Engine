@@ -155,6 +155,7 @@ public class FAXE {
      * @return List of found embedded annotations.
      */
     public Asset getEmbeddedAnnotationsFromTextAsset(Asset assetToAnalyze){
+        System.out.println(">> getEmbeddedAnnotationsFromTextAsset - File " +assetToAnalyze.getPath());
         CharStream in = null;
         try {
             in = CharStreams.fromFileName(assetToAnalyze.getPath().getAbsolutePath());
@@ -329,35 +330,29 @@ public class FAXE {
 
 
     public void serializeToJSON(){
-        // Creating JSON objects with org.json or Jackson library not possible.
-        // TreeNode object has no good way to store the data and show its hierarchy.
-        /*
-            output.json
-            {
-                "TreeNodePath":"C:\\Users\\..."
-                "TreeNode": {   -> root
-                                "data": { ... } -> Class Asset object
-                                "TreeNode": {   -> Children
 
-                                }
-                            }
-            }
-         */
         /*******************/
         /** FEAUTRE MODEL **/
         /*******************/
-        String jsonFeatureModel = featureModel.serializeToJSON();
-        if (!isJSONValid(jsonFeatureModel) ) {
-            System.out.println("ERROR with FeatureModel JSON! Internal generated version can't be transformed neither to JSONObject nor JSONArray!");
-        } else {
-            FileWriter myWriter = null;
-            try {
-                myWriter = new FileWriter("featureModel.json");
-                myWriter.write(jsonFeatureModel);
-                myWriter.close();
-            } catch (IOException e) {
-                e.printStackTrace();
+        // Creating JSON objects with org.json or Jackson library not possible.
+        // TreeNode object has no good way to store the data and show its hierarchy.
+        // Hierarchy must be persisted for feature model
+        if(featureModel!=null) {
+            String jsonFeatureModel = featureModel.serializeToJSON();
+            if (!isJSONValid(jsonFeatureModel)) {
+                System.out.println("ERROR with FeatureModel JSON! Internal generated version can't be transformed neither to JSONObject nor JSONArray!");
+            } else {
+                FileWriter myWriter = null;
+                try {
+                    myWriter = new FileWriter("featureModel.json");
+                    myWriter.write(jsonFeatureModel);
+                    myWriter.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
+        } else {
+            System.out.println("FAXE::serializeToJSON ERROR - Feature Model not instantiated. NO JSON export possible.");
         }
 
         /*******************/
