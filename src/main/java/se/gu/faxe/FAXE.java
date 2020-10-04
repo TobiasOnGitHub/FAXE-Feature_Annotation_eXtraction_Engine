@@ -1,5 +1,11 @@
 package se.gu.faxe;
 
+import com.fasterxml.jackson.core.Version;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.scalified.tree.TreeNode;
 import com.scalified.tree.multinode.ArrayMultiTreeNode;
 import org.antlr.v4.runtime.CharStream;
@@ -358,7 +364,40 @@ public class FAXE {
         /** KNOWN ASSETS  **/
         /*******************/
 
+//        FeatureSerializer  featureSerializer  = new FeatureSerializer(Feature.class);
+        TreeNodeSerializer treeNodeSerializer = new TreeNodeSerializer(TreeNode.class);
+        ObjectMapper objectMapper = new ObjectMapper();
+//        SimpleModule moduleFeature = new SimpleModule("FeatureSerializer", new Version(2, 1, 3, null, null, null));
+//        moduleFeature.addSerializer(Feature.class, featureSerializer);
+//        objectMapper.registerModule(moduleFeature);
+        SimpleModule moduleTreeNode = new SimpleModule("TreeNodeSerializer", new Version(2, 1, 3, null, null, null));
+        moduleTreeNode.addSerializer(TreeNode.class, treeNodeSerializer);
+        objectMapper.registerModule(moduleTreeNode);
 
+
+
+        List<TreeNode<Asset>> assetList = new ArrayList<TreeNode<Asset>>();
+        for (TreeNode<Asset> node : knownAssets) {
+            assetList.add(node);
+        }
+        ArrayNode array = objectMapper.valueToTree(assetList);
+        ObjectNode assetsNode = objectMapper.createObjectNode();
+        assetsNode.putArray("Assets").addAll(array);
+        JsonNode jsonAssets = objectMapper.createObjectNode().setAll(assetsNode);
+
+        //System.out.println(jsonAssets.toPrettyString());
+        if (!isJSONValid(jsonAssets.toString()) ) {
+            System.out.println("ERROR with FeatureModel JSON! Internal generated version can't be transformed neither to JSONObject nor JSONArray!");
+        } else {
+            FileWriter myWriter = null;
+            try {
+                myWriter = new FileWriter("assets.json");
+                myWriter.write(jsonAssets.toPrettyString());
+                myWriter.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 
