@@ -28,7 +28,6 @@ public class FAXETest {
         //faxe.getEmbeddedAnnotationsFromTextAsset(new Asset(f));
 
         File f_fm = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\bitcoin-wallet\\_.feature-model"));
-//        FAXE faxe = new FAXE();
         faxe.getEmbeddedAnnotationsFeatureModel(new Asset(f_fm));
 
         faxe.serializeToJSON();

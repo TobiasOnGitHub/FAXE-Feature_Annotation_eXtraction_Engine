@@ -1,22 +1,37 @@
-///*************************************************************
-//Licensed to the Apache Software Foundation (ASF) under one
-//or more contributor license agreements.  See the NOTICE file
-//distributed with this work for additional information
-//regarding copyright ownership.  The ASF licenses this file
-//to you under the Apache License, Version 2.0 (the
-//"License"); you may not use this file except in compliance
-//with the License.  You may obtain a copy of the License at
-//
-//  http://www.apache.org/licenses/LICENSE-2.0
-//
-//Unless required by applicable law or agreed to in writing,
-//software distributed under the License is distributed on an
-//"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-//KIND, either express or implied.  See the License for the
-//specific language governing permissions and limitations
-//under the License.
-//*************************************************************/
-//package se.gu.faxe;
+/*************************************************************
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+*************************************************************/
+package se.gu.faxe;
+
+import org.antlr.v4.runtime.CharStream;
+import org.antlr.v4.runtime.CharStreams;
+import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.misc.ParseCancellationException;
+import org.antlr.v4.runtime.tree.ParseTree;
+import org.testng.annotations.Test;
+import se.gu.faxe.grammar.codeAnnotationLexer;
+import se.gu.faxe.grammar.codeAnnotationParser;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 //
 //import org.antlr.v4.runtime.CharStream;
 //import org.antlr.v4.runtime.CharStreams;
@@ -31,7 +46,82 @@
 //import java.util.ArrayList;
 //import java.util.List;
 //
-//public class codeAnnotationsTest {
+public class codeAnnotationsTest {
+
+    @Test
+    public void testVisitMarker_WithFile_ExchangeRatesAdapter(){
+        File fileUnderTest = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\bitcoin-wallet\\ui\\ExchangeRatesAdapter.java"));
+
+        CharStream in = null;
+        try {
+            in = CharStreams.fromFileName(fileUnderTest.getPath());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        codeAnnotationLexer lexer = new codeAnnotationLexer(in);
+        lexer.addErrorListener(ThrowingErrorListener.INSTANCE);
+        CommonTokenStream token = new CommonTokenStream(lexer);
+        codeAnnotationParser parser = new codeAnnotationParser(token);
+        parser.removeErrorListeners();
+        parser.addErrorListener(ThrowingErrorListener.INSTANCE);
+
+        try {
+            ParseTree tree = parser.marker();
+
+            MyCodeAnnotationsVisitor visitor = new MyCodeAnnotationsVisitor();
+            List<Annotation> eaList = new ArrayList<>();
+            try {
+                eaList = (List<Annotation>) visitor.visit(tree);
+            } catch (IllegalStateException e) {
+                System.out.println("Parsing error happened in File " +fileUnderTest.getPath());
+                e.printStackTrace();
+            }
+
+        } catch (ParseCancellationException e) {
+            // Catch if given string is not fitting the grammar
+            System.out.println("ERROR DETECTED :)");
+        }
+
+        return;
+    }
+
+    @Test
+    public void testVisitMarker_WithFile_ExchangeRatesFragment(){
+        File fileUnderTest = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\bitcoin-wallet\\ui\\ExchangeRatesFragment.java"));
+
+        CharStream in = null;
+        try {
+            in = CharStreams.fromFileName(fileUnderTest.getPath());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        codeAnnotationLexer lexer = new codeAnnotationLexer(in);
+        lexer.addErrorListener(ThrowingErrorListener.INSTANCE);
+        CommonTokenStream token = new CommonTokenStream(lexer);
+        codeAnnotationParser parser = new codeAnnotationParser(token);
+        parser.removeErrorListeners();
+        parser.addErrorListener(ThrowingErrorListener.INSTANCE);
+
+        try {
+            ParseTree tree = parser.marker();
+
+            MyCodeAnnotationsVisitor visitor = new MyCodeAnnotationsVisitor();
+            List<Annotation> eaList = new ArrayList<>();
+            try {
+                eaList = (List<Annotation>) visitor.visit(tree);
+//                System.out.println(eaList);
+            } catch (IllegalStateException e) {
+                System.out.println("Parsing error happened in File " +fileUnderTest.getPath());
+                e.printStackTrace();
+            }
+
+        } catch (ParseCancellationException e) {
+            // Catch if given string is not fitting the grammar
+            System.out.println("ERROR DETECTED :)");
+        }
+
+        return;
+    }
 //
 //    @DataProvider
 //    public Object[][] provide_StrUnderTest_ExpResult_VALID(){
@@ -392,4 +482,4 @@
 ////
 ////        System.out.println("x");
 ////    }
-//}
+}
