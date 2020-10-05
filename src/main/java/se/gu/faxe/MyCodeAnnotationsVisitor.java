@@ -36,7 +36,7 @@ public class MyCodeAnnotationsVisitor extends codeAnnotationBaseVisitor<Object> 
      * @return List of found embedded code annotations;
      *      null when no match found
      */
-    @Override public List<Annotation> visitMarker(codeAnnotationParser.MarkerContext ctx) {
+    @Override public List<Annotation> visitMarker(codeAnnotationParser.MarkerContext ctx) throws IllegalStateException {
         //System.out.println("Run visitMarker and extract embedded annotations.");
         visitChildren(ctx);
 
@@ -44,45 +44,42 @@ public class MyCodeAnnotationsVisitor extends codeAnnotationBaseVisitor<Object> 
             return annotationList;
         }
 
-        // BEGIN and END markers have been discovered independently and need to be merged:
-        ListIterator<Annotation> searchBeginItr = annotationList.listIterator(annotationList.size());
-        int index = annotationList.size();
-        while(searchBeginItr.hasPrevious()) {
-            Annotation eaBEGIN = searchBeginItr.previous();
-            if(eaBEGIN instanceof AnnotationLine){
-                index--;
+        // Merge individual begin and end annotations into one element.
+        // Assumption starting from top t
+        for (ListIterator<Annotation> forwardIterator = annotationList.listIterator(); forwardIterator.hasNext(); ) {
+//        for (Annotation annotationBegin : annotationList) {
+            Annotation annotationBegin = forwardIterator.next();
+            if(annotationBegin.getClass().equals(AnnotationLine.class)){
+                continue;
+            }
+            if(((AnnotationFragment) annotationBegin).getStartline()!=POSITION_UNKNOWN && ((AnnotationFragment) annotationBegin).getEndline()!=POSITION_UNKNOWN){
+                // Fragment complete, continue
                 continue;
             }
 
-            eaBEGIN = (AnnotationFragment) eaBEGIN;
-            //if (eaBEGIN.getEaType() == EmbeddedAnnotation.eEAType.BEGIN) {
-            if (((AnnotationFragment) eaBEGIN).getEndline() == POSITION_UNKNOWN) {
-                ListIterator<Annotation> searchEndItr = annotationList.listIterator(index);
-                while(searchEndItr.hasNext()) {
-                    Annotation eaEND = searchEndItr.next();
-                    if(eaEND instanceof AnnotationLine){
-                        continue;
-                    }
-                    eaEND = (AnnotationFragment) eaEND;
-                    if (((AnnotationFragment) eaEND).getStartline() == POSITION_UNKNOWN) {
-                        if(eaBEGIN.equals(eaEND)){
-                            AnnotationFragment newAF = new AnnotationFragment(eaBEGIN.getLinkedFeatures().get(0).getFeature(), ((AnnotationFragment) eaBEGIN).getStartline(), ((AnnotationFragment) eaEND).getEndline() );
-                            try {
-                                searchBeginItr.set(newAF);
-                            } catch (IllegalStateException e){
-                                // TODO - find out why some files cause an error here.
-                                System.out.println(e);
-                            }
-                            searchEndItr.remove();
-                            searchBeginItr = annotationList.listIterator(index-1);    // set outer iterator again. Otherwise it gets confused in its iterating positions. Set to position of new created FRAGMENT
-                        }
-                    }
-                } // while(searchEndItr.hasNext())
-            }
-            index--;
-        } // while(searchBeginItr.hasPrevious())
+            ListIterator<Annotation> backwardIterator = annotationList.listIterator(annotationList.size());
+            while (backwardIterator.hasPrevious()) {
+                Annotation annotationEnd = backwardIterator.previous();
+                if(annotationEnd.getClass().equals(AnnotationLine.class)){
+                    continue;
+                }
+                if(((AnnotationFragment) annotationEnd).getStartline()!=POSITION_UNKNOWN && ((AnnotationFragment) annotationEnd).getEndline()!=POSITION_UNKNOWN){
+                    // Fragment complete, no need to check, continue
+                    continue;
+                }
 
-//        System.out.println("Completed visitMarker, found " +eaList.size() +" elements.");
+                if(annotationBegin.equals(annotationEnd)){  // found pair
+                    if(((AnnotationFragment) annotationBegin).getEndline()==POSITION_UNKNOWN && ((AnnotationFragment) annotationEnd).getStartline()==POSITION_UNKNOWN){
+                        // Merge two entries into one
+                        ((AnnotationFragment) annotationBegin).setEndline(((AnnotationFragment) annotationEnd).getEndline());
+                        backwardIterator.remove();
+                        forwardIterator = annotationList.listIterator(forwardIterator.previousIndex()); // set outer iterator again. Otherwise it gets confused in its iterating positions.
+                        break;
+                    }
+                }
+            }
+        }
+//        System.out.println("Completed visitMarker, found " +annotationList.size() +" elements.");
         return annotationList;
     }
 
