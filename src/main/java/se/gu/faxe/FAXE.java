@@ -78,6 +78,10 @@ public class FAXE {
                 '}';
     }
 
+    public TreeNode<Asset> getKnownAssets() {
+        return knownAssets;
+    }
+
     public TreeNode<Asset> getEmbeddedAnnotations(File rootDirectory) {
 
         for (File file : rootDirectory.listFiles()) {
