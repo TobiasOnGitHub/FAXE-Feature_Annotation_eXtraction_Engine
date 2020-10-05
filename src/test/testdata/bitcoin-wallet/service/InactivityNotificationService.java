@@ -97,7 +97,7 @@ public final class InactivityNotificationService extends IntentService {
         //&begin[DonateCoins]
         else if (ACTION_DONATE.equals(intent.getAction()))
             handleDonate(wallet);
-        //&begin[DonateCoins]
+        //&end[DonateCoins]
         else
             handleMaybeShowNotification(wallet);
     }
