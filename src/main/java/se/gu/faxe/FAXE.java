@@ -155,7 +155,7 @@ public class FAXE {
      * @return List of found embedded annotations.
      */
     public Asset getEmbeddedAnnotationsFromTextAsset(Asset assetToAnalyze){
-        System.out.println(">> getEmbeddedAnnotationsFromTextAsset - File " +assetToAnalyze.getPath());
+        //System.out.println(">> getEmbeddedAnnotationsFromTextAsset - File " +assetToAnalyze.getPath());
         CharStream in = null;
         try {
             in = CharStreams.fromFileName(assetToAnalyze.getPath().getAbsolutePath());
@@ -178,7 +178,13 @@ public class FAXE {
             ParseTree tree = parser.marker();
 
             MyCodeAnnotationsVisitor visitor = new MyCodeAnnotationsVisitor();
-            List<Annotation> eaList = (List<Annotation>) visitor.visit(tree);
+            List<Annotation> eaList = new ArrayList<>();
+            try {
+                eaList = (List<Annotation>) visitor.visit(tree);
+            } catch (IllegalStateException e) {
+                System.out.println("Parsing error happened in File " +assetToAnalyze.getPath());
+                e.printStackTrace();
+            }
             assetToAnalyze.addAllAnnotation(eaList);
         } catch (ParseCancellationException e) {
             // Catch if given string is not fitting the grammar
