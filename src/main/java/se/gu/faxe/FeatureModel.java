@@ -107,7 +107,6 @@ public class FeatureModel  {
             String projectname = null;
             while (scanner.hasNextLine()) {
                 String nextLine = scanner.nextLine();
-                System.out.println(nextLine);
                 // Skip empty lines
                 if(nextLine.isEmpty()){
                     continue;
