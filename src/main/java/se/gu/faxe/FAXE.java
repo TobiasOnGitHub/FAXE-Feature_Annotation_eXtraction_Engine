@@ -292,7 +292,7 @@ public class FAXE {
      * @return Count of changed appearances.
      * @throws UnsupportedOperationException
      */
-    public int renameFeatureName(LPQ lpq_before, String lpq_after) throws UnsupportedOperationException {
+    public int renameFeatureName(Feature lpq_before, String lpq_after) throws UnsupportedOperationException {
         throw new UnsupportedOperationException();
     }
 
