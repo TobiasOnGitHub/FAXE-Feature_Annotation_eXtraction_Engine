@@ -6,6 +6,7 @@ import se.gu.faxe.Asset;
 import se.gu.faxe.Feature;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
 
@@ -21,7 +22,7 @@ import java.util.List;
 
 public class TanglingDegree {
 
-    public static int calculateTD(TreeNode<Asset> fullAssetTree, File searchedPath, Feature searchFeature){
+    public static int calculateTD(TreeNode<Asset> fullAssetTree, File searchedPath, Feature searchFeature) throws IOException {
         return calculateTD(fullAssetTree, searchedPath, searchFeature, false);
     }
 
@@ -30,13 +31,15 @@ public class TanglingDegree {
      * with the feature. Two features share (parts of) artifacts when the latter is annotated with both features.
      *
      */
-    public static int calculateTD(TreeNode< Asset > fullAssetTree, File searchedPath, Feature searchFeature, Boolean printFoundLocation){
+    public static int calculateTD(TreeNode< Asset > fullAssetTree, File searchedPath, Feature searchFeature, Boolean printFoundLocation) throws IOException {
 //        System.out.println(">> TanglingDegree::calculateTD");
         HashSet<String> tangledFeatures = new HashSet<>();
 
         // Reduce Tree to searched Area
         TreeNode<Asset> searchRootNode =fullAssetTree.find(new Asset(searchedPath));
-
+        if(searchRootNode==null){
+            throw new IOException("Given path " +searchedPath.getPath() +" not existing!");
+        }
         // Check if searched feature is in Asset
         for (TreeNode<Asset> node : searchRootNode) {
             // When searched feature is in Asset, add available feature to tangled map

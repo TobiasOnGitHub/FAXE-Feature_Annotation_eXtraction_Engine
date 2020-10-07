@@ -20,6 +20,7 @@ import org.json.JSONObject;
 import se.gu.faxe.grammar.*;
 import se.gu.faxe.metrics.Metrics;
 import se.gu.faxe.metrics.ScatteringDegree;
+import se.gu.faxe.metrics.TanglingDegree;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -308,16 +309,27 @@ public class FAXE {
 
     public int getMetrics(File file, Metrics metric, Feature feature) {
 //        System.out.println(">>> FAXE.getMetrics(File, Metrics, LPQ)");
-        // 	-> FeatureDasboard Metrics!
-        //	-> Say that "implemented by ... in ..." And in Javadoc Author adding him/her
 
-        System.out.println("Path    " +file.toString());
-        System.out.println("Metric  " +metric);
-        System.out.println("Feature " +feature.getName());
+        System.out.println("Path    " + file.toString());
+        System.out.println("Metric  " + metric);
+        System.out.println("Feature " + feature.getName());
 
         //TanglingDegree.calculateTD(eaList,file,feature);
-
-        int ret = ScatteringDegree.calculateSD(knownAssets,file,feature);
+        int ret = -1;
+        try {
+            switch (metric) {
+                case SD:
+                    ret = ScatteringDegree.calculateSD(knownAssets, file, feature);
+                    break;
+                case TD:
+                    ret = TanglingDegree.calculateTD(knownAssets, file, feature);
+                    break;
+                default:
+                    break;
+            }
+        } catch (IOException e){
+            e.printStackTrace();
+        }
 
 //        System.out.println("<<< FAXE.getMetrics(File, Metrics, LPQ)");
         return ret;

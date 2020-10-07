@@ -1,5 +1,6 @@
 package se.gu.faxe;
 
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import se.gu.faxe.metrics.Metrics;
 
@@ -51,6 +52,26 @@ public class FAXETest {
         faxe.getEmbeddedAnnotationsFeatureModel(new Asset(f));
 
         System.out.println(faxe.toString());
+    }
+
+    @Test
+    public void testGetMetrics_SD(){
+        File f = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\bitcoin-wallet\\ui"));
+        FAXE faxe = new FAXE(f);
+
+        int sd = faxe.getMetrics(f, Metrics.SD, new Feature("Fee"));
+
+        Assert.assertEquals(sd, 42);
+    }
+
+    @Test
+    public void testGetMetrics_TD(){
+        File f = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\bitcoin-wallet\\ui"));
+        FAXE faxe = new FAXE(f);
+
+        int td = faxe.getMetrics(f, Metrics.TD, new Feature("Fee"));
+
+        Assert.assertEquals(td, 32);
     }
 
 }
