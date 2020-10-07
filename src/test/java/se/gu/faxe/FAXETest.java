@@ -61,7 +61,7 @@ public class FAXETest {
 
         int sd = faxe.getMetrics(f, Metrics.SD, new Feature("Fee"));
 
-        Assert.assertEquals(sd, 42);
+        Assert.assertEquals(sd, 44);
     }
 
     @Test
