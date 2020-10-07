@@ -33,7 +33,7 @@ public class MyFolderAnnotationVisitor extends folderAnnotationsBaseVisitor<Obje
 //        System.out.println("visitFolderAnnotation");
         visitChildren(ctx);
 
-        Annotation ann = new Annotation(features);
+        AnnotationFolder ann = new AnnotationFolder(features);
 
         return ann;
     }

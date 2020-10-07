@@ -102,17 +102,17 @@ public class FAXE {
                 //System.out.println("File: " + file.getName());
 
                 if(file.getName().endsWith(".feature-to-folder")){
-                    Annotation annotation = getEmbeddedAnnotationsFromFeatureFolderMapping(nextAsset);
+                    AnnotationFolder annotation = getEmbeddedAnnotationsFromFeatureFolderMapping(nextAsset);
                     File parentPath = file.getParentFile();
                     TreeNode<Asset> parent = knownAssets.find(new Asset(parentPath));
                     Asset parentAsset = parent.data();
                     parentAsset.addAnnotation(annotation);
                 } else if(file.getName().endsWith(".feature-to-file")){
-                    List<Pair<File,Annotation>> eaList = getEmbeddedAnnotationsFromFeatureFileMapping(nextAsset);
+                    List<Pair<File,AnnotationFile>> eaList = getEmbeddedAnnotationsFromFeatureFileMapping(nextAsset);
                     /***************************************/
                     /** Merge mapping file data to Assets **/
                     /***************************************/
-                    for(Pair<File,Annotation> pair : eaList){
+                    for(Pair<File,AnnotationFile> pair : eaList){
                         TreeNode<Asset> nodeAsset = knownAssets.find(new Asset(pair.getValue0()));
                         Asset asset = nodeAsset.data();
                         asset.addAnnotation(pair.getValue1());
@@ -203,7 +203,7 @@ public class FAXE {
      * @param assetToAnalyze Asset object to be analyzed file.
      * @return List of found embedded annotations.
      */
-    private static List<Pair<File,Annotation>> getEmbeddedAnnotationsFromFeatureFileMapping(Asset assetToAnalyze){
+    private static List<Pair<File,AnnotationFile>> getEmbeddedAnnotationsFromFeatureFileMapping(Asset assetToAnalyze){
         CharStream in = null;
         try {
             in = CharStreams.fromFileName(assetToAnalyze.getPath().getAbsolutePath());
@@ -222,11 +222,11 @@ public class FAXE {
         parser.removeErrorListeners();
         parser.addErrorListener(ThrowingErrorListener.INSTANCE);
 
-        List<Pair<File,Annotation>> eaList = new ArrayList<>();
+        List<Pair<File,AnnotationFile>> eaList = new ArrayList<>();
         try {
             ParseTree tree = parser.fileAnnotations();
             MyFileAnnotationsVisitor visitor = new MyFileAnnotationsVisitor();
-            eaList = (List<Pair<File,Annotation>>) visitor.visit(tree);
+            eaList = (List<Pair<File,AnnotationFile>>) visitor.visit(tree);
         } catch (ParseCancellationException e) {
             // Catch if given string is not fitting the grammar
             System.out.println("ERROR DETECTED :)");
@@ -241,7 +241,7 @@ public class FAXE {
      * @param assetToAnalyze Asset object to be analyzed folder.
      * @return List of found embedded annotations.
      */
-    private static Annotation getEmbeddedAnnotationsFromFeatureFolderMapping(Asset assetToAnalyze){
+    private static AnnotationFolder getEmbeddedAnnotationsFromFeatureFolderMapping(Asset assetToAnalyze){
         CharStream in = null;
         try {
             in = CharStreams.fromFileName(assetToAnalyze.getPath().getAbsolutePath());
@@ -260,12 +260,12 @@ public class FAXE {
         parser.removeErrorListeners();
         parser.addErrorListener(ThrowingErrorListener.INSTANCE);
 
-        Annotation annotation = null;
+        AnnotationFolder annotation = null;
         try {
             ParseTree tree = parser.folderAnnotation();
 
             MyFolderAnnotationVisitor visitor = new MyFolderAnnotationVisitor();
-            annotation = (Annotation) visitor.visit(tree);
+            annotation = (AnnotationFolder) visitor.visit(tree);
         } catch (ParseCancellationException e) {
             // Catch if given string is not fitting the grammar
             System.out.println("ERROR DETECTED :)");

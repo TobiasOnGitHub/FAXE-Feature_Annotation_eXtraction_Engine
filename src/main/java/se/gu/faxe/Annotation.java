@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Annotation {
+public abstract class Annotation {
     protected static int ANNOTATION_POSITION_UNDEFINED = -1;
     List<Feature> linkedFeatures = new ArrayList<>();
 

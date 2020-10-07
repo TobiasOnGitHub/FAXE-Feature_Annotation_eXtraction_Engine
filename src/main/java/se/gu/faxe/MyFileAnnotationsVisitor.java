@@ -31,17 +31,17 @@ public class MyFileAnnotationsVisitor extends fileAnnotationsBaseVisitor<Object>
     private static final String NAME_UNKNOWN = null;
     private List<String> fileReferences = new ArrayList<>();
     private List<Feature> featureReferences = new ArrayList<>();
-    List<Pair<File,Annotation>> eaList = new ArrayList<>();
+    List<Pair<File,AnnotationFile>> eaList = new ArrayList<>();
 
     @Override
-    public List<Pair<File,Annotation>> visitFileAnnotations(fileAnnotationsParser.FileAnnotationsContext ctx) {
+    public List<Pair<File,AnnotationFile>> visitFileAnnotations(fileAnnotationsParser.FileAnnotationsContext ctx) {
         visitChildren(ctx);
 
         return eaList;
     }
 
     @Override
-    public List<Pair<File,Annotation>> visitFileAnnotation(fileAnnotationsParser.FileAnnotationContext ctx) {
+    public List<Pair<File,AnnotationFile>> visitFileAnnotation(fileAnnotationsParser.FileAnnotationContext ctx) {
 //        System.out.println("visitFileAnnotation");
         fileReferences.clear();
         featureReferences.clear();
@@ -61,7 +61,7 @@ public class MyFileAnnotationsVisitor extends fileAnnotationsBaseVisitor<Object>
             if(new File(file).exists()==false){
                 System.out.println("WARNING: Referred file \"" +file +"\" does not exist in file system!");
             } else {
-                eaList.add(new Pair<>(new File(file), new Annotation(featureReferences)));
+                eaList.add(new Pair<>(new File(file), new AnnotationFile(featureReferences)));
             }
         }
 
