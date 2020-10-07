@@ -1,5 +1,5 @@
 rootFeature
-	FeatureWithSpaces
+    FeatureWithSpaces
 		MoreSpaces
 	AndWithATab
-		TwoTabs
+    	TwoTabs
