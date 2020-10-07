@@ -1,3 +1,21 @@
+/*************************************************************
+ Licensed to the Apache Software Foundation (ASF) under one
+ or more contributor license agreements.  See the NOTICE file
+ distributed with this work for additional information
+ regarding copyright ownership.  The ASF licenses this file
+ to you under the Apache License, Version 2.0 (the
+ "License"); you may not use this file except in compliance
+ with the License.  You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing,
+ software distributed under the License is distributed on an
+ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ KIND, either express or implied.  See the License for the
+ specific language governing permissions and limitations
+ under the License.
+ *************************************************************/
 package se.gu.faxe.metrics;
 
 import com.scalified.tree.TreeNode;
@@ -33,6 +51,7 @@ public class ScatteringDegree {
      * @param searchedPath Sub-Tree to search for data
      * @param searchFeature Searched feature name
      * @return Scattering Degree of given feature in given path.
+     * @throws IOException in case searchedPath does not exist in fullAssetTree.
      */
     public static int calculateSD(TreeNode<Asset> fullAssetTree, File searchedPath, Feature searchFeature) throws IOException {
         return calculateSD(fullAssetTree, searchedPath, searchFeature, false);
@@ -45,6 +64,7 @@ public class ScatteringDegree {
      * @param searchFeature Searched feature name
      * @param printFoundLocation Enable print to list locations relevant to this metric.
      * @return Scattering Degree of given feature in given path.
+     * @throws IOException in case searchedPath does not exist in fullAssetTree.
      */
     public static int calculateSD(TreeNode<Asset> fullAssetTree, File searchedPath, Feature searchFeature, boolean printFoundLocation) throws IOException {
         int sd = 0;
@@ -65,11 +85,11 @@ public class ScatteringDegree {
             List<Annotation> annotationList = node.data().getAnnotationList();
             for (Annotation annotation : annotationList) {
                 if (annotation.getLinkedFeatures().contains(searchFeature)) {
-                    if (printFoundLocation) {
-                        System.out.println("   Feature " + searchFeature.toString() + " found in " + node.data().getPath());
-                    }
                     sd++;
                 }
+            }
+            if (printFoundLocation && sd>0) {
+                System.out.println("   Feature " + searchFeature.toString() + " found in " + node.data().getPath());
             }
         }
 
