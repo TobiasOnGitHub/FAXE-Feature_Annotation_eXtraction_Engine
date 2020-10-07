@@ -121,7 +121,7 @@ public class FeatureModel  {
                 }
 
                 if(lineStartsWithSpaces(nextLine)){
-                    System.out.println("ERROR: Spaces are used instead of tabs for hierarchy indentation.");
+                    System.out.println("ERROR: Spaces are used instead of tabs for hierarchy indentation. At " +path.getPath());
                     return false;
                 }
 
