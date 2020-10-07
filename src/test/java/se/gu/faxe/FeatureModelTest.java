@@ -73,7 +73,7 @@ public class FeatureModelTest {
         Assert.assertFalse(ret);
     }
 
-        @Test
+    @Test
     public void testLoadFeatureModel_Valid_Functionality() {
 
         String strTestFM = new File("").getAbsolutePath().concat("\\src\\test\\java\\se\\gu\\faxe\\testdata\\featuremodel_valid.cfr");
