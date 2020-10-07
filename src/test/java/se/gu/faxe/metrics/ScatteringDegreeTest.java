@@ -34,7 +34,12 @@ public class ScatteringDegreeTest {
 
         File searchPath = new File("C:\\Users\\Tobias\\IdeaProjects\\FAXE-Feature_Annotation_eXtraction_Engine\\src\\test\\testdata\\bitcoin-wallet\\ui");
         Feature feature = new Feature("DonateCoins");
-        int sd = ScatteringDegree.calculateSD(faxe.getKnownAssets(), searchPath, feature/*, true*/);
+        int sd = 0;
+        try {
+            sd = ScatteringDegree.calculateSD(faxe.getKnownAssets(), searchPath, feature/*, true*/);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         Assert.assertEquals(sd, 4); // Number 4 derived from FeatureDashboard
     }
