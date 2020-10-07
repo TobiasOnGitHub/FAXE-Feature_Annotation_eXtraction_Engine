@@ -6,6 +6,7 @@ import se.gu.faxe.Asset;
 import se.gu.faxe.Feature;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -33,7 +34,7 @@ public class ScatteringDegree {
      * @param searchFeature Searched feature name
      * @return Scattering Degree of given feature in given path.
      */
-    public static int calculateSD(TreeNode<Asset> fullAssetTree, File searchedPath, Feature searchFeature){
+    public static int calculateSD(TreeNode<Asset> fullAssetTree, File searchedPath, Feature searchFeature) throws IOException {
         return calculateSD(fullAssetTree, searchedPath, searchFeature, false);
     }
 
@@ -45,7 +46,7 @@ public class ScatteringDegree {
      * @param printFoundLocation Enable print to list locations relevant to this metric.
      * @return Scattering Degree of given feature in given path.
      */
-    public static int calculateSD(TreeNode<Asset> fullAssetTree, File searchedPath, Feature searchFeature, boolean printFoundLocation) {
+    public static int calculateSD(TreeNode<Asset> fullAssetTree, File searchedPath, Feature searchFeature, boolean printFoundLocation) throws IOException {
         int sd = 0;
 
         if(!searchedPath.exists()){
@@ -54,6 +55,9 @@ public class ScatteringDegree {
 
         // Reduce eaList to elements below searchedPath
         TreeNode<Asset> searchRootNode =fullAssetTree.find(new Asset(searchedPath));
+        if(searchRootNode==null){
+            throw new IOException("Given path " +searchedPath.getPath() +" not existing!");
+        }
 
         // Iterate tree and gather scattering information
         for (TreeNode<Asset> node : searchRootNode) {
