@@ -77,7 +77,7 @@ class Get implements Callable<Integer> {
             //System.out.printf("Directory name: " + path.toString());
             if(faxe==null){
                 // initialize FAXE
-                faxe = new FAXE();
+                faxe = new FAXE(path);
             }
             TreeNode<Asset> fullTreeObject = faxe.getEmbeddedAnnotations(path);
             Iterator<TreeNode<Asset>> iterator = fullTreeObject.iterator();
