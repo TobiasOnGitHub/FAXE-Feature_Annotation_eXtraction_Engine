@@ -12,10 +12,10 @@ public class ScatteringDegreeTest {
 
     @Test
     public void testCalculateSD_File_WalletBalanceFragment(){
-        File projectRoot = new File("C:\\Users\\Tobias\\IdeaProjects\\FAXE-Feature_Annotation_eXtraction_Engine\\src\\test\\testdata\\bitcoin-wallet\\ui");
+        File projectRoot = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\bitcoin-wallet\\ui"));
         FAXE faxe = new FAXE(projectRoot);
 
-        File searchPath = new File("C:\\Users\\Tobias\\IdeaProjects\\FAXE-Feature_Annotation_eXtraction_Engine\\src\\test\\testdata\\bitcoin-wallet\\ui\\WalletBalanceFragment.java");
+        File searchPath = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\bitcoin-wallet\\ui\\WalletBalanceFragment.java"));
         Feature feature = new Feature("DonateCoins");
         int sd = 0;
         try {
@@ -29,10 +29,11 @@ public class ScatteringDegreeTest {
 
     @Test
     public void testCalculateSD_Folder_ui_FeatureDonateCoins(){
-        File projectRoot = new File("C:\\Users\\Tobias\\IdeaProjects\\FAXE-Feature_Annotation_eXtraction_Engine\\src\\test\\testdata\\bitcoin-wallet\\ui");
+        
+        File projectRoot = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\bitcoin-wallet\\ui"));
         FAXE faxe = new FAXE(projectRoot);
 
-        File searchPath = new File("C:\\Users\\Tobias\\IdeaProjects\\FAXE-Feature_Annotation_eXtraction_Engine\\src\\test\\testdata\\bitcoin-wallet\\ui");
+        File searchPath = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\bitcoin-wallet\\ui"));
         Feature feature = new Feature("DonateCoins");
         int sd = 0;
         try {
@@ -46,10 +47,10 @@ public class ScatteringDegreeTest {
 
     @Test
     public void testCalculateSD_Folder_ui_Fee(){
-        File projectRoot = new File("C:\\Users\\Tobias\\IdeaProjects\\FAXE-Feature_Annotation_eXtraction_Engine\\src\\test\\testdata\\bitcoin-wallet\\ui");
+        File projectRoot = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\bitcoin-wallet\\ui"));
         FAXE faxe = new FAXE(projectRoot);
 
-        File searchPath = new File("C:\\Users\\Tobias\\IdeaProjects\\FAXE-Feature_Annotation_eXtraction_Engine\\src\\test\\testdata\\bitcoin-wallet\\ui");
+        File searchPath = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\bitcoin-wallet\\ui"));
         Feature feature = new Feature("Fee");
 
         try {
@@ -75,10 +76,10 @@ public class ScatteringDegreeTest {
 
     @Test
     public void testCalculateSD_Folder_service(){
-        File projectRoot = new File("C:\\Users\\Tobias\\IdeaProjects\\FAXE-Feature_Annotation_eXtraction_Engine\\src\\test\\testdata\\bitcoin-wallet\\service");
+        File projectRoot = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\bitcoin-wallet\\service"));
         FAXE faxe = new FAXE(projectRoot);
 
-        File searchPath = new File("C:\\Users\\Tobias\\IdeaProjects\\FAXE-Feature_Annotation_eXtraction_Engine\\src\\test\\testdata\\bitcoin-wallet\\service");
+        File searchPath = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\bitcoin-wallet\\service"));
         Feature feature = new Feature("DonateCoins");
         int sd = 0;
         try {
@@ -92,10 +93,10 @@ public class ScatteringDegreeTest {
 
     @Test
     public void testCalculateSD_Folder_wallet(){
-        File projectRoot = new File("C:\\Users\\Tobias\\IdeaProjects\\FAXE-Feature_Annotation_eXtraction_Engine\\src\\test\\testdata\\bitcoin-wallet");
+        File projectRoot = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\bitcoin-wallet"));
         FAXE faxe = new FAXE(projectRoot);
 
-        File searchPath = new File("C:\\Users\\Tobias\\IdeaProjects\\FAXE-Feature_Annotation_eXtraction_Engine\\src\\test\\testdata\\bitcoin-wallet");
+        File searchPath = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\bitcoin-wallet"));
         Feature feature = new Feature("DonateCoins");
         int sd = 0;
         try {
