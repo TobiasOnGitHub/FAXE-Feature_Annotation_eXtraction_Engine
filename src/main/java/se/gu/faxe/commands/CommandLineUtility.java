@@ -123,17 +123,10 @@ class Get implements Callable<Integer> {
 
         }
 
-//        if(featureLPQ.compareTo("")!=0){
-//            //System.out.println("UC7 - Return all embedded annotations for one specific feature");
-//            System.out.println("Search for LPQ \"" +featureLPQ.toString() +"\" in " + path.toString());
-//
-//            eaList.stream()
-//                  .filter(ea -> ea.getFeature().equals(featureLPQ.toString()))
-//                  .forEach(System.out::println);
-//        } else {
-//            // As no filtering happens, show whole list
-//            System.out.println(eaList.toString());
-//        }
+        if(export){
+            faxe.serializeToJSON();
+            System.out.println("getEmbeddedAnnotations -> EXPORT DONE.");
+        }
 
         return 0;
     }
