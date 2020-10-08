@@ -384,7 +384,7 @@ public class FAXE {
                 }
             }
         } else {
-            System.out.println("FAXE::serializeToJSON ERROR - Feature Model not instantiated. NO JSON export possible.");
+            System.out.println("FAXE::serializeToJSON ERROR - Feature Model not instantiated. NOT part of JSON export.");
         }
 
         /*******************/
