@@ -85,6 +85,16 @@ public class FAXETest {
     }
 
     @Test
+    public void testGetMetrics_NoAF(){
+        File f = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\bitcoin-wallet"));
+        FAXE faxe = new FAXE(f);
+
+        int NoFiA = faxe.getMetrics(f, Metrics.NoAF, new Feature("BitcoinBalance"));
+
+        Assert.assertEquals(NoFiA, 2);
+    }
+
+    @Test
     public void testGetEmbeddedAnnotations(){
         // TODO - Create a test which checks that entries are not added multiple times. E.g. through constructor and then getEmbeddedAnnotations again
     }

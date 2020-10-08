@@ -18,10 +18,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import se.gu.faxe.grammar.*;
-import se.gu.faxe.metrics.Metrics;
-import se.gu.faxe.metrics.NumberOfFileAnnotations;
-import se.gu.faxe.metrics.ScatteringDegree;
-import se.gu.faxe.metrics.TanglingDegree;
+import se.gu.faxe.metrics.*;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -333,6 +330,9 @@ public class FAXE {
                     break;
                 case NoFiA:
                     ret = NumberOfFileAnnotations.calculateNoFiA(file, feature);
+                    break;
+                case NoAF:
+                    ret = NumberOfAnnotatedFiles.calculateNoFA(knownAssets, file, feature);
                     break;
                 default:
                     break;
