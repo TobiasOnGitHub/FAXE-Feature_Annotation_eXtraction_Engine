@@ -70,13 +70,13 @@ public class ScatteringDegree {
         int sd = 0;
 
         if(!searchedPath.exists()){
-            System.out.println("ScatteringDegree::calculateSD ERROR: given input path " +searchedPath +" not existing!");
+            throw new IOException("ScatteringDegree::calculateSD ERROR: Given input path " +searchedPath +" not existing!");
         }
 
         // Reduce eaList to elements below searchedPath
-        TreeNode<Asset> searchRootNode =fullAssetTree.find(new Asset(searchedPath));
+        TreeNode<Asset> searchRootNode = fullAssetTree.find(new Asset(searchedPath));
         if(searchRootNode==null){
-            throw new IOException("Given path " +searchedPath.getPath() +" not existing!");
+            throw new IOException("ScatteringDegree::calculateSD ERROR: Given inout path " +searchedPath +" not existing in fullAssetTree!");
         }
 
         // Iterate tree and gather scattering information

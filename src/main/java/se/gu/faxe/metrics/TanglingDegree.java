@@ -64,13 +64,16 @@ public class TanglingDegree {
      * @throws IOException in case searchedPath does not exist in fullAssetTree.
      */
     public static int calculateTD(TreeNode< Asset > fullAssetTree, File searchedPath, Feature searchFeature, Boolean printFoundLocation) throws IOException {
-//        System.out.println(">> TanglingDegree::calculateTD");
         HashSet<String> tangledFeatures = new HashSet<>();
+
+        if(!searchedPath.exists()){
+            throw new IOException("TanglingDegree::calculateTD ERROR: Given input path " +searchedPath +" not existing!");
+        }
 
         // Reduce Tree to searched Area
         TreeNode<Asset> searchRootNode =fullAssetTree.find(new Asset(searchedPath));
         if(searchRootNode==null){
-            throw new IOException("Given path " +searchedPath.getPath() +" not existing!");
+            throw new IOException("TanglingDegree::calculateTD ERROR: Given inout path " +searchedPath +" not existing in fullAssetTree!");
         }
         // Check if searched feature is in Asset
         for (TreeNode<Asset> node : searchRootNode) {
