@@ -134,7 +134,13 @@ public class FAXE {
                     /*****************************/
                     File parent = file.getParentFile();
                     TreeNode<Asset> nodeParent = knownAssets.find(new Asset(parent));
-                    nodeParent.add(new ArrayMultiTreeNode<>(nextAsset));
+                    if(nodeParent.find(nextAsset)==null) {
+                        nodeParent.add(new ArrayMultiTreeNode<>(nextAsset));
+                    } else {
+                        // Update parameters
+                        TreeNode<Asset> node = nodeParent.find(nextAsset);
+                        node.setData(nextAsset);
+                    }
                 }
 
             }
