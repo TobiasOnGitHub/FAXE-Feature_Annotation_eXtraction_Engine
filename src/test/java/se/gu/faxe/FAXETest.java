@@ -74,4 +74,14 @@ public class FAXETest {
         Assert.assertEquals(td, 32);
     }
 
+    @Test
+    public void testGetMetrics_NoFiA(){
+        File f = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\bitcoin-wallet"));
+        FAXE faxe = new FAXE(f);
+
+        int NoFiA = faxe.getMetrics(f, Metrics.NoFiA, new Feature("BitcoinBalance"));
+
+        Assert.assertEquals(NoFiA, 1);
+    }
+
 }

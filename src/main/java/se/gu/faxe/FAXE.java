@@ -19,6 +19,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import se.gu.faxe.grammar.*;
 import se.gu.faxe.metrics.Metrics;
+import se.gu.faxe.metrics.NumberOfFileAnnotations;
 import se.gu.faxe.metrics.ScatteringDegree;
 import se.gu.faxe.metrics.TanglingDegree;
 
@@ -323,6 +324,9 @@ public class FAXE {
                     break;
                 case TD:
                     ret = TanglingDegree.calculateTD(knownAssets, file, feature);
+                    break;
+                case NoFiA:
+                    ret = NumberOfFileAnnotations.calculateNoFiA(file, feature);
                     break;
                 default:
                     break;
