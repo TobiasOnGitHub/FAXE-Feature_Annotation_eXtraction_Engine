@@ -30,6 +30,7 @@ public enum Metrics {
     MaxND   ("MaxND"),  /* Each sub-folder increases the depth by one, a file inherits the depth of its containing folder. The depth of a (top-level, i.e., non-nested) in-file annotation is the depth of the file increased by one. Since in-file annotations */
     MinND   ("MinND"),  /* can be nested, each nesting increases the depth by one. All nesting-depth metrics are calculated relative to the project root folder. */
     NoAu    ("NoAu"),   // Number of Authors who contributed to a feature’s artifact. Author information is automatically extracted from author tags (format: “Author: firstname lastname”) in comments wrapped by “/**” and “*/” in the source code if they exist.
+    NoAF    ("NoAF"),   // Number of annotated files: counts the individual feature to file mappings in the mapping files feature-to-file.
     /* FOLDER METRICS */
     NoF     ("NoF"),    // Number of Features: total number of features directly referenced in annotations (folder, file, in-file) of the folder and any of its descendants
     LoFoC   ("LoFoC"),  // Lines of Folder Code: total lines in any descendant file of the folder
