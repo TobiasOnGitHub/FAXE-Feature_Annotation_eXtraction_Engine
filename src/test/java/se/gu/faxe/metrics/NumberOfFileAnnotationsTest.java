@@ -68,7 +68,7 @@ public class NumberOfFileAnnotationsTest {
 
     @Test
     public void testCalculateNoFiA_TestData_DummyFeature() {
-        File searchPath = new File(new File("").getAbsolutePath().concat("\\src\\test\\java"));
+        File searchPath = new File(new File("").getAbsolutePath().concat("\\src\\test\\java\\"));
         Feature feature = new Feature("DummyFeature");
         try {
             Assert.assertEquals(NumberOfFileAnnotations.calculateNoFiA(searchPath, feature/*, true*/), 1);

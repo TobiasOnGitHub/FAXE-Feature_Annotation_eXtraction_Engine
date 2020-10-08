@@ -22,7 +22,6 @@ import se.gu.faxe.Feature;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Objects;
 import java.util.Scanner;
 
 /**
@@ -64,32 +63,32 @@ public class NumberOfFileAnnotations {
             throw new IOException("NumberOfFileAnnotations::calculateNoFiA ERROR: Given input path " +searchedPath +" not existing!");
         }
 
-        for (File file : Objects.requireNonNull(searchedPath.listFiles())) {
-            if (!file.isDirectory()) {
-                if(file.getName().endsWith(".feature-to-file")){
-                    Scanner scanner = new Scanner(file);
-                    while (scanner.hasNextLine()) {
-                        String lineFile = scanner.nextLine();
-                        if(!lineFile.isEmpty()){
-                            // Found first line with text
-                            String lineFeature = scanner.nextLine();
-                            while(lineFeature.isEmpty()){
-                                lineFeature = scanner.nextLine();
+        if (searchedPath.isDirectory()) {
+            for (File concreteFile : searchedPath.listFiles()) {
+                NoFiA += calculateNoFiA(concreteFile, searchFeature, printFoundLocation);
+            }
+        } else {
+            if (searchedPath.getName().endsWith(".feature-to-file")) {
+                Scanner scanner = new Scanner(searchedPath);
+                while (scanner.hasNextLine()) {
+                    String lineFile = scanner.nextLine();
+                    if (!lineFile.isEmpty()) {
+                        // Found first line with text
+                        String lineFeature = scanner.nextLine();
+                        while (lineFeature.isEmpty()) {
+                            lineFeature = scanner.nextLine();
+                        }
+                        // Next Line shall contain Features
+                        if (lineFeature.contains(searchFeature.getLpq())) {
+                            if (printFoundLocation) {
+                                System.out.println("   Feature " + searchFeature.toString() + " found in " + searchedPath.getName());
                             }
-                            // Next Line shall contain Features
-                            if(lineFeature.contains(searchFeature.getLpq())){
-                                if(printFoundLocation){
-                                    System.out.println("   Feature " + searchFeature.toString() + " found in " + file.getName());
-                                }
-                                NoFiA++;
-                                break;  // Go to next .feature-to-file file
-                            }
-                        } /*else {
-                            System.out.println("Empty line");
-                        } */
+                            NoFiA++;
+                            break;  // Go to next .feature-to-file file
+                        }
                     }
-                    scanner.close();
                 }
+                scanner.close();
             }
         }
         return NoFiA;
