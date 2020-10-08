@@ -45,7 +45,7 @@ public class Asset {
         Asset asset = (Asset) o;
         return Objects.equals(path, asset.path) /*&&
                 Objects.equals(annotationList, asset.annotationList)*/; // Skip list comparison as an Asset is unique per path.
-    }
+    }           // TODO - Check if need to stay de-activated.
 
     @Override
     public int hashCode() {
