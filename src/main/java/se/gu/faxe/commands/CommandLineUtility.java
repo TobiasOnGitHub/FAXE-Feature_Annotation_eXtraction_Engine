@@ -81,10 +81,8 @@ class Get implements Callable<Integer> {
             }
             TreeNode<Asset> fullTreeObject = faxe.getEmbeddedAnnotations(path);
             Iterator<TreeNode<Asset>> iterator = fullTreeObject.iterator();
-            while (iterator.hasNext()) {
-                TreeNode<Asset> node = iterator.next();
-                node.toString();
-            }
+            // Print List of Assets as one object, starting from requested folder
+            System.out.println(iterator.next().toString());
 
         } else if(path.isFile()){
 
