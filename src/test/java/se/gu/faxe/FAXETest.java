@@ -84,4 +84,9 @@ public class FAXETest {
         Assert.assertEquals(NoFiA, 1);
     }
 
+    @Test
+    public void testGetEmbeddedAnnotations(){
+        // TODO - Create a test which checks that entries are not added multiple times. E.g. through constructor and then getEmbeddedAnnotations again
+    }
+
 }
