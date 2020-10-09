@@ -334,6 +334,8 @@ public class FAXE {
                 case NoAF:
                     ret = NumberOfAnnotatedFiles.calculateNoFA(knownAssets, file, feature);
                     break;
+                case NoFoA:
+                    ret = NumberOfFolderAnnotations.calculateNoFoA(knownAssets, file, feature);
                 default:
                     break;
             }

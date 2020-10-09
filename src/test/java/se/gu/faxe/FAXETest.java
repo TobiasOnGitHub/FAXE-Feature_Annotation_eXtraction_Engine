@@ -95,6 +95,14 @@ public class FAXETest {
     }
 
     @Test
+    public void testGetMetrics_NoFoA(){
+        File f = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\bitcoin-wallet"));
+        FAXE faxe = new FAXE(f);
+
+        Assert.assertEquals(faxe.getMetrics(f, Metrics.NoFoA, new Feature("Bluetooth::Codecs")), 1);
+    }
+
+    @Test
     public void testGetEmbeddedAnnotations(){
         // TODO - Create a test which checks that entries are not added multiple times. E.g. through constructor and then getEmbeddedAnnotations again
     }

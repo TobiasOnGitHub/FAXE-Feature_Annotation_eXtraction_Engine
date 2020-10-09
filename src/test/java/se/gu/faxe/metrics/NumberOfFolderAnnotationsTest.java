@@ -19,7 +19,7 @@ public class NumberOfFolderAnnotationsTest {
         File searchPath = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\bitcoin-wallet"));
         Feature feature = new Feature("DonateCoins");
         try {
-            Assert.assertEquals(NumberOfFolderAnnotations.calculateNoFoA(faxe.getKnownAssets(), searchPath, feature, true), 0);
+            Assert.assertEquals(NumberOfFolderAnnotations.calculateNoFoA(faxe.getKnownAssets(), searchPath, feature/*, true*/), 0);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -36,7 +36,7 @@ public class NumberOfFolderAnnotationsTest {
         File searchPath = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\bitcoin-wallet"));
         Feature feature = new Feature("Bluetooth::Codecs");
         try {
-            Assert.assertEquals(NumberOfFolderAnnotations.calculateNoFoA(faxe.getKnownAssets(), searchPath, feature, true), 1);
+            Assert.assertEquals(NumberOfFolderAnnotations.calculateNoFoA(faxe.getKnownAssets(), searchPath, feature/*, true*/), 1);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -53,7 +53,7 @@ public class NumberOfFolderAnnotationsTest {
         Feature feature = new Feature("MainFolder");
         int sd = 0;
         try {
-            Assert.assertEquals(NumberOfFolderAnnotations.calculateNoFoA(faxe.getKnownAssets(), searchPath, feature, true), 1);
+            Assert.assertEquals(NumberOfFolderAnnotations.calculateNoFoA(faxe.getKnownAssets(), searchPath, feature/*, true*/), 1);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -69,7 +69,7 @@ public class NumberOfFolderAnnotationsTest {
         File searchPath = new File(new File("").getAbsolutePath().concat("\\src\\test\\java\\feature-to-folder"));
         Feature feature = new Feature("FeatureA");
         try {
-            Assert.assertEquals(NumberOfFolderAnnotations.calculateNoFoA(faxe.getKnownAssets(), searchPath, feature, true), 2);
+            Assert.assertEquals(NumberOfFolderAnnotations.calculateNoFoA(faxe.getKnownAssets(), searchPath, feature/*, true*/), 2);
         } catch (IOException e) {
             e.printStackTrace();
         }

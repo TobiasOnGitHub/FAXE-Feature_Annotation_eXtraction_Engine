@@ -31,11 +31,30 @@ import java.util.List;
 /**
  * Number of Folder Annotations: total number of folder annotations directly referencing the feature.
  * --------------------------------------------------------------------------------------------------
- * I.e. the number of appreances of the given feature in all feature-to-folder mapping files
+ * I.e. the number of appearances of the given feature in all feature-to-folder mapping files
  */
 
 public class NumberOfFolderAnnotations {
 
+    /**
+     * Calculate Number of Folder Annotations: total number of folder annotations directly referencing the feature.
+     * @param searchedPath Path to create metric from
+     * @param searchFeature Searched feature name
+     * @return Metric for Number of Folder Annotations of given feature in given path.
+     * @throws IOException in case searchedPath does not exist in fullAssetTree.
+     */
+    public static int calculateNoFoA(TreeNode<Asset> fullAssetTree, File searchedPath, Feature searchFeature) throws IOException {
+        return calculateNoFoA(fullAssetTree, searchedPath, searchFeature, false);
+    }
+
+    /**
+     * Calculate Number of Folder Annotations: total number of folder annotations directly referencing the feature.
+     * @param searchedPath Path to create metric from
+     * @param searchFeature Searched feature name
+     * @param printFoundLocation Enable print to list locations relevant to this metric.
+     * @return Metric for Number of Folder Annotations of given feature in given path.
+     * @throws IOException in case searchedPath does not exist in fullAssetTree.
+     */
     public static int calculateNoFoA(TreeNode<Asset> fullAssetTree, File searchedPath, Feature searchFeature, boolean printFoundLocation) throws IOException {
         int noFoA = 0;
 
