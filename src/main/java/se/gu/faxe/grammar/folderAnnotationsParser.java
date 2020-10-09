@@ -1,13 +1,16 @@
 // Generated from C:/Users/Tobias/IdeaProjects/FAXE-Feature_Annotation_eXtraction_Engine/src/main/antlr4/se/gu/faxe\folderAnnotations.g4 by ANTLR 4.8
 package se.gu.faxe.grammar;
-import org.antlr.v4.runtime.atn.*;
-import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
-import org.antlr.v4.runtime.misc.*;
-import org.antlr.v4.runtime.tree.*;
+import org.antlr.v4.runtime.atn.ATN;
+import org.antlr.v4.runtime.atn.ATNDeserializer;
+import org.antlr.v4.runtime.atn.ParserATNSimulator;
+import org.antlr.v4.runtime.atn.PredictionContextCache;
+import org.antlr.v4.runtime.dfa.DFA;
+import org.antlr.v4.runtime.tree.ParseTreeListener;
+import org.antlr.v4.runtime.tree.ParseTreeVisitor;
+import org.antlr.v4.runtime.tree.TerminalNode;
+
 import java.util.List;
-import java.util.Iterator;
-import java.util.ArrayList;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class folderAnnotationsParser extends Parser {
@@ -17,7 +20,7 @@ public class folderAnnotationsParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		T__0=1, T__1=2, T__2=3, SPACE=4, FEATURENAME=5;
+		T__0=1, T__1=2, T__2=3, WS=4, FEATURENAME=5;
 	public static final int
 		RULE_folderAnnotation = 0, RULE_lpq = 1;
 	private static String[] makeRuleNames() {
@@ -35,7 +38,7 @@ public class folderAnnotationsParser extends Parser {
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
-			null, null, null, null, "SPACE", "FEATURENAME"
+			null, null, null, null, "WS", "FEATURENAME"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -123,7 +126,6 @@ public class folderAnnotationsParser extends Parser {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			{
 			setState(7);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
@@ -202,36 +204,17 @@ public class folderAnnotationsParser extends Parser {
 			}
 			setState(38);
 			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,5,_ctx);
-			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
-				if ( _alt==1 ) {
-					{
-					{
-					setState(35);
-					match(T__0);
-					}
-					} 
+			_la = _input.LA(1);
+			while (_la==T__0) {
+				{
+				{
+				setState(35);
+				match(T__0);
+				}
 				}
 				setState(40);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,5,_ctx);
-			}
-			}
-			setState(44);
-			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,6,_ctx);
-			while ( _alt!=1 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
-				if ( _alt==1+1 ) {
-					{
-					{
-					setState(41);
-					matchWildcard();
-					}
-					} 
-				}
-				setState(46);
-				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,6,_ctx);
+				_la = _input.LA(1);
 			}
 			}
 		}
@@ -281,30 +264,28 @@ public class folderAnnotationsParser extends Parser {
 	public final LpqContext lpq() throws RecognitionException {
 		LpqContext _localctx = new LpqContext(_ctx, getState());
 		enterRule(_localctx, 2, RULE_lpq);
+		int _la;
 		try {
-			int _alt;
 			_localctx = new FeatureContext(_localctx);
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(47);
+			setState(41);
 			match(FEATURENAME);
-			setState(52);
+			setState(46);
 			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,7,_ctx);
-			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
-				if ( _alt==1 ) {
-					{
-					{
-					setState(48);
-					match(T__2);
-					setState(49);
-					match(FEATURENAME);
-					}
-					} 
+			_la = _input.LA(1);
+			while (_la==T__2) {
+				{
+				{
+				setState(42);
+				match(T__2);
+				setState(43);
+				match(FEATURENAME);
 				}
-				setState(54);
+				}
+				setState(48);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,7,_ctx);
+				_la = _input.LA(1);
 			}
 			}
 		}
@@ -320,23 +301,21 @@ public class folderAnnotationsParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\7:\4\2\t\2\4\3\t"+
-		"\3\3\2\7\2\b\n\2\f\2\16\2\13\13\2\3\2\3\2\7\2\17\n\2\f\2\16\2\22\13\2"+
-		"\3\2\7\2\25\n\2\f\2\16\2\30\13\2\3\2\7\2\33\n\2\f\2\16\2\36\13\2\3\2\7"+
-		"\2!\n\2\f\2\16\2$\13\2\3\2\7\2\'\n\2\f\2\16\2*\13\2\3\2\7\2-\n\2\f\2\16"+
-		"\2\60\13\2\3\3\3\3\3\3\7\3\65\n\3\f\3\16\38\13\3\3\3\3.\2\4\2\4\2\2\2"+
-		"?\2\t\3\2\2\2\4\61\3\2\2\2\6\b\7\3\2\2\7\6\3\2\2\2\b\13\3\2\2\2\t\7\3"+
-		"\2\2\2\t\n\3\2\2\2\n\f\3\2\2\2\13\t\3\2\2\2\f\"\5\4\3\2\r\17\7\3\2\2\16"+
-		"\r\3\2\2\2\17\22\3\2\2\2\20\16\3\2\2\2\20\21\3\2\2\2\21\26\3\2\2\2\22"+
-		"\20\3\2\2\2\23\25\7\4\2\2\24\23\3\2\2\2\25\30\3\2\2\2\26\24\3\2\2\2\26"+
-		"\27\3\2\2\2\27\34\3\2\2\2\30\26\3\2\2\2\31\33\7\3\2\2\32\31\3\2\2\2\33"+
-		"\36\3\2\2\2\34\32\3\2\2\2\34\35\3\2\2\2\35\37\3\2\2\2\36\34\3\2\2\2\37"+
-		"!\5\4\3\2 \20\3\2\2\2!$\3\2\2\2\" \3\2\2\2\"#\3\2\2\2#(\3\2\2\2$\"\3\2"+
-		"\2\2%\'\7\3\2\2&%\3\2\2\2\'*\3\2\2\2(&\3\2\2\2()\3\2\2\2).\3\2\2\2*(\3"+
-		"\2\2\2+-\13\2\2\2,+\3\2\2\2-\60\3\2\2\2./\3\2\2\2.,\3\2\2\2/\3\3\2\2\2"+
-		"\60.\3\2\2\2\61\66\7\7\2\2\62\63\7\5\2\2\63\65\7\7\2\2\64\62\3\2\2\2\65"+
-		"8\3\2\2\2\66\64\3\2\2\2\66\67\3\2\2\2\67\5\3\2\2\28\66\3\2\2\2\n\t\20"+
-		"\26\34\"(.\66";
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\7\64\4\2\t\2\4\3"+
+		"\t\3\3\2\7\2\b\n\2\f\2\16\2\13\13\2\3\2\3\2\7\2\17\n\2\f\2\16\2\22\13"+
+		"\2\3\2\7\2\25\n\2\f\2\16\2\30\13\2\3\2\7\2\33\n\2\f\2\16\2\36\13\2\3\2"+
+		"\7\2!\n\2\f\2\16\2$\13\2\3\2\7\2\'\n\2\f\2\16\2*\13\2\3\3\3\3\3\3\7\3"+
+		"/\n\3\f\3\16\3\62\13\3\3\3\2\2\4\2\4\2\2\28\2\t\3\2\2\2\4+\3\2\2\2\6\b"+
+		"\7\3\2\2\7\6\3\2\2\2\b\13\3\2\2\2\t\7\3\2\2\2\t\n\3\2\2\2\n\f\3\2\2\2"+
+		"\13\t\3\2\2\2\f\"\5\4\3\2\r\17\7\3\2\2\16\r\3\2\2\2\17\22\3\2\2\2\20\16"+
+		"\3\2\2\2\20\21\3\2\2\2\21\26\3\2\2\2\22\20\3\2\2\2\23\25\7\4\2\2\24\23"+
+		"\3\2\2\2\25\30\3\2\2\2\26\24\3\2\2\2\26\27\3\2\2\2\27\34\3\2\2\2\30\26"+
+		"\3\2\2\2\31\33\7\3\2\2\32\31\3\2\2\2\33\36\3\2\2\2\34\32\3\2\2\2\34\35"+
+		"\3\2\2\2\35\37\3\2\2\2\36\34\3\2\2\2\37!\5\4\3\2 \20\3\2\2\2!$\3\2\2\2"+
+		"\" \3\2\2\2\"#\3\2\2\2#(\3\2\2\2$\"\3\2\2\2%\'\7\3\2\2&%\3\2\2\2\'*\3"+
+		"\2\2\2(&\3\2\2\2()\3\2\2\2)\3\3\2\2\2*(\3\2\2\2+\60\7\7\2\2,-\7\5\2\2"+
+		"-/\7\7\2\2.,\3\2\2\2/\62\3\2\2\2\60.\3\2\2\2\60\61\3\2\2\2\61\5\3\2\2"+
+		"\2\62\60\3\2\2\2\t\t\20\26\34\"(\60";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

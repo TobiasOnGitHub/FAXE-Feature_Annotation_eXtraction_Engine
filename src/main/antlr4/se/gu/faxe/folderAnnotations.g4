@@ -16,9 +16,9 @@
 // under the License.
 grammar folderAnnotations;
 
-SPACE: ' '* -> skip ;   // ignores all more than one-time space characters
+WS: [\n\r]+ -> skip;
 
-folderAnnotation: (' '* lpq (' '* ','* ' '* lpq)* ' '* ) .*? ;
+folderAnnotation: ' '* lpq (' '* ','* ' '* lpq)* ' '* ;
 
 lpq: FEATURENAME ('::'FEATURENAME)*  # Feature;
 FEATURENAME: ([A-Z]+|[a-z]+|[0-9]+|'_'+|'\''+)+;    // -> restriction from Clafer and follow their definition

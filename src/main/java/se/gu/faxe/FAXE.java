@@ -197,7 +197,7 @@ public class FAXE {
             assetToAnalyze.addAllAnnotation(eaList);
         } catch (ParseCancellationException e) {
             // Catch if given string is not fitting the grammar
-            System.out.println("ERROR DETECTED :)");
+            System.out.println("FAXE::getEmbeddedAnnotationsFromTextAsset ERROR DETECTED :)");
         }
         return assetToAnalyze;
     }
@@ -272,7 +272,7 @@ public class FAXE {
             annotation = (AnnotationFolder) visitor.visit(tree);
         } catch (ParseCancellationException e) {
             // Catch if given string is not fitting the grammar
-            System.out.println("ERROR DETECTED :)");
+            System.out.println("FAXE::getEmbeddedAnnotationsFromFeatureFolderMapping ERROR DETECTED.");
             return null;
         }
         return annotation;

@@ -1,7 +1,7 @@
 T__0=1
 T__1=2
 T__2=3
-SPACE=4
+WS=4
 FEATURENAME=5
 ' '=1
 ','=2
