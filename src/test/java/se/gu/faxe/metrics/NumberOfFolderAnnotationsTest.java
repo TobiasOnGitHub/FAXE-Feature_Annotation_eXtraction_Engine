@@ -51,7 +51,6 @@ public class NumberOfFolderAnnotationsTest {
 
         File searchPath = new File(new File("").getAbsolutePath().concat("\\src\\test\\java\\feature-to-folder"));
         Feature feature = new Feature("MainFolder");
-        int sd = 0;
         try {
             Assert.assertEquals(NumberOfFolderAnnotations.calculateNoFoA(faxe.getKnownAssets(), searchPath, feature/*, true*/), 1);
         } catch (IOException e) {

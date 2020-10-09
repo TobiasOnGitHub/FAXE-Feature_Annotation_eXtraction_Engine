@@ -22,6 +22,7 @@ import se.gu.faxe.Feature;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 import java.util.Scanner;
 
 /**
@@ -64,7 +65,7 @@ public class NumberOfFileAnnotations {
         }
 
         if (searchedPath.isDirectory()) {
-            for (File concreteFile : searchedPath.listFiles()) {
+            for (File concreteFile : Objects.requireNonNull(searchedPath.listFiles())) {
                 NoFiA += calculateNoFiA(concreteFile, searchFeature, printFoundLocation);
             }
         } else {
