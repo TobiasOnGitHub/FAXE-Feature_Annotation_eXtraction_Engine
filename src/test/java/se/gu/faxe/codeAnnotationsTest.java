@@ -79,7 +79,7 @@ public class codeAnnotationsTest {
 
         } catch (ParseCancellationException e) {
             // Catch if given string is not fitting the grammar
-            System.out.println("ERROR DETECTED :)");
+            System.out.println("codeAnnotationsTest::testVisitMarker_WithFile_ExchangeRatesAdapter ERROR DETECTED :)");
         }
 
         return;
