@@ -372,7 +372,7 @@ public class FAXE {
         if(featureModel!=null) {
             String jsonFeatureModel = featureModel.serializeToJSON();
             if (!isJSONValid(jsonFeatureModel)) {
-                System.out.println("ERROR with FeatureModel JSON! Internal generated version can't be transformed neither to JSONObject nor JSONArray!");
+                System.out.println("WARNING with FeatureModel JSON! Internal generated version can't be transformed neither to JSONObject nor JSONArray!");
             } else {
                 FileWriter myWriter = null;
                 try {
