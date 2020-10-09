@@ -1,10 +1,8 @@
 T__0=1
 T__1=2
 T__2=3
-T__3=4
-SPACE=5
-FEATURENAME=6
+SPACE=4
+FEATURENAME=5
 ' '=1
 ','=2
-'\n'=3
-'::'=4
+'::'=3
