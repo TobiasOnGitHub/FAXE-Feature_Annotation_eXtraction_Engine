@@ -336,6 +336,10 @@ public class FAXE {
                     break;
                 case NoFoA:
                     ret = NumberOfFolderAnnotations.calculateNoFoA(knownAssets, file, feature);
+                    break;
+                case LoFC:
+                    ret = LinesOfFeatureCode.calculateLoFC(knownAssets, file, feature);
+                    break;
                 default:
                     break;
             }

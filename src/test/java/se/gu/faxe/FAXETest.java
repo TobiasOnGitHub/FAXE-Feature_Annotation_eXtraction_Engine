@@ -103,6 +103,14 @@ public class FAXETest {
     }
 
     @Test
+    public void testGetMetrics_LoFC(){
+        File f = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\bitcoin-wallet\\service"));
+        FAXE faxe = new FAXE(f);
+
+        Assert.assertEquals(faxe.getMetrics(f, Metrics.LoFC, new Feature("AddressBook")), 15);
+    }
+
+    @Test
     public void testGetEmbeddedAnnotations(){
         // TODO - Create a test which checks that entries are not added multiple times. E.g. through constructor and then getEmbeddedAnnotations again
     }
