@@ -60,6 +60,7 @@ public class LinesOfFeatureCode {
         int lineCount = 0;
         if(inputFile.isDirectory()){
             File[] files = inputFile.listFiles();
+            assert files != null;
             for (File file : files) {
                 lineCount += countLinesFolder(file);
             }
@@ -73,11 +74,10 @@ public class LinesOfFeatureCode {
 
     // Following approach of https://stackoverflow.com/a/453067 by martinus
     private static int countLinesFile(String filename) throws IOException {
-        InputStream is = new BufferedInputStream(new FileInputStream(filename));
-        try {
+        try (InputStream is = new BufferedInputStream(new FileInputStream(filename))) {
             byte[] c = new byte[1024];
             int count = 0;
-            int readChars = 0;
+            int readChars;
             boolean empty = true;
             while ((readChars = is.read(c)) != -1) {
                 empty = false;
@@ -88,10 +88,8 @@ public class LinesOfFeatureCode {
                 }
             }
             // Add count+1 to count last line which ends with eof
-            count ++;
-            return (count == 0 && !empty) ? 1 : count;
-        } finally {
-            is.close();
+            count++;
+            return (!empty && count == 0) ? 1 : count;
         }
     }
 
