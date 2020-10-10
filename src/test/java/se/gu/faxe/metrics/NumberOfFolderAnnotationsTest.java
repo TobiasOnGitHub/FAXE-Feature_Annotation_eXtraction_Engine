@@ -46,10 +46,10 @@ public class NumberOfFolderAnnotationsTest {
     @Test
     public void testCalculateNoFoA_featureToFolder_MainFolder() {
 
-        File projectRoot = new File(new File("").getAbsolutePath().concat("\\src\\test\\java\\feature-to-folder"));
+        File projectRoot = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\feature-to-folder"));
         FAXE faxe = new FAXE(projectRoot);
 
-        File searchPath = new File(new File("").getAbsolutePath().concat("\\src\\test\\java\\feature-to-folder"));
+        File searchPath = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\feature-to-folder"));
         Feature feature = new Feature("MainFolder");
         try {
             Assert.assertEquals(NumberOfFolderAnnotations.calculateNoFoA(faxe.getKnownAssets(), searchPath, feature/*, true*/), 1);
@@ -62,10 +62,10 @@ public class NumberOfFolderAnnotationsTest {
     @Test
     public void testCalculateNoFoA_featureToFolder_FeatureA() {
 
-        File projectRoot = new File(new File("").getAbsolutePath().concat("\\src\\test\\java\\feature-to-folder"));
+        File projectRoot = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\feature-to-folder"));
         FAXE faxe = new FAXE(projectRoot);
 
-        File searchPath = new File(new File("").getAbsolutePath().concat("\\src\\test\\java\\feature-to-folder"));
+        File searchPath = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\feature-to-folder"));
         Feature feature = new Feature("FeatureA");
         try {
             Assert.assertEquals(NumberOfFolderAnnotations.calculateNoFoA(faxe.getKnownAssets(), searchPath, feature/*, true*/), 2);

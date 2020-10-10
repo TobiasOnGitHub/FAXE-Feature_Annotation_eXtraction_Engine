@@ -47,10 +47,10 @@ public class NumberOfAnnotatedFilesTest {
 
     @Test
     public void testCalculateNoFA_srcTestJava_TestData(){
-        File projectRoot = new File(new File("").getAbsolutePath().concat("\\src\\test\\java\\feature-to-file"));
+        File projectRoot = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\feature-to-file"));
         FAXE faxe = new FAXE(projectRoot);
 
-        File searchPath = new File(new File("").getAbsolutePath().concat("\\src\\test\\java\\feature-to-file"));
+        File searchPath = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\feature-to-file"));
         Feature feature = new Feature("TestData");
         int sd = 0;
         try {
