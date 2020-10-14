@@ -132,7 +132,7 @@ public class NestingDepths {
         return MinND;
     }
 
-    private static boolean calculateND(TreeNode<Asset> fullAssetTree, File searchedPath, Feature searchFeature, boolean printFoundLocation) throws IOException {
+    private static void calculateND(TreeNode<Asset> fullAssetTree, File searchedPath, Feature searchFeature, boolean printFoundLocation) throws IOException {
         // Reset to avoid values of pre-run (static methods ...)
         AvgND = 0;
         MaxND = 0;
@@ -149,7 +149,7 @@ public class NestingDepths {
         }
 
         // Iterate tree and gather scattering information
-        List<Integer> individualNestingDepts = new ArrayList<Integer>();
+        List<Integer> individualNestingDepts = new ArrayList<>();
         for (TreeNode<Asset> node : searchRootNode) {
 
             List<Annotation> annotationList = node.data().getAnnotationList();
@@ -237,7 +237,7 @@ public class NestingDepths {
         }
 
         if (individualNestingDepts.size() > 0) {
-            Double sum = individualNestingDepts.stream().mapToDouble(Integer::intValue).sum();
+            double sum = individualNestingDepts.stream().mapToDouble(Integer::intValue).sum();
             AvgND = sum / individualNestingDepts.size();
         }
 
@@ -245,6 +245,5 @@ public class NestingDepths {
             System.out.println("   Found " + individualNestingDepts.size() + " entries with ND AVG=" + AvgND + " MAX=" + MaxND + " MIN=" + MinND);
         }
 
-        return true;
     }
 }
