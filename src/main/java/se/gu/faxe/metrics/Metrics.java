@@ -29,7 +29,7 @@ public enum Metrics {
     AvgND    ("AvgND"),   /* Nesting depths of annotations: Maximum (MaxND), Minimum (MinND), and Average (AvgND) nesting depth the annotations directly referencing the feature. The project’s root folder has depth 0 (and so has any file contained in it). */
     MaxND    ("MaxND"),   /* Each sub-folder increases the depth by one, a file inherits the depth of its containing folder. The depth of a (top-level, i.e., non-nested) in-file annotation is the depth of the file increased by one. Since in-file annotations */
     MinND    ("MinND"),   /* can be nested, each nesting increases the depth by one. All nesting-depth metrics are calculated relative to the project root folder. */
-    NoAu     ("NoAu"),    // Number of Authors who contributed to a feature’s artifact. Author information is automatically extracted from author tags (format: “Author: firstname lastname”) in comments wrapped by “/**” and “*/” in the source code if they exist.
+    // NoAu  ("NoAu"),       // Number of Authors who contributed to a feature’s artifact. Author information is automatically extracted from author tags (format: “Author: firstname lastname”) in comments wrapped by “/**” and “*/” in the source code if they exist. --> FAXE: NOT SUPPORTED AS NOT LINKED TO FEATURE CODE
     NoAF     ("NoAF"),    // Number of Annotated Files: counts the individual feature to file mappings in the mapping files feature-to-file.
     /* FOLDER METRICS */
     NoF      ("NoF"),     // Number of Features: total number of features directly referenced in annotations (folder, file, in-file) of the folder and any of its descendants
