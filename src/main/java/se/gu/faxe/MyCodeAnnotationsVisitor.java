@@ -25,6 +25,7 @@ import se.gu.faxe.grammar.codeAnnotationParser;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Stack;
 
 public class MyCodeAnnotationsVisitor extends codeAnnotationBaseVisitor<Object> {
     private static final int POSITION_UNKNOWN = -1;
@@ -57,27 +58,47 @@ public class MyCodeAnnotationsVisitor extends codeAnnotationBaseVisitor<Object> 
                 continue;
             }
 
-            ListIterator<Annotation> backwardIterator = annotationList.listIterator(annotationList.size());
-            while (backwardIterator.hasPrevious()) {
-                Annotation annotationEnd = backwardIterator.previous();
-                if(annotationEnd.getClass().equals(AnnotationLine.class)){
-                    continue;
-                }
-                if(((AnnotationFragment) annotationEnd).getStartline()!=POSITION_UNKNOWN && ((AnnotationFragment) annotationEnd).getEndline()!=POSITION_UNKNOWN){
-                    // Fragment complete, no need to check, continue
-                    continue;
-                }
-
-                if(annotationBegin.equals(annotationEnd)){  // found pair
-                    if(((AnnotationFragment) annotationBegin).getEndline()==POSITION_UNKNOWN && ((AnnotationFragment) annotationEnd).getStartline()==POSITION_UNKNOWN){
-                        // Merge two entries into one
-                        ((AnnotationFragment) annotationBegin).setEndline(((AnnotationFragment) annotationEnd).getEndline());
-                        backwardIterator.remove();
+            // Going over all elements from this feature and complete it.
+            Stack<Annotation> featureStack = new Stack<Annotation>();
+            featureStack.push(annotationBegin);
+            ListIterator<Annotation> innerIterator = annotationList.listIterator(forwardIterator.nextIndex());
+            while (innerIterator.hasNext()) {
+                Annotation innerAnnotation = innerIterator.next();
+                if(annotationBegin.equals(innerAnnotation)){    // Same Feature marker found
+                    if(((AnnotationFragment) innerAnnotation).getEndline()==POSITION_UNKNOWN){  // &begin marker found
+                        featureStack.push(innerAnnotation);
+                    } else if (((AnnotationFragment) innerAnnotation).getStartline()==POSITION_UNKNOWN){  // &end marker found
+                        Annotation beginAnnotation = featureStack.pop();
+                        ((AnnotationFragment) beginAnnotation).setEndline(((AnnotationFragment) innerAnnotation).getEndline());
+                        innerIterator.remove();
                         forwardIterator = annotationList.listIterator(forwardIterator.previousIndex()); // set outer iterator again. Otherwise it gets confused in its iterating positions.
                         break;
                     }
                 }
             }
+
+
+//            ListIterator<Annotation> backwardIterator = annotationList.listIterator(annotationList.size());
+//            while (backwardIterator.hasPrevious()) {
+//                Annotation annotationEnd = backwardIterator.previous();
+//                if(annotationEnd.getClass().equals(AnnotationLine.class)){
+//                    continue;
+//                }
+//                if(((AnnotationFragment) annotationEnd).getStartline()!=POSITION_UNKNOWN && ((AnnotationFragment) annotationEnd).getEndline()!=POSITION_UNKNOWN){
+//                    // Fragment complete, no need to check, continue
+//                    continue;
+//                }
+//
+//                if(annotationBegin.equals(annotationEnd)){  // found pair
+//                    if(((AnnotationFragment) annotationBegin).getEndline()==POSITION_UNKNOWN && ((AnnotationFragment) annotationEnd).getStartline()==POSITION_UNKNOWN){
+//                        // Merge two entries into one
+//                        ((AnnotationFragment) annotationBegin).setEndline(((AnnotationFragment) annotationEnd).getEndline());
+//                        backwardIterator.remove();
+//                        forwardIterator = annotationList.listIterator(forwardIterator.previousIndex()); // set outer iterator again. Otherwise it gets confused in its iterating positions.
+//                        break;
+//                    }
+//                }
+//            }
         }
 //        System.out.println("Completed visitMarker, found " +annotationList.size() +" elements.");
         return annotationList;
