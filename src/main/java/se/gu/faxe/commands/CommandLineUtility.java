@@ -196,7 +196,7 @@ class CLIMetrics implements Callable<Integer> {
 
         //faxe.getEmbeddedAnnotationsFromTextAsset(new Asset(path));
 
-        int metricResult = faxe.getMetrics(path, metric, featureLPQ);
+        double metricResult = faxe.getMetrics(path, metric, featureLPQ);
 
         System.out.println("Metric " +metric.toString() +"=" +metricResult);
 

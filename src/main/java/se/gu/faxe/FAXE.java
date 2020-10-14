@@ -311,7 +311,7 @@ public class FAXE {
         return 0;
     }
 
-    public int getMetrics(File file, Metrics metric, Feature feature) {
+    public double getMetrics(File file, Metrics metric, Feature feature) {
 //        System.out.println(">>> FAXE.getMetrics(File, Metrics, LPQ)");
 
         System.out.println("Path    " + file.toString());
@@ -319,7 +319,7 @@ public class FAXE {
         System.out.println("Feature " + feature.getName());
 
         //TanglingDegree.calculateTD(eaList,file,feature);
-        int ret = -1;
+        double ret = -1;
         try {
             switch (metric) {
                 case SD:

@@ -59,9 +59,9 @@ public class FAXETest {
         File f = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\bitcoin-wallet\\ui"));
         FAXE faxe = new FAXE(f);
 
-        int sd = faxe.getMetrics(f, Metrics.SD, new Feature("Fee"));
+        double sd = faxe.getMetrics(f, Metrics.SD, new Feature("Fee"));
 
-        Assert.assertEquals(sd, 44);
+        Assert.assertEquals(sd, 44.0);
     }
 
     @Test
@@ -69,9 +69,9 @@ public class FAXETest {
         File f = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\bitcoin-wallet\\ui"));
         FAXE faxe = new FAXE(f);
 
-        int td = faxe.getMetrics(f, Metrics.TD, new Feature("Fee"));
+        double td = faxe.getMetrics(f, Metrics.TD, new Feature("Fee"));
 
-        Assert.assertEquals(td, 32);
+        Assert.assertEquals(td, 32.0);
     }
 
     @Test
@@ -79,9 +79,9 @@ public class FAXETest {
         File f = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\bitcoin-wallet"));
         FAXE faxe = new FAXE(f);
 
-        int NoFiA = faxe.getMetrics(f, Metrics.NoFiA, new Feature("BitcoinBalance"));
+        double NoFiA = faxe.getMetrics(f, Metrics.NoFiA, new Feature("BitcoinBalance"));
 
-        Assert.assertEquals(NoFiA, 1);
+        Assert.assertEquals(NoFiA, 1.0);
     }
 
     @Test
@@ -89,9 +89,9 @@ public class FAXETest {
         File f = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\bitcoin-wallet"));
         FAXE faxe = new FAXE(f);
 
-        int NoFiA = faxe.getMetrics(f, Metrics.NoAF, new Feature("BitcoinBalance"));
+        double NoFiA = faxe.getMetrics(f, Metrics.NoAF, new Feature("BitcoinBalance"));
 
-        Assert.assertEquals(NoFiA, 2);
+        Assert.assertEquals(NoFiA, 2.0);
     }
 
     @Test
@@ -99,7 +99,7 @@ public class FAXETest {
         File f = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\bitcoin-wallet"));
         FAXE faxe = new FAXE(f);
 
-        Assert.assertEquals(faxe.getMetrics(f, Metrics.NoFoA, new Feature("Bluetooth::Codecs")), 1);
+        Assert.assertEquals(faxe.getMetrics(f, Metrics.NoFoA, new Feature("Bluetooth::Codecs")), 1.0);
     }
 
     @Test
@@ -107,7 +107,7 @@ public class FAXETest {
         File f = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\bitcoin-wallet\\service"));
         FAXE faxe = new FAXE(f);
 
-        Assert.assertEquals(faxe.getMetrics(f, Metrics.LoFC, new Feature("AddressBook")), 15);
+        Assert.assertEquals(faxe.getMetrics(f, Metrics.LoFC, new Feature("AddressBook")), 15.0);
     }
 
     @Test
