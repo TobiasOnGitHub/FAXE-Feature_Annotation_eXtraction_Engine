@@ -340,6 +340,15 @@ public class FAXE {
                 case LoFC:
                     ret = LinesOfFeatureCode.calculateLoFC(knownAssets, file, feature);
                     break;
+                case AvgND:
+                    ret = NestingDepths.calculateAvgND(knownAssets, file, feature);
+                    break;
+                case MaxND:
+                    ret = NestingDepths.calculateMaxND(knownAssets, file, feature);
+                    break;
+                case MinND:
+                    ret = NestingDepths.calculateMinND(knownAssets, file, feature);
+                    break;
                 default:
                     break;
             }

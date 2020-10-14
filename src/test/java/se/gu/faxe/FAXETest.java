@@ -111,6 +111,30 @@ public class FAXETest {
     }
 
     @Test
+    public void testGetMetrics_AvgND(){
+        File f = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\bitcoin-wallet\\util\\"));
+        FAXE faxe = new FAXE(f);
+
+        Assert.assertEquals(faxe.getMetrics(f, Metrics.AvgND, new Feature("BackupWallet")), 0.833, 0.001);
+    }
+
+    @Test
+    public void testGetMetrics_MaxND(){
+        File f = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\bitcoin-wallet\\util\\"));
+        FAXE faxe = new FAXE(f);
+
+        Assert.assertEquals(faxe.getMetrics(f, Metrics.MaxND, new Feature("BackupWallet")), 3.0);
+    }
+
+    @Test
+    public void testGetMetrics_MinND(){
+        File f = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\bitcoin-wallet\\util\\"));
+        FAXE faxe = new FAXE(f);
+
+        Assert.assertEquals(faxe.getMetrics(f, Metrics.MinND, new Feature("BackupWallet")), 0.0);
+    }
+
+    @Test
     public void testGetEmbeddedAnnotations(){
         // TODO - Create a test which checks that entries are not added multiple times. E.g. through constructor and then getEmbeddedAnnotations again
     }
