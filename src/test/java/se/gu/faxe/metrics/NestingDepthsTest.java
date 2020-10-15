@@ -58,9 +58,9 @@ public class NestingDepthsTest {
         Feature feature = new Feature("NotExistingFeature");
 
         try {
-            Assert.assertEquals(NestingDepths.calculateAvgND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 0.0);
-            Assert.assertEquals(NestingDepths.calculateMaxND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 0.0);
-            Assert.assertEquals(NestingDepths.calculateMinND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 0.0);
+            Assert.assertEquals(NestingDepths.calculateAvgND(faxe.getKnownAssets(), searchPath, feature/*, true*/), -1.0);
+            Assert.assertEquals(NestingDepths.calculateMaxND(faxe.getKnownAssets(), searchPath, feature/*, true*/), -1.0);
+            Assert.assertEquals(NestingDepths.calculateMinND(faxe.getKnownAssets(), searchPath, feature/*, true*/), -1.0);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -170,5 +170,254 @@ public class NestingDepthsTest {
             e.printStackTrace();
         }
     }
+
+    @Test
+    public void testCalculateAvgND_nestedAnnotations_to_textLevelTests_FeatureOne() {
+
+        File projectRoot = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\nested-annotations"));
+        FAXE faxe = new FAXE(projectRoot);
+
+        File searchPath = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\nested-annotations\\textLevelTests.txt"));
+        Feature feature = new Feature("FeatureOne");
+
+        try {
+            Assert.assertEquals(NestingDepths.calculateAvgND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 0.0);
+            Assert.assertEquals(NestingDepths.calculateMaxND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 0.0);
+            Assert.assertEquals(NestingDepths.calculateMinND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 0.0);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testCalculateAvgND_nestedAnnotations_to_nestedAnnotations_FeatureOne() {
+
+        File projectRoot = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\nested-annotations"));
+        FAXE faxe = new FAXE(projectRoot);
+
+        File searchPath = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\nested-annotations"));
+        Feature feature = new Feature("FeatureOne");
+
+        try {
+            Assert.assertEquals(NestingDepths.calculateAvgND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 0.0);
+            Assert.assertEquals(NestingDepths.calculateMaxND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 0.0);
+            Assert.assertEquals(NestingDepths.calculateMinND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 0.0);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testCalculateAvgND_nestedAnnotations_to_textLevelTests_FeatureTwo() {
+
+        File projectRoot = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\nested-annotations"));
+        FAXE faxe = new FAXE(projectRoot);
+
+        File searchPath = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\nested-annotations\\textLevelTests.txt"));
+        Feature feature = new Feature("FeatureTwo");
+
+        try {
+            Assert.assertEquals(NestingDepths.calculateAvgND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 0.0);
+            Assert.assertEquals(NestingDepths.calculateMaxND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 0.0);
+            Assert.assertEquals(NestingDepths.calculateMinND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 0.0);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testCalculateAvgND_nestedAnnotations_to_textLevelTests_FeatureThree() {
+
+        File projectRoot = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\nested-annotations"));
+        FAXE faxe = new FAXE(projectRoot);
+
+        File searchPath = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\nested-annotations\\textLevelTests.txt"));
+        Feature feature = new Feature("FeatureThree");
+
+        try {
+            Assert.assertEquals(NestingDepths.calculateAvgND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 0.5);
+            Assert.assertEquals(NestingDepths.calculateMaxND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 1.0);
+            Assert.assertEquals(NestingDepths.calculateMinND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 0.0);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testCalculateAvgND_nestedAnnotations_to_textLevelTests_FeatureFour() {
+
+        File projectRoot = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\nested-annotations"));
+        FAXE faxe = new FAXE(projectRoot);
+
+        File searchPath = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\nested-annotations\\textLevelTests.txt"));
+        Feature feature = new Feature("FeatureFour");
+
+        try {
+            Assert.assertEquals(NestingDepths.calculateAvgND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 0.0);
+            Assert.assertEquals(NestingDepths.calculateMaxND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 0.0);
+            Assert.assertEquals(NestingDepths.calculateMinND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 0.0);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testCalculateAvgND_nestedAnnotations_to_textLevelTests_FeatureFourOne() {
+
+        File projectRoot = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\nested-annotations"));
+        FAXE faxe = new FAXE(projectRoot);
+
+        File searchPath = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\nested-annotations\\textLevelTests.txt"));
+        Feature feature = new Feature("FeatureFourOne");
+
+        try {
+            Assert.assertEquals(NestingDepths.calculateAvgND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 1.0);
+            Assert.assertEquals(NestingDepths.calculateMaxND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 1.0);
+            Assert.assertEquals(NestingDepths.calculateMinND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 1.0);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testCalculateAvgND_nestedAnnotations_to_textLevelTests_FeatureFourTwo() {
+
+        File projectRoot = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\nested-annotations"));
+        FAXE faxe = new FAXE(projectRoot);
+
+        File searchPath = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\nested-annotations\\textLevelTests.txt"));
+        Feature feature = new Feature("FeatureFourTwo");
+
+        try {
+            Assert.assertEquals(NestingDepths.calculateAvgND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 2.0);
+            Assert.assertEquals(NestingDepths.calculateMaxND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 2.0);
+            Assert.assertEquals(NestingDepths.calculateMinND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 2.0);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testCalculateAvgND_nestedAnnotations_to_textLevelTests_FeatureFive() {
+
+        File projectRoot = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\nested-annotations"));
+        FAXE faxe = new FAXE(projectRoot);
+
+        File searchPath = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\nested-annotations\\textLevelTests.txt"));
+        Feature feature = new Feature("FeatureFive");
+
+        try {   // TODO - Get numbers confirmed
+            Assert.assertEquals(NestingDepths.calculateAvgND(faxe.getKnownAssets(), searchPath, feature, true), 2.0);
+            Assert.assertEquals(NestingDepths.calculateMaxND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 2.0);
+            Assert.assertEquals(NestingDepths.calculateMinND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 2.0);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testCalculateAvgND_nestedAnnotations_to_textLevelTests_FeatureSix() {
+
+        File projectRoot = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\nested-annotations"));
+        FAXE faxe = new FAXE(projectRoot);
+
+        File searchPath = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\nested-annotations\\textLevelTests.txt"));
+        Feature feature = new Feature("FeatureSix");
+
+        try {   // TODO - Get numbers confirmed
+            Assert.assertEquals(NestingDepths.calculateAvgND(faxe.getKnownAssets(), searchPath, feature, true), 2.0);
+            Assert.assertEquals(NestingDepths.calculateMaxND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 2.0);
+            Assert.assertEquals(NestingDepths.calculateMinND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 2.0);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testCalculateAvgND_nestedAnnotations_to_textLevelTests_FeatureSeven() {
+
+        File projectRoot = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\nested-annotations"));
+        FAXE faxe = new FAXE(projectRoot);
+
+        File searchPath = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\nested-annotations\\textLevelTests.txt"));
+        Feature feature = new Feature("FeatureSeven");
+
+        // Data: 7 appearances - Level 0, 1, 2, 3, 3, 3, 1 =>
+        try {
+            Assert.assertEquals(NestingDepths.calculateAvgND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 1.857, 0.001);
+            Assert.assertEquals(NestingDepths.calculateMaxND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 3.0);
+            Assert.assertEquals(NestingDepths.calculateMinND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 0.0);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testCalculateAvgND_nestedAnnotations_to_textLevelTests_FeatureC() {
+
+        File projectRoot = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\nested-annotations"));
+        FAXE faxe = new FAXE(projectRoot);
+
+        File searchPath = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\nested-annotations"));
+        Feature feature = new Feature("FeatureC");
+
+        try {
+            Assert.assertEquals(NestingDepths.calculateAvgND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 1.0);
+            Assert.assertEquals(NestingDepths.calculateMaxND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 1.0);
+            Assert.assertEquals(NestingDepths.calculateMinND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 1.0);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testCalculateAvgND_nestedAnnotations_to_textLevelTests_FeatureA() {
+
+        File projectRoot = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\nested-annotations"));
+        FAXE faxe = new FAXE(projectRoot);
+
+        File searchPath = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\nested-annotations"));
+        Feature feature = new Feature("FeatureA");
+
+        try {
+            Assert.assertEquals(NestingDepths.calculateAvgND(faxe.getKnownAssets(), searchPath, feature, true), 3.0);
+            Assert.assertEquals(NestingDepths.calculateMaxND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 3.0);
+            Assert.assertEquals(NestingDepths.calculateMinND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 3.0);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testCalculateAvgND_nestedAnnotations_to_textLevelTests_FeatureB() {
+
+        File projectRoot = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\nested-annotations"));
+        FAXE faxe = new FAXE(projectRoot);
+
+        File searchPath = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\nested-annotations"));
+        Feature feature = new Feature("FeatureB");
+
+        try {
+            Assert.assertEquals(NestingDepths.calculateAvgND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 2.0);
+            Assert.assertEquals(NestingDepths.calculateMaxND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 2.0);
+            Assert.assertEquals(NestingDepths.calculateMinND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 2.0);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }
