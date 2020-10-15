@@ -316,9 +316,10 @@ public class FAXE {
 
         System.out.println("Path    " + file.toString());
         System.out.println("Metric  " + metric);
-        System.out.println("Feature " + feature.getName());
+        if(feature!=null) {
+            System.out.println("Feature " + feature.getName());
+        }
 
-        //TanglingDegree.calculateTD(eaList,file,feature);
         double ret = -1;
         try {
             switch (metric) {
@@ -348,6 +349,9 @@ public class FAXE {
                     break;
                 case MinND:
                     ret = NestingDepths.calculateMinND(knownAssets, file, feature);
+                    break;
+                case NoF:
+                    ret = NumberOfFeatures.calculateNoF(knownAssets, file);
                     break;
                 default:
                     break;
