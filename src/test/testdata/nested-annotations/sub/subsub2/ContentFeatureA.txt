@@ -1,0 +1,22 @@
+
+&begin(FeatureA)
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    Sed sed risus ut metus blandit cursus nec eget arcu.
+    Etiam ultricies tortor vel aliquet iaculis.
+
+    Vestibulum ac ex pulvinar, dictum ligula vel, egestas metus.
+    Nulla eu elit lobortis, mollis tortor non, viverra justo.
+    Praesent porta erat dapibus, vehicula nulla in, interdum ante.
+    Pellentesque in leo sodales, congue erat eget, mattis ex.
+    Phasellus eu risus et diam elementum posuere.
+
+    Pellentesque sed lectus sit amet ante feugiat pellentesque vitae ut lorem.
+
+    Proin eleifend neque ut ornare sollicitudin.
+    Proin pulvinar lacus at rhoncus mattis.
+
+    Suspendisse volutpat libero sit amet enim gravida tincidunt.
+    Integer aliquet augue eget felis scelerisque varius.
+    Sed malesuada dolor non quam iaculis suscipit.
+    Duis et leo cursus diam cursus rutrum vestibulum in libero.
+&end(FeatureA)

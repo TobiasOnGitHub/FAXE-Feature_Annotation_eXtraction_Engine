@@ -1,0 +1,42 @@
+&begin(FeatureB)
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    Etiam quis purus in magna eleifend convallis a ut leo.
+    Ut eu urna a orci vulputate tempor.
+    Nunc vehicula felis ultrices mattis pharetra.
+
+    Phasellus sed felis at lacus ornare pellentesque id nec est.
+    Praesent blandit eros sit amet consequat gravida.
+    Phasellus ullamcorper odio non risus convallis, vitae interdum urna ultrices.
+    Nunc non felis cursus urna semper ullamcorper at ut diam.
+    Maecenas bibendum tellus nec leo commodo, pharetra finibus sapien tincidunt.
+
+    Vivamus semper purus id justo porttitor, ut accumsan tortor ultrices.
+    Donec volutpat dui nec ullamcorper sagittis.
+
+    In a dui eu neque tincidunt iaculis a blandit enim.
+    Phasellus ac tellus vel diam lobortis ullamcorper id vitae orci.
+
+    Nam nec justo id tellus eleifend venenatis vel eget risus.
+    Quisque tempor arcu ut felis mattis ultricies.
+    In vitae leo in mi cursus placerat vitae ut mauris.
+    Proin vel lectus volutpat tortor aliquam tempor.
+    Ut commodo erat hendrerit odio accumsan laoreet.
+
+    Nunc nec ligula scelerisque, tristique diam sit amet, bibendum augue.
+
+    Donec ut massa at massa placerat semper id et purus.
+    Suspendisse sit amet mauris non nisi laoreet sollicitudin.
+    Aenean ac sem sit amet lectus porttitor ultrices a aliquet eros.
+    Nullam ac diam et enim euismod ultricies accumsan vel ante.
+    In eget purus at tellus luctus ultrices.
+
+    Donec at nisl eu ante tempus luctus.
+
+    Sed in lectus bibendum, fringilla lacus id, sodales quam.
+    Vestibulum faucibus metus finibus, pretium nunc id, efficitur nunc.
+    Curabitur vestibulum nibh sit amet consequat euismod.
+
+    Mauris auctor enim id ante dapibus eleifend.
+    Maecenas vestibulum libero in risus maximus, a fermentum dui mattis.
+    Nulla quis urna et diam interdum tempus.
+&end(FeatureB)
