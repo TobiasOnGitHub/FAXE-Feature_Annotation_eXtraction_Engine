@@ -34,13 +34,15 @@ import java.util.ListIterator;
  * another textual annotation (e.g. &begin / &end) nor the containing file or any (parent-)folder contains a feature
  * annotation. Each textual, file and folder annotation increases the nesting depth by 1.
  * -> Independent of number of feature annotations to parent file/folder, depth is increased by 1
+ * -> Annotations are unweighted (independent of length of fragment annotation or if file/folder mapping
  */
 
 
 public class NestingDepths {
-    private static double AvgND = 0;
-    private static int MaxND = 0;
-    private static int MinND = 0;
+    private static int ND_DEFAULT_VALUE = -1;
+    private static double AvgND = ND_DEFAULT_VALUE;
+    private static int MaxND = ND_DEFAULT_VALUE;
+    private static int MinND = ND_DEFAULT_VALUE;
 
     /**
      * Calculate Average nesting depth: Nesting depth expresses the fact, how deep a feature annotation is
@@ -134,9 +136,9 @@ public class NestingDepths {
 
     private static void calculateND(TreeNode<Asset> fullAssetTree, File searchedPath, Feature searchFeature, boolean printFoundLocation) throws IOException {
         // Reset to avoid values of pre-run (static methods ...)
-        AvgND = 0;
-        MaxND = 0;
-        MinND = 0;
+        AvgND = ND_DEFAULT_VALUE;
+        MaxND = ND_DEFAULT_VALUE;
+        MinND = ND_DEFAULT_VALUE;
 
         if (!searchedPath.exists()) {
             throw new IOException("NestingDepths::calculateND ERROR: Given input path " + searchedPath + " not existing!");
@@ -160,14 +162,31 @@ public class NestingDepths {
                     /*******************************************/
                     /** CALCULATE NESTING FOR FILE AND FOLDER **/
                     /*******************************************/
-                    TreeNode<Asset> parent = node.parent();
+                    TreeNode<Asset> parent = node;  // Take the node itself to check the file annotation first
                     int fileLevel = 0;
                     while (parent != null) {
                         List<Annotation> annotationListParent = parent.data().getAnnotationList();
                         // increase level for all features above. Independent of their type and number per asset.
                         if (!annotationListParent.isEmpty()) {
-                            //System.out.println("   Annotation in parent=" +parent.data().getPath().getAbsolutePath());
-                            fileLevel++;
+                            for(Annotation parentAnnotation : annotationListParent){
+                                if(parentAnnotation instanceof AnnotationFile || parentAnnotation instanceof AnnotationFolder) {
+                                    // Check folder/file annotations for presence of searchedFeature
+                                    for(Annotation searchedFeatureAnnotation : annotationListParent){
+                                        if(searchedFeatureAnnotation.getLinkedFeatures().contains(searchFeature)){
+                                            if(searchedFeatureAnnotation instanceof AnnotationFile || searchedFeatureAnnotation instanceof AnnotationFolder) {
+                                                int level = 0; // Level 0 as basic file level and independent of file location
+                                                individualNestingDepts.add(0);
+                                                if (printFoundLocation) {
+                                                    System.out.println("   Feature " + searchFeature.toString() + " with level " + level + "(fileLevel=" + fileLevel + ") found in " + node.data().getPath());
+                                                }
+                                            }
+                                        }
+                                    }
+                                    //System.out.println("   Annotation in parent=" + parent.data().getPath().getAbsolutePath());
+                                    fileLevel++;
+                                    break; // First appearance sufficient to count file/folder
+                                }
+                            }
                         }
                         parent = parent.parent();
                     }
@@ -193,9 +212,9 @@ public class NestingDepths {
                                         // Line annotations are not overlapped by Fragments. File and Folder have level 0.
                                 } */
                             }
-                            if (printFoundLocation) {
-                                System.out.println("   Annotation Fragment has textLevel=" + textLevel + " at: " + ((AnnotationFragment) annotation).getStartline() + "-" + ((AnnotationFragment) annotation).getEndline());
-                            }
+                        }
+                        if (printFoundLocation) {
+                            System.out.println("   Annotation Fragment has textLevel=" + textLevel + " at: " + ((AnnotationFragment) annotation).getStartline() + "-" + ((AnnotationFragment) annotation).getEndline());
                         }
                     } else if (annotation.getClass().equals(AnnotationLine.class)) {
                         // Reverse iteration from back till front
@@ -217,11 +236,10 @@ public class NestingDepths {
                         }
                     }
 
-
                     int level = fileLevel + textLevel;
                     individualNestingDepts.add(level);
 
-                    if (MinND == 0 || level < MinND) {
+                    if (MinND == ND_DEFAULT_VALUE || level < MinND) {
                         MinND = level;
                     }
 
