@@ -37,8 +37,8 @@ public enum Metrics {
     // NoFi  ("NoFi"),       // Number of Files: number of all descendant files of the folder --> FAXE: NOT SUPPORTED AS NOT LINKED TO FEATURE CODE
     /* PROJECT METRICS */
     // NoF   ("NoF"),        // Number of features in project --> FAXE: COVERED WITH FIRST NOF AS PATH IS CONFIGURABLE TO FILE/FOLDER
-    pTotLoFC ("pTotLoFC"),// Total Lines of Feature Code: sum of LoFC (all features)
-    pAvgLoFC ("pAvgLoFC"),// Average Feature Lines of Code: sum of LoFC (all features) / NoF
+    // pTotLoFC ("pTotLoFC"),// Total Lines of Feature Code: sum of LoFC (all features)    --> Implicit available with LoFC and configuration to project scope
+    pAvgLoFC ("pAvgLoFC"),// Average Feature Lines of Feature Code: sum of LoFC (all features) / NoF
     pAvgND   ("pAvgND"),  // Average Feature Nesting Depth: sum of ND (all features) / NoF
     pAvgSD   ("pAvgSD"),  // Average Feature Scattering Degree: sum of SD (all features) / NoF
     COUNT    ("COUNT");   // Internal enum for going through all of them.
