@@ -195,7 +195,7 @@ public class NestingDepths {
                     /*************************************************/
                     /** Check in-file annotations for nesting depth **/
                     /*************************************************/
-                    int textLevel = 0;
+                    int textLevel = 1;
                     if (annotation.getClass().equals(AnnotationFragment.class)) {
                         // Reverse iteration from back till front
                         ListIterator<Annotation> listIterator = annotationList.listIterator(i);

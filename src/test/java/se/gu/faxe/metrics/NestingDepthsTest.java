@@ -38,9 +38,9 @@ public class NestingDepthsTest {
         Feature feature = new Feature("DonateCoins");
 
         try {
-            Assert.assertEquals(NestingDepths.calculateAvgND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 2.0);
-            Assert.assertEquals(NestingDepths.calculateMaxND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 2.0);
-            Assert.assertEquals(NestingDepths.calculateMinND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 2.0);
+            Assert.assertEquals(NestingDepths.calculateAvgND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 3.0);
+            Assert.assertEquals(NestingDepths.calculateMaxND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 3.0);
+            Assert.assertEquals(NestingDepths.calculateMinND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 3.0);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -77,9 +77,9 @@ public class NestingDepthsTest {
         Feature feature = new Feature("DonateCoins");
 
         try {
-            Assert.assertEquals(NestingDepths.calculateAvgND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 2.0);
-            Assert.assertEquals(NestingDepths.calculateMaxND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 2.0);
-            Assert.assertEquals(NestingDepths.calculateMinND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 2.0);
+            Assert.assertEquals(NestingDepths.calculateAvgND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 3.0);
+            Assert.assertEquals(NestingDepths.calculateMaxND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 3.0);
+            Assert.assertEquals(NestingDepths.calculateMinND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 3.0);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -107,9 +107,9 @@ public class NestingDepthsTest {
 //            Assert.assertEquals(NestingDepths.calculateAvgND(faxe.getKnownAssets(), new File(searchPath.getAbsolutePath().concat("\\service\\InactivityNotificationService.java")), feature/*, true*/), 1.57,0.01);
 
             // Main Test:
-            Assert.assertEquals(NestingDepths.calculateAvgND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 1.666, 0.001);
-            Assert.assertEquals(NestingDepths.calculateMaxND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 2.0);
-            Assert.assertEquals(NestingDepths.calculateMinND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 1.0);
+            Assert.assertEquals(NestingDepths.calculateAvgND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 2.666, 0.001);
+            Assert.assertEquals(NestingDepths.calculateMaxND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 3.0);
+            Assert.assertEquals(NestingDepths.calculateMinND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 2.0);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -126,9 +126,9 @@ public class NestingDepthsTest {
         Feature feature = new Feature("DonateCoins");
 
         try {
-            Assert.assertEquals(NestingDepths.calculateAvgND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 1.0);
-            Assert.assertEquals(NestingDepths.calculateMaxND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 1.0);
-            Assert.assertEquals(NestingDepths.calculateMinND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 1.0);
+            Assert.assertEquals(NestingDepths.calculateAvgND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 2.0);
+            Assert.assertEquals(NestingDepths.calculateMaxND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 2.0);
+            Assert.assertEquals(NestingDepths.calculateMinND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 2.0);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -144,9 +144,9 @@ public class NestingDepthsTest {
         Feature feature = new Feature("SweepPaperWallets");
 
         try {
-            Assert.assertEquals(NestingDepths.calculateAvgND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 1.0);
-            Assert.assertEquals(NestingDepths.calculateMaxND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 1.0);
-            Assert.assertEquals(NestingDepths.calculateMinND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 1.0);
+            Assert.assertEquals(NestingDepths.calculateAvgND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 2.0);
+            Assert.assertEquals(NestingDepths.calculateMaxND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 2.0);
+            Assert.assertEquals(NestingDepths.calculateMinND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 2.0);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -162,9 +162,9 @@ public class NestingDepthsTest {
         Feature feature = new Feature("BackupWallet");
 
         try {
-            Assert.assertEquals(NestingDepths.calculateAvgND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 0.833, 0.001);
-            Assert.assertEquals(NestingDepths.calculateMaxND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 3.0);
-            Assert.assertEquals(NestingDepths.calculateMinND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 0.0);
+            Assert.assertEquals(NestingDepths.calculateAvgND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 1.833, 0.001);
+            Assert.assertEquals(NestingDepths.calculateMaxND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 4.0);
+            Assert.assertEquals(NestingDepths.calculateMinND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 1.0);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -181,9 +181,9 @@ public class NestingDepthsTest {
         Feature feature = new Feature("FeatureOne");
 
         try {
-            Assert.assertEquals(NestingDepths.calculateAvgND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 0.0);
-            Assert.assertEquals(NestingDepths.calculateMaxND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 0.0);
-            Assert.assertEquals(NestingDepths.calculateMinND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 0.0);
+            Assert.assertEquals(NestingDepths.calculateAvgND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 1.0);
+            Assert.assertEquals(NestingDepths.calculateMaxND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 1.0);
+            Assert.assertEquals(NestingDepths.calculateMinND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 1.0);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -200,9 +200,9 @@ public class NestingDepthsTest {
         Feature feature = new Feature("FeatureOne");
 
         try {
-            Assert.assertEquals(NestingDepths.calculateAvgND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 0.0);
-            Assert.assertEquals(NestingDepths.calculateMaxND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 0.0);
-            Assert.assertEquals(NestingDepths.calculateMinND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 0.0);
+            Assert.assertEquals(NestingDepths.calculateAvgND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 1.0);
+            Assert.assertEquals(NestingDepths.calculateMaxND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 1.0);
+            Assert.assertEquals(NestingDepths.calculateMinND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 1.0);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -219,9 +219,9 @@ public class NestingDepthsTest {
         Feature feature = new Feature("FeatureTwo");
 
         try {
-            Assert.assertEquals(NestingDepths.calculateAvgND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 0.0);
-            Assert.assertEquals(NestingDepths.calculateMaxND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 0.0);
-            Assert.assertEquals(NestingDepths.calculateMinND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 0.0);
+            Assert.assertEquals(NestingDepths.calculateAvgND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 1.0);
+            Assert.assertEquals(NestingDepths.calculateMaxND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 1.0);
+            Assert.assertEquals(NestingDepths.calculateMinND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 1.0);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -238,9 +238,9 @@ public class NestingDepthsTest {
         Feature feature = new Feature("FeatureThree");
 
         try {
-            Assert.assertEquals(NestingDepths.calculateAvgND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 0.5);
-            Assert.assertEquals(NestingDepths.calculateMaxND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 1.0);
-            Assert.assertEquals(NestingDepths.calculateMinND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 0.0);
+            Assert.assertEquals(NestingDepths.calculateAvgND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 1.5);
+            Assert.assertEquals(NestingDepths.calculateMaxND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 2.0);
+            Assert.assertEquals(NestingDepths.calculateMinND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 1.0);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -257,9 +257,9 @@ public class NestingDepthsTest {
         Feature feature = new Feature("FeatureFour");
 
         try {
-            Assert.assertEquals(NestingDepths.calculateAvgND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 0.0);
-            Assert.assertEquals(NestingDepths.calculateMaxND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 0.0);
-            Assert.assertEquals(NestingDepths.calculateMinND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 0.0);
+            Assert.assertEquals(NestingDepths.calculateAvgND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 1.0);
+            Assert.assertEquals(NestingDepths.calculateMaxND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 1.0);
+            Assert.assertEquals(NestingDepths.calculateMinND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 1.0);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -276,9 +276,9 @@ public class NestingDepthsTest {
         Feature feature = new Feature("FeatureFourOne");
 
         try {
-            Assert.assertEquals(NestingDepths.calculateAvgND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 1.0);
-            Assert.assertEquals(NestingDepths.calculateMaxND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 1.0);
-            Assert.assertEquals(NestingDepths.calculateMinND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 1.0);
+            Assert.assertEquals(NestingDepths.calculateAvgND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 2.0);
+            Assert.assertEquals(NestingDepths.calculateMaxND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 2.0);
+            Assert.assertEquals(NestingDepths.calculateMinND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 2.0);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -295,9 +295,9 @@ public class NestingDepthsTest {
         Feature feature = new Feature("FeatureFourTwo");
 
         try {
-            Assert.assertEquals(NestingDepths.calculateAvgND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 2.0);
-            Assert.assertEquals(NestingDepths.calculateMaxND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 2.0);
-            Assert.assertEquals(NestingDepths.calculateMinND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 2.0);
+            Assert.assertEquals(NestingDepths.calculateAvgND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 3.0);
+            Assert.assertEquals(NestingDepths.calculateMaxND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 3.0);
+            Assert.assertEquals(NestingDepths.calculateMinND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 3.0);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -313,10 +313,10 @@ public class NestingDepthsTest {
         File searchPath = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\nested-annotations\\textLevelTests.txt"));
         Feature feature = new Feature("FeatureFive");
 
-        try {   // TODO - Get numbers confirmed
-            Assert.assertEquals(NestingDepths.calculateAvgND(faxe.getKnownAssets(), searchPath, feature, true), 2.0);
-            Assert.assertEquals(NestingDepths.calculateMaxND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 2.0);
-            Assert.assertEquals(NestingDepths.calculateMinND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 2.0);
+        try {
+            Assert.assertEquals(NestingDepths.calculateAvgND(faxe.getKnownAssets(), searchPath, feature, true), 1.0);
+            Assert.assertEquals(NestingDepths.calculateMaxND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 1.0);
+            Assert.assertEquals(NestingDepths.calculateMinND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 1.0);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -353,9 +353,9 @@ public class NestingDepthsTest {
 
         // Data: 7 appearances - Level 0, 1, 2, 3, 3, 3, 1 =>
         try {
-            Assert.assertEquals(NestingDepths.calculateAvgND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 1.857, 0.001);
-            Assert.assertEquals(NestingDepths.calculateMaxND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 3.0);
-            Assert.assertEquals(NestingDepths.calculateMinND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 0.0);
+            Assert.assertEquals(NestingDepths.calculateAvgND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 2.857, 0.001);
+            Assert.assertEquals(NestingDepths.calculateMaxND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 4.0);
+            Assert.assertEquals(NestingDepths.calculateMinND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 1.0);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -372,9 +372,9 @@ public class NestingDepthsTest {
         Feature feature = new Feature("FeatureC");
 
         try {
-            Assert.assertEquals(NestingDepths.calculateAvgND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 1.0);
-            Assert.assertEquals(NestingDepths.calculateMaxND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 1.0);
-            Assert.assertEquals(NestingDepths.calculateMinND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 1.0);
+            Assert.assertEquals(NestingDepths.calculateAvgND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 2.0);
+            Assert.assertEquals(NestingDepths.calculateMaxND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 2.0);
+            Assert.assertEquals(NestingDepths.calculateMinND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 2.0);
 
         } catch (IOException e) {
             e.printStackTrace();
