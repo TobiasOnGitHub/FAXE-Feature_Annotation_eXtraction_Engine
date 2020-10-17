@@ -93,6 +93,62 @@ public class LinesOfFeatureCode {
         }
     }
 
+    private static int getLinesOfFeatureCode(TreeNode<Asset> node, Annotation annotation, boolean printFoundLocation) throws IOException {
+        final int POSITION_UNKNOWN = -1;    // Value taken from MyCodeAnnotationsVisitor
+        int totalLoFC = 0;
+
+        if (annotation.getClass().equals(AnnotationLine.class)) {
+            totalLoFC++;
+        } else if (annotation.getClass().equals(AnnotationFragment.class)) {
+            if(((AnnotationFragment) annotation).getEndline()!=POSITION_UNKNOWN
+                && ((AnnotationFragment) annotation).getStartline()!=POSITION_UNKNOWN) {
+                totalLoFC += ((AnnotationFragment) annotation).getEndline() - ((AnnotationFragment) annotation).getStartline();
+                totalLoFC++; // Add one for the &end marker line
+            } else {
+                // Annotation incomplete -> Print error and skip it
+                System.out.println("LinesOfFeatureCode::getLinesOfFeatureCode ERROR: Incomplete Annotation: " +annotation.toString() +" at " +((AnnotationFragment) annotation).getStartline() +":" +((AnnotationFragment) annotation).getEndline());
+            }
+        } else if (annotation.getClass().equals(AnnotationFile.class)) {
+            totalLoFC += countLinesFile(node.data().getPath().getAbsolutePath());
+        } else if (annotation.getClass().equals(AnnotationFolder.class)) {
+            totalLoFC += countLinesFolder(node.data().getPath());
+        } else {
+            System.out.println("LinesOfFeatureCode::getLinesOfFeatureCode ERROR: UNKNOWN annotation type!");
+        }
+
+        if(printFoundLocation){
+            System.out.println("LinesOfFeatureCode::getLinesOfFeatureCode - Annotation " +annotation.toString() +" added. Total LoFC=" +totalLoFC);
+        }
+
+        return totalLoFC;
+    }
+
+    public static int calculateLoFCTotal(TreeNode<Asset> fullAssetTree, File searchedPath, boolean printFoundLocation) throws IOException {
+        int totalLoFC = 0;
+
+        if(!searchedPath.exists()){
+            throw new IOException("LinesOfFeatureCode::calculateLoFC ERROR: Given input path " +searchedPath +" not existing!");
+        }
+
+        // Reduce eaList to elements below searchedPath
+        TreeNode<Asset> searchRootNode = fullAssetTree.find(new Asset(searchedPath));
+        if(searchRootNode==null){
+            throw new IOException("LinesOfFeatureCode::calculateLoFC ERROR: Given inout path " +searchedPath +" not existing in fullAssetTree!");
+        }
+
+        // Iterate tree and gather scattering information
+        for (TreeNode<Asset> node : searchRootNode) {
+            //System.out.println("Testing Node = " +node.toString());
+            List<Annotation> annotationList = node.data().getAnnotationList();
+            for (Annotation annotation : annotationList) {
+                // Add all appearances of specific feature to sum
+                totalLoFC += getLinesOfFeatureCode(node, annotation, printFoundLocation);
+
+            }
+        }
+
+        return totalLoFC;
+    }
 
     public static int calculateLoFC(TreeNode<Asset> fullAssetTree, File searchedPath, Feature searchFeature) throws IOException {
         return calculateLoFC(fullAssetTree, searchedPath, searchFeature, false);
@@ -118,28 +174,14 @@ public class LinesOfFeatureCode {
             for (Annotation annotation : annotationList) {
                 if (annotation.getLinkedFeatures().contains(searchFeature)) {
                     // Add all appearances of specific feature to sum
-                    if(annotation.getClass().equals(AnnotationLine.class)){
-                        lofc ++;
-                    } else if(annotation.getClass().equals(AnnotationFragment.class)){
-                        lofc += ((AnnotationFragment) annotation).getEndline() - ((AnnotationFragment) annotation).getStartline();
-                        lofc ++; // Add one for the &end marker line
-                    } else if (annotation.getClass().equals(AnnotationFile.class)){
-                        lofc += countLinesFile(node.data().getPath().getAbsolutePath());
-                    } else if (annotation.getClass().equals(AnnotationFolder.class)){
-                        lofc += countLinesFolder(node.data().getPath());
-                    } else {
-                        System.out.println("LinesOfFeatureCode::calculateLoFC ERROR: UNKNOWN annotation type!");
-                    }
+                    lofc += getLinesOfFeatureCode(node, annotation, printFoundLocation);
 
                     if (printFoundLocation) {
                         System.out.println("   Feature " + searchFeature.toString() + " found in " + node.data().getPath());
                     }
                 }
             }
-
         }
-
-        //System.out.println("Scattering Degree = " +sd);
 
         return lofc;
     }
