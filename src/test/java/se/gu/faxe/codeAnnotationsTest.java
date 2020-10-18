@@ -50,7 +50,7 @@ public class codeAnnotationsTest {
 
     @Test
     public void testVisitMarker_WithFile_ExchangeRatesAdapter(){
-        File fileUnderTest = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\bitcoin-wallet\\ui\\ExchangeRatesAdapter.java"));
+        File fileUnderTest = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/ui/ExchangeRatesAdapter.java"));
 
         CharStream in = null;
         try {
@@ -87,7 +87,7 @@ public class codeAnnotationsTest {
 
     @Test
     public void testVisitMarker_WithFile_ExchangeRatesFragment(){
-        File fileUnderTest = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\bitcoin-wallet\\ui\\ExchangeRatesFragment.java"));
+        File fileUnderTest = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/ui/ExchangeRatesFragment.java"));
 
         CharStream in = null;
         try {
@@ -477,7 +477,7 @@ public class codeAnnotationsTest {
 ////    @Test
 ////    public void testCodeAnnotation_extractEAfromSourceCode(){
 ////
-////        String filePath = "test\\testData_codeAnnotations.txt";
+////        String filePath = "test/testData_codeAnnotations.txt";
 ////        List<EmbeddedAnnotation> eaList = FAXE.extractEAfromSourceCode(filePath);
 ////
 ////        System.out.println("x");
