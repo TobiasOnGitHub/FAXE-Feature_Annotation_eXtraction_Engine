@@ -110,10 +110,15 @@ public class FAXE {
                     /***************************************/
                     /** Merge mapping file data to Assets **/
                     /***************************************/
+                    assert eaList != null;
                     for(Pair<File,AnnotationFile> pair : eaList){
                         TreeNode<Asset> nodeAsset = knownAssets.find(new Asset(pair.getValue0()));
-                        Asset asset = nodeAsset.data();
-                        asset.addAnnotation(pair.getValue1());
+                        if(nodeAsset!=null) {
+                            Asset asset = nodeAsset.data();
+                            asset.addAnnotation(pair.getValue1());
+                        } else {
+                            System.out.println("FAXE::getEmbeddedAnnotations - ERROR: Pair=" +pair.toString() +" not found in knownAssets: " +knownAssets.toString());
+                        }
                     }
                 } else if(file.getName().endsWith(".feature-model")
                         | file.getName().endsWith("feature-model")
