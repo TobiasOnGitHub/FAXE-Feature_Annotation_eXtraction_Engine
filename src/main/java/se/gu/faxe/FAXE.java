@@ -175,7 +175,7 @@ public class FAXE {
             in = CharStreams.fromFileName(assetToAnalyze.getPath().getAbsolutePath());
         } catch (IOException e) {
             try {
-                System.out.println("No file found: " +(new File(".").getCanonicalPath()) + "\\" +assetToAnalyze.getPath().getAbsolutePath());
+                System.out.println("No file found: " +(new File(".").getCanonicalPath()) +File.separator +assetToAnalyze.getPath().getAbsolutePath());
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
@@ -218,7 +218,7 @@ public class FAXE {
             in = CharStreams.fromFileName(assetToAnalyze.getPath().getAbsolutePath());
         } catch (IOException e) {
             try {
-                System.out.println("No file found: " +(new File(".").getCanonicalPath()) + "\\" +assetToAnalyze.getPath().getAbsolutePath());
+                System.out.println("No file found: " +(new File(".").getCanonicalPath()) +File.separator +assetToAnalyze.getPath().getAbsolutePath());
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }
@@ -256,7 +256,7 @@ public class FAXE {
             in = CharStreams.fromFileName(assetToAnalyze.getPath().getAbsolutePath());
         } catch (IOException e) {
             try {
-                System.out.println("No file found: " +(new File(".").getCanonicalPath()) + "\\" +assetToAnalyze.getPath().getAbsolutePath());
+                System.out.println("No file found: " +(new File(".").getCanonicalPath()) +File.separator +assetToAnalyze.getPath().getAbsolutePath());
             } catch (IOException ioException) {
                 ioException.printStackTrace();
             }

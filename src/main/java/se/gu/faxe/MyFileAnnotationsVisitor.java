@@ -51,11 +51,11 @@ public class MyFileAnnotationsVisitor extends fileAnnotationsBaseVisitor<Object>
         for(String file : fileReferences){
             // "file" is provided in feature-file with relative path -> adjust this path to its project root
             String annotationFilePath = ctx.start.getInputStream().getSourceName();
-            int endIndex = annotationFilePath.lastIndexOf("\\");
+            int endIndex = annotationFilePath.lastIndexOf(File.separator);
             if (endIndex != -1) {
                 annotationFilePath = annotationFilePath.substring(0, endIndex);
             }
-            file = annotationFilePath+"\\"+file;
+            file = annotationFilePath +File.separator +file;
 
             // Verify that file actually exist, if not print warning
             if(new File(file).exists()==false){
