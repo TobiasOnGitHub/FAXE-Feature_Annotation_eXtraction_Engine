@@ -76,13 +76,13 @@ public class NumberOfAnnotatedFiles {
         int NoFiA = 0;
 
         if(!searchedPath.exists()){
-            throw new IOException("ScatteringDegree::calculateSD ERROR: Given inout path " +searchedPath +" not existing!");
+            throw new IOException("NumberOfAnnotatedFiles::calculateNoFA ERROR: Given inout path " +searchedPath +" not existing!");
         }
 
         // Reduce eaList to elements below searchedPath
         TreeNode<Asset> searchRootNode = fullAssetTree.find(new Asset(searchedPath));
         if(searchRootNode==null){
-            throw new IOException("ScatteringDegree::calculateSD ERROR: Given inout path " +searchedPath +" not existing in fullAssetTree!");
+            throw new IOException("NumberOfAnnotatedFiles::calculateNoFA ERROR: Given inout path " +searchedPath +" not existing in fullAssetTree!");
         }
 
         // Iterate tree and gather information
