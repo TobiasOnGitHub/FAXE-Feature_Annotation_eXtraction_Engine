@@ -123,20 +123,20 @@ public class LinesOfFeatureCodeTest {
         }
     }
 
-    @Test
-    public void testCalculateLoFCTotal_File_BlockchainService() {
-
-        File projectRoot = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\bitcoin-wallet\\service"));
-        FAXE faxe = new FAXE(projectRoot);
-
-        File searchPath = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\bitcoin-wallet\\service\\BlockchainService.java"));
-
-        try {
-            Assert.assertEquals(LinesOfFeatureCode.calculateLoFCTotal(faxe.getKnownAssets(), searchPath, true), 181);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+//    @Test
+//    public void testCalculateLoFCTotal_File_BlockchainService() {
+//
+//        File projectRoot = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\bitcoin-wallet\\service"));
+//        FAXE faxe = new FAXE(projectRoot);
+//
+//        File searchPath = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\bitcoin-wallet\\service\\BlockchainService.java"));
+//
+//        try {
+//            Assert.assertEquals(LinesOfFeatureCode.calculateLoFCTotal(faxe.getKnownAssets(), searchPath, true), 181);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
 //    @Test
 //    public void testCalculateLoFCTotal_File_BlockchainState() {
