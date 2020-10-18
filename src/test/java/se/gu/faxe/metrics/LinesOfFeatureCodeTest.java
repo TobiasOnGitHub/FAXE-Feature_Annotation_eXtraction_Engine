@@ -13,10 +13,10 @@ public class LinesOfFeatureCodeTest {
     @Test
     public void testCalculateLoFC_Line_InactivityNotificationService_Fee() {
 
-        File projectRoot = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\bitcoin-wallet\\service"));
+        File projectRoot = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/service"));
         FAXE faxe = new FAXE(projectRoot);
 
-        File searchPath = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\bitcoin-wallet\\service\\InactivityNotificationService.java"));
+        File searchPath = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/service/InactivityNotificationService.java"));
         Feature feature = new Feature("Fee");
 
         try {
@@ -29,10 +29,10 @@ public class LinesOfFeatureCodeTest {
     @Test
     public void testCalculateLoFC_Fragment_BlockchainState_BlockchainSync() {
 
-        File projectRoot = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\bitcoin-wallet\\service"));
+        File projectRoot = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/service"));
         FAXE faxe = new FAXE(projectRoot);
 
-        File searchPath = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\bitcoin-wallet\\service\\BlockchainState.java"));
+        File searchPath = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/service/BlockchainState.java"));
         Feature feature = new Feature("BlockchainSync");
 
         try {
@@ -45,10 +45,10 @@ public class LinesOfFeatureCodeTest {
     @Test
     public void testCalculateLoFC_Fragment_InactivityNotificationService_DonateCoins() {
 
-        File projectRoot = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\bitcoin-wallet\\service"));
+        File projectRoot = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/service"));
         FAXE faxe = new FAXE(projectRoot);
 
-        File searchPath = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\bitcoin-wallet\\service\\InactivityNotificationService.java"));
+        File searchPath = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/service/InactivityNotificationService.java"));
         Feature feature = new Feature("DonateCoins");
 
         try {
@@ -61,10 +61,10 @@ public class LinesOfFeatureCodeTest {
     @Test
     public void testCalculateLoFC_File_Logging_BitcoinBalance() {
 
-        File projectRoot = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\bitcoin-wallet"));
+        File projectRoot = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet"));
         FAXE faxe = new FAXE(projectRoot);
 
-        File searchPath = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\bitcoin-wallet\\Logging.java"));
+        File searchPath = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/Logging.java"));
         Feature feature = new Feature("BitcoinBalance");
 
         try {
@@ -77,10 +77,10 @@ public class LinesOfFeatureCodeTest {
     @Test
     public void testCalculateLoFC_File_Logging_AppLog() {
 
-        File projectRoot = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\bitcoin-wallet"));
+        File projectRoot = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet"));
         FAXE faxe = new FAXE(projectRoot);
 
-        File searchPath = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\bitcoin-wallet\\Logging.java"));
+        File searchPath = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/Logging.java"));
         Feature feature = new Feature("AppLog");
 
         try {
@@ -94,10 +94,10 @@ public class LinesOfFeatureCodeTest {
     @Test
     public void testCalculateLoFC_Folder_subfolder_Subfolder() {
 
-        File projectRoot = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\feature-to-folder"));
+        File projectRoot = new File(new File("").getAbsolutePath().concat("/src/test/testdata/feature-to-folder"));
         FAXE faxe = new FAXE(projectRoot);
 
-        File searchPath = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\feature-to-folder\\subfolder"));
+        File searchPath = new File(new File("").getAbsolutePath().concat("/src/test/testdata/feature-to-folder/subfolder"));
         Feature feature = new Feature("Subfolder");
 
         try {
@@ -110,10 +110,10 @@ public class LinesOfFeatureCodeTest {
     @Test
     public void testCalculateLoFC_Folder_featureToFolder_MainFolder() {
 
-        File projectRoot = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\feature-to-folder"));
+        File projectRoot = new File(new File("").getAbsolutePath().concat("/src/test/testdata/feature-to-folder"));
         FAXE faxe = new FAXE(projectRoot);
 
-        File searchPath = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\feature-to-folder"));
+        File searchPath = new File(new File("").getAbsolutePath().concat("/src/test/testdata/feature-to-folder"));
         Feature feature = new Feature("MainFolder");
 
         try {
@@ -126,10 +126,10 @@ public class LinesOfFeatureCodeTest {
 //    @Test
 //    public void testCalculateLoFCTotal_File_BlockchainService() {
 //
-//        File projectRoot = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\bitcoin-wallet\\service"));
+//        File projectRoot = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/service"));
 //        FAXE faxe = new FAXE(projectRoot);
 //
-//        File searchPath = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\bitcoin-wallet\\service\\BlockchainService.java"));
+//        File searchPath = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/service/BlockchainService.java"));
 //
 //        try {
 //            Assert.assertEquals(LinesOfFeatureCode.calculateLoFCTotal(faxe.getKnownAssets(), searchPath, true), 181);
@@ -141,10 +141,10 @@ public class LinesOfFeatureCodeTest {
 //    @Test
 //    public void testCalculateLoFCTotal_File_BlockchainState() {
 //
-//        File projectRoot = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\bitcoin-wallet\\service"));
+//        File projectRoot = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/service"));
 //        FAXE faxe = new FAXE(projectRoot);
 //
-//        File searchPath = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\bitcoin-wallet\\service\\BlockchainState.java"));
+//        File searchPath = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/service/BlockchainState.java"));
 //
 //        try {
 //            Assert.assertEquals(LinesOfFeatureCode.calculateLoFCTotal(faxe.getKnownAssets(), searchPath, true), 5);

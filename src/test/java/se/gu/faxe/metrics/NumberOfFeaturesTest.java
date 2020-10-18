@@ -11,10 +11,10 @@ public class NumberOfFeaturesTest {
 
     @Test
     public void testCalculateNoF_File_WalletBalanceFragment(){
-        File projectRoot = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\bitcoin-wallet\\ui"));
+        File projectRoot = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/ui"));
         FAXE faxe = new FAXE(projectRoot);
 
-        File searchPath = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\bitcoin-wallet\\ui\\WalletBalanceFragment.java"));
+        File searchPath = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/ui/WalletBalanceFragment.java"));
 
         try {
             Assert.assertEquals(NumberOfFeatures.calculateNoF(faxe.getKnownAssets(), searchPath/*, true*/), 7);
@@ -25,10 +25,10 @@ public class NumberOfFeaturesTest {
 
     @Test
     public void testCalculateNoF_File_WalletViewModel(){
-        File projectRoot = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\bitcoin-wallet\\ui"));
+        File projectRoot = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/ui"));
         FAXE faxe = new FAXE(projectRoot);
 
-        File searchPath = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\bitcoin-wallet\\ui\\WalletViewModel.java"));
+        File searchPath = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/ui/WalletViewModel.java"));
 
         try {
             Assert.assertEquals(NumberOfFeatures.calculateNoF(faxe.getKnownAssets(), searchPath/*, true*/), 1);
@@ -39,10 +39,10 @@ public class NumberOfFeaturesTest {
 
     @Test
     public void testCalculateNoF_File_RequestCoinsFragment(){
-        File projectRoot = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\bitcoin-wallet\\ui"));
+        File projectRoot = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/ui"));
         FAXE faxe = new FAXE(projectRoot);
 
-        File searchPath = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\bitcoin-wallet\\ui\\RequestCoinsFragment.java"));
+        File searchPath = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/ui/RequestCoinsFragment.java"));
 
         try {
             Assert.assertEquals(NumberOfFeatures.calculateNoF(faxe.getKnownAssets(), searchPath/*, true*/), 13);
@@ -53,10 +53,10 @@ public class NumberOfFeaturesTest {
 
     @Test
     public void testCalculateNoF_Folder_scan(){
-        File projectRoot = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\bitcoin-wallet\\ui\\scan"));
+        File projectRoot = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/ui/scan"));
         FAXE faxe = new FAXE(projectRoot);
 
-        File searchPath = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\bitcoin-wallet\\ui\\scan"));
+        File searchPath = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/ui/scan"));
 
         try {
             Assert.assertEquals(NumberOfFeatures.calculateNoF(faxe.getKnownAssets(), searchPath/*, true*/), 1);
@@ -67,10 +67,10 @@ public class NumberOfFeaturesTest {
 
     @Test
     public void testCalculateNoF_Folder_ui(){
-        File projectRoot = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\bitcoin-wallet\\ui"));
+        File projectRoot = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/ui"));
         FAXE faxe = new FAXE(projectRoot);
 
-        File searchPath = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\bitcoin-wallet\\ui"));
+        File searchPath = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/ui"));
 
         try {
             Assert.assertEquals(NumberOfFeatures.calculateNoF(faxe.getKnownAssets(), searchPath/*, true*/), 55);
@@ -81,10 +81,10 @@ public class NumberOfFeaturesTest {
 
     @Test
     public void testCalculateNoF_Folder_bitcoinWallet(){
-        File projectRoot = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\bitcoin-wallet"));
+        File projectRoot = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet"));
         FAXE faxe = new FAXE(projectRoot);
 
-        File searchPath = new File(new File("").getAbsolutePath().concat("\\src\\test\\testdata\\bitcoin-wallet"));
+        File searchPath = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet"));
 
         try {
             // FeatureDashboard reports 63, but here added LPQ Bluetooth::Codecs -> 64
