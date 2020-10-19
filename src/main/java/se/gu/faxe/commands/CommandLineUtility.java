@@ -100,12 +100,12 @@ class Get implements Callable<Integer> {
                 //System.out.println("File name: " +file.toString());
 
                 //eaList = FAXE.getEmbeddedAnnotations(path);
-                Asset asset = null;
+                TreeNode<Asset> asset = null;
                 if(faxe==null){
                     // initialize FAXE
                     faxe = new FAXE(path.getParentFile());
-                    asset = faxe.getEmbeddedAnnotationsFromTextAsset(new Asset(path));
-                    for ( Annotation ass : asset.getAnnotationList()) {
+                    asset = faxe.getEmbeddedAnnotations(path);
+                    for ( Annotation ass : asset.data().getAnnotationList()) {
                         for (Feature f : ass.getLinkedFeatures()){
                             if (featureLPQ == "" || f.toString().equals(featureLPQ)) {
                                 if (ass instanceof AnnotationFragment) {
