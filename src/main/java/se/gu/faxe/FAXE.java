@@ -26,15 +26,25 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * FAXE is an open source library (Apache 2.0) for parsing and receiving embedded annotations from software projects.
+ */
 public class FAXE {
 
     private TreeNode<Asset> knownAssets;
     private FeatureModel featureModel = null;
 
+    /**
+     * Default constructor to create an empty FAXE object.
+     */
     public FAXE(){
 
     }
 
+    /**
+     * Create a FAXE instance, containing the parsed embedded annotations data from the given folder path
+     * @param rootDirectory File folder path to root directory of project
+     */
     public FAXE(File rootDirectory){
         if(rootDirectory==null){
             throw new IllegalArgumentException("FAXE::FAXE Given rootDirectory equals NULL!");
@@ -77,10 +87,19 @@ public class FAXE {
                 '}';
     }
 
+    /**
+     * Request tree object of all known assets.
+     * @return Tree object of known assets.
+     */
     public TreeNode<Asset> getKnownAssets() {
         return knownAssets;
     }
 
+    /**
+     * Request embedded annotation information for given directory.
+     * @param rootDirectory File directory to analyze for embedded annotations.
+     * @return Tree object with embedded annotated assets.
+     */
     public TreeNode<Asset> getEmbeddedAnnotations(File rootDirectory) {
 
         for (File file : rootDirectory.listFiles()) {
@@ -152,6 +171,13 @@ public class FAXE {
         return knownAssets;
     }
 
+    /**
+     * Request all embedded annotations for one specific feature, inside the given directory.
+     * @param rootDirectory File directory to analyze.
+     * @param feature Feature of interest.
+     * @return List of annotations.
+     * @throws UnsupportedOperationException
+     */
     public static List<Annotation> getEmbeddedAnnotations(File rootDirectory, Feature feature) throws UnsupportedOperationException {
         System.out.println("UC7 - Return all embedded annotations for one specific feature");
         System.out.println("Search for Feature " +feature);
@@ -159,16 +185,20 @@ public class FAXE {
         throw new UnsupportedOperationException();
     }
 
+    /**
+     * Create feature model file.
+     * @param fmAsset Asset object
+     */
     void getEmbeddedAnnotationsFeatureModel(Asset fmAsset){
         featureModel = new FeatureModel(fmAsset.getPath());
     }
 
     /**
-     * Method to extract embedded annotations on source code level of given file.
-     * @param assetToAnalyze Asset object to be analyzed file.
+     * Extract embedded annotations from text asset, based on given file asset.
+     * @param assetToAnalyze Asset file object to be analyzed file.
      * @return List of found embedded annotations.
      */
-    public Asset getEmbeddedAnnotationsFromTextAsset(Asset assetToAnalyze){
+    private Asset getEmbeddedAnnotationsFromTextAsset(Asset assetToAnalyze){
         //System.out.println(">> getEmbeddedAnnotationsFromTextAsset - File " +assetToAnalyze.getPath());
         CharStream in = null;
         try {
@@ -212,7 +242,7 @@ public class FAXE {
      * @param assetToAnalyze Asset object to be analyzed file.
      * @return List of found embedded annotations.
      */
-    private static List<Pair<File,AnnotationFile>> getEmbeddedAnnotationsFromFeatureFileMapping(Asset assetToAnalyze){
+    private List<Pair<File,AnnotationFile>> getEmbeddedAnnotationsFromFeatureFileMapping(Asset assetToAnalyze){
         CharStream in = null;
         try {
             in = CharStreams.fromFileName(assetToAnalyze.getPath().getAbsolutePath());
@@ -296,8 +326,8 @@ public class FAXE {
 
     /**
      * Renames given LPQ by new LPQ name. Changes are done permanent in file System.
-     * @param lpq_before
-     * @param lpq_after
+     * @param lpq_before Feature to be renamed
+     * @param lpq_after New feature name
      * @return Count of changed appearances.
      * @throws UnsupportedOperationException
      */
@@ -305,17 +335,31 @@ public class FAXE {
         throw new UnsupportedOperationException();
     }
 
-    public int getMetrics(File file, Metrics metric, Feature feature, boolean export) {
+    /**
+     * Request specific embedded annotation metric for given file and for some metrics feature.
+     * @param file Path of file/folder to calculate metric of.
+     * @param metric Metric which shall be calculated.
+     * @param feature Feature to be used for calculation.
+     * @param export Flag to export metric information. True to export.
+     * @return Metric value.
+     */
+    public double getMetrics(File file, Metrics metric, Feature feature, boolean export) {
+        throw new UnsupportedOperationException();
 
-        getMetrics(file, metric, feature);
-
-        if(export) {
-            // TODO - Handling export if true
-        }
-
-        return 0;
+//        double retMetric = getMetrics(file, metric, feature);
+//        if(export) {
+//            // TODO - Handling export if true
+//        }
+//        return retMetric;
     }
 
+    /**
+     * Request specific embedded annotation metric for given file and for some metrics feature.
+     * @param file Path of file/folder to calculate metric of.
+     * @param metric Metric which shall be calculated.
+     * @param feature Feature to be used for calculation.
+     * @return Metric value.
+     */
     public double getMetrics(File file, Metrics metric, Feature feature) {
 //        System.out.println(">>> FAXE.getMetrics(File, Metrics, LPQ)");
 
@@ -374,8 +418,8 @@ public class FAXE {
      * Check consistency according to embedded annotation specification and returns detected {@link ConsistencyViolation}s
      * Check is performed for one file or a folder, including sub-assets. Consistency violations checked for:
      * - Feature (LPQ) not part of FeatureModel + give recommendation which existing one could fit.
-     * @param file
-     * @return
+     * @param file File/Folder to check for embedded annotation consistency
+     * @return List of violation of the embedded annotation specification
      * @throws UnsupportedOperationException
      */
     public List<ConsistencyViolation> checkConsistency(File file) throws UnsupportedOperationException {
@@ -384,11 +428,14 @@ public class FAXE {
     }
 
 
-
+    /**
+     * Serialize the currently stored feature mode and known assets to JSON format.
+     * The output is stored into the same directory as the FAXE library is located.
+     */
     public void serializeToJSON(){
 
         /*******************/
-        /** FEAUTRE MODEL **/
+        /** FEATURE MODEL **/
         /*******************/
         // Creating JSON objects with org.json or Jackson library not possible.
         // TreeNode object has no good way to store the data and show its hierarchy.
@@ -414,17 +461,11 @@ public class FAXE {
         /*******************/
         /** KNOWN ASSETS  **/
         /*******************/
-
-//        FeatureSerializer  featureSerializer  = new FeatureSerializer(Feature.class);
         TreeNodeSerializer treeNodeSerializer = new TreeNodeSerializer(TreeNode.class);
         ObjectMapper objectMapper = new ObjectMapper();
-//        SimpleModule moduleFeature = new SimpleModule("FeatureSerializer", new Version(2, 1, 3, null, null, null));
-//        moduleFeature.addSerializer(Feature.class, featureSerializer);
-//        objectMapper.registerModule(moduleFeature);
         SimpleModule moduleTreeNode = new SimpleModule("TreeNodeSerializer", new Version(2, 1, 3, null, null, null));
         moduleTreeNode.addSerializer(TreeNode.class, treeNodeSerializer);
         objectMapper.registerModule(moduleTreeNode);
-
 
 
         List<TreeNode<Asset>> assetList = new ArrayList<TreeNode<Asset>>();
@@ -455,16 +496,15 @@ public class FAXE {
     /**
      * Try to transform given String into a JSONObject or JSONArray. In case of exception this is not the case.
      * Implementation taken from https://stackoverflow.com/questions/10174898/how-to-check-whether-a-given-string-is-valid-json-in-java/10174938#10174938
-     * TODO - DISCUSS IF OK THAT WAY
-     * @param test
-     * @return
+     * @param json Object to be tested if conform to JSON format.
+     * @return True, if input has valid JSON format. False otherwise.
      */
-    private boolean isJSONValid(String test) {
+    private boolean isJSONValid(String json) {
         try {
-            new JSONObject(test);
+            new JSONObject(json);
         } catch (JSONException ex) {
             try {
-                new JSONArray(test);
+                new JSONArray(json);
             } catch (JSONException ex1) {
                 return false;
             }
@@ -478,9 +518,10 @@ public class FAXE {
      * @param jsonArray JSON object
      * @return List of {@link Annotation} out of parameter.
      */
-    private static List<Annotation> deserializeEAList2JSON(JSONArray jsonArray){
-        ArrayList<Annotation> list = new ArrayList<>();
+    private static List<Annotation> deserializeFromJSON(JSONArray jsonArray) throws UnsupportedOperationException {
+        throw new UnsupportedOperationException();
 
+//        ArrayList<Annotation> list = new ArrayList<>();
 //        if (jsonArray != null) {
 //            for (int i=0;i<jsonArray.length();i++){
 //                list.add(EmbeddedAnnotation.deserialize(jsonArray.get(i).toString()));
@@ -488,8 +529,7 @@ public class FAXE {
 //        } else {
 //            System.out.println("WARNING: deserializeEAList2JSON - empty JSONArray file (null)!");
 //        }
-
-        return list;
+//        return list;
     }
 
 }
