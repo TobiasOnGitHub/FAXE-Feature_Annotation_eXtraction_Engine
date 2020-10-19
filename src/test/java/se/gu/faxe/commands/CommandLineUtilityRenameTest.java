@@ -19,7 +19,7 @@ public class CommandLineUtilityRenameTest {
         StringWriter sw = new StringWriter();
         cmd.setOut(new PrintWriter(sw));
 
-        int exitCode = cmd.execute("rename", new File("").getAbsolutePath().concat("\\src\\test\\testdata\\bitcoin-wallet\\ui\\WalletTransactionsFragment.java"), "FromFeatureName", "ToFeatureName");
+        int exitCode = cmd.execute("rename", new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/ui/WalletTransactionsFragment.java"), "FromFeatureName", "ToFeatureName");
         assertEquals(0, exitCode);
     }
 
@@ -31,7 +31,7 @@ public class CommandLineUtilityRenameTest {
         StringWriter sw = new StringWriter();
         cmd.setOut(new PrintWriter(sw));
 
-        int exitCode = cmd.execute("rename", new File("").getAbsolutePath().concat("\\src\\test\\testdata\\bitcoin-wallet\\ui"), "FromFeatureName", "ToFeatureName");
+        int exitCode = cmd.execute("rename", new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/ui"), "FromFeatureName", "ToFeatureName");
         assertEquals(0, exitCode);
     }
 }

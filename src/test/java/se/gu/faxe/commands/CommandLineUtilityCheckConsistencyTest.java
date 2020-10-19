@@ -19,7 +19,7 @@ public class CommandLineUtilityCheckConsistencyTest {
         StringWriter sw = new StringWriter();
         cmd.setOut(new PrintWriter(sw));
 
-        int exitCode = cmd.execute("checkConsistency", new File("").getAbsolutePath().concat("\\src\\test\\testdata\\bitcoin-wallet\\ui\\WalletTransactionsFragment.java"));
+        int exitCode = cmd.execute("checkConsistency", new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/ui/WalletTransactionsFragment.java"));
         assertEquals(0, exitCode);
     }
 
@@ -31,7 +31,7 @@ public class CommandLineUtilityCheckConsistencyTest {
         StringWriter sw = new StringWriter();
         cmd.setOut(new PrintWriter(sw));
 
-        int exitCode = cmd.execute("checkConsistency", new File("").getAbsolutePath().concat("\\src\\test\\testdata\\bitcoin-wallet\\ui"));
+        int exitCode = cmd.execute("checkConsistency", new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/ui"));
         assertEquals(0, exitCode);
     }
 
