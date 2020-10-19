@@ -1,48 +1,98 @@
 package se.gu.faxe;
 
+import com.scalified.tree.TreeNode;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import se.gu.faxe.metrics.Metrics;
 
 import java.io.File;
+import java.util.List;
 
 public class FAXETest {
 
     @Test
-    public void FAXE(){
+    public void testFAXE_NotNull(){
         File f = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet"));
-
         FAXE faxe = new FAXE(f);
+        Assert.assertNotNull(faxe);
+    }
 
-        File testMetricsOnThisFile = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/ui"));
-        //File testMetricsOnThisFile = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/ui/WalletBalanceFragment.java"));
-        faxe.getMetrics(testMetricsOnThisFile, Metrics.SD, new Feature("SendCoins"));
-        //System.out.println("x");
+    @Test
+    public void testGetKnownAssets_NotNull(){
+        FAXE faxe = new FAXE(new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/data")));
+
+        TreeNode<Asset> knownAssets = faxe.getKnownAssets();
+        Assert.assertNotNull(knownAssets);
+    }
+
+    @Test
+    public void testGetEmbeddedAnnotations_NotNull(){
+        FAXE faxe = new FAXE(new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/data")));
+
+        File f = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/data"));
+        TreeNode<Asset> assets = faxe.getEmbeddedAnnotations(f);
+        Assert.assertNotNull(assets);
+    }
+
+    @Test(expectedExceptions = UnsupportedOperationException.class)
+    public void testGetEmbeddedAnnotations_throwUnsupportedOperation(){
+        FAXE faxe = new FAXE(new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/data")));
+
+        File f = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/data"));
+        List<Annotation> listAnnotations = faxe.getEmbeddedAnnotations(f, new Feature("AddressBook"));
+    }
+
+    @Test(expectedExceptions = UnsupportedOperationException.class)
+    public void testGetEmbeddedAnnotationContent_throwUnsupportedOperation(){
+        FAXE faxe = new FAXE(new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/data")));
+
+        File f = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/data"));
+        faxe.getEmbeddedAnnotationContent(new AnnotationLine(new Feature("F"), 0));
+    }
+
+    @Test(expectedExceptions = UnsupportedOperationException.class)
+    public void testGetMappedEmbeddedAnnotationContentFile_throwUnsupportedOperation(){
+        FAXE faxe = new FAXE(new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/data")));
+
+        File f = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/data"));
+        faxe.getMappedEmbeddedAnnotationContentFile(new AnnotationLine(new Feature("F"), 0));
+    }
+
+    @Test(expectedExceptions = UnsupportedOperationException.class)
+    public void testRenameFeatureName_throwUnsupportedOperation(){
+        FAXE faxe = new FAXE(new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/data")));
+
+        File f = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/data"));
+        faxe.renameFeatureName(new Feature("F"), "NewName");
+    }
+
+    @Test(expectedExceptions = UnsupportedOperationException.class)
+    public void testGetMetricsExport_throwUnsupportedOperation(){
+        FAXE faxe = new FAXE(new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/data")));
+
+        File f = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/data"));
+        faxe.getMetrics(f, Metrics.ALL, new Feature("feature"), true);
+    }
+
+    @Test(expectedExceptions = UnsupportedOperationException.class)
+    public void testCheckConsistency_throwUnsupportedOperation(){
+        FAXE faxe = new FAXE(new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/data")));
+
+        File f = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/data"));
+        faxe.checkConsistency(f);
     }
 
     @Test
     public void testSerializeEAList2JSON() {
         // Creating JSON object with
-
         File f = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/ui"));
         FAXE faxe = new FAXE(f);
-        //faxe.getEmbeddedAnnotationsFromTextAsset(new Asset(f));
 
         File f_fm = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/_.feature-model"));
         faxe.getEmbeddedAnnotationsFeatureModel(new Asset(f_fm));
 
         faxe.serializeToJSON();
-
-        //System.out.println("JSON: " +json);
     }
-
-//    @Test
-//    public void testFileExchangeRatesFragmentJava(){
-//        FAXE2 faxe = new FAXE2();
-//
-//        File file = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/ui/ExchangeRatesFragment.java"));
-//        faxe.getEmbeddedAnnotationsFromTextAsset(new Asset(file));
-//    }
 
 
     @Test
@@ -141,6 +191,7 @@ public class FAXETest {
 
         Assert.assertEquals(faxe.getMetrics(f, Metrics.NoF, null), 10.0);
     }
+
 
     @Test
     public void testGetEmbeddedAnnotations(){
