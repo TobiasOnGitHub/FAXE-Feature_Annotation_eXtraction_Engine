@@ -146,7 +146,7 @@ This generates two files in the FAXE project root: assets.json and featureModel.
 
 
 
-4.2) CMD-Usage
+CMD-Usage
 -------------------------------------------
 Build in command line tooling allows you to access FAXE's API via the command line interface.
 
@@ -240,7 +240,8 @@ Tool "Feature-base partial commit" is an extended use case of FAXE to perform pa
 which are documented with embedded annotations. The functionality is available via the API and command line. But, 
 it becomes most effective when using it as a regular git sub-command.
 
-The current implementation is in Alpha testing phase!
+Functionality following in upcoming versions.
+
 
 **INSTALLATION**
 
