@@ -71,22 +71,24 @@ Tool usage
 -------------------------------------------
 ##API-Usage
 A detailed description of the FAXE API can be found here: 
-**Import library to your project:** <br>
+**Import library to your project:**
 
     import se.gu.faxe.FAXE;
 
-**Instantiate FAXE**  <br>
+**Instantiate FAXE** 
 
     File rootFolder = new File("C:\\path-to-project-root");
     FAXE faxe = new FAXE(rootFolder);
 
-**Generate feature model.**  <br>
+**Generate feature model.** 
+
 This is required when the feature model is not in the given root folder.
 
     File pathFeatureModel = new File("C:\\path-to-feature-model");
     faxe.getEmbeddedAnnotationsFeatureModel(new Asset(pathFeatureModel));
 
-**Extract embedded annotation information** <br>
+**Extract embedded annotation information**
+
 FAXE keeps track of all embedded annotations in the project. This overview is being stored in a tree structure and can 
 be accessed by this command. The tree structure is implemented by the [Tree data structure library of Scalified](https://github.com/Scalified/tree).
 
@@ -104,7 +106,8 @@ information for given directory.
 
 
 
-**Generate metrics** <br>
+**Generate metrics**
+
 FAXE supports a set of metrics which can be accessed via the same method. 
 Depending on the metric, you have to add a feature of intrest to the request.
 
@@ -133,7 +136,8 @@ Supported in upcoming versions:
     pAvgSD   ("pAvgSD"),  // Average Feature Scattering Degree: sum of SD (all features) / NoF
 
 
-**Export embedded annotations to JSON** <br>
+**Export embedded annotations to JSON**
+
 This generates two files in the FAXE project root: assets.json and featureModel.json .
 
     faxe.serializeToJSON();
@@ -146,18 +150,20 @@ This generates two files in the FAXE project root: assets.json and featureModel.
 -------------------------------------------
 Build in command line tooling allows you to access FAXE's API via the command line interface.
 
-**Import library to your project** <br>
+**Import library to your project**
+
 Call on your command line "java -jar faxe-0.1.jar [COMMAND] [-hV]"
 The FAXE tool provides a help function (-h, --help) for all commands and respective parameters.
 
-**Extract embedded annotation information** <br>
-Extracts and returns embedded annotations from an asset's path for the feature in lpq, and exports the output to a file 
-if the flag export is set. If lpq is not specified, it extracts all annotations from path. <br>
+**Extract embedded annotation information**
 
-    Usage:  getEmbeddedAnnotations [-e] [-l=<featureLPQ>] <path> <br>
-          <path>               Asset's path (file|folder) to extract and return embedded annotations from. <br>
-      -e, --export             Exports the output to a file if the flag export is set. <br>
-      -l, --lpq=<featureLPQ>   Feature in lpq. <br>
+Extracts and returns embedded annotations from an asset's path for the feature in lpq, and exports the output to a file 
+if the flag export is set. If lpq is not specified, it extracts all annotations from path. 
+
+    Usage:  getEmbeddedAnnotations [-e] [-l=<featureLPQ>] <path> 
+          <path>               Asset's path (file|folder) to extract and return embedded annotations from. 
+      -e, --export             Exports the output to a file if the flag export is set. 
+      -l, --lpq=<featureLPQ>   Feature in lpq. 
 
     java -jar faxe-0.1.jar getEmbeddedAnnotations --lpq=BitcoinBalance ./WalletBalanceFragment.java
     .\WalletBalanceFragment.java:BitcoinBalance 54:310
@@ -165,18 +171,19 @@ if the flag export is set. If lpq is not specified, it extracts all annotations 
 
 
 
-**Generate metrics** <br>
+**Generate metrics**
+
 Calculates and returns required metric (enum) for the feature referred to in
 the lpq from the given path. It also exports the output to a file if the flag
 export is set. If metric is not specified, all metrics are calculated and
 exported.
 
-    Usage:  calculateMetric [-e] [-l=<lPQ>] [-m=<metric>] <path> <br>
-          <path>              Asset's path (file|folder) to calculates and returns required metric from. <br>
-      -e, --export            Exports the output to a file if the flag export is set. <br>
-      -l, --lpq=<lPQ>         Feature in lpq. <br>
+    Usage:  calculateMetric [-e] [-l=<lPQ>] [-m=<metric>] <path> 
+          <path>              Asset's path (file|folder) to calculates and returns required metric from. 
+      -e, --export            Exports the output to a file if the flag export is set. 
+      -l, --lpq=<lPQ>         Feature in lpq. 
       -m, --metric=<metric>   Metric. Valid values: ALL, SD, NoFiA, NoFoA, TD, LoFC, AvgND, MaxND, MinND, NoAF, NoF, pAvgLoFC,
-                              pAvgND, pAvgSD, COUNT. <br>
+                              pAvgND, pAvgSD, COUNT. 
 
     java -jar faxe-0.1.jar calculateMetric -l BitcoinBalance -m=SD ./WalletBalanceFragment.java
     Path    .\WalletBalanceFragment.java
@@ -185,7 +192,8 @@ exported.
     Metric SD=1.0
 
 
-**Find embedded annotation inconsistencies** <br>
+**Find embedded annotation inconsistencies**
+
 Checks and prints inconsistencies in annotations in the given path.
 
     Usage:  checkConsistency <path>
