@@ -13,6 +13,10 @@ Maven dependency
 -------------------------------------------
 Supported with upcoming version. 
 
+Development
+-------------------------------------------
+The development happens on the master branch. New features might be introduced irregularly. 
+
 Description
 -------------------------------------------
 The tool FAXE automatically extracts and processes embedded an-notations specified in the 
@@ -67,25 +71,24 @@ Tool usage
 -------------------------------------------
 ##API-Usage
 A detailed description of the FAXE API can be found here: 
-**Import library to your project:**
+**Import library to your project:** <br>
 
     import se.gu.faxe.FAXE;
 
-**Instantiate FAXE** 
+**Instantiate FAXE**  <br>
 
     File rootFolder = new File("C:\\path-to-project-root");
     FAXE faxe = new FAXE(rootFolder);
 
-**Generate feature model.** 
+**Generate feature model.**  <br>
 This is required when the feature model is not in the given root folder.
 
     File pathFeatureModel = new File("C:\\path-to-feature-model");
     faxe.getEmbeddedAnnotationsFeatureModel(new Asset(pathFeatureModel));
 
-**Extract embedded annotation information**
-FAXE keeps track of all embedded annotations in the project. This overview 
-is stored in a tree structure and can be accessed by this command. 
-The tree structure is being implemented by the [Tree data structure library of Scalified](https://github.com/Scalified/tree).
+**Extract embedded annotation information** <br>
+FAXE keeps track of all embedded annotations in the project. This overview is being stored in a tree structure and can 
+be accessed by this command. The tree structure is implemented by the [Tree data structure library of Scalified](https://github.com/Scalified/tree).
 
     FAXE faxe = new FAXE(new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/data")));
     TreeNode<Asset> knownAssets = faxe.getKnownAssets();
@@ -101,7 +104,7 @@ information for given directory.
 
 
 
-**Generate metrics**
+**Generate metrics** <br>
 FAXE supports a set of metrics which can be accessed via the same method. 
 Depending on the metric, you have to add a feature of intrest to the request.
 
@@ -130,7 +133,7 @@ Supported in upcoming versions:
     pAvgSD   ("pAvgSD"),  // Average Feature Scattering Degree: sum of SD (all features) / NoF
 
 
-**Export embedded annotations to JSON**
+**Export embedded annotations to JSON** <br>
 This generates two files in the FAXE project root: assets.json and featureModel.json .
 
     faxe.serializeToJSON();
@@ -142,15 +145,85 @@ This generates two files in the FAXE project root: assets.json and featureModel.
 4.2) CMD-Usage
 -------------------------------------------
 Build in command line tooling allows you to access FAXE's API via the command line interface.
+
+**Import library to your project** <br>
 Call on your command line "java -jar faxe-0.1.jar [COMMAND] [-hV]"
-The FAXE tool provides a help function (-h, --help) for all COMMANDs and respective parameters.
+The FAXE tool provides a help function (-h, --help) for all commands and respective parameters.
+
+**Extract embedded annotation information** <br>
+Extracts and returns embedded annotations from an asset's path for the feature in lpq, and exports the output to a file 
+if the flag export is set. If lpq is not specified, it extracts all annotations from path. <br>
+
+    Usage:  getEmbeddedAnnotations [-e] [-l=<featureLPQ>] <path> <br>
+          <path>               Asset's path (file|folder) to extract and return embedded annotations from. <br>
+      -e, --export             Exports the output to a file if the flag export is set. <br>
+      -l, --lpq=<featureLPQ>   Feature in lpq. <br>
+
+    java -jar faxe-0.1.jar getEmbeddedAnnotations --lpq=BitcoinBalance ./WalletBalanceFragment.java
+    .\WalletBalanceFragment.java:BitcoinBalance 54:310
 
 
-5) FAXE Tool
+
+
+**Generate metrics** <br>
+Calculates and returns required metric (enum) for the feature referred to in
+the lpq from the given path. It also exports the output to a file if the flag
+export is set. If metric is not specified, all metrics are calculated and
+exported.
+
+    Usage:  calculateMetric [-e] [-l=<lPQ>] [-m=<metric>] <path> <br>
+          <path>              Asset's path (file|folder) to calculates and returns required metric from. <br>
+      -e, --export            Exports the output to a file if the flag export is set. <br>
+      -l, --lpq=<lPQ>         Feature in lpq. <br>
+      -m, --metric=<metric>   Metric. Valid values: ALL, SD, NoFiA, NoFoA, TD, LoFC, AvgND, MaxND, MinND, NoAF, NoF, pAvgLoFC,
+                              pAvgND, pAvgSD, COUNT. <br>
+
+    java -jar faxe-0.1.jar calculateMetric -l BitcoinBalance -m=SD ./WalletBalanceFragment.java
+    Path    .\WalletBalanceFragment.java
+    Metric  SD
+    Feature BitcoinBalance
+    Metric SD=1.0
+
+
+**Find embedded annotation inconsistencies** <br>
+Checks and prints inconsistencies in annotations in the given path.
+
+    Usage:  checkConsistency <path>
+          <path>   Asset's path (file|folder) to check and print inconsistencies in annotations.
+
+Functionality following in upcoming versions.
+
+
+**Rename existing feature** <br>
+Renames the feature referred to in lpq to newname in the feature model and all annotations.
+
+    Usage:  rename <path> <lpqFrom> <lpqTo>
+          <path>      Asset's path (file|folder) to rename the lpq.
+          <lpqFrom>   LPQ to be renamed.
+          <lpqTo>     New name of LPQ.
+
+Functionality following in upcoming versions.
+
+
+**Feature-Based Partial Commit** <br>
+Perform Feature-Based Partial Commit. <br>
+Details about the process are given in chapter "Feature-Base Partial Commit with Git".
+
+    Usage:  fbpc [-nc] [-f=<featureLPQ>] [-m=<message>] <gitWorkingDirectory> <srcFolder>
+          <gitWorkingDirectory> Path to git working directory (with .git) of project. (data provided by calling bash script).
+          <srcFolder>           Source code folder inside working directory. (relative path from gitWorkingDirectory)
+          -f, --feature=<featureLPQ> Feature to be commited via partial commit.
+          -m, --message=<message>   Text for commit message.
+              -nc, --no-commit      Create partial commit in staging area. Manual get-commit required afterwards.
+
+Functionality following in upcoming versions.
+
+
+FAXE Tool
 -------------------------------------------
 All tools can be found in this repository in:	https://bitbucket.org/easelab/faxe/src/master/src/main/java/se/gu/faxe/commands/
 
-5.1)  Feature-Base Partial Commit with Git
+## Feature-Base Partial Commit with Git
 -------------------------------------------
 Tool "Feature-base partial commit" is an extended use case of FAXE to perform partial commits, based on features, 
 which are documented with embedded annotations. The functionality is available via the API and command line. But, 
@@ -158,21 +231,19 @@ it becomes most effective when using it as a regular git sub-command.
 
 The current implementation is in Alpha testing phase!
 
-INSTALLATION
-------------
-Copy both files
-- FAXE-Feature_Annotation_eXtraction_Engine\src\main\bash\git-pfc
-- FAXE-Feature_Annotation_eXtraction_Engine\target\faxe-0.1.jar (generated)
+**INSTALLATION** <br>
+Copy both files <br>
+- FAXE-Feature_Annotation_eXtraction_Engine\src\main\bash\git-pfc <br>
+- FAXE-Feature_Annotation_eXtraction_Engine\target\faxe-0.1.jar (generated) <br>
 To your local Git directory for custom Git commands, e.g. C:\Users\User-Name\bin
 
-USAGE
-------------
-0) Restart your Git console
-1) Go to your repository main directory (optional to shorten to be provided paths)
-2) Call "git-pfc" with your git working directory path (or .) and the folder name of your source directory
-   The tool will check your changes features and provide you a selection. (Unless you provide this information via the option -f|--feature)
-   The tool will ask for a commit message (optional). (Unless you provide this information via the option -m|--message)
-   A partial commit on the selected feature has to be performed.
-3) After committing all features, a git-push is required.
+**USAGE** <br>
+1. Restart your Git console
+2. Go to your repository main directory (optional to shorten to be provided paths)
+3. Call "git-pfc" with your git working directory path (or .) and the folder name of your source directory
+   - The tool will check your changes features and provide you a selection. (Unless you provide this information via the option -f|--feature)
+   - The tool will ask for a commit message (optional). (Unless you provide this information via the option -m|--message)
+   - A partial commit on the selected feature has to be performed.
+4. After committing all features, a git-push is required.
 
 ===========================================
