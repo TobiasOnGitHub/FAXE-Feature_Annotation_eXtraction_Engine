@@ -194,7 +194,8 @@ Checks and prints inconsistencies in annotations in the given path.
 Functionality following in upcoming versions.
 
 
-**Rename existing feature** <br>
+**Rename existing feature**
+
 Renames the feature referred to in lpq to newname in the feature model and all annotations.
 
     Usage:  rename <path> <lpqFrom> <lpqTo>
@@ -205,8 +206,10 @@ Renames the feature referred to in lpq to newname in the feature model and all a
 Functionality following in upcoming versions.
 
 
-**Feature-Based Partial Commit** <br>
-Perform Feature-Based Partial Commit. <br>
+**Feature-Based Partial Commit**
+
+Perform Feature-Based Partial Commit.
+
 Details about the process are given in chapter "Feature-Base Partial Commit with Git".
 
     Usage:  fbpc [-nc] [-f=<featureLPQ>] [-m=<message>] <gitWorkingDirectory> <srcFolder>
@@ -231,13 +234,16 @@ it becomes most effective when using it as a regular git sub-command.
 
 The current implementation is in Alpha testing phase!
 
-**INSTALLATION** <br>
-Copy both files <br>
-* FAXE-Feature_Annotation_eXtraction_Engine\src\main\bash\git-pfc <br>
-* FAXE-Feature_Annotation_eXtraction_Engine\target\faxe-0.1.jar (generated) <br>
+**INSTALLATION**
+
+Copy both files
+
+* FAXE-Feature_Annotation_eXtraction_Engine\src\main\bash\git-pfc
+* FAXE-Feature_Annotation_eXtraction_Engine\target\faxe-0.1.jar (generated)
 To your local Git directory for custom Git commands, e.g. C:\Users\User-Name\bin
 
-**USAGE** <br>
+**USAGE**
+
 1. Restart your Git console
 2. Go to your repository main directory (optional to shorten to be provided paths)
 3. Call "git-pfc" with your git working directory path (or .) and the folder name of your source directory
