@@ -102,6 +102,10 @@ public class FAXE {
      */
     public TreeNode<Asset> getEmbeddedAnnotations(File rootDirectory) {
 
+        if(rootDirectory == null){
+            throw new NullPointerException("FAXE::getEmbeddedAnnotations Input rootDirectory is NULL.");
+        }
+
         for (File file : rootDirectory.listFiles()) {
             Asset nextAsset = new Asset(file);
 
@@ -176,7 +180,7 @@ public class FAXE {
      * @param rootDirectory File directory to analyze.
      * @param feature Feature of interest.
      * @return List of annotations.
-     * @throws UnsupportedOperationException
+     * @throws UnsupportedOperationException thrown to indicate that method not implemented yet.
      */
     public static List<Annotation> getEmbeddedAnnotations(File rootDirectory, Feature feature) throws UnsupportedOperationException {
         System.out.println("UC7 - Return all embedded annotations for one specific feature");
@@ -198,7 +202,7 @@ public class FAXE {
      * @param assetToAnalyze Asset file object to be analyzed file.
      * @return List of found embedded annotations.
      */
-    private Asset getEmbeddedAnnotationsFromTextAsset(Asset assetToAnalyze){
+    public Asset getEmbeddedAnnotationsFromTextAsset(Asset assetToAnalyze){
         //System.out.println(">> getEmbeddedAnnotationsFromTextAsset - File " +assetToAnalyze.getPath());
         CharStream in = null;
         try {
@@ -242,7 +246,7 @@ public class FAXE {
      * @param assetToAnalyze Asset object to be analyzed file.
      * @return List of found embedded annotations.
      */
-    private List<Pair<File,AnnotationFile>> getEmbeddedAnnotationsFromFeatureFileMapping(Asset assetToAnalyze){
+    public List<Pair<File,AnnotationFile>> getEmbeddedAnnotationsFromFeatureFileMapping(Asset assetToAnalyze){
         CharStream in = null;
         try {
             in = CharStreams.fromFileName(assetToAnalyze.getPath().getAbsolutePath());
@@ -261,7 +265,7 @@ public class FAXE {
         parser.removeErrorListeners();
         parser.addErrorListener(ThrowingErrorListener.INSTANCE);
 
-        List<Pair<File,AnnotationFile>> eaList = new ArrayList<>();
+        List<Pair<File,AnnotationFile>> eaList;
         try {
             ParseTree tree = parser.fileAnnotations();
             MyFileAnnotationsVisitor visitor = new MyFileAnnotationsVisitor();
@@ -280,7 +284,7 @@ public class FAXE {
      * @param assetToAnalyze Asset object to be analyzed folder.
      * @return List of found embedded annotations.
      */
-    private static AnnotationFolder getEmbeddedAnnotationsFromFeatureFolderMapping(Asset assetToAnalyze){
+    public static AnnotationFolder getEmbeddedAnnotationsFromFeatureFolderMapping(Asset assetToAnalyze){
         CharStream in = null;
         try {
             in = CharStreams.fromFileName(assetToAnalyze.getPath().getAbsolutePath());
@@ -299,7 +303,7 @@ public class FAXE {
         parser.removeErrorListeners();
         parser.addErrorListener(ThrowingErrorListener.INSTANCE);
 
-        AnnotationFolder annotation = null;
+        AnnotationFolder annotation;
         try {
             ParseTree tree = parser.folderAnnotation();
 
@@ -329,7 +333,7 @@ public class FAXE {
      * @param lpq_before Feature to be renamed
      * @param lpq_after New feature name
      * @return Count of changed appearances.
-     * @throws UnsupportedOperationException
+     * @throws UnsupportedOperationException thrown to indicate that method not implemented yet.
      */
     public int renameFeatureName(Feature lpq_before, String lpq_after) throws UnsupportedOperationException {
         throw new UnsupportedOperationException();
@@ -341,9 +345,10 @@ public class FAXE {
      * @param metric Metric which shall be calculated.
      * @param feature Feature to be used for calculation.
      * @param export Flag to export metric information. True to export.
+     * @throws UnsupportedOperationException thrown to indicate that method not implemented yet.
      * @return Metric value.
      */
-    public double getMetrics(File file, Metrics metric, Feature feature, boolean export) {
+    public double getMetrics(File file, Metrics metric, Feature feature, boolean export) throws UnsupportedOperationException {
         throw new UnsupportedOperationException();
 
 //        double retMetric = getMetrics(file, metric, feature);
@@ -420,7 +425,7 @@ public class FAXE {
      * - Feature (LPQ) not part of FeatureModel + give recommendation which existing one could fit.
      * @param file File/Folder to check for embedded annotation consistency
      * @return List of violation of the embedded annotation specification
-     * @throws UnsupportedOperationException
+     * @throws UnsupportedOperationException thrown to indicate that method not implemented yet.
      */
     public List<ConsistencyViolation> checkConsistency(File file) throws UnsupportedOperationException {
         throw new UnsupportedOperationException();
@@ -445,7 +450,7 @@ public class FAXE {
             if (!isJSONValid(jsonFeatureModel)) {
                 System.out.println("WARNING with FeatureModel JSON! Internal generated version can't be transformed neither to JSONObject nor JSONArray!");
             } else {
-                FileWriter myWriter = null;
+                FileWriter myWriter;
                 try {
                     myWriter = new FileWriter("featureModel.json");
                     myWriter.write(jsonFeatureModel);
@@ -481,7 +486,7 @@ public class FAXE {
         if (!isJSONValid(jsonAssets.toString()) ) {
             System.out.println("ERROR with FeatureModel JSON! Internal generated version can't be transformed neither to JSONObject nor JSONArray!");
         } else {
-            FileWriter myWriter = null;
+            FileWriter myWriter;
             try {
                 myWriter = new FileWriter("assets.json");
                 myWriter.write(jsonAssets.toPrettyString());
@@ -517,6 +522,7 @@ public class FAXE {
      * Private method as currently no use case seen to perform this action
      * @param jsonArray JSON object
      * @return List of {@link Annotation} out of parameter.
+     * @throws UnsupportedOperationException thrown to indicate that method not implemented yet.
      */
     private static List<Annotation> deserializeFromJSON(JSONArray jsonArray) throws UnsupportedOperationException {
         throw new UnsupportedOperationException();
