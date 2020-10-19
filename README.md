@@ -223,7 +223,7 @@ FAXE Tool
 -------------------------------------------
 All tools can be found in this repository in:	https://bitbucket.org/easelab/faxe/src/master/src/main/java/se/gu/faxe/commands/
 
-## Feature-Base Partial Commit with Git
+Feature-Base Partial Commit with Git
 -------------------------------------------
 Tool "Feature-base partial commit" is an extended use case of FAXE to perform partial commits, based on features, 
 which are documented with embedded annotations. The functionality is available via the API and command line. But, 
@@ -233,17 +233,17 @@ The current implementation is in Alpha testing phase!
 
 **INSTALLATION** <br>
 Copy both files <br>
-- FAXE-Feature_Annotation_eXtraction_Engine\src\main\bash\git-pfc <br>
-- FAXE-Feature_Annotation_eXtraction_Engine\target\faxe-0.1.jar (generated) <br>
+* FAXE-Feature_Annotation_eXtraction_Engine\src\main\bash\git-pfc <br>
+* FAXE-Feature_Annotation_eXtraction_Engine\target\faxe-0.1.jar (generated) <br>
 To your local Git directory for custom Git commands, e.g. C:\Users\User-Name\bin
 
 **USAGE** <br>
 1. Restart your Git console
 2. Go to your repository main directory (optional to shorten to be provided paths)
 3. Call "git-pfc" with your git working directory path (or .) and the folder name of your source directory
-   - The tool will check your changes features and provide you a selection. (Unless you provide this information via the option -f|--feature)
-   - The tool will ask for a commit message (optional). (Unless you provide this information via the option -m|--message)
-   - A partial commit on the selected feature has to be performed.
+   * The tool will check your changes features and provide you a selection. (Unless you provide this information via the option -f|--feature)
+   * The tool will ask for a commit message (optional). (Unless you provide this information via the option -m|--message)
+   * A partial commit on the selected feature has to be performed.
 4. After committing all features, a git-push is required.
 
 ===========================================
