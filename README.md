@@ -1,17 +1,20 @@
 FAXE - Feature Annotation eXtraction Engine
 ===========================================
 FAXE is an open source library (Apache 2.0) for parsing and receiving embedded annotations from software projects.
+Video introduction process and tooling: [SPLC2020: A Common Notation and Tool Support for Embedded Feature Annotations](https://www.youtube.com/watch?v=vprhZdSJogs)
 
 Requirements
 -------------------------------------------
-The Library requires 
-And Maven build system.
+The Library requires [Java SE Development Kit 8](https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html) or higher.
+As well as the [Maven](https://maven.apache.org/) build system.
 
-**Hint:** Current version developed and tested in Windows.
+**Hint:** Current version FAXE 0.1 developed and tested in Windows.
 
 Maven dependency
 -------------------------------------------
-Supported with upcoming version. 
+To include FAXE to your project use the following dependency:
+
+- Available with the upcoming versions. 
 
 Development
 -------------------------------------------
@@ -20,19 +23,18 @@ The development happens on the master branch. New features might be introduced i
 Description
 -------------------------------------------
 The tool FAXE automatically extracts and processes embedded an-notations specified in the 
-proposed syntax from a given asset. It isa lightweight tool which requires no installation 
-by the developer.FAXE is implemented as a Java library under the APACHE 2.0 license. 
+proposed syntax from a given asset. It is a lightweight tool which requires no installation 
+by the developer. FAXE is implemented as a Java library under the APACHE 2.0 license. 
 To facilitate integration with IDEs and other tools (e.g,for visualization), we provide the 
-implementation as a single jar file,with all dependencies contained inside. At the core of 
+implementation as a single jar file, with all dependencies contained inside. At the core of 
 the engine is the annotation parser built with the ANTLR4 parser generator. It relies on 
 syntax of our annotation system specified as an ANTLR4grammar. Given an asset (a project, 
 folder or specific file), FAXE extracts annotations from all sub-assets recursively, down 
 to the line annotations. It is language-independent; extracting annotations from textual 
 assets written in any language.
 
-Presently, users can interact with FAXE in two ways; 
-integrate the library in the client project and use its API directly, or use its command 
-line interface. FAXE builds on an object model; for eachAPI request, FAXE extracts the 
+Presently, users can interact with FAXE in two ways; integrate the library in the client project and use its API 
+directly, or use its command line interface. FAXE builds on an object model; for each API request, FAXE extracts the 
 location of features and returns an object list. The returned data includes asset type, 
 asset name, index of begin and end, and the feature(s) referred to in the annotation.
 
@@ -48,11 +50,11 @@ Definition of Embedded Annotations
 The embedded annotation system allows mapping features to many kinds of software assets 
 (code and non-code)—at the granularity of whole folders and files, and textual assets 
 at an arbitrary granularity (e.g., classes, methods, code blocks, lines). The exact 
-specifications with grammars can be found online (https://bitbucket.org/easelab/faxe/src/master/specification/).
+specifications with grammars can be found online [https://bitbucket.org/easelab/faxe/src/master/specification/](https://bitbucket.org/easelab/faxe/src/master/specification/).
 
 Embedded Annotation Data Sets
 -------------------------------------------
-A collection of project with embedded annotations can be found here https://bitbucket.org/easelab/embeddedannotationdatasetmain/
+A collection of project with embedded annotations can be found here [https://bitbucket.org/easelab/embeddedannotationdatasetmain/](https://bitbucket.org/easelab/embeddedannotationdatasetmain/)
 as well as in the FAXE tool itself. The data sets are conform to the embedded annotation 
 specification: [Link](https://bitbucket.org/easelab/faxe/src/master/specification/)
 
@@ -61,17 +63,20 @@ specification: [Link](https://bitbucket.org/easelab/faxe/src/master/specificatio
 
 Installation and setup
 -------------------------------------------
-FAXE is designed as independent library and includes all dependencies in its JAR file.
+FAXE is designed as independent library and includes all dependencies in a single JAR file.
 1. Clone/Download this repository
 2. Go to main folder 
 3. Build JAR with "mvn install"
 4. Copy generated JAR target/faxe-0.1.jar to your project and include it
 
+
 Tool usage
 -------------------------------------------
+
 ##API-Usage
+
 A detailed description of the FAXE API can be found here: 
-**Import library to your project:**
+**Import library to your project**
 
     import se.gu.faxe.FAXE;
 
@@ -80,7 +85,7 @@ A detailed description of the FAXE API can be found here:
     File rootFolder = new File("C:\\path-to-project-root");
     FAXE faxe = new FAXE(rootFolder);
 
-**Generate feature model.** 
+**Generate feature model** 
 
 This is required when the feature model is not in the given root folder.
 
@@ -109,7 +114,7 @@ information for given directory.
 **Generate metrics**
 
 FAXE supports a set of metrics which can be accessed via the same method. 
-Depending on the metric, you have to add a feature of intrest to the request.
+Depending on the metric, you have to add a feature of interest to the request.
 
     FAXE faxe = new FAXE(new File("C:\\path-to-project-root"));
     double metric_value = faxe.getMetrics(f, Metrics.SD, new Feature("Feature-of-intrest"));
@@ -202,9 +207,9 @@ Checks and prints inconsistencies in annotations in the given path.
 Functionality following in upcoming versions.
 
 
-**Rename existing feature**
+**Rename an existing feature**
 
-Renames the feature referred to in lpq to newname in the feature model and all annotations.
+Renames the feature referred to in lpq to a new name in the feature model and all annotations.
 
     Usage:  rename <path> <lpqFrom> <lpqTo>
           <path>      Asset's path (file|folder) to rename the lpq.
@@ -218,7 +223,7 @@ Functionality following in upcoming versions.
 
 Perform Feature-Based Partial Commit.
 
-Details about the process are given in chapter "Feature-Base Partial Commit with Git".
+Details about the process are given in the chapter "Feature-Base Partial Commit with Git".
 
     Usage:  fbpc [-nc] [-f=<featureLPQ>] [-m=<message>] <gitWorkingDirectory> <srcFolder>
           <gitWorkingDirectory> Path to git working directory (with .git) of project. (data provided by calling bash script).
@@ -232,11 +237,11 @@ Functionality following in upcoming versions.
 
 FAXE Tool
 -------------------------------------------
-All tools can be found in this repository in:	https://bitbucket.org/easelab/faxe/src/master/src/main/java/se/gu/faxe/commands/
+All tools can be found in this repository in:	[https://bitbucket.org/easelab/faxe/src/master/src/main/java/se/gu/faxe/commands/](https://bitbucket.org/easelab/faxe/src/master/src/main/java/se/gu/faxe/commands/)
 
 Feature-Base Partial Commit with Git
 -------------------------------------------
-Tool "Feature-base partial commit" is an extended use case of FAXE to perform partial commits, based on features, 
+Tool "Feature-Base Partial Commit" is an extended use case of FAXE to perform partial commits, based on features, 
 which are documented with embedded annotations. The functionality is available via the API and command line. But, 
 it becomes most effective when using it as a regular git sub-command.
 
@@ -253,7 +258,7 @@ To your local Git directory for custom Git commands, e.g. C:\Users\User-Name\bin
 
 **USAGE**
 
-1. Restart your Git console
+1. Restart your Git console. Try out if it worked by adding "git-pf" and by pressing "tab" the remaining "c" shall appear.
 2. Go to your repository main directory (optional to shorten to be provided paths)
 3. Call "git-pfc" with your git working directory path (or .) and the folder name of your source directory
    * The tool will check your changes features and provide you a selection. (Unless you provide this information via the option -f|--feature)
