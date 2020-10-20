@@ -64,7 +64,8 @@ FEATURE MODEL / FEATURE TREE
 --------------------------------------------------------
 33) Give warning (or list) of features in code, but not feature model
 --------------------------------------------------------
-
+) Feature-to-File mapping: Allow asterix character to map a group of files to a feature. Helpful for a larger amount of
+generated files, i.e. in generated FAXE grammar files
 
 STATISTICS
 --------------------------------------------------------
