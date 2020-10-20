@@ -1,0 +1,11 @@
+MyCodeAnnotationsVisitor.java
+TextMapping
+
+MyFeatureModelVisitor.java FeatureModel.java
+FeatureModel
+
+MyFileAnnotationsVisitor.java
+FileMapping
+
+MyFolderAnnotationVisitor.java
+FolderMapping

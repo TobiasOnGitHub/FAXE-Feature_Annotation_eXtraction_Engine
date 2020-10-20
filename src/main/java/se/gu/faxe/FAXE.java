@@ -122,12 +122,15 @@ public class FAXE {
             } else {
                 //System.out.println("File: " + file.getName());
 
+                //&begin(FolderMapping)
                 if(file.getName().endsWith(".feature-to-folder")){
                     AnnotationFolder annotation = getEmbeddedAnnotationsFromFeatureFolderMapping(nextAsset);
                     File parentPath = file.getParentFile();
                     TreeNode<Asset> parent = knownAssets.find(new Asset(parentPath));
                     Asset parentAsset = parent.data();
                     parentAsset.addAnnotation(annotation);
+                //&end(FolderMapping)
+                //&begin(FileMapping)
                 } else if(file.getName().endsWith(".feature-to-file")){
                     List<Pair<File,AnnotationFile>> eaList = getEmbeddedAnnotationsFromFeatureFileMapping(nextAsset);
                     /***************************************/
@@ -143,6 +146,8 @@ public class FAXE {
                             System.out.println("FAXE::getEmbeddedAnnotations - ERROR: Pair=" +pair.toString() +" not found in knownAssets: " +knownAssets.toString());
                         }
                     }
+                //&end(FileMapping)
+                //&begin(FeatureModel)
                 } else if(file.getName().endsWith(".feature-model")
                         | file.getName().endsWith("feature-model")
                         | file.getName().endsWith(".cfr")
@@ -151,6 +156,8 @@ public class FAXE {
                     /** ANALYSIS OF FEATURE HIERARCHY as *.feature-model, feature-model or *.cfr or . file **/
                     /****************************************************************************************/
                     getEmbeddedAnnotationsFeatureModel(new Asset(file));
+                //&end(FeatureModel)
+                //&begin(TextMapping)
                 } else {
                     // CASE: Regular text file
                     getEmbeddedAnnotationsFromTextAsset(nextAsset);
@@ -167,7 +174,7 @@ public class FAXE {
                         node.setData(nextAsset);
                     }
                 }
-
+                //&end(TextMapping)
             }
 
 
@@ -197,6 +204,7 @@ public class FAXE {
         featureModel = new FeatureModel(fmAsset.getPath());
     }
 
+    //&begin(TextMapping)
     /**
      * Extract embedded annotations from text asset, based on given file asset.
      * @param assetToAnalyze Asset file object to be analyzed file.
@@ -240,7 +248,9 @@ public class FAXE {
         }
         return assetToAnalyze;
     }
+    //&end(TextMapping)
 
+    //&begin(FileMapping)
     /**
      * Method to extract embedded annotations on file level of given file.
      * @param assetToAnalyze Asset object to be analyzed file.
@@ -277,8 +287,9 @@ public class FAXE {
         }
         return eaList;
     }
+    //&end(FileMapping)
 
-
+    //&begin(FolderMapping)
     /**
      * Method to extract embedded annotations on folder level of given folder.
      * @param assetToAnalyze Asset object to be analyzed folder.
@@ -316,7 +327,7 @@ public class FAXE {
         }
         return annotation;
     }
-
+    //&end(FolderMapping)
 
     public String getEmbeddedAnnotationContent(Annotation ann) throws UnsupportedOperationException {
         throw new UnsupportedOperationException();
@@ -339,6 +350,7 @@ public class FAXE {
         throw new UnsupportedOperationException();
     }
 
+    //&begin(CalculateMetrics)
     /**
      * Request specific embedded annotation metric for given file and for some metrics feature.
      * @param file Path of file/folder to calculate metric of.
@@ -357,7 +369,9 @@ public class FAXE {
 //        }
 //        return retMetric;
     }
+    //&end(CalculateMetrics)
 
+    //&begin(CalculateMetrics)
     /**
      * Request specific embedded annotation metric for given file and for some metrics feature.
      * @param file Path of file/folder to calculate metric of.
@@ -378,34 +392,34 @@ public class FAXE {
         try {
             switch (metric) {
                 case SD:
-                    ret = ScatteringDegree.calculateSD(knownAssets, file, feature);
+                    ret = ScatteringDegree.calculateSD(knownAssets, file, feature); //&line(ScatteringDegree)
                     break;
                 case TD:
-                    ret = TanglingDegree.calculateTD(knownAssets, file, feature);
+                    ret = TanglingDegree.calculateTD(knownAssets, file, feature);   //&line(TanglingDegree)
                     break;
                 case NoFiA:
-                    ret = NumberOfFileAnnotations.calculateNoFiA(file, feature);
-                    break;
-                case NoAF:
-                    ret = NumberOfAnnotatedFiles.calculateNoFA(knownAssets, file, feature);
+                    ret = NumberOfFileAnnotations.calculateNoFiA(file, feature);    //&line(NumberOfFileAnnotations)
                     break;
                 case NoFoA:
-                    ret = NumberOfFolderAnnotations.calculateNoFoA(knownAssets, file, feature);
+                    ret = NumberOfFolderAnnotations.calculateNoFoA(knownAssets, file, feature); //&line(NumberOfFolderAnnotations)
+                    break;
+                case NoAF:
+                    ret = NumberOfAnnotatedFiles.calculateNoFA(knownAssets, file, feature); //&line(NumberOfAnnotatedFiles)
                     break;
                 case LoFC:
-                    ret = LinesOfFeatureCode.calculateLoFC(knownAssets, file, feature);
+                    ret = LinesOfFeatureCode.calculateLoFC(knownAssets, file, feature); //&line(LinesOfFeatureCode)
                     break;
                 case AvgND:
-                    ret = NestingDepths.calculateAvgND(knownAssets, file, feature);
+                    ret = NestingDepths.calculateAvgND(knownAssets, file, feature);     //&line(NestingDepthsAverage)
                     break;
                 case MaxND:
-                    ret = NestingDepths.calculateMaxND(knownAssets, file, feature);
+                    ret = NestingDepths.calculateMaxND(knownAssets, file, feature);     //&line(NestingDepthsMax)
                     break;
                 case MinND:
-                    ret = NestingDepths.calculateMinND(knownAssets, file, feature);
+                    ret = NestingDepths.calculateMinND(knownAssets, file, feature);     //&line(NestingDepthsMin)
                     break;
                 case NoF:
-                    ret = NumberOfFeatures.calculateNoF(knownAssets, file);
+                    ret = NumberOfFeatures.calculateNoF(knownAssets, file);             //&line(NumberOfFeatures)
                     break;
                 default:
                     break;
@@ -417,6 +431,7 @@ public class FAXE {
 //        System.out.println("<<< FAXE.getMetrics(File, Metrics, LPQ)");
         return ret;
     }
+    //&end(CalculateMetrics)
 
 
     /**
@@ -432,7 +447,7 @@ public class FAXE {
         // Consistency Rules: begin/end annotations; line marker without content; Embedded Annotation part of feature model; brace missing
     }
 
-
+    //&begin(JSON)
     /**
      * Serialize the currently stored feature mode and known assets to JSON format.
      * The output is stored into the same directory as the FAXE library is located.
@@ -496,8 +511,9 @@ public class FAXE {
             }
         }
     }
+    //&end(JSON)
 
-
+    //&begin(JSON)
     /**
      * Try to transform given String into a JSONObject or JSONArray. In case of exception this is not the case.
      * Implementation taken from https://stackoverflow.com/questions/10174898/how-to-check-whether-a-given-string-is-valid-json-in-java/10174938#10174938
@@ -516,7 +532,9 @@ public class FAXE {
         }
         return true;
     }
+    //&end(JSON)
 
+    //&begin(JSON)
     /**
      * Transforms JSON object to list of {@link Annotation}
      * Private method as currently no use case seen to perform this action
@@ -537,5 +555,6 @@ public class FAXE {
 //        }
 //        return list;
     }
+    //&end(JSON)
 
 }

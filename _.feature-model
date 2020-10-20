@@ -14,17 +14,13 @@ FAXE
 		    NumberOfFolderAnnotations
     		TanglingDegree
 	    	LinesOfFeatureCode
-		    NestingDepthsOfAnnotations
-            MaxNestingDepths
-	        MinNestingDepths
-	        NumberOfAuthors
+		    NestingDepthsAverage
+            NestingDepthsMax
+	        NestingDepthsMin
+	        NumberOfAnnotatedFiles
 	    FolderMetrics
             NumberOfFeatures
-            LinesOfFolderCode
-            NumberOfFiles
         ProjectMetrics
-            NumberOfFeaturesInProject
-            TotalLinesOfFeatureCode
 	        AverageLinesOfFeatureCode
 	        AverageFeatureNestingDepth
 	        AverageFeatureScatteringDegree
