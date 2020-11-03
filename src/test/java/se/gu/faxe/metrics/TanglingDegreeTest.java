@@ -11,12 +11,12 @@ import java.io.IOException;
 public class TanglingDegreeTest {
 
     @Test
-    public void testCalculateTD_File_SweepWalletFragment() {
+    public void testCalculateTD_File_SweepWalletFragment_DonateCoins_NonExistingFeatureInFile() {
         File projectRoot = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/ui"));
         FAXE faxe = new FAXE(projectRoot);
 
         File searchPath = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/ui/send/SweepWalletFragment.java"));
-        Feature feature = new Feature("DonateCoins");
+        Feature feature = new Feature("DonateCoins");   // Feature not existing in File
         int td = 0;
         try {
             td = TanglingDegree.calculateTD(faxe.getKnownAssets(), searchPath, feature/*, true*/);
@@ -25,6 +25,72 @@ public class TanglingDegreeTest {
         }
 
         Assert.assertEquals(td, 0); // Number derived from FeatureDashboard
+    }
+
+
+    @Test
+    public void testCalculateTD_File_Logging_AppLog_OnlyExistingFeature() {
+        File projectRoot = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet"));
+        FAXE faxe = new FAXE(projectRoot);
+
+        File searchPath = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/Logging.java"));
+        Feature feature = new Feature("AppLog");
+        try {
+            Assert.assertEquals(TanglingDegree.calculateTD(faxe.getKnownAssets(), searchPath, feature/*, true*/), 1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testCalculateTD_File_WalletApplication_BlockchainSync() {
+        File projectRoot = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet"));
+        FAXE faxe = new FAXE(projectRoot);
+
+        File searchPath = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/WalletApplication.java"));
+        Feature feature = new Feature("BlockchainSync");
+        int td = 0;
+        try {
+            td = TanglingDegree.calculateTD(faxe.getKnownAssets(), searchPath, feature/*, true*/);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Assert.assertEquals(td, 8);
+    }
+
+    @Test
+    public void testCalculateTD_File_WalletApplication_Codecs() {
+        File projectRoot = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet"));
+        FAXE faxe = new FAXE(projectRoot);
+
+        File searchPath = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/WalletApplication.java"));
+        Feature feature = new Feature("Codecs");
+        int td = 0;
+        try {
+            td = TanglingDegree.calculateTD(faxe.getKnownAssets(), searchPath, feature/*, true*/);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Assert.assertEquals(td, 8);
+    }
+
+    @Test
+    public void testCalculateTD_File_EncryptKeysDialogFragment() {
+        File projectRoot = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/ui"));
+        FAXE faxe = new FAXE(projectRoot);
+
+        File searchPath = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/ui/EncryptKeysDialogFragment.java"));
+        Feature feature = new Feature("BackupWallet");
+        int td = 0;
+        try {
+            td = TanglingDegree.calculateTD(faxe.getKnownAssets(), searchPath, feature/*, true*/);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Assert.assertEquals(td, 1);
     }
 
     @Test
@@ -195,6 +261,49 @@ public class TanglingDegreeTest {
             e.printStackTrace();
         }
 
+    }
+
+    @Test
+    public void testCalculateTD_FeatureToFile_TangleMe() {
+        File projectRoot = new File(new File("").getAbsolutePath().concat("/src/test/testdata/feature-to-file"));
+        FAXE faxe = new FAXE(projectRoot);
+
+        File searchPath = new File(new File("").getAbsolutePath().concat("/src/test/testdata/feature-to-file"));
+        Feature feature = new Feature("TangleMe");
+        try {
+            Assert.assertEquals(TanglingDegree.calculateTD(faxe.getKnownAssets(), searchPath, feature, true), 2);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testCalculateTD_FeatureToFile_TestData() {
+        File projectRoot = new File(new File("").getAbsolutePath().concat("/src/test/testdata/feature-to-file"));
+        FAXE faxe = new FAXE(projectRoot);
+
+        File searchPath = new File(new File("").getAbsolutePath().concat("/src/test/testdata/feature-to-file"));
+        Feature feature = new Feature("TestData");
+        try {
+            Assert.assertEquals(TanglingDegree.calculateTD(faxe.getKnownAssets(), searchPath, feature, true), 7);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @Test
+    public void testCalculateTD_FeatureToFolder_FeatureA() {
+        File projectRoot = new File(new File("").getAbsolutePath().concat("/src/test/testdata/feature-to-folder"));
+        FAXE faxe = new FAXE(projectRoot);
+
+        File searchPath = new File(new File("").getAbsolutePath().concat("/src/test/testdata/feature-to-folder"));
+        Feature feature = new Feature("FeatureA");
+        try {
+            Assert.assertEquals(TanglingDegree.calculateTD(faxe.getKnownAssets(), searchPath, feature, true), 24);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

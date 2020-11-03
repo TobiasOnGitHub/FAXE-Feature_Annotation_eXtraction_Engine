@@ -19,9 +19,7 @@
 package se.gu.faxe.metrics;
 
 import com.scalified.tree.TreeNode;
-import se.gu.faxe.Annotation;
-import se.gu.faxe.Asset;
-import se.gu.faxe.Feature;
+import se.gu.faxe.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -88,13 +86,39 @@ public class TanglingDegree {
                 }
             }
             if(searchedFeatureInAsset){
-                if (printFoundLocation) {
-                    System.out.println("   Feature " + searchFeature.toString() + " found in " + node.data().getPath());
-                }
                 for(Annotation annotation : annotations){
                     for(Feature feature : annotation.getLinkedFeatures()){
                         if(!feature.equals(searchFeature)){          // Skipp searched feature for metric
                             tangledFeatures.add(feature.getLpq());  // Using LPQ as same feature names might appear close to each other.
+                            if (printFoundLocation) {
+                                System.out.print("   Feature " + searchFeature.toString() + " found in " + node.data().getPath());
+
+                                if (annotation instanceof AnnotationFolder){
+                                    // Add all sub-feature to this tangling degree
+                                    for (TreeNode<Asset> subNode : node) {
+                                        List<Annotation> subAnnotations = subNode.data().getAnnotationList();
+                                        for(Annotation subAnnotation : subAnnotations){
+                                            for(Feature subFeature : subAnnotation.getLinkedFeatures()){
+                                                if(!feature.equals(searchFeature)){
+                                                    tangledFeatures.add(subFeature.getLpq());
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+
+                                if(annotation instanceof AnnotationLine){
+                                    System.out.println(" at line: " + ((AnnotationLine) annotation).getLine());
+                                } else if (annotation instanceof AnnotationFragment){
+                                    System.out.println(" at lines: " + ((AnnotationFragment) annotation).getStartline() +"-" +((AnnotationFragment) annotation).getEndline());
+                                } else if (annotation instanceof AnnotationFile){
+                                    System.out.println("at File level.");
+                                } else if (annotation instanceof AnnotationFolder){
+                                    System.out.println("at Folder level.");
+                                } else {
+                                    System.out.println("");
+                                }
+                            }
                         }
                     }
                 }
