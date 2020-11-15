@@ -30,7 +30,7 @@ import java.util.ListIterator;
 /**
  * Nesting depths of annotations: Maximum (MaxND), Minimum (MinND), and Average (AvgND) nesting depth of annotations
  * directly referencing the feature. Nesting depth expresses the fact, how deep a feature annotation is nested - completely
- * or partially - with another feature annotation. The depth of nesting is 0, when the annotations is neither inside
+ * or partially - with another feature annotation. The depth of nesting is 1, when the annotations is neither inside
  * another textual annotation (e.g. &begin / &end) nor the containing file or any (parent-)folder contains a feature
  * annotation. Each textual, file and folder annotation increases the nesting depth by 1.
  * -> Independent of number of feature annotations to parent file/folder, depth is increased by 1
