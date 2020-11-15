@@ -72,8 +72,8 @@ public class NumberOfFileAnnotations {
             if (searchedPath.getName().endsWith(".feature-to-file")) {
                 Scanner scanner = new Scanner(searchedPath);
                 while (scanner.hasNextLine()) {
-                    String lineFile = scanner.nextLine();
-                    if (!lineFile.isEmpty()) {
+                    String lineFiles = scanner.nextLine();
+                    if (!lineFiles.isEmpty()) {
                         // Found first line with text
                         String lineFeature = scanner.nextLine();
                         while (lineFeature.isEmpty()) {
@@ -81,10 +81,12 @@ public class NumberOfFileAnnotations {
                         }
                         // Next Line shall contain Features
                         if (lineFeature.contains(searchFeature.getLpq())) {
-                            if (printFoundLocation) {
-                                System.out.println("   Feature " + searchFeature.toString() + " found in " + searchedPath.getName());
+                            for(String file : lineFiles.split(" ")) {
+                                if (printFoundLocation) {
+                                    System.out.println("   Feature " + searchFeature.toString() + " found in " + searchedPath.getName() + ". Mapped to file " +file);
+                                }
+                                NoFiA++;
                             }
-                            NoFiA++;
                             break;  // Go to next .feature-to-file file
                         }
                     }
