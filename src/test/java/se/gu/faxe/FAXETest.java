@@ -131,7 +131,7 @@ public class FAXETest {
 
         double NoFiA = faxe.getMetrics(f, Metrics.NoFiA, new Feature("BitcoinBalance"));
 
-        Assert.assertEquals(NoFiA, 1.0);
+        Assert.assertEquals(NoFiA, 2.0);
     }
 
     @Test
