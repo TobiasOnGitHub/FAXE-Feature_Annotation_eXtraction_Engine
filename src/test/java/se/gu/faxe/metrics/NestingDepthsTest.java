@@ -405,8 +405,8 @@ public class NestingDepthsTest {
 //
 //        try {
 //            Assert.assertEquals(NestingDepths.calculateAvgND(faxe.getKnownAssets(), searchPath, feature, true), 3.0);
-//            Assert.assertEquals(NestingDepths.calculateMaxND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 3.0);
-//            Assert.assertEquals(NestingDepths.calculateMinND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 3.0);
+//            //Assert.assertEquals(NestingDepths.calculateMaxND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 3.0);
+//            //Assert.assertEquals(NestingDepths.calculateMinND(faxe.getKnownAssets(), searchPath, feature/*, true*/), 3.0);
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
@@ -431,5 +431,35 @@ public class NestingDepthsTest {
 //        }
 //    }
 
+    @Test
+    public void testCalculateAvgAvgND_bitcoinWallet_to_WalletBalanceFragment_DonateCoins() {
 
+        File projectRoot = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet"));
+        FAXE faxe = new FAXE(projectRoot);
+
+        File searchPath = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/ui/WalletBalanceFragment.java"));
+
+
+        try {
+            Assert.assertEquals(NestingDepths.calculateAvgAvgND(faxe.getKnownAssets(), searchPath/*, true*/), 3.309, 0.001);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testCalculateAvgAvgND_bitcoinWallet_to_WalletBalanceFragment_ui() {
+
+        File projectRoot = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet"));
+        FAXE faxe = new FAXE(projectRoot);
+
+        File searchPath = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/ui/"));
+
+
+        try {
+            Assert.assertEquals(NestingDepths.calculateAvgAvgND(faxe.getKnownAssets(), searchPath, true), 2.856, 0.001);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
