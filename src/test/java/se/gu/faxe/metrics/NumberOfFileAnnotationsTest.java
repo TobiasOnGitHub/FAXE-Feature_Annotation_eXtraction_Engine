@@ -14,7 +14,7 @@ public class NumberOfFileAnnotationsTest {
         File searchPath = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet"));
         Feature feature = new Feature("AppLog");
         try {
-            Assert.assertEquals(NumberOfFileAnnotations.calculateNoFiA(searchPath, feature/*, true*/), 1);
+            Assert.assertEquals(NumberOfFileAnnotations.calculateNoFiA(searchPath, feature/*, true*/), 2);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -60,7 +60,7 @@ public class NumberOfFileAnnotationsTest {
         File searchPath = new File(new File("").getAbsolutePath().concat("/src/test/testdata"));
         Feature feature = new Feature("TestData");
         try {
-            Assert.assertEquals(NumberOfFileAnnotations.calculateNoFiA(searchPath, feature/*, true*/), 2);
+            Assert.assertEquals(NumberOfFileAnnotations.calculateNoFiA(searchPath, feature/*, true*/), 3);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -71,7 +71,7 @@ public class NumberOfFileAnnotationsTest {
         File searchPath = new File(new File("").getAbsolutePath().concat("/src/test/testdata"));
         Feature feature = new Feature("DummyFeature");
         try {
-            Assert.assertEquals(NumberOfFileAnnotations.calculateNoFiA(searchPath, feature/*, true*/), 1);
+            Assert.assertEquals(NumberOfFileAnnotations.calculateNoFiA(searchPath, feature/*, true*/), 2);
         } catch (IOException e) {
             e.printStackTrace();
         }
