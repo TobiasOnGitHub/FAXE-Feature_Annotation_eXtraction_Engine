@@ -19,51 +19,19 @@
             <artifactId>maven-surefire-plugin</artifactId>
             <version>3.0.0-M5</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.antlr/antlr4 -->
-        <!--<dependency>
-            <groupId>org.antlr</groupId>
-            <artifactId>antlr4</artifactId>
-            <version>4.8-1</version>
-        </dependency>
-        -->
+
         <!-- https://mvnrepository.com/artifact/org.antlr/antlr4-runtime -->
         <dependency>
             <groupId>org.antlr</groupId>
             <artifactId>antlr4-runtime</artifactId>
             <version>4.8-1</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.antlr/stringtemplate -->
-        <!--<dependency>
-            <groupId>org.antlr</groupId>
-            <artifactId>stringtemplate</artifactId>
-            <version>4.0.2</version>
-        </dependency>-->
-        <!-- https://mvnrepository.com/artifact/org.antlr/antlr4-master -->
-        <!--<dependency>
-            <groupId>org.antlr</groupId>
-            <artifactId>antlr4-master</artifactId>
-            <version>4.8-1</version>
-            <type>pom</type>
-        </dependency> -->
-        <!-- https://mvnrepository.com/artifact/org.antlr/antlr4-maven-plugin -->
-        <!--<dependency>
-            <groupId>org.antlr</groupId>
-            <artifactId>antlr4-maven-plugin</artifactId>
-            <version>4.8-1</version>
-        </dependency> -->
-
-        <!-- https://mvnrepository.com/artifact/org.antlr/ST4 -->
-        <!--<dependency>
-            <groupId>org.antlr</groupId>
-            <artifactId>ST4</artifactId>
-            <version>4.3.1</version>
-        </dependency> -->
 
         <!-- https://mvnrepository.com/artifact/org.testng/testng -->
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
-            <version>7.3.0</version>
+            <version>7.1.0</version>
             <scope>compile</scope>
         </dependency>
 
