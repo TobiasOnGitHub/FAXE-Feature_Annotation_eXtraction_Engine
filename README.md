@@ -43,7 +43,7 @@ Theory
 Background theory and motivation to embedded annotations and FAXE are presented in 
 *Tobias Schwarz, Wardah Mahmood, Thorsten Berger, “A Common Notation and Tool Support 
 for Embedded Feature Annotations,” in 24th ACM International Systems and Software Product 
-Line Conference (SPLC), Tools Track, 2020.* 
+Line Conference (SPLC), Tools Track, 2020.* [(link)](https://dl.acm.org/doi/abs/10.1145/3382026.3431253)
 
 Definition of Embedded Annotations
 -------------------------------------------
@@ -58,8 +58,10 @@ A collection of project with embedded annotations can be found here [https://bit
 as well as in the FAXE tool itself. The data sets are conform to the embedded annotation 
 specification: [Link](https://bitbucket.org/easelab/faxe/src/master/specification/)
 
-
-
+Embedded Annotation Metrics
+-------------------------------------------
+FAXE is supporting a set of metrics, e.g. scattering degree or tangling degree for a specific feature ; or how many features are used in the project and their average line count.
+The individual metrics are described with their purpose and how they are calculated in this document: [Embedded Annotations Metrics](https://bitbucket.org/easelab/faxe/src/master/specification/embedded_annotation_metrics.pdf)  
 
 Installation and setup
 -------------------------------------------
