@@ -20,6 +20,8 @@ After SPLC:
 -- Currently File objects holds list of annotations as data object
 -- Future, tree continues below file the direct annotations and if there are nestings in one annotation, these annotations
 
+- Provide warning when Feature names are written differently, e.g. "BlockchainSync" and "BlockchainSync"
+
 --------------------------------------------------------
 1) FAXE.FAXE cmd tool
 - to try out the tooling provide a command line tool
