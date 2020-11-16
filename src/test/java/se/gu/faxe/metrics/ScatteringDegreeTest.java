@@ -11,6 +11,20 @@ import java.io.IOException;
 public class ScatteringDegreeTest {
 
     @Test
+    public void testCalculateSD_File_SendCoinsActivity(){
+        File projectRoot = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/ui/send"));
+        FAXE faxe = new FAXE(projectRoot);
+
+        File searchPath = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/ui/send/SendCoinsActivity.java"));
+        Feature feature = new Feature("DonateCoins");
+        try {
+            Assert.assertEquals(ScatteringDegree.calculateSD(faxe.getKnownAssets(), searchPath, feature/*, true*/), 1); // Number derived from FeatureDashboard
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
     public void testCalculateSD_File_WalletBalanceFragment(){
         File projectRoot = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/ui"));
         FAXE faxe = new FAXE(projectRoot);
