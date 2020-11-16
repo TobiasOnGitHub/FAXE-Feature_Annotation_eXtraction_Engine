@@ -122,4 +122,30 @@ public class ScatteringDegreeTest {
         Assert.assertEquals(sd, 12); // Number derived from FeatureDashboard
     }
 
+    @Test
+    public void testCalculateAverageSD_File_SendCoinsActivity(){
+        File projectRoot = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/ui/send"));
+        FAXE faxe = new FAXE(projectRoot);
+
+        File searchPath = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/ui/send/SendCoinsActivity.java"));
+        try {
+            Assert.assertEquals(ScatteringDegree.calculateAverageSD(faxe.getKnownAssets(), searchPath/*, true*/), 2.0);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testCalculateAverageSD_Folder_Send(){
+        File projectRoot = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/ui/send"));
+        FAXE faxe = new FAXE(projectRoot);
+
+        File searchPath = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/ui/send"));
+        try {
+            Assert.assertEquals(ScatteringDegree.calculateAverageSD(faxe.getKnownAssets(), searchPath /*, true*/), 7.692, 0.001);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
