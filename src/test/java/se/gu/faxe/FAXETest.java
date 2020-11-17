@@ -192,6 +192,29 @@ public class FAXETest {
         Assert.assertEquals(faxe.getMetrics(f, Metrics.NoF, null), 10.0);
     }
 
+    @Test
+    public void testGetMetrics_pAvgLoFC() {
+        File f = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/util"));
+        FAXE faxe = new FAXE(f);
+
+        Assert.assertEquals(faxe.getMetrics(f, Metrics.pAvgLoFC, null), 57.3);
+    }
+
+    @Test
+    public void testGetMetrics_pAvgND() {
+        File f = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/util"));
+        FAXE faxe = new FAXE(f);
+
+        Assert.assertEquals(faxe.getMetrics(f, Metrics.pAvgND, null), 1.566, 0.001);
+    }
+
+    @Test
+    public void testGetMetrics_pAvgSD() {
+        File f = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/util"));
+        FAXE faxe = new FAXE(f);
+
+        Assert.assertEquals(faxe.getMetrics(f, Metrics.pAvgSD, null), 2.5);
+    }
 
     @Test
     public void testGetEmbeddedAnnotations(){

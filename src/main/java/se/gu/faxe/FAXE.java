@@ -421,6 +421,15 @@ public class FAXE {
                 case NoF:
                     ret = NumberOfFeatures.calculateNoF(knownAssets, file);             //&line(NumberOfFeatures)
                     break;
+                case pAvgLoFC:
+                    ret = LinesOfFeatureCode.calculateAverageLoFC(knownAssets, file);   //&line(AverageLinesOfFeatureCode)
+                    break;
+                case pAvgND:
+                    ret = NestingDepths.calculateAvgAvgND(knownAssets, file);           //&line(AverageFeatureNestingDepth)
+                    break;
+                case pAvgSD:
+                    ret = ScatteringDegree.calculateAverageSD(knownAssets, file);       //&line(AverageFeatureScatteringDegree)
+                    break;
                 default:
                     break;
             }
