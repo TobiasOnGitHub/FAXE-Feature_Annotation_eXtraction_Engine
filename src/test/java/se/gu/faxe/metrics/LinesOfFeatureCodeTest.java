@@ -123,33 +123,22 @@ public class LinesOfFeatureCodeTest {
         }
     }
 
-//    @Test
-//    public void testCalculateLoFCTotal_File_BlockchainService() {
-//
-//        File projectRoot = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/service"));
-//        FAXE faxe = new FAXE(projectRoot);
-//
-//        File searchPath = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/service/BlockchainService.java"));
-//
-//        try {
-//            Assert.assertEquals(LinesOfFeatureCode.calculateLoFCTotal(faxe.getKnownAssets(), searchPath, true), 181);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
+    @Test
+    public void testCalculateAverageLoFC_File_Logging() {
 
-//    @Test
-//    public void testCalculateLoFCTotal_File_BlockchainState() {
-//
-//        File projectRoot = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/service"));
-//        FAXE faxe = new FAXE(projectRoot);
-//
-//        File searchPath = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/service/BlockchainState.java"));
-//
-//        try {
-//            Assert.assertEquals(LinesOfFeatureCode.calculateLoFCTotal(faxe.getKnownAssets(), searchPath, true), 5);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
+        File projectRoot = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet"));
+        FAXE faxe = new FAXE(projectRoot);
+
+        File searchPath = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/Logging.java"));
+
+        try {
+            Assert.assertEquals(LinesOfFeatureCode.calculateAverageLoFC(faxe.getKnownAssets(), searchPath, true), 96);
+            // TODO - CLARIFICATION REQUIRED WHICH PROPER BEHAVIOUR FOR LOFC METRIC IS
+            // - Feedback: Inner annotation of same feature shall not be counted - To be fixed after rework of data structure.
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }
