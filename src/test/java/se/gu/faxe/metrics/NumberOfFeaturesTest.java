@@ -104,7 +104,7 @@ public class NumberOfFeaturesTest {
 
         Set<String> uniqueFeatures = null;
         try {
-            uniqueFeatures = NumberOfFeatures.getUniqueFeaturesSet(faxe.getKnownAssets(), searchPath, true);
+            uniqueFeatures = NumberOfFeatures.getUniqueFeaturesSet(faxe.getKnownAssets(), searchPath/*, true*/);
         } catch (IOException e) {
             e.printStackTrace();
         }
