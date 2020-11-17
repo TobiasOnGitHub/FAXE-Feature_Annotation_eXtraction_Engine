@@ -6,19 +6,18 @@ import org.testng.annotations.Test;
 import se.gu.faxe.metrics.Metrics;
 
 import java.io.File;
-import java.util.List;
 
 public class FAXETest {
 
     @Test
-    public void testFAXE_NotNull(){
+    public void testFAXE_NotNull() {
         File f = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet"));
         FAXE faxe = new FAXE(f);
         Assert.assertNotNull(faxe);
     }
 
     @Test
-    public void testGetKnownAssets_NotNull(){
+    public void testGetKnownAssets_NotNull() {
         FAXE faxe = new FAXE(new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/data")));
 
         TreeNode<Asset> knownAssets = faxe.getKnownAssets();
@@ -26,7 +25,7 @@ public class FAXETest {
     }
 
     @Test
-    public void testGetEmbeddedAnnotations_NotNull(){
+    public void testGetEmbeddedAnnotations_NotNull() {
         FAXE faxe = new FAXE(new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/data")));
 
         File f = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/data"));
@@ -35,39 +34,34 @@ public class FAXETest {
     }
 
     @Test(expectedExceptions = UnsupportedOperationException.class)
-    public void testGetEmbeddedAnnotations_throwUnsupportedOperation(){
-        FAXE faxe = new FAXE(new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/data")));
-
+    public void testGetEmbeddedAnnotations_throwUnsupportedOperation() {
         File f = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/data"));
-        List<Annotation> listAnnotations = faxe.getEmbeddedAnnotations(f, new Feature("AddressBook"));
+        FAXE.getEmbeddedAnnotations(f, new Feature("AddressBook"));
     }
 
     @Test(expectedExceptions = UnsupportedOperationException.class)
-    public void testGetEmbeddedAnnotationContent_throwUnsupportedOperation(){
+    public void testGetEmbeddedAnnotationContent_throwUnsupportedOperation() {
         FAXE faxe = new FAXE(new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/data")));
 
-        File f = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/data"));
         faxe.getEmbeddedAnnotationContent(new AnnotationLine(new Feature("F"), 0));
     }
 
     @Test(expectedExceptions = UnsupportedOperationException.class)
-    public void testGetMappedEmbeddedAnnotationContentFile_throwUnsupportedOperation(){
+    public void testGetMappedEmbeddedAnnotationContentFile_throwUnsupportedOperation() {
         FAXE faxe = new FAXE(new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/data")));
 
-        File f = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/data"));
         faxe.getMappedEmbeddedAnnotationContentFile(new AnnotationLine(new Feature("F"), 0));
     }
 
     @Test(expectedExceptions = UnsupportedOperationException.class)
-    public void testRenameFeatureName_throwUnsupportedOperation(){
+    public void testRenameFeatureName_throwUnsupportedOperation() {
         FAXE faxe = new FAXE(new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/data")));
 
-        File f = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/data"));
         faxe.renameFeatureName(new Feature("F"), "NewName");
     }
 
     @Test(expectedExceptions = UnsupportedOperationException.class)
-    public void testGetMetricsExport_throwUnsupportedOperation(){
+    public void testGetMetricsExport_throwUnsupportedOperation() {
         FAXE faxe = new FAXE(new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/data")));
 
         File f = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/data"));
@@ -75,7 +69,7 @@ public class FAXETest {
     }
 
     @Test(expectedExceptions = UnsupportedOperationException.class)
-    public void testCheckConsistency_throwUnsupportedOperation(){
+    public void testCheckConsistency_throwUnsupportedOperation() {
         FAXE faxe = new FAXE(new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/data")));
 
         File f = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/data"));
@@ -96,7 +90,7 @@ public class FAXETest {
 
 
     @Test
-    public void testToString(){
+    public void testToString() {
         FAXE faxe = new FAXE(new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/ui/backup")));
         File f = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/_.feature-model"));
         faxe.getEmbeddedAnnotationsFeatureModel(new Asset(f));
@@ -105,7 +99,7 @@ public class FAXETest {
     }
 
     @Test
-    public void testGetMetrics_SD(){
+    public void testGetMetrics_SD() {
         File f = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/ui"));
         FAXE faxe = new FAXE(f);
 
@@ -115,7 +109,7 @@ public class FAXETest {
     }
 
     @Test
-    public void testGetMetrics_TD(){
+    public void testGetMetrics_TD() {
         File f = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/ui"));
         FAXE faxe = new FAXE(f);
 
@@ -125,7 +119,7 @@ public class FAXETest {
     }
 
     @Test
-    public void testGetMetrics_NoFiA(){
+    public void testGetMetrics_NoFiA() {
         File f = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet"));
         FAXE faxe = new FAXE(f);
 
@@ -135,7 +129,7 @@ public class FAXETest {
     }
 
     @Test
-    public void testGetMetrics_NoAF(){
+    public void testGetMetrics_NoAF() {
         File f = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet"));
         FAXE faxe = new FAXE(f);
 
@@ -145,7 +139,7 @@ public class FAXETest {
     }
 
     @Test
-    public void testGetMetrics_NoFoA(){
+    public void testGetMetrics_NoFoA() {
         File f = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet"));
         FAXE faxe = new FAXE(f);
 
@@ -153,7 +147,7 @@ public class FAXETest {
     }
 
     @Test
-    public void testGetMetrics_LoFC(){
+    public void testGetMetrics_LoFC() {
         File f = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/service"));
         FAXE faxe = new FAXE(f);
 
@@ -161,7 +155,7 @@ public class FAXETest {
     }
 
     @Test
-    public void testGetMetrics_AvgND(){
+    public void testGetMetrics_AvgND() {
         File f = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/util/"));
         FAXE faxe = new FAXE(f);
 
@@ -169,7 +163,7 @@ public class FAXETest {
     }
 
     @Test
-    public void testGetMetrics_MaxND(){
+    public void testGetMetrics_MaxND() {
         File f = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/util/"));
         FAXE faxe = new FAXE(f);
 
@@ -177,7 +171,7 @@ public class FAXETest {
     }
 
     @Test
-    public void testGetMetrics_MinND(){
+    public void testGetMetrics_MinND() {
         File f = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/util/"));
         FAXE faxe = new FAXE(f);
 
@@ -185,7 +179,7 @@ public class FAXETest {
     }
 
     @Test
-    public void testGetMetrics_NoF(){
+    public void testGetMetrics_NoF() {
         File f = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/util"));
         FAXE faxe = new FAXE(f);
 
@@ -217,7 +211,7 @@ public class FAXETest {
     }
 
     @Test
-    public void testGetEmbeddedAnnotations(){
+    public void testGetEmbeddedAnnotations() {
         // TODO - Create a test which checks that entries are not added multiple times. E.g. through constructor and then getEmbeddedAnnotations again
     }
 
