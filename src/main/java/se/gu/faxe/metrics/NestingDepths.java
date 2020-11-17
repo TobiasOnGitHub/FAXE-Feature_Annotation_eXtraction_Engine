@@ -40,7 +40,7 @@ import java.util.Set;
 
 
 public class NestingDepths {
-    private static int ND_DEFAULT_VALUE = -1;
+    private static final int ND_DEFAULT_VALUE = -1;
     private static double AvgND = ND_DEFAULT_VALUE;
     private static int MaxND = ND_DEFAULT_VALUE;
     private static int MinND = ND_DEFAULT_VALUE;
@@ -307,12 +307,11 @@ public class NestingDepths {
             }
         }
 
-        double avgAvgND = ((double) sumAvgND) / ((double) uniqueFeatures.size());
+        double avgAvgND = sumAvgND / ((double) uniqueFeatures.size());
         if (printFoundLocation) {
             System.out.println("calculateAvgAvgND total average AvgND = " + avgAvgND +" (sumAvgND=" +sumAvgND +" ; uniqueFeatures.size=" +uniqueFeatures.size() +")");
         }
         return avgAvgND;
     }
 
-
-    }
+}
