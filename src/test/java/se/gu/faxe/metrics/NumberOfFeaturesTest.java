@@ -200,4 +200,23 @@ public class NumberOfFeaturesTest {
         Assert.assertTrue(uniqueFeatures.contains("BackupReminder"));
         Assert.assertTrue(uniqueFeatures.contains("RestoreWallet"));
     }
+
+
+    @Test
+    public void testGetUniqueFeaturesSet_FAXE_project(){
+        File projectRoot = new File(new File("").getAbsolutePath().concat("/src/main/java/se/gu/faxe"));
+        FAXE faxe = new FAXE(projectRoot);
+
+        File searchPath = new File(new File("").getAbsolutePath().concat("/src/main/java/se/gu/faxe"));
+
+        Set<String> uniqueFeatures = null;
+        try {
+            uniqueFeatures = NumberOfFeatures.getUniqueFeaturesSet(faxe.getKnownAssets(), searchPath, true);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Assert.assertNotNull(uniqueFeatures);
+
+    }
 }
