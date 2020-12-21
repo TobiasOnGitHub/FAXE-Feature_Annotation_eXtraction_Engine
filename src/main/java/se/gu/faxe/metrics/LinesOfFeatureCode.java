@@ -42,17 +42,17 @@ import java.util.Set;
  * - For the calculation of Fragments (annotated code scopes), all lines from the &begin till
  *   &end line are considered.
  *   Example - 5 lines of fragment code
- *     //&begin[BlockchainSync]
+ *     //&begin[LinesOfFeatureCode]
  *     public final Date bestChainDate;
  *     public final int bestChainHeight;
  *     public final boolean replaying;
- *     //&end[BlockchainSync]
+ *     //&end[LinesOfFeatureCode]
  *   This is for stability reasons to cover all ways of how text fragment annotations can be written.
- *     /*&begin[BlockchainSync] * /public final bestValue;
+ *     /*&begin[LinesOfFeatureCode] * /public final bestValue;
  *     public final Date bestChainDate;
  *     public final int bestChainHeight;
  *     public final boolean replaying;
- *     public final boolean play //&end[BlockchainSync]
+ *     public final boolean play //&end[LinesOfFeatureCode]
  *
  */
 public class LinesOfFeatureCode {
