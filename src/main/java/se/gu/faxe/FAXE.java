@@ -25,6 +25,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 /**
  * FAXE is an open source library (Apache 2.0) for parsing and receiving embedded annotations from software projects.
@@ -106,7 +107,13 @@ public class FAXE {
             throw new NullPointerException("FAXE::getEmbeddedAnnotations Input rootDirectory is NULL.");
         }
 
-        for (File file : rootDirectory.listFiles()) {
+        // in case of only one file to handle, add this as File item to to-be-handled array
+        File[] rootDirectory_list = rootDirectory.listFiles();
+        if(rootDirectory_list == null && rootDirectory.isFile()){
+            rootDirectory_list = new File[1];
+            rootDirectory_list[0] = rootDirectory;
+        }
+        for (File file : rootDirectory_list) {
             Asset nextAsset = new Asset(file);
 
             if (file.isDirectory()) {
@@ -160,14 +167,14 @@ public class FAXE {
                 //&begin(TextMapping)
                 } else {
                     // CASE: Regular text file
-                    getEmbeddedAnnotationsFromTextAsset(nextAsset);
+                    TreeNode<Asset> nextAssetNode = getEmbeddedAnnotationsFromTextAsset(nextAsset);
                     /*****************************/
                     /**  ADD TO ASSET-TREE      **/
                     /*****************************/
                     File parent = file.getParentFile();
                     TreeNode<Asset> nodeParent = knownAssets.find(new Asset(parent));
                     if(nodeParent.find(nextAsset)==null) {
-                        nodeParent.add(new ArrayMultiTreeNode<>(nextAsset));
+                        nodeParent.add(nextAssetNode);
                     } else {
                         // Update parameters
                         TreeNode<Asset> node = nodeParent.find(nextAsset);
@@ -210,8 +217,9 @@ public class FAXE {
      * @param assetToAnalyze Asset file object to be analyzed file.
      * @return List of found embedded annotations.
      */
-    public Asset getEmbeddedAnnotationsFromTextAsset(Asset assetToAnalyze){
+    public TreeNode<Asset> getEmbeddedAnnotationsFromTextAsset(Asset assetToAnalyze){
         //System.out.println(">> getEmbeddedAnnotationsFromTextAsset - File " +assetToAnalyze.getPath());
+        TreeNode<Asset> fileNode = new ArrayMultiTreeNode<>(assetToAnalyze);    // file object to add text annotations
         CharStream in = null;
         try {
             in = CharStreams.fromFileName(assetToAnalyze.getPath().getAbsolutePath());
@@ -241,12 +249,42 @@ public class FAXE {
                 System.out.println("Parsing error happened in File " +assetToAnalyze.getPath());
                 e.printStackTrace();
             }
-            assetToAnalyze.addAllAnnotation(eaList);
+
+            // Transform eaList to tree objects which can be attached to file node
+            System.out.println("c");
+
+            Stack<Annotation> eaNesting = new Stack();
+            for(Annotation ea : eaList){
+                Asset nextAsset = new Asset(assetToAnalyze.getPath());
+                nextAsset.addAnnotation(ea);
+//                if(eaNesting.isEmpty()) {
+                    fileNode.add(new ArrayMultiTreeNode<>(nextAsset));
+//                    if(!(ea instanceof AnnotationLine)){
+//                        eaNesting.push(ea);
+//                    }
+//                } else {
+//                    // New EA inside previous one?
+//                    Annotation previousAnnotation = eaNesting.pop();
+//                    int previousAnnotation_start = -1;
+//                    int previousAnnotation_end = -1;
+//
+//                    if(previousAnnotation instanceof AnnotationLine){
+//
+//                    }
+//
+//                    if(ea instanceof AnnotationLine){
+//                        //if(((AnnotationLine) ea).getLine()){};
+//                    }
+//                }
+            }
+
+//            System.out.println(fileNode);
+
         } catch (ParseCancellationException e) {
             // Catch if given string is not fitting the grammar
             System.out.println("FAXE::getEmbeddedAnnotationsFromTextAsset ERROR DETECTED :)");
         }
-        return assetToAnalyze;
+        return fileNode;
     }
     //&end(TextMapping)
 
