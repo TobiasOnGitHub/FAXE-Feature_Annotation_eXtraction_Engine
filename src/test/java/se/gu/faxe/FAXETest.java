@@ -25,10 +25,19 @@ public class FAXETest {
     }
 
     @Test
-    public void testGetEmbeddedAnnotations_NotNull() {
+    public void testGetEmbeddedAnnotations_NotNull_Folder() {
         FAXE faxe = new FAXE(new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/data")));
 
         File f = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/data"));
+        TreeNode<Asset> assets = faxe.getEmbeddedAnnotations(f);
+        Assert.assertNotNull(assets);
+    }
+
+    @Test
+    public void testGetEmbeddedAnnotations_NotNull_File() {
+        FAXE faxe = new FAXE(new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/ui")));
+
+        File f = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/ui/WalletBalanceFragment.java"));
         TreeNode<Asset> assets = faxe.getEmbeddedAnnotations(f);
         Assert.assertNotNull(assets);
     }
