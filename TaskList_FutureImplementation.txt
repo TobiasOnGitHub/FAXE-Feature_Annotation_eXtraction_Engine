@@ -7,6 +7,7 @@ Worklist for SPLC Release v0.1
 
 - Feature::renameFeature() to be implemented
 
+- FAXE export for FM in consoleApplication
 
 - Change the FeatureModel to be more robost for different feature-model files. E.g. indentations sometimes tabs, sometimes spaces (fix lenght, variable length). Mix of tabs and spaces.
 

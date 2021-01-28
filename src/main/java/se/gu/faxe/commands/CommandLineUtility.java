@@ -104,19 +104,19 @@ class Get implements Callable<Integer> {
                 if(faxe==null){
                     // initialize FAXE
                     faxe = new FAXE(path.getParentFile());
-                    asset = faxe.getEmbeddedAnnotationsFromTextAsset(new Asset(path));
-                    for ( Annotation ass : asset.getAnnotationList()) {
-                        for (Feature f : ass.getLinkedFeatures()){
-                            if (featureLPQ == "" || f.toString().equals(featureLPQ)) {
-                                if (ass instanceof AnnotationFragment) {
-                                    System.out.println(path.toString() + ":" + f.getLpq() + " " + ((AnnotationFragment) ass).getStartline() + ":" + ((AnnotationFragment) ass).getEndline());
-                                }
-                                if (ass instanceof AnnotationLine) {
-                                    System.out.println(path.toString() + ":" + f.getLpq() + " " + ((AnnotationLine) ass).getLine());
-                                }
-                            }
-                        }
-                    }
+//                    asset = faxe.getEmbeddedAnnotationsFromTextAsset(new Asset(path));
+//                    for ( Annotation ass : asset.getAnnotationList()) {
+//                        for (Feature f : ass.getLinkedFeatures()){
+//                            if (featureLPQ == "" || f.toString().equals(featureLPQ)) {
+//                                if (ass instanceof AnnotationFragment) {
+//                                    System.out.println(path.toString() + ":" + f.getLpq() + " " + ((AnnotationFragment) ass).getStartline() + ":" + ((AnnotationFragment) ass).getEndline());
+//                                }
+//                                if (ass instanceof AnnotationLine) {
+//                                    System.out.println(path.toString() + ":" + f.getLpq() + " " + ((AnnotationLine) ass).getLine());
+//                                }
+//                            }
+//                        }
+//                    }
                 }
 
             }

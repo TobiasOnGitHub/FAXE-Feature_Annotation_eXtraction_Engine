@@ -251,7 +251,7 @@ public class FAXE {
             }
 
             // Transform eaList to tree objects which can be attached to file node
-            System.out.println("c");
+            // System.out.println("c");
 
             Stack<Annotation> eaNesting = new Stack();
             for(Annotation ea : eaList){

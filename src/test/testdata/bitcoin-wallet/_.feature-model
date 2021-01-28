@@ -80,3 +80,19 @@ BitcoinWallet
 		ViewSent
 		ViewReceived
 	Localisation
+	Unsorted
+		SetPIN
+		SweepPaperWallets
+		NotifyReceived
+		CurrencyCalculator
+		Log
+		ExchangeRates
+		SkipDiscovery
+		ShareAddress
+		SenderAddress
+		TransactionsFilter
+		PaymentURL
+		RestoreWallet
+		BackupWallet
+		LocalApp
+		ConnectivityIndicator

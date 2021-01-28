@@ -97,6 +97,29 @@ public class FAXETest {
         faxe.serializeToJSON();
     }
 
+    @Test
+    public void testSerializeEAList2JSON_FAXE() {
+        // Creating JSON object with
+        File f = new File(new File("").getAbsolutePath().concat("/src/main/java/se/gu"));
+        FAXE faxe = new FAXE(f);
+
+        File f_fm = new File(new File("").getAbsolutePath().concat("/src/main/java/se/gu/faxe"));
+        faxe.getEmbeddedAnnotationsFeatureModel(new Asset(f_fm));
+
+        faxe.serializeToJSON();
+    }
+
+    @Test
+    public void testSerializeEAList2JSON_BitcoinWallet() {
+        // Creating JSON object with
+        File f = new File("C:/Users/Tobias/git/ea-bitcoin-wallet/Bitcoin-wallet/src/de/schildbach/wallet");
+        FAXE faxe = new FAXE(f);
+
+        File f_fm = new File("C:/Users/Tobias/git/ea-bitcoin-wallet/Bitcoin-wallet/src/de/schildbach/wallet");
+        faxe.getEmbeddedAnnotationsFeatureModel(new Asset(f_fm));
+
+        faxe.serializeToJSON();
+    }
 
     @Test
     public void testToString() {
