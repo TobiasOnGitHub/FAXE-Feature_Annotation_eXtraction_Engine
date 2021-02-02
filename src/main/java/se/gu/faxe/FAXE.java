@@ -25,7 +25,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Stack;
 
 /**
  * FAXE is an open source library (Apache 2.0) for parsing and receiving embedded annotations from software projects.
@@ -251,31 +250,49 @@ public class FAXE {
             }
 
             // Transform eaList to tree objects which can be attached to file node
-            // System.out.println("c");
 
-            Stack<Annotation> eaNesting = new Stack();
             for(Annotation ea : eaList){
                 Asset nextAsset = new Asset(assetToAnalyze.getPath());
                 nextAsset.addAnnotation(ea);
-//                if(eaNesting.isEmpty()) {
+                if(fileNode.subtrees().isEmpty()) {
+                    // First element in file
                     fileNode.add(new ArrayMultiTreeNode<>(nextAsset));
-//                    if(!(ea instanceof AnnotationLine)){
-//                        eaNesting.push(ea);
-//                    }
-//                } else {
-//                    // New EA inside previous one?
-//                    Annotation previousAnnotation = eaNesting.pop();
-//                    int previousAnnotation_start = -1;
-//                    int previousAnnotation_end = -1;
-//
-//                    if(previousAnnotation instanceof AnnotationLine){
-//
-//                    }
-//
-//                    if(ea instanceof AnnotationLine){
-//                        //if(((AnnotationLine) ea).getLine()){};
-//                    }
-//                }
+                } else {
+                    // Check Overlapping with previous embedded annotation
+                    System.out.println("c");
+                    // Iterate through existing tree and check if child of existing annotation
+                    for (TreeNode<Asset> node : fileNode) {
+                        // skip root node as this one represents the file object
+                        if (!node.isRoot()) {
+                            if (node.data().getAnnotationList().size() > 1) {
+                                System.out.println("Should most likely not appear anymore");
+                            }
+                            Annotation data = node.data().getAnnotationList().get(0);
+                            if (data instanceof AnnotationFragment) {
+                                int end_of_parent = ((AnnotationFragment) data).getEndline();
+                                int start_next_feature = 0;
+                                if (ea instanceof AnnotationFragment) {
+                                    // potential parent is a fragment (only option that child of)
+                                    start_next_feature = ((AnnotationFragment) ea).getStartline();
+                                } else if (ea instanceof AnnotationLine) {
+                                    start_next_feature = ((AnnotationLine) ea).getLine();
+                                } else {
+                                    System.out.println("FAXE::getEmbeddedAnnotationsFromTextAsset - ERROR: This should never happen as inside text asset only Fragment and Line are allowed.");
+                                }
+                                // Next annotation considered as child when it starts before the previous annotation ends.
+                                if (start_next_feature < end_of_parent) {
+                                    node.add(new ArrayMultiTreeNode<>(nextAsset));
+                                    // Node added, break for loop
+                                    break;
+                                }
+                            }
+                            // Default case if no parent is found
+                            fileNode.add(new ArrayMultiTreeNode<>(nextAsset));
+                        }
+                    }
+
+
+                }
             }
 
 //            System.out.println(fileNode);
