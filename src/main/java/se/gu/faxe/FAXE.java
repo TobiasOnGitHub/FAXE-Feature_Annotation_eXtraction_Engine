@@ -37,6 +37,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -262,54 +263,66 @@ public class FAXE {
                 e.printStackTrace();
             }
 
-            // Transform eaList to tree objects which can be attached to file node
-
+            // Transform eaList to tree objects which can be attached to file node -> In flat node list
             for(Annotation ea : eaList){
                 Asset nextAsset = new Asset(assetToAnalyze.getPath());
                 nextAsset.addAnnotation(ea);
-                if(fileNode.subtrees().isEmpty()) {
-                    // First element in file
-                    fileNode.add(new ArrayMultiTreeNode<>(nextAsset));
-                } else {
-                    // Check Overlapping with previous embedded annotation
-                    System.out.println("c");
-                    // Iterate through existing tree and check if child of existing annotation
-                    for (TreeNode<Asset> node : fileNode) {
-                        // skip root node as this one represents the file object
-                        if (!node.isRoot()) {
-                            if (node.data().getAnnotationList().size() > 1) {
-                                System.out.println("Should most likely not appear anymore");
-                            }
-                            Annotation data = node.data().getAnnotationList().get(0);
-                            if (data instanceof AnnotationFragment) {
-                                int end_of_parent = ((AnnotationFragment) data).getEndline();
-                                int start_next_feature = 0;
-                                if (ea instanceof AnnotationFragment) {
-                                    // potential parent is a fragment (only option that child of)
-                                    start_next_feature = ((AnnotationFragment) ea).getStartline();
-                                } else if (ea instanceof AnnotationLine) {
-                                    start_next_feature = ((AnnotationLine) ea).getLine();
-                                } else {
-                                    System.out.println("FAXE::getEmbeddedAnnotationsFromTextAsset - ERROR: This should never happen as inside text asset only Fragment and Line are allowed.");
-                                }
-                                // Next annotation considered as child when it starts before the previous annotation ends.
-                                if (start_next_feature < end_of_parent) {
-                                    node.add(new ArrayMultiTreeNode<>(nextAsset));
-                                    // Node added, break for loop
-                                    break;
-                                }
-                            }
-                            // Default case if no parent is found
-                            fileNode.add(new ArrayMultiTreeNode<>(nextAsset));
-                        }
-                    }
-
-
-                }
+                fileNode.add(new ArrayMultiTreeNode<>(nextAsset));
             }
 
-//            System.out.println(fileNode);
+            // Organize flat node list to proper hierarchy
+            TreeNode<Asset> fileNodeHierarchy = new ArrayMultiTreeNode<>(fileNode.root().data());
+            List<TreeNode<Asset>> lastNodeStack = new ArrayList<>();
+            List<Integer> lastNodeEndLineStack = new ArrayList<>();
+            Collection<? extends TreeNode<Asset>> preOrderedCollection = fileNode.preOrdered();
+            for (TreeNode<Asset> node : preOrderedCollection) {
+                // Put node in the correct position in new fileNodeHierarchy
+                if(node.isRoot()) {
+                    continue;
+                }
+                if(lastNodeStack.isEmpty()){
+                    // Only Fragment annotation can be parent of others
+                    if (node.data().getAnnotationList().get(0) instanceof AnnotationFragment) {
+                        lastNodeStack.add(node);
+                        lastNodeEndLineStack.add(((AnnotationFragment) node.data().getAnnotationList().get(0)).getEndline());
+                        fileNodeHierarchy.root().add(node);
+                    }
+                    continue;
+                }
 
+                Annotation nodeAnnotation = node.data().getAnnotationList().get(0);
+                int start_next_feature = 0;
+                if (nodeAnnotation instanceof AnnotationFragment) {
+                    // potential parent is a fragment (only option that child of)
+                    start_next_feature = ((AnnotationFragment) nodeAnnotation).getStartline();
+                } else if (nodeAnnotation instanceof AnnotationLine) {
+                    start_next_feature = ((AnnotationLine) nodeAnnotation).getLine();
+                } else {
+                    System.out.println("FAXE::getEmbeddedAnnotationsFromTextAsset - ERROR: This should never happen as inside text asset only Fragment and Line are allowed.");
+                }
+                // Next annotation considered as child when it starts before the previous annotation ends.
+                for(int i = lastNodeStack.size()-1 ; i>=0; i--){
+                    TreeNode<Asset> lastNode = lastNodeStack.get(i);
+                    int endLine = lastNodeEndLineStack.get(i);
+                    if (start_next_feature < endLine) {
+                        lastNodeStack.add(node);
+                        lastNodeEndLineStack.add(((AnnotationFragment) node.data().getAnnotationList().get(0)).getEndline());
+                        lastNode.add(node);
+                        break;  // Stop loop as item added to correct position
+                    } else {
+                        lastNodeStack.remove(i);
+                        lastNodeEndLineStack.remove(i);
+                    }
+                    if(lastNodeStack.isEmpty()){
+                        // Back at level 0. Start new EA hierarchy
+                        lastNodeStack.add(node);
+                        lastNodeEndLineStack.add(((AnnotationFragment) node.data().getAnnotationList().get(0)).getEndline());
+                        fileNodeHierarchy.root().add(node);
+                    }
+                }
+
+                fileNode = fileNodeHierarchy;
+            }
         } catch (ParseCancellationException e) {
             // Catch if given string is not fitting the grammar
             System.out.println("FAXE::getEmbeddedAnnotationsFromTextAsset ERROR DETECTED :)");
