@@ -306,7 +306,13 @@ public class FAXE {
                     int endLine = lastNodeEndLineStack.get(i);
                     if (start_next_feature < endLine) {
                         lastNodeStack.add(node);
-                        lastNodeEndLineStack.add(((AnnotationFragment) node.data().getAnnotationList().get(0)).getEndline());
+                        if (nodeAnnotation instanceof AnnotationFragment) {
+                            lastNodeEndLineStack.add(((AnnotationFragment) node.data().getAnnotationList().get(0)).getEndline());
+                        } else if (nodeAnnotation instanceof AnnotationLine) {
+                            lastNodeEndLineStack.add(((AnnotationLine) node.data().getAnnotationList().get(0)).getLine());
+                        } else {
+                            System.out.println("FAXE::getEmbeddedAnnotationsFromTextAsset - ERROR: This should never happen as inside text asset only Fragment and Line are allowed.");
+                        }
                         lastNode.add(node);
                         break;  // Stop loop as item added to correct position
                     } else {
