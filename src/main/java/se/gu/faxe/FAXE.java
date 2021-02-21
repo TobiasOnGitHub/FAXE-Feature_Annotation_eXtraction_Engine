@@ -298,7 +298,7 @@ public class FAXE {
                 } else if (nodeAnnotation instanceof AnnotationLine) {
                     start_next_feature = ((AnnotationLine) nodeAnnotation).getLine();
                 } else {
-                    System.out.println("FAXE::getEmbeddedAnnotationsFromTextAsset - ERROR: This should never happen as inside text asset only Fragment and Line are allowed.");
+                    System.out.println("FAXE::getEmbeddedAnnotationsFromTextAsset - ERROR (1): This should never happen as inside text asset only Fragment and Line are allowed.");
                 }
                 // Next annotation considered as child when it starts before the previous annotation ends.
                 for(int i = lastNodeStack.size()-1 ; i>=0; i--){
@@ -311,7 +311,7 @@ public class FAXE {
                         } else if (nodeAnnotation instanceof AnnotationLine) {
                             lastNodeEndLineStack.add(((AnnotationLine) node.data().getAnnotationList().get(0)).getLine());
                         } else {
-                            System.out.println("FAXE::getEmbeddedAnnotationsFromTextAsset - ERROR: This should never happen as inside text asset only Fragment and Line are allowed.");
+                            System.out.println("FAXE::getEmbeddedAnnotationsFromTextAsset - ERROR (2): This should never happen as inside text asset only Fragment and Line are allowed.");
                         }
                         lastNode.add(node);
                         break;  // Stop loop as item added to correct position
@@ -322,7 +322,13 @@ public class FAXE {
                     if(lastNodeStack.isEmpty()){
                         // Back at level 0. Start new EA hierarchy
                         lastNodeStack.add(node);
-                        lastNodeEndLineStack.add(((AnnotationFragment) node.data().getAnnotationList().get(0)).getEndline());
+                        if (nodeAnnotation instanceof AnnotationFragment) {
+                            lastNodeEndLineStack.add(((AnnotationFragment) node.data().getAnnotationList().get(0)).getEndline());
+                        } else if (nodeAnnotation instanceof AnnotationLine) {
+                            lastNodeEndLineStack.add(((AnnotationLine) node.data().getAnnotationList().get(0)).getLine());
+                        } else {
+                            System.out.println("FAXE::getEmbeddedAnnotationsFromTextAsset - ERROR (3): This should never happen as inside text asset only Fragment and Line are allowed.");
+                        }
                         fileNodeHierarchy.root().add(node);
                     }
                 }

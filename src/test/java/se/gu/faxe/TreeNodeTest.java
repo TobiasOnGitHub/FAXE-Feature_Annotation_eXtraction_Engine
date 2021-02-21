@@ -30,7 +30,7 @@ public class TreeNodeTest {
             if(nextItem.getAnnotationList().size()!=0) {
                 a = nextItem.getAnnotationList().get(0).toString();
             }
-            System.out.println("Checking feature: " +a);
+//            System.out.println("Checking feature: " +a);
             Assert.assertEquals(a, targetAnnotations.get(i));
             i++;
         }
