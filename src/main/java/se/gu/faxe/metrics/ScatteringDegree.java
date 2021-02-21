@@ -25,6 +25,7 @@ import se.gu.faxe.Feature;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -85,21 +86,23 @@ public class ScatteringDegree {
         }
 
         // Iterate tree and gather scattering information
-        for (TreeNode<Asset> node : searchRootNode) {
+        Collection<? extends TreeNode<Asset>> preOrderedCollection = searchRootNode.preOrdered();
+        for (TreeNode<Asset> node : preOrderedCollection) {
             //System.out.println("Node = " +node.toString());
             List<Annotation> annotationList = node.data().getAnnotationList();
             for (Annotation annotation : annotationList) {
                 if (annotation.getLinkedFeatures().contains(searchFeature)) {
                     sd++;
+                    if (printFoundLocation) {
+                        System.out.println("   Feature " + searchFeature.toString() + " found in " + node.data().getPath());
+                    }
                 }
-            }
-            if (printFoundLocation && sd > 0) {
-                System.out.println("   Feature " + searchFeature.toString() + " found in " + node.data().getPath());
             }
         }
 
-        //System.out.println("Scattering Degree = " +sd);
-
+        if (printFoundLocation) {
+            System.out.println("Scattering Degree = " +sd);
+        }
         return sd;
     }
 

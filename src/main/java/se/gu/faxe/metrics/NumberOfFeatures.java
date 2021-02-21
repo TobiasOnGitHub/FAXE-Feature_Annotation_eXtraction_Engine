@@ -7,6 +7,7 @@ import se.gu.faxe.Feature;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -72,7 +73,8 @@ public class NumberOfFeatures {
         // Iterate tree and gather information
         // Usage of String (instead of type Feature) to not count different Feature objects (with different line positions)
         Set<String> featureSet = new HashSet<>();
-        for (TreeNode<Asset> node : searchRootNode) {
+        Collection<? extends TreeNode<Asset>> preOrderedCollection = searchRootNode.preOrdered();
+        for (TreeNode<Asset> node : preOrderedCollection) {
             //System.out.println("Node = " +node.toString());
             List<Annotation> annotationList = node.data().getAnnotationList();
             for (Annotation annotation : annotationList) {

@@ -102,7 +102,7 @@ public class ScatteringDegreeTest {
             e.printStackTrace();
         }
 
-        Assert.assertEquals(sd, 7); // Number derived from FeatureDashboard
+        Assert.assertEquals(sd, 6);
     }
 
     @Test
@@ -119,7 +119,7 @@ public class ScatteringDegreeTest {
             e.printStackTrace();
         }
 
-        Assert.assertEquals(sd, 12); // Number derived from FeatureDashboard
+        Assert.assertEquals(sd, 11); // Number derived from FeatureDashboard
     }
 
     @Test
@@ -142,7 +142,7 @@ public class ScatteringDegreeTest {
 
         File searchPath = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/ui/send"));
         try {
-            Assert.assertEquals(ScatteringDegree.calculateAverageSD(faxe.getKnownAssets(), searchPath , true), 7.692, 0.001);
+            Assert.assertEquals(ScatteringDegree.calculateAverageSD(faxe.getKnownAssets(), searchPath /*,true*/), 7.653, 0.001);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -150,19 +150,24 @@ public class ScatteringDegreeTest {
 
     @Test
     public void testCalculateSD_Folder_wallet_real(){
-        File projectRoot = new File("C:/Users/Tobias/git/ea-bitcoin-wallet");
+        // Test complete project (root folder)
+        File projectRoot = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet"));
         FAXE faxe = new FAXE(projectRoot);
 
-        File searchPath = new File("C:/Users/Tobias/git/ea-bitcoin-wallet");
+        File searchPath = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet"));
 
         double sd = 0;
         try {
-            sd = ScatteringDegree.calculateAverageSD(faxe.getKnownAssets(), searchPath, true);
+            sd = ScatteringDegree.calculateAverageSD(faxe.getKnownAssets(), searchPath/*, true*/);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        Assert.assertEquals(sd, 12.0); // Number derived from FeatureDashboard
+        try {
+            Assert.assertEquals(ScatteringDegree.calculateAverageSD(faxe.getKnownAssets(), searchPath /*,true*/), 12.843, 0.001);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }
