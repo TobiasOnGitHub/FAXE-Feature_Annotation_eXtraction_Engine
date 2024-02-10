@@ -153,6 +153,7 @@ public class FAXETest {
      * com.scalified.tree.TreeNodeException: Right sibling node can't be obtained. Current tree node is root
      * The error happened when only one annotation was present in a file. Therefore, no right annotation was existing
      * and triggered the exception.
+     *
      */
     @Test
     public void testGetMetrics_TD_on_structural() {
