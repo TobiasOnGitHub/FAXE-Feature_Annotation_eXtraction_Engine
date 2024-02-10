@@ -23,6 +23,7 @@ import se.gu.faxe.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
@@ -73,8 +74,9 @@ public class TanglingDegree {
         if(searchRootNode==null){
             throw new IOException("TanglingDegree::calculateTD ERROR: Given inout path " +searchedPath +" not existing in fullAssetTree!");
         }
+        Collection<? extends TreeNode<Asset>> preOrderedCollection = searchRootNode.preOrdered();
         // Check if searched feature is in Asset
-        for (TreeNode<Asset> node : searchRootNode) {
+        for (TreeNode<Asset> node : preOrderedCollection) {
             // When searched feature is in Asset, add available feature to tangled map
             List<Annotation> annotations = node.data().getAnnotationList();
             boolean searchedFeatureInAsset = false;

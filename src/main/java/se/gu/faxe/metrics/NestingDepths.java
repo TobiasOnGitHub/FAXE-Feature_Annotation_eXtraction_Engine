@@ -23,10 +23,7 @@ import se.gu.faxe.*;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Nesting depths of annotations: Maximum (MaxND), Minimum (MinND), and Average (AvgND) nesting depth of annotations
@@ -150,10 +147,11 @@ public class NestingDepths {
         if (searchRootNode == null) {
             throw new IOException("NestingDepths::calculateND ERROR: Given inout path " + searchedPath + " not existing in fullAssetTree!");
         }
+        Collection<? extends TreeNode<Asset>> preOrderedCollection = searchRootNode.preOrdered();
 
         // Iterate tree and gather scattering information
         List<Integer> individualNestingDepts = new ArrayList<>();
-        for (TreeNode<Asset> node : searchRootNode) {
+        for (TreeNode<Asset> node : preOrderedCollection) {
 
             List<Annotation> annotationList = node.data().getAnnotationList();
             for (int i = 0; i < annotationList.size(); i++) {

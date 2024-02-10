@@ -26,6 +26,7 @@ import se.gu.faxe.Feature;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -67,9 +68,10 @@ public class NumberOfFolderAnnotations {
         if(searchRootNode==null){
             throw new IOException("NumberOfFolderAnnotations::calculateNoFoA ERROR: Given inout path " +searchedPath +" not existing in fullAssetTree!");
         }
+        Collection<? extends TreeNode<Asset>> preOrderedCollection = searchRootNode.preOrdered();
 
         // Iterate tree and gather scattering information
-        for (TreeNode<Asset> node : searchRootNode) {
+        for (TreeNode<Asset> node : preOrderedCollection) {
             //System.out.println("Node = " +node.toString());
             List<Annotation> annotationList = node.data().getAnnotationList();
             for (Annotation annotation : annotationList) {

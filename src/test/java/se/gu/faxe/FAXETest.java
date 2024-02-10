@@ -97,29 +97,17 @@ public class FAXETest {
         faxe.serializeToJSON();
     }
 
-    @Test
-    public void testSerializeEAList2JSON_FAXE() {
-        // Creating JSON object with
-        File f = new File(new File("").getAbsolutePath().concat("/src/main/java/se/gu"));
-        FAXE faxe = new FAXE(f);
-
-        File f_fm = new File(new File("").getAbsolutePath().concat("/src/main/java/se/gu/faxe"));
-        faxe.getEmbeddedAnnotationsFeatureModel(new Asset(f_fm));
-
-        faxe.serializeToJSON();
-    }
-
-    @Test
-    public void testSerializeEAList2JSON_BitcoinWallet() {
-        // Creating JSON object with
-        File f = new File("C:/Users/Tobias/git/ea-bitcoin-wallet/Bitcoin-wallet/src/de/schildbach/wallet");
-        FAXE faxe = new FAXE(f);
-
-        File f_fm = new File("C:/Users/Tobias/git/ea-bitcoin-wallet/Bitcoin-wallet/src/de/schildbach/wallet");
-        faxe.getEmbeddedAnnotationsFeatureModel(new Asset(f_fm));
-
-        faxe.serializeToJSON();
-    }
+//    @Test
+//    public void testSerializeEAList2JSON_FAXE() {
+//        // Creating JSON object with
+//        File f = new File(new File("").getAbsolutePath().concat("/src/main/java/se/gu"));
+//        FAXE faxe = new FAXE(f);
+//
+//        File f_fm = new File(new File("").getAbsolutePath().concat("/src/main/java/se/gu/faxe"));
+//        faxe.getEmbeddedAnnotationsFeatureModel(new Asset(f_fm));
+//
+//        faxe.serializeToJSON();
+//    }
 
     @Test
     public void testToString() {
@@ -141,6 +129,16 @@ public class FAXETest {
     }
 
     @Test
+    public void testGetMetrics_SD_on_structural() {
+        File f = new File(new File("").getAbsolutePath().concat("/src/test/testdata/structural"));
+        FAXE faxe = new FAXE(f);
+
+        double sd = faxe.getMetrics(f, Metrics.SD, new Feature("Fee"));
+
+        System.out.println("td = " + sd);
+    }
+
+    @Test
     public void testGetMetrics_TD() {
         File f = new File(new File("").getAbsolutePath().concat("/src/test/testdata/bitcoin-wallet/ui"));
         FAXE faxe = new FAXE(f);
@@ -148,6 +146,21 @@ public class FAXETest {
         double td = faxe.getMetrics(f, Metrics.TD, new Feature("Fee"));
 
         Assert.assertEquals(td, 32.0);
+    }
+
+    /**
+     * Ensure that previous existing exception with right annotation not found error is solved.
+     * com.scalified.tree.TreeNodeException: Right sibling node can't be obtained. Current tree node is root
+     * The error happened when only one annotation was present in a file. Therefore, no right annotation was existing
+     * and triggered the exception.
+     */
+    @Test
+    public void testGetMetrics_TD_on_structural() {
+        File f = new File(new File("").getAbsolutePath().concat("/src/test/testdata/structural"));
+        FAXE faxe = new FAXE(f);
+
+        double td = faxe.getMetrics(f, Metrics.TD, new Feature("Fee"));
+        System.out.println("td = " + td);
     }
 
     @Test

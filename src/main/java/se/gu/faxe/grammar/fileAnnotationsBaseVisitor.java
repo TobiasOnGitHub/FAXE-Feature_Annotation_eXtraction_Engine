@@ -1,4 +1,4 @@
-// Generated from C:/Users/Tobias/IdeaProjects/FAXE-Feature_Annotation_eXtraction_Engine/src/main/antlr4/se/gu/faxe\fileAnnotations.g4 by ANTLR 4.8
+// Generated from .../FAXE-Feature_Annotation_eXtraction_Engine/src/main/antlr4/se/gu/faxe\fileAnnotations.g4 by ANTLR 4.8
 package se.gu.faxe.grammar;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 

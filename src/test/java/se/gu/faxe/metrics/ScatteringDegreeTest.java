@@ -69,16 +69,16 @@ public class ScatteringDegreeTest {
 
         try {
             // Calculate Scattering Degree over individual files from folder "ui" to be able to determine overall TD by hand
-//            Assert.assertEquals(ScatteringDegree.calculateSD(faxe.getKnownAssets(),new File("C:/Users/Tobias/IdeaProjects/FAXE-Feature_Annotation_eXtraction_Engine/src/test/testdata/bitcoin-wallet/ui/send/FeeCategory.java"), feature, true), 1);
-//            Assert.assertEquals(ScatteringDegree.calculateSD(faxe.getKnownAssets(),new File("C:/Users/Tobias/IdeaProjects/FAXE-Feature_Annotation_eXtraction_Engine/src/test/testdata/bitcoin-wallet/ui/send/SweepWalletFragment.java"), feature, true), 6);
-//            Assert.assertEquals(ScatteringDegree.calculateSD(faxe.getKnownAssets(),new File("C:/Users/Tobias/IdeaProjects/FAXE-Feature_Annotation_eXtraction_Engine/src/test/testdata/bitcoin-wallet/ui/send/SendCoinsFragment.java"), feature, true), 11);
-//            Assert.assertEquals(ScatteringDegree.calculateSD(faxe.getKnownAssets(),new File("C:/Users/Tobias/IdeaProjects/FAXE-Feature_Annotation_eXtraction_Engine/src/test/testdata/bitcoin-wallet/ui/send/SendCoinsViewModel.java"), feature, true), 3);
-//            Assert.assertEquals(ScatteringDegree.calculateSD(faxe.getKnownAssets(),new File("C:/Users/Tobias/IdeaProjects/FAXE-Feature_Annotation_eXtraction_Engine/src/test/testdata/bitcoin-wallet/ui/send/SendCoinsActivity.java"), feature, true), 4);
-//            Assert.assertEquals(ScatteringDegree.calculateSD(faxe.getKnownAssets(),new File("C:/Users/Tobias/IdeaProjects/FAXE-Feature_Annotation_eXtraction_Engine/src/test/testdata/bitcoin-wallet/ui/send/RaiseFeeDialogFragment.java"), feature, true), 1);
-//            Assert.assertEquals(ScatteringDegree.calculateSD(faxe.getKnownAssets(),new File("C:/Users/Tobias/IdeaProjects/FAXE-Feature_Annotation_eXtraction_Engine/src/test/testdata/bitcoin-wallet/ui/send/MaintenanceDialogFragment.java"), feature, true), 2);
-//            Assert.assertEquals(ScatteringDegree.calculateSD(faxe.getKnownAssets(),new File("C:/Users/Tobias/IdeaProjects/FAXE-Feature_Annotation_eXtraction_Engine/src/test/testdata/bitcoin-wallet/ui/WalletTransactionsFragment.java"), feature, true), 2);
-//            Assert.assertEquals(ScatteringDegree.calculateSD(faxe.getKnownAssets(),new File("C:/Users/Tobias/IdeaProjects/FAXE-Feature_Annotation_eXtraction_Engine/src/test/testdata/bitcoin-wallet/ui/WalletBalanceFragment.java"), feature, true), 1);
-//            Assert.assertEquals(ScatteringDegree.calculateSD(faxe.getKnownAssets(),new File("C:/Users/Tobias/IdeaProjects/FAXE-Feature_Annotation_eXtraction_Engine/src/test/testdata/bitcoin-wallet/ui/TransactionsAdapter.java"), feature, true), 13);
+//            Assert.assertEquals(ScatteringDegree.calculateSD(faxe.getKnownAssets(),new File(".../FAXE-Feature_Annotation_eXtraction_Engine/src/test/testdata/bitcoin-wallet/ui/send/FeeCategory.java"), feature, true), 1);
+//            Assert.assertEquals(ScatteringDegree.calculateSD(faxe.getKnownAssets(),new File(".../FAXE-Feature_Annotation_eXtraction_Engine/src/test/testdata/bitcoin-wallet/ui/send/SweepWalletFragment.java"), feature, true), 6);
+//            Assert.assertEquals(ScatteringDegree.calculateSD(faxe.getKnownAssets(),new File(".../FAXE-Feature_Annotation_eXtraction_Engine/src/test/testdata/bitcoin-wallet/ui/send/SendCoinsFragment.java"), feature, true), 11);
+//            Assert.assertEquals(ScatteringDegree.calculateSD(faxe.getKnownAssets(),new File(".../FAXE-Feature_Annotation_eXtraction_Engine/src/test/testdata/bitcoin-wallet/ui/send/SendCoinsViewModel.java"), feature, true), 3);
+//            Assert.assertEquals(ScatteringDegree.calculateSD(faxe.getKnownAssets(),new File(".../FAXE-Feature_Annotation_eXtraction_Engine/src/test/testdata/bitcoin-wallet/ui/send/SendCoinsActivity.java"), feature, true), 4);
+//            Assert.assertEquals(ScatteringDegree.calculateSD(faxe.getKnownAssets(),new File(".../FAXE-Feature_Annotation_eXtraction_Engine/src/test/testdata/bitcoin-wallet/ui/send/RaiseFeeDialogFragment.java"), feature, true), 1);
+//            Assert.assertEquals(ScatteringDegree.calculateSD(faxe.getKnownAssets(),new File(".../FAXE-Feature_Annotation_eXtraction_Engine/src/test/testdata/bitcoin-wallet/ui/send/MaintenanceDialogFragment.java"), feature, true), 2);
+//            Assert.assertEquals(ScatteringDegree.calculateSD(faxe.getKnownAssets(),new File(".../FAXE-Feature_Annotation_eXtraction_Engine/src/test/testdata/bitcoin-wallet/ui/WalletTransactionsFragment.java"), feature, true), 2);
+//            Assert.assertEquals(ScatteringDegree.calculateSD(faxe.getKnownAssets(),new File(".../FAXE-Feature_Annotation_eXtraction_Engine/src/test/testdata/bitcoin-wallet/ui/WalletBalanceFragment.java"), feature, true), 1);
+//            Assert.assertEquals(ScatteringDegree.calculateSD(faxe.getKnownAssets(),new File(".../FAXE-Feature_Annotation_eXtraction_Engine/src/test/testdata/bitcoin-wallet/ui/TransactionsAdapter.java"), feature, true), 13);
 
             // Final TD calculation for folder ui
             Assert.assertEquals(ScatteringDegree.calculateSD(faxe.getKnownAssets(), searchPath, feature/*, true*/), 44);

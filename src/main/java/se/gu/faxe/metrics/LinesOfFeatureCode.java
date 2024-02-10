@@ -22,6 +22,7 @@ import com.scalified.tree.TreeNode;
 import se.gu.faxe.*;
 
 import java.io.*;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -185,9 +186,10 @@ public class LinesOfFeatureCode {
         if(searchRootNode==null){
             throw new IOException("LinesOfFeatureCode::calculateLoFC ERROR: Given inout path " +searchedPath +" not existing in fullAssetTree!");
         }
+        Collection<? extends TreeNode<Asset>> preOrderedCollection = searchRootNode.preOrdered();
 
         // Iterate tree and gather scattering information
-        for (TreeNode<Asset> node : searchRootNode) {
+        for (TreeNode<Asset> node : preOrderedCollection) {
             //System.out.println("Node = " +node.toString());
             List<Annotation> annotationList = node.data().getAnnotationList();
             for (Annotation annotation : annotationList) {

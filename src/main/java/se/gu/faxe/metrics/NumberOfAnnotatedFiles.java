@@ -26,6 +26,7 @@ import se.gu.faxe.Feature;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -84,9 +85,10 @@ public class NumberOfAnnotatedFiles {
         if(searchRootNode==null){
             throw new IOException("NumberOfAnnotatedFiles::calculateNoFA ERROR: Given inout path " +searchedPath +" not existing in fullAssetTree!");
         }
+        Collection<? extends TreeNode<Asset>> preOrderedCollection = searchRootNode.preOrdered();
 
         // Iterate tree and gather information
-        for (TreeNode<Asset> node : searchRootNode) {
+        for (TreeNode<Asset> node : preOrderedCollection) {
             List<Annotation> annotationList = node.data().getAnnotationList();
 
             for (Annotation annotation : annotationList) {

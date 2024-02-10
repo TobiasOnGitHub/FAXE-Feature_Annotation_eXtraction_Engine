@@ -591,7 +591,7 @@ public class FAXE {
 
 
         List<TreeNode<Asset>> assetList = new ArrayList<TreeNode<Asset>>();
-        for (TreeNode<Asset> node : knownAssets) {
+        for (TreeNode<Asset> node : knownAssets.preOrdered()) {
             assetList.add(node);
         }
         ArrayNode array = objectMapper.valueToTree(assetList);
